@@ -1,0 +1,27 @@
+COMMERCIAL INVOICE
+Company Name:,Global Exports Ltd.,,,Invoice No:,INV-2026-001
+Address:,123 Export Avenue, City,,,Date:,2026-07-20
+Country:,Sri Lanka,,,PO Number:,PO-998877
+
+Bill To:,,,,Ship To:
+Company:,US Imports Inc.,,,Company:,US Imports Warehouse
+Address:,456 Import Street, NY,,,Address:,789 Logistics Blvd, NJ
+Country:,USA,,,Country:,USA
+
+Terms of Sale (Incoterm):,FOB Colombo,,,Payment Terms:,Net 30
+Port of Loading:,Colombo,,,Port of Discharge:,New York
+
+Item No.,Description of Goods,HS Code,Quantity,Unit Price (USD),Total Amount (USD)
+101,Cotton T-Shirts - Men's Size L,6109.10.00,5000,2.50,12500.00
+102,Cotton T-Shirts - Men's Size M,6109.10.00,5000,2.50,12500.00
+103,Denim Jeans - Men's,6203.42.40,2000,8.00,16000.00
+,,,,
+,,,,Sub Total:,41000.00
+,,,,Freight:,0.00
+,,,,Insurance:,0.00
+,,,,Total Invoice Value:,41000.00
+
+Declaration:
+We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.
+
+Authorized Signature:___________________

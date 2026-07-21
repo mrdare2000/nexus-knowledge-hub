@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script>
+    var errStr = "";
+    window.onerror = function(message, source, lineno, colno, error) {
+      errStr += "ERROR: " + message + " at line " + lineno + ":" + colno + "\n";
+    };
+  </script>
+  <script src="knowledge_base.js"></script>
+  <script>
+    window.onload = function() {
+      if (typeof NEXUS_KNOWLEDGE_BASE !== 'undefined') {
+        document.body.innerText = errStr + "\nSUCCESS: " + NEXUS_KNOWLEDGE_BASE.categories.length + " categories loaded.";
+      } else {
+        document.body.innerText = errStr + "\nFAILED: NEXUS_KNOWLEDGE_BASE is undefined.";
+      }
+    };
+  </script>
+</head>
+<body>
+</body>
+</html>
