@@ -2373,7 +2373,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Perishable goods (such as fresh seafood, cut flowers, vaccines, pharmaceuticals, and fresh produce) have a strictly limited shelf life. Unlike shipping furniture, time is literally money. Any delay in transit destroys the physical integrity and commercial value of the cargo.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #ECFEFF 0%, #CFFAFE 100%); border:2px solid #67E8F9; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #0891B2; font-size: 1.3rem; margin: 0 0 20px 0; letter-spacing: 1px;">\uD83D\uDCCD THE COLD CHAIN DOCTRINE</h4>
+              <h4 style="text-align: center; color: #0891B2; font-size: 1.3rem; margin: 0 0 20px 0; letter-spacing: 1px;">\uD83C\uDF21\uFE0F THE COLD CHAIN DOCTRINE</h4>
               <p style="margin:0 0 20px 0; font-size:1rem; color:#164E63; line-height:1.7; text-align: center;">A "Cold Chain" is an uninterrupted, temperature-controlled supply chain. It encompasses refrigerated production, storage, and distribution activities. The golden rule is absolute: <strong>The chain must never break.</strong></p>
               
               <div style="display: flex; gap: 15px; flex-wrap: wrap;">
@@ -2433,7 +2433,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="background:#F8FAFC; border-left:5px solid #334155; padding:20px; border-radius:8px;">
-              <h4 style="margin:0 0 10px 0; color:#0F172A; font-size: 1.1rem;">\uD83D\uDCCD The Role of Data Loggers</h4>
+              <h4 style="margin:0 0 10px 0; color:#0F172A; font-size: 1.1rem;">\uD83D\uDCCA The Role of Data Loggers</h4>
               <p style="margin:0; font-size:0.95rem; color:#475569; line-height: 1.6;">How does the buyer know the shipping line didn't unplug the container to save fuel? High-value shipments always contain USB or GPS-enabled temperature data loggers hidden inside the boxes. Upon arrival, the consignee downloads the data to prove the temperature never spiked. If the graph shows a spike, the consignee rejects the cargo and files a massive insurance claim against the carrier.</p>
             </div>
           `,
@@ -2450,7 +2450,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <!-- CSS INFOGRAPHIC: DG CLASSIFICATION -->
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #9F1239; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83D\uDCCD GLOBAL HAZMAT COMPLIANCE</h4>
+              <h4 style="text-align: center; color: #9F1239; font-size: 1.3rem; margin: 0 0 20px 0;">\u26A0\uFE0F GLOBAL HAZMAT COMPLIANCE</h4>
               
               <div style="display:flex; flex-wrap:wrap; gap:20px;">
                 <div style="flex:1; min-width:250px;">
@@ -2497,7 +2497,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <div style="flex:1; min-width:250px; text-align:center; background:#FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <div style="width:140px; height:80px; background:none; border:4px solid #1E293B; border-top:none; margin:0 auto 15px auto; position:relative; border-radius: 0 0 8px 8px;">
                   <div style="position:absolute; bottom:5px; left:10px; right:10px; height:110px; background: linear-gradient(180deg, #60A5FA 0%, #2563EB 100%); opacity:0.9; border-radius:4px;"></div>
-                  <div style="position:absolute; top:-20px; left:0; right:0; text-align:center; font-size: 1.2rem;">ðŸ—ï¸</div>
+                  <div style="position:absolute; top:-20px; left:0; right:0; text-align:center; font-size: 1.2rem;">\uD83C\uDFD7\uFE0F</div>
                 </div>
                 <strong style="color:#0F172A; display:block; font-size: 1.2rem; margin-bottom: 5px;">Open Top (OT) Container</strong>
                 <p style="font-size:0.9rem; color:#475569; margin:0; line-height: 1.5;">Designed for <strong>Over-Height</strong> cargo. The steel roof is replaced with a flexible, removable tarpaulin cover. Cranes can drop tall machinery directly into the container from above.</p>
@@ -2532,7 +2532,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Heavy Lift logistics refers to cargo that is far too heavy to be handled by standard port infrastructure or standard highway trucks. This includes massive industrial transformers, gas turbines, or railway locomotives weighing hundreds of tons.</p>
             
             <div style="margin:30px 0; background:#FFFBEB; border: 2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#92400E; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE LOGISTICS OF EXTREME WEIGHT</h4>
+              <h4 style="margin:0 0 15px 0; color:#92400E; font-size: 1.3rem; text-align: center;">\uD83C\uDFCB\uFE0F THE LOGISTICS OF EXTREME WEIGHT</h4>
               <p style="margin:0 0 20px 0; font-size:0.95rem; color:#78350F; line-height: 1.6; text-align: center;">Gravity is the ultimate enemy in Heavy Lift logistics. Moving 200 tons requires mathematical precision.</p>
               
               <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -2560,7 +2560,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Importing anything that humans consume (food, beverages, pharmaceuticals, cosmetics) is heavily regulated by local governments to prevent contamination, the spread of disease, and bioterrorism.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #14532D; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83D\uDCCD THE BORDER COMPLIANCE CHECKLIST</h4>
+              <h4 style="text-align: center; color: #14532D; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83D\uDCCB THE BORDER COMPLIANCE CHECKLIST</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #16A34A;">
@@ -2597,7 +2597,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Raw agricultural goods like tea, coffee beans, and cocoa are highly sensitive to moisture and humidity. Because ocean cargo containers travel through extreme climate zones (from freezing nights off the coast of Japan to baking equatorial sun in the Indian Ocean), they act like massive steel greenhouses.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#0F172A; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE THREAT OF "CONTAINER RAIN"</h4>
+              <h4 style="margin:0 0 15px 0; color:#0F172A; font-size: 1.3rem; text-align: center;">\uD83C\uDF43 THE THREAT OF "CONTAINER RAIN"</h4>
               <p style="font-size:0.95rem; color:#475569; line-height:1.6; margin:0 0 20px 0; text-align: center;">As external temperatures fluctuate, the natural moisture trapped inside agricultural products evaporates into the hot air inside the container. When night falls, the steel roof gets cold. The humid air hits the cold steel ceiling, condenses into heavy water droplets, and literally "rains" back down onto the cargo, causing catastrophic mold and rot.</p>
               
               <div style="display: flex; gap: 15px; flex-wrap: wrap;">
@@ -2630,17 +2630,17 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The fast-fashion industry (brands like Zara or H&M) relies entirely on speed to market and retail presentation. When clothes are shipped internationally in standard cardboard boxes (flat-pack), they arrive heavily wrinkled. The destination warehouse must unpack, steam iron, and hang every single shirtðŸ’°costing immense time and labor.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">\uD83D\uDCCD THE GOH SOLUTION (Garment on Hanger)</h4>
+              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">\uD83D\uDC57 THE GOH SOLUTION (Garment on Hanger)</h4>
               <p style="font-size:0.95rem; color:#475569; text-align:center; margin:0 0 25px 0; line-height: 1.6;">To eliminate ironing and repacking costs, specialized sea containers are outfitted with internal steel scaffolding. Clothes are hung directly on these bars at the factory in Asia. When the container arrives in New York, workers simply grab the hangers and roll them directly onto the retail store floor.</p>
               
               <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #94A3B8; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83E\uDDF5</div>
                   <strong style="color:#3B82F6; display:block; font-size: 1.1rem; margin-bottom: 5px;">The String System</strong>
                   <p style="font-size:0.9rem; color:#64748B; margin: 0; line-height: 1.5;">Multiple knotted nylon strings drop vertically from the main roof bars. Hangers are hooked into the knots. Excellent for maximizing space when shipping lightweight garments like t-shirts, lingerie, and blouses.</p>
                 </div>
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #94A3B8; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83E\uDDE5</div>
                   <strong style="color:#8B5CF6; display:block; font-size: 1.1rem; margin-bottom: 5px;">The Bar System</strong>
                   <p style="font-size:0.9rem; color:#64748B; margin: 0; line-height: 1.5;">Solid horizontal metal bars are bolted across the width of the container. Essential for handling extreme weight, such as shipping thousands of heavy winter coats, leather jackets, or denim jeans.</p>
                 </div>
@@ -2659,7 +2659,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>High-Tech cargo (smartphones, microchips, laptops) represents the highest risk of theft in the global supply chain. A single 40-foot container packed with the latest iPhones can be worth tens of millions of dollars on the black market, making it a prime target for organized crime syndicates.</p>
             
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FDA4AF; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD HIGH-SECURITY PROTOCOLS</h4>
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.3rem; text-align: center;">\uD83D\uDD12 HIGH-SECURITY PROTOCOLS</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; border-left: 4px solid #E11D48;">
@@ -2691,7 +2691,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p><strong>Project Cargo</strong> is the highly specialized, zero-defect transport of massive, complex, and high-value industrial equipment (e.g., oil rig drills, 60-meter wind turbine blades, or entire power plant structures). It is widely considered the most complex and high-stakes form of logistics.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #0F172A; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83D\uDCCD PROJECT LOGISTICS PLANNING</h4>
+              <h4 style="text-align: center; color: #0F172A; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83C\uDFD7\uFE0F PROJECT LOGISTICS PLANNING</h4>
               <p style="font-size:0.95rem; color:#475569; line-height:1.6; margin: 0 0 20px 0; text-align: center;">Moving a single 60-meter wind turbine blade from a factory in Germany to a mountain top in Chile requires months of intense civil engineering and logistical orchestration. It is not a shipment; it is a project.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
