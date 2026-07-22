@@ -1,4 +1,4 @@
-﻿const fs = require('fs');
+const fs = require('fs');
 let content = fs.readFileSync('D:\\Antigravity Projects\\Nexus Knowldge Hub\\knowledge_base.js', 'utf8');
 
 // Fix Main Topics (There are 12)

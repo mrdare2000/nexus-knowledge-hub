@@ -3,21 +3,17 @@
 // and adaptive custom modal styling structures.
 
 document.addEventListener("DOMContentLoaded", () => {
-  try {
-    initHeroSlider();
-    initSPARouting();
-    renderLearningHub();
-    initSearch();
-    initIncotermsMatrix();
-    initContainerCalc();
-    initAircraftHotspots();
-    initLogisticsGrid();
-    initNexusAIChat();
-    initContactForm();
-    fetchLogisticsNews();
-  } catch (err) {
-    document.body.innerHTML = "<div style='padding: 20px; background: orange; color: white; font-size: 20px;'><strong>RUNTIME ERROR CAUGHT:</strong> " + err.message + "<br>Stack: " + err.stack + "</div>" + document.body.innerHTML;
-  }
+  initHeroSlider();
+  initSPARouting();
+  renderLearningHub();
+  initSearch();
+  initIncotermsMatrix();
+  initContainerCalc();
+  initAircraftHotspots();
+  initLogisticsGrid();
+  initNexusAIChat();
+  initContactForm();
+  fetchLogisticsNews();
 });
 
 /* ==========================================
@@ -71,8 +67,6 @@ function initSPARouting() {
 }
 
 function switchPage(pageId) {
-  // Scroll to top will happen after DOM updates
-
   // Update browser window SEO title
   if (PAGE_SEO_TITLES[pageId]) {
     document.title = PAGE_SEO_TITLES[pageId];
@@ -98,6 +92,10 @@ function switchPage(pageId) {
     }
   });
   
+  if (pageId === "learning") {
+    renderLearningHub();
+  }
+
   // Scroll to top after layout has been updated
   setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
 }
@@ -108,7 +106,7 @@ window.toggleToolPanel = function(panelId) {
   const panels = document.querySelectorAll(".tool-panel");
   
   tabBtns.forEach(btn => {
-    if (btn.getAttribute("onclick").includes(panelId)) {
+    if (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes(panelId)) {
       btn.classList.add("active");
     } else {
       btn.classList.remove("active");
@@ -124,22 +122,37 @@ window.toggleToolPanel = function(panelId) {
   });
 };
 
-// GLOBAL ERROR HANDLER FOR DEBUGGING
 window.onerror = function(message, source, lineno, colno, error) {
-  document.body.innerHTML = "<div style='padding: 20px; background: red; color: white; font-size: 20px;'><strong>ERROR:</strong> " + message + "<br>Source: " + source + "<br>Line: " + lineno + ":" + colno + "<br>Error: " + (error ? error.stack : "") + "</div>" + document.body.innerHTML;
+  console.error("Nexus Knowledge Hub JS Error:", message, "at", source, lineno + ":" + colno, error);
   return false;
 };
 
 /* ==========================================
    3. LEARNING HUB & ADAPTIVE MODALS
    ========================================== */
+function getKBData() {
+  if (typeof NEXUS_KNOWLEDGE_BASE !== "undefined" && NEXUS_KNOWLEDGE_BASE && NEXUS_KNOWLEDGE_BASE.categories) {
+    return NEXUS_KNOWLEDGE_BASE;
+  }
+  if (typeof window !== "undefined" && window.NEXUS_KNOWLEDGE_BASE && window.NEXUS_KNOWLEDGE_BASE.categories) {
+    return window.NEXUS_KNOWLEDGE_BASE;
+  }
+  return null;
+}
+
 function renderLearningHub() {
   const grid = document.getElementById("learning-grid");
   if (!grid) return;
   
+  const kbData = getKBData();
+  if (!kbData) {
+    console.warn("NEXUS_KNOWLEDGE_BASE is not loaded or initialized yet.");
+    return;
+  }
+  
   grid.innerHTML = "";
   
-  NEXUS_KNOWLEDGE_BASE.categories.forEach(category => {
+  kbData.categories.forEach(category => {
     const card = document.createElement("div");
     card.className = "category-card";
     card.setAttribute("data-category-id", category.id);
@@ -185,7 +198,10 @@ function renderLearningHub() {
 }
 
 function openSubtopicModal(categoryId, subtopicId) {
-  const category = NEXUS_KNOWLEDGE_BASE.categories.find(c => c.id === categoryId);
+  const kbData = getKBData();
+  if (!kbData) return;
+
+  const category = kbData.categories.find(c => c.id === categoryId);
   if (!category) return;
   
   const subtopic = category.subtopics.find(s => s.id === subtopicId);
@@ -345,10 +361,12 @@ function initSearch() {
   searchInput.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase().trim();
     const categories = document.querySelectorAll(".category-card");
+    const kbData = getKBData();
+    if (!kbData || !kbData.categories) return;
     
     categories.forEach(card => {
       const categoryId = card.getAttribute("data-category-id");
-      const category = NEXUS_KNOWLEDGE_BASE.categories.find(c => c.id === categoryId);
+      const category = kbData.categories.find(c => c.id === categoryId);
       if (!category) return;
       
       const subtopicItems = card.querySelectorAll(".subtopic-item");
