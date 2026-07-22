@@ -1551,12 +1551,11 @@ async function callGeminiAPI(customKey) {
     systemPromptText += `\n\n[RELEVANT PLATFORM KNOWLEDGE BASE DOMAIN DATA]:\n${ragContext}\n\nUse the above reference data to ground your educational explanation accurately.`;
   }
 
-  // Exact Official Google Gemini REST API endpoint with X-goog-api-key header & URL param fallback
-  let response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent", {
+  // Exact Official Google Gemini REST API endpoint with URL key parameter to avoid CORS preflight blocking
+  let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${activeKey}`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "X-goog-api-key": activeKey
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       contents: cleanHistory,
@@ -1566,9 +1565,9 @@ async function callGeminiAPI(customKey) {
     })
   });
   
-  // Try URL parameter fallback if header auth returns non-200
+  // Try gemini-2.0-flash fallback if 1.5-flash returns non-200
   if (!response.ok) {
-    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${activeKey}`, {
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeKey}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
