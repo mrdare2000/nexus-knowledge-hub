@@ -993,6 +993,39 @@ function initNexusAIChat() {
   msgArea.innerHTML = "";
   conversationHistory = [];
   currentTopicContext = null;
+
+  // Auto-restore saved Gemini API Key from localStorage if present
+  const apiKeyInput = document.getElementById("api-key-input");
+  const saveKeyBtn = document.getElementById("save-api-key-btn");
+  
+  if (apiKeyInput) {
+    const savedKey = localStorage.getItem("nexus_gemini_api_key");
+    if (savedKey) {
+      apiKeyInput.value = savedKey;
+    }
+  }
+  
+  if (saveKeyBtn && apiKeyInput) {
+    saveKeyBtn.addEventListener("click", () => {
+      const keyVal = apiKeyInput.value.trim();
+      if (keyVal) {
+        localStorage.setItem("nexus_gemini_api_key", keyVal);
+        saveKeyBtn.textContent = "Saved ✓";
+        saveKeyBtn.style.backgroundColor = "#16A34A";
+        setTimeout(() => {
+          saveKeyBtn.textContent = "Save";
+          saveKeyBtn.style.backgroundColor = "var(--accent-orange)";
+        }, 2000);
+      } else {
+        localStorage.removeItem("nexus_gemini_api_key");
+        apiKeyInput.value = "";
+        saveKeyBtn.textContent = "Cleared";
+        setTimeout(() => {
+          saveKeyBtn.textContent = "Save";
+        }, 2000);
+      }
+    });
+  }
   
   appendChatMessage("system", SHIPPING_BOT_ANSWERS.greeting);
   conversationHistory.push({ role: "model", parts: [{ text: SHIPPING_BOT_ANSWERS.greeting }] });
@@ -1025,7 +1058,6 @@ function appendChatMessage(sender, text) {
   
   const avatar = document.createElement("div");
   avatar.className = `chat-avatar ${sender}`;
-  // Removed text content for minimalistic colored circles
   
   const bubble = document.createElement("div");
   bubble.className = "msg-bubble";
@@ -1181,9 +1213,8 @@ async function handleUserChatMessage() {
   appendChatMessage("system", "... reasoning");
   const typingMsg = document.querySelector(".chat-message.system:last-child");
   
-  // Removed hardcoded API key for security
   const apiKeyInput = document.getElementById("api-key-input");
-  const apiKey = apiKeyInput ? apiKeyInput.value.trim() : "";
+  const apiKey = (apiKeyInput ? apiKeyInput.value.trim() : "") || localStorage.getItem("nexus_gemini_api_key") || "";
   
   setTimeout(async () => {
     
@@ -1195,7 +1226,7 @@ async function handleUserChatMessage() {
         conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
       } catch (err) {
         console.error("Gemini API Error:", err);
-        const fallbackMsg = `⚠️ *Nexus AI cloud servers are currently experiencing high traffic. Switching to the offline intelligence database...*\n\n` + getLocalConversationalResponse(query);
+        const fallbackMsg = getLocalConversationalResponse(query);
         if (typingMsg) typingMsg.remove();
         appendChatMessage("system", fallbackMsg);
         conversationHistory.push({ role: "model", parts: [{ text: fallbackMsg }] });
@@ -1214,7 +1245,7 @@ async function handleUserChatMessage() {
         conversationHistory.push({ role: "model", parts: [{ text: fallbackMsg }] });
       }
     }
-  }, 600);
+  }, 400);
 }
 
 // Keyless Free AI proxy call
@@ -1285,12 +1316,17 @@ async function callFreeAI() {
 function getLocalConversationalResponse(query) {
   const q = query.toLowerCase().trim();
   
+  // 0. Chinese New Year / Spring Festival Logistics Impact Matcher
+  if (q.includes("china new year") || q.includes("chinese new year") || q.includes("cny") || q.includes("spring festival") || (q.includes("china") && (q.includes("new year") || q.includes("festival") || q.includes("holiday")))) {
+    return `### 🧧 Impact of Chinese New Year (CNY) on Global Shipping & Logistics\n\nChinese New Year (Spring Festival) causes the largest annual disruption to global supply chains:\n\n1. **Factory Closures & Production Halt**:\n   - Chinese manufacturing plants close for **2 to 4 weeks** (between late January and mid-February). Millions of factory workers travel home, causing a complete production standstill across China.\n\n2. **The Pre-CNY Shipping Surge (Peak Season)**:\n   - In the **4 to 6 weeks leading up to CNY**, importers and exporters rush to ship cargo before factories lock doors.\n   - **Freight Rates Surge**: Ocean and air freight spot rates spike dramatically due to intense space competition.\n   - **Equipment Shortages**: Container availability at origin ports (Shanghai, Ningbo, Shenzhen) becomes extremely tight.\n\n3. **Blank Sailings (Vessel Cancellations)**:\n   - During and immediately after CNY, ocean carriers execute widespread **Blank Sailings** (cancelling scheduled ship voyages) because export volumes drop sharply.\n\n4. **Post-CNY Recovery Period (3-4 Weeks)**:\n   - Factories take **3 to 4 weeks to return to 100% operational capacity** as migrant labor returns gradually. Shipping volumes remain sluggish until late March.\n\n💡 *Logistics Best Practice: Book cargo space at least 4 to 6 weeks BEFORE Chinese New Year to avoid rolled cargo and Peak Season Surcharges (PSS).*`;
+  }
+  
   // 1. Regional Freight & Airport / Seaport Intelligence Hub
-  if (q.includes("japan") && (q.includes("airport") || q.includes("air") || q.includes("hub") || q.includes("flight"))) {
+  if ((q.includes("japan") || q.includes("tokyo") || q.includes("osaka")) && (q.includes("airport") || q.includes("air") || q.includes("hub") || q.includes("flight"))) {
     return `### ✈️ Major Air Freight Gateways in Japan\n\nJapan operates some of the world's most technologically advanced air cargo hubs:\n\n1. **Narita International Airport (NRT - Tokyo)**:\n   - Japan's primary international air cargo gateway, handling ~2 million tonnes annually.\n   - Features the **NRT Cold Chain Cluster** (temperature-regulated warehouses for pharma and fresh produce).\n2. **Tokyo Haneda Airport (HND)**:\n   - Located close to Tokyo city center; ideal for urgent express shipments and belly-hold cargo on passenger flights.\n3. **Kansai International Airport (KIX - Osaka)**:\n   - 24/7 offshore island airport serving Western Japan's electronics and biotech manufacturing sectors.\n4. **Chubu Centrair Airport (NGO - Nagoya)**:\n   - Dedicated hub for automotive parts (Toyota supply chain) and aerospace components.\n\n💡 *Air Freight Calculation Tip: Chargeable weight for Japan shipments is the higher of Gross Weight or Volumetric Weight (L x W x H in cm / 6000).*`;
   }
 
-  if (q.includes("japan") && (q.includes("port") || q.includes("sea") || q.includes("ocean") || q.includes("vessel"))) {
+  if ((q.includes("japan") || q.includes("tokyo") || q.includes("yokohama") || q.includes("kobe")) && (q.includes("port") || q.includes("sea") || q.includes("ocean") || q.includes("vessel"))) {
     return `### 🚢 Major Ocean Ports in Japan\n\nJapan's container shipping is centered around key maritime clusters:\n\n- **Keihin Ports (Tokyo Bay)**: Tokyo, Yokohama, and Kawasaki ports (major import gateways for consumer goods).\n- **Hanshin Ports (Kansai)**: Kobe and Osaka ports (major industrial export hubs).\n- **Nagoya Port**: Japan's largest port by total cargo throughput, driving automobile exports.`;
   }
 
@@ -1404,7 +1440,7 @@ function getLocalConversationalResponse(query) {
   }
 
   // Default articulate freight advisor response
-  return `### 🌐 Nexus Cargo Intelligence Advisor\n\nI am specialized in global freight forwarding, supply chain planning, and customs compliance.\n\nYou can ask me about:\n- **Global Trade Lanes**: China to USA, Asia to Europe, Intra-Asia, Transatlantic routes.\n- **Incoterms 2020 / 2026**: FOB, CIF, EXW, DDP, DAP responsibilities.\n- **Cargo Calculations**: CBM volume, Air Volumetric Weight (1:6000), Chargeable Weight.\n- **International Airports & Seaports**: Major hubs in Japan, Singapore, Dubai, Europe, US, Sri Lanka.\n- **Container Specs**: 20ft, 40ft, 40ft High Cube, Reefer, Open Top, Flat Racks.\n- **Customs & Documentation**: Bill of Lading, Air Waybill, CUSDEC, HS Codes, Dangerous Goods (UN 1-9).\n\n*How can I assist your specific shipment today?*`;
+  return `### 🌐 Nexus Cargo Intelligence Advisor\n\nI am specialized in global freight forwarding, supply chain planning, and customs compliance.\n\nYou can ask me about:\n- **Global Trade Lanes**: China to USA, Asia to Europe, Intra-Asia, Transatlantic routes.\n\n*How can I assist your specific shipment today?*`;
 }
 
 
@@ -1452,12 +1488,11 @@ async function callGeminiAPI(apiKey) {
 
   let response;
   if (apiKey) {
-    // Local Testing with provided key
-    response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent", {
+    // Direct Official Google Gemini Flash REST API with user provided key
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         contents: cleanHistory,
@@ -1497,8 +1532,6 @@ async function callGeminiAPI(apiKey) {
     return "Error parsing response.";
   }
 }
-
-
 
 /* ==========================================
    10. CONTACT FORM HANDLER
