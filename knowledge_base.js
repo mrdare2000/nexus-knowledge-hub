@@ -2345,6 +2345,18 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>E-commerce logistics is characterized by extremely high volumes of very small orders (usually 1 or 2 items). The expectations set by giants like Amazon have forced the entire logistics industry to adapt to 2-day or even Next-Day delivery standards.</p>
             
             <div style="margin:25px 0; background:#FFFBEB; border: 2px solid #FDE68A; padding:25px; border-radius:16px; display: flex; flex-direction: column; gap: 15px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#92400E; font-size:1.1rem;">📌 Key E-Commerce Pillars</h4>
+              <ul style="margin:0; padding-left:20px; color:#78350F; font-size:0.95rem; line-height:1.7;">
+                <li><strong>Micro-Fulfillment Centers:</strong> Small urban warehouses located inside major cities for rapid 2-hour or same-day dispatch.</li>
+                <li><strong>Real-time API Integration:</strong> Connecting shopping carts (Shopify, WooCommerce) directly to warehouse management systems (WMS).</li>
+                <li><strong>Hassle-Free Returns:</strong> Providing pre-printed return labels to maintain customer satisfaction and loyalty.</li>
+              </ul>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+        }
+      ]
+    },
     {
       id: "special-cargo",
       title: "9. Special Cargo Handling",
@@ -2379,7 +2391,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <h3>Specialized Handling and Packaging</h3>
             <p>Handling perishables requires highly specialized infrastructure. Warehouses must have distinct temperature zones (e.g., a 2Â°C to 8Â°C room for vaccines, and a -20Â°C room for frozen meats). Furthermore, packaging is crucial. Exporters use heavily insulated styrofoam boxes, layered with specialized gel packs or dry ice, and sealed meticulously to maintain the micro-climate inside the box for up to 72 hours of transit time.</p>
-          ,
+          `,
           youtube: "https://www.youtube.com/embed/4G1L5fBvM0w"
         },
         {
