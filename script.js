@@ -984,7 +984,7 @@ let currentTopicContext = null;
 
 
 const SHIPPING_BOT_ANSWERS = {
-  greeting: "Hello! I am Nexus AI, the logistics advisor for Nexus Cargo. How can I help you today? You can ask about Incoterms, container sizes, compliance rules, or freight calculations.",
+  greeting: "Hello! I am Nexus AI, your global logistics and trade advisor. How can I help you today? You can ask me anything about global logistics, airports, seaports, shipping routes, customs compliance, or freight operations worldwide!",
   incoterms: "Incoterms (International Commercial Terms) divide shipping costs and risks between buyer and seller. The 11 terms in Incoterms 2020/2026 are: EXW, FCA, FAS, FOB, CFR, CIF, CPT, CIP, DAP, DPU, and DDP. Do you have a specific term in mind?",
   fob: "FOB (Free On Board) dictates that the seller clears cargo for export and loads it onto the vessel. Risk transfers to the buyer once the goods are safely loaded on board at the origin port. The buyer pays for sea freight and import clearances.",
   exw: "EXW (Ex Works) places maximum risk and cost on the buyer. The seller only makes goods available at their factory. The buyer handles export customs, shipping, insurance, and destination haulage.",
@@ -1325,6 +1325,10 @@ function getLocalConversationalResponse(query) {
   }
   
   // 1. Regional Freight & Airport / Seaport Intelligence Hub
+  if ((q.includes("europe") || q.includes("eroupe") || q.includes("european") || q.includes("eu")) && (q.includes("airport") || q.includes("air") || q.includes("hub") || q.includes("flight") || q.includes("famous") || q.includes("detail"))) {
+    return `### ✈️ Major Cargo & Passenger Airports in Europe\n\nEurope operates several of the world's most critical air freight gateways and aviation hubs:\n\n1. **Frankfurt Airport (FRA - Germany)**:\n   - Europe's busiest air cargo hub (~2.2 million tonnes annually). Primary base for Lufthansa Cargo featuring specialized GDP-certified cold-chain facilities for pharma.\n\n2. **Paris Charles de Gaulle (CDG - France)**:\n   - Major European express hub (FedEx European hub) handling over 2 million tonnes of cargo per year.\n\n3. **Amsterdam Airport Schiphol (AMS - Netherlands)**:\n   - Premier multimodal gateway connecting directly to Europe's largest seaport (Rotterdam) and Europe's rail network.\n\n4. **London Heathrow Airport (LHR - United Kingdom)**:\n   - The UK's primary air freight portal, processing over 1.5 million tonnes of high-value belly-hold cargo.\n\n5. **Luxembourg Findel Airport (LUX)**:\n   - Operational hub for Cargolux, operating strictly as a dedicated all-cargo freighter hub.\n\n💡 *Air Freight Calculation Tip: Chargeable weight is always the higher of Gross Weight or Volumetric Weight (L x W x H in cm / 6000).*`;
+  }
+
   if ((q.includes("japan") || q.includes("tokyo") || q.includes("osaka")) && (q.includes("airport") || q.includes("air") || q.includes("hub") || q.includes("flight"))) {
     return `### ✈️ Major Air Freight Gateways in Japan\n\nJapan operates some of the world's most technologically advanced air cargo hubs:\n\n1. **Narita International Airport (NRT - Tokyo)**:\n   - Japan's primary international air cargo gateway, handling ~2 million tonnes annually.\n   - Features the **NRT Cold Chain Cluster** (temperature-regulated warehouses for pharma and fresh produce).\n2. **Tokyo Haneda Airport (HND)**:\n   - Located close to Tokyo city center; ideal for urgent express shipments and belly-hold cargo on passenger flights.\n3. **Kansai International Airport (KIX - Osaka)**:\n   - 24/7 offshore island airport serving Western Japan's electronics and biotech manufacturing sectors.\n4. **Chubu Centrair Airport (NGO - Nagoya)**:\n   - Dedicated hub for automotive parts (Toyota supply chain) and aerospace components.\n\n💡 *Air Freight Calculation Tip: Chargeable weight for Japan shipments is the higher of Gross Weight or Volumetric Weight (L x W x H in cm / 6000).*`;
   }
@@ -1442,8 +1446,13 @@ function getLocalConversationalResponse(query) {
     return `### 📜 History of Global Freight & Containerization\n\nMaritime shipping history was revolutionized in 1956 when **Malcolm McLean** invented the standardized intermodal shipping container.\n\n- **Pre-1956 Breakbulk**: Loading cargo box-by-box cost $5.86 per ton and took days.\n- **Intermodal Container**: Reduced loading costs to **$0.16 per ton**, allowing seamless transfer between ships, trains, and trucks, paving the way for modern globalized supply chains.`;
   }
 
-  // Default articulate freight advisor response
-  return `### 🌐 Nexus Cargo Intelligence Advisor\n\nI am specialized in global freight forwarding, supply chain planning, and customs compliance.\n\nYou can ask me about:\n- **Global Trade Lanes**: China to USA, Asia to Europe, Intra-Asia, Transatlantic routes.\n\n*How can I assist your specific shipment today?*`;
+  // Dynamic fallback: Search Knowledge Base context or generate rich global logistics answer
+  const kbContext = getRelevantKnowledgeContext(query);
+  if (kbContext) {
+    return `### 🌐 Global Logistics & Knowledge Insights\n\nHere is detailed information regarding your inquiry (**"${query}"**):\n\n${kbContext}\n\n💡 *Need more specific calculations or international trade lane details? Ask Nexus AI anytime!*`;
+  }
+
+  return `### 🌐 Global Freight & Logistics Intelligence\n\nRegarding your query (**"${query}"**):\n\nGlobal freight forwarding encompasses **Air Freight**, **Ocean Freight (FCL/LCL)**, **Inland Trucking**, and **Customs Compliance**:\n\n- **Air Freight**: Fast transit (1-5 days) charged on Volumetric Weight \`(L x W x H in cm / 6000)\` or Gross Weight.\n- **Ocean Freight**: Economical bulk shipping via 20ft/40ft containers or LCL consolidation.\n- **Customs & Compliance**: Requires Commercial Invoice, Packing List, Bill of Lading / Air Waybill, and Harmonized System (HS) Codes.\n\n*Please specify any airport, seaport, trade lane, or calculation details you would like to explore further!*`;
 }
 
 
