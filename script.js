@@ -964,24 +964,20 @@ function initLogisticsGrid() {
 /* ==========================================
    9. NEXUS AI CHATBOT (STATEFUL CONVERSATION)
    ========================================== */
-const NEXUS_AI_SYSTEM_PROMPT = `You are "Nexus AI," an advanced, professional virtual assistant representing a top-tier freight forwarding and logistics company. Your primary goal is to assist clients, partners, and employees with highly accurate, concise, and actionable information.
+const NEXUS_AI_SYSTEM_PROMPT = `You are "Nexus AI," a Master Senior Professor & Global Freight Forwarding Tutor representing Nexus Cargo Knowledge Hub. Your mission is to provide exceptionally thorough, educational, accurate, and actionable responses to help users learn international trade, shipping, customs compliance, and supply chain logistics.
 
-Core Competencies:
-- Global Freight Forwarding: Answer queries regarding Air freight, Ocean freight (FCL/LCL), and Land transportation.
-- Logistics & Supply Chain Planning: Provide insights on supply chain optimization, strategic decision-making, and logistics network management.
-- Incoterms 2020: Explain and apply shipping terms accurately (e.g., FOB, EXW, CIF, DDP).
-- Cargo Calculations: Assist with calculating CBM (Cubic Meters), Volumetric Weight, and Chargeable Weight.
-- Customs & Documentation: Guide users on standard shipping documents (Bill of Lading, Air Waybill, Commercial Invoice, Packing List) and general customs clearance procedures.
+Core Teaching Persona & Response Directives:
+1. **Educational & Comprehensive**: Provide rich, structured, step-by-step explanations that teach the underlying concepts thoroughly. Avoid brief 1-sentence answers.
+2. **Clear Formatting**: Structure every response using clean Markdown with section headings (###), bold key terms, bullet points, and numbered steps for maximum readability.
+3. **Practical Industry Examples**: Include real-world scenarios (e.g. exporting garments or tea from Sri Lanka to Western Europe/USA, importing electronics or machinery from China, air-freighting perishables).
+4. **Formulas & Calculations**: Whenever asked about CBM, Volumetric Weight, Chargeable Weight, Freight Costs, Demurrage, or Duty, provide the exact mathematical formula with a clear, step-by-step worked-out example.
+5. **Sri Lanka & Global Trade Specifics**: Seamlessly integrate Sri Lankan trade procedures when relevant (e.g., Sri Lanka Customs ASYCUDA CUSDEC clearance, Sri Lanka Tea Board permits, Colombo Port terminals CICT/SAGT/JCT, Katunayake Air Cargo Village) alongside global maritime/air standards.
+6. **Multi-lingual Mastery**: Respond in the language used by the user. If the user asks in Sinhala or Singlish, provide fluent, easy-to-understand explanations in Sinhala/English mix or clear Sinhala with technical terms in English.
+7. **Pro-Tips**: Conclude responses with a practical "💡 Logistics Pro-Tip" or "⚠️ Compliance Warning".
 
-Behavior & Tone:
-- Maintain a polite, corporate, and highly professional tone at all times.
-- Structure your answers clearly using bullet points, short paragraphs, and bold text for key terms to ensure readability.
-- Be solution-oriented. If a user asks for a specific shipping rate or a customized quotation, explain the general process but politely instruct them to leave their contact details or reach out to the company's sales team for an exact quote.
-
-Boundaries (Strictly Enforced):
-- You must ONLY answer questions related to logistics, freight forwarding, shipping, and supply chain management.
-- Under no circumstances should you generate code, write essays on unrelated topics, or answer questions about politics, entertainment, or general trivia.
-- If a user asks a question outside your domain, politely decline by stating: "I am Nexus AI, your specialized freight forwarding and logistics assistant. I cannot assist with that request, but I would be happy to help you with your shipping and supply chain inquiries."`;
+Boundaries:
+- Focus exclusively on logistics, freight forwarding, customs clearance, Incoterms, supply chain, and global trade.
+- Maintain a polite, highly professional, encouraging, and academic tone.`;
 
 let conversationHistory = [];
 let currentTopicContext = null;
@@ -1452,13 +1448,59 @@ function getLocalConversationalResponse(query) {
 
 
 
-// Obfuscated key decoder to bypass GitHub Secret Scanner static inspection
-const getSystemApiKey = () => atob("QVEuQWI4Uk42SVRHLXhWOTB5N0g2Y0ZwTE5ENXZXTVBLQU5MNEY0TGNNVXlEZWdtT1l2b1hn");
+// RAG Knowledge Base Retrieval Function
+function getRelevantKnowledgeContext(userQuery) {
+  const kbData = getKBData();
+  if (!kbData || !kbData.categories) return "";
+  
+  const q = (userQuery || "").toLowerCase();
+  const words = q.replace(/[^\w\s]/gi, '').split(/\s+/).filter(w => w.length > 2 && !['what', 'how', 'why', 'when', 'where', 'which', 'who', 'the', 'and', 'for', 'can', 'you', 'tell', 'about', 'with', 'does', 'this', 'that', 'from'].includes(w));
+  
+  if (words.length === 0) return "";
+  
+  let matches = [];
+  
+  kbData.categories.forEach(cat => {
+    cat.subtopics.forEach(sub => {
+      let score = 0;
+      const titleLower = (sub.title || "").toLowerCase();
+      const summaryLower = (sub.summary || "").toLowerCase();
+      const contentLower = (sub.content || "").toLowerCase();
+      
+      words.forEach(word => {
+        if (titleLower.includes(word)) score += 5;
+        if (summaryLower.includes(word)) score += 3;
+        if (contentLower.includes(word)) score += 1;
+      });
+      
+      if (score > 0) {
+        matches.push({
+          category: cat.title,
+          title: sub.title,
+          summary: sub.summary,
+          snippet: sub.content.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').substring(0, 450),
+          score: score
+        });
+      }
+    });
+  });
+  
+  matches.sort((a, b) => b.score - a.score);
+  const topMatches = matches.slice(0, 3);
+  
+  if (topMatches.length === 0) return "";
+  
+  return topMatches.map(m => `[Topic: ${m.category} -> Subtopic: ${m.title}]\nSummary: ${m.summary}\nContent: ${m.snippet}...`).join("\n\n");
+}
+
+// System API Key
+const getSystemApiKey = () => "AQ.Ab8RN6ITG-xV90y7H6cFpLNDX5vWMPKANL4LcMUyDegmOYvoXg";
 
 async function callGeminiAPI(customKey) {
   const activeKey = customKey || getSystemApiKey();
   let cleanHistory = [];
   let lastRole = null;
+  let latestUserQuery = "";
   
   conversationHistory.forEach(msg => {
     const text = msg.parts[0].text;
@@ -1467,6 +1509,8 @@ async function callGeminiAPI(customKey) {
     let role = msg.role;
     if (role === "system") {
       role = "model";
+    } else if (role === "user") {
+      latestUserQuery = text;
     }
     
     if (lastRole === role) {
@@ -1491,6 +1535,13 @@ async function callGeminiAPI(customKey) {
     });
   }
 
+  // Extract RAG Knowledge Base Grounding Context
+  const ragContext = getRelevantKnowledgeContext(latestUserQuery);
+  let systemPromptText = NEXUS_AI_SYSTEM_PROMPT;
+  if (ragContext) {
+    systemPromptText += `\n\n[RELEVANT PLATFORM KNOWLEDGE BASE DOMAIN DATA]:\n${ragContext}\n\nUse the above reference data to ground your educational explanation accurately.`;
+  }
+
   // Exact Official Google Gemini REST API endpoint with X-goog-api-key header & URL param fallback
   let response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent", {
     method: "POST",
@@ -1501,7 +1552,7 @@ async function callGeminiAPI(customKey) {
     body: JSON.stringify({
       contents: cleanHistory,
       systemInstruction: {
-        parts: [{ text: NEXUS_AI_SYSTEM_PROMPT }]
+        parts: [{ text: systemPromptText }]
       }
     })
   });
@@ -1516,7 +1567,7 @@ async function callGeminiAPI(customKey) {
       body: JSON.stringify({
         contents: cleanHistory,
         systemInstruction: {
-          parts: [{ text: NEXUS_AI_SYSTEM_PROMPT }]
+          parts: [{ text: systemPromptText }]
         }
       })
     });
@@ -1531,7 +1582,7 @@ async function callGeminiAPI(customKey) {
   const data = await response.json();
   
   if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
-    return data.candidates[0].content.parts[0].text;
+    return data.candidates[0].content.parts.map(p => p.text).join("");
   } else if (data.text) {
     return data.text;
   } else {
