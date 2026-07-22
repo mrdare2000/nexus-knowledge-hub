@@ -971,7 +971,7 @@ let currentTopicContext = null;
 
 
 const SHIPPING_BOT_ANSWERS = {
-  greeting: "Hello! I am Nexus AI, the logistics advisor for Nexys Cargo. How can I help you today? You can ask about Incoterms, container sizes, compliance rules, or freight calculations.",
+  greeting: "Hello! I am Nexus AI, the logistics advisor for Nexus Cargo. How can I help you today? You can ask about Incoterms, container sizes, compliance rules, or freight calculations.",
   incoterms: "Incoterms (International Commercial Terms) divide shipping costs and risks between buyer and seller. The 11 terms in Incoterms 2020/2026 are: EXW, FCA, FAS, FOB, CFR, CIF, CPT, CIP, DAP, DPU, and DDP. Do you have a specific term in mind?",
   fob: "FOB (Free On Board) dictates that the seller clears cargo for export and loads it onto the vessel. Risk transfers to the buyer once the goods are safely loaded on board at the origin port. The buyer pays for sea freight and import clearances.",
   exw: "EXW (Ex Works) places maximum risk and cost on the buyer. The seller only makes goods available at their factory. The buyer handles export customs, shipping, insurance, and destination haulage.",
