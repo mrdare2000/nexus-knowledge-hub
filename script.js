@@ -16,6 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchLogisticsNews();
 });
 
+window.addEventListener("load", () => {
+  renderLearningHub();
+  initNexusAIChat();
+});
+
 /* ==========================================
    1. HERO SLIDER BACKGROUND
    ========================================== */
@@ -95,6 +100,9 @@ function switchPage(pageId) {
   if (pageId === "learning") {
     renderLearningHub();
   }
+  if (pageId === "ai") {
+    initNexusAIChat();
+  }
 
   // Scroll to top after layout has been updated
   setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
@@ -146,7 +154,8 @@ function renderLearningHub() {
   
   const kbData = getKBData();
   if (!kbData) {
-    console.warn("NEXUS_KNOWLEDGE_BASE is not loaded or initialized yet.");
+    console.warn("NEXUS_KNOWLEDGE_BASE is not loaded yet. Scheduling retry...");
+    setTimeout(renderLearningHub, 100);
     return;
   }
   

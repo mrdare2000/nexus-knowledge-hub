@@ -3,7 +3,7 @@
 // 100% complete coverage of all topics and subtopics from the recommended guidelines.
 // Features embedded custom SVG infographics and custom layout configurations.
 
-const NEXUS_KNOWLEDGE_BASE = {
+var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
   categories: [
     {
       id: "shipping-basics",
