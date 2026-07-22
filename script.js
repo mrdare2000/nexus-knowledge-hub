@@ -1265,9 +1265,9 @@ async function callFreeAI() {
   }
   
   // 2. Fallback to robust GET query (guarantees completion even on CORS/POST blockages)
-  const encodedPrompt = encodeURIComponent(latestUserQuery || "Explain the history of maritime shipping containerization.");
-  const encodedSystem = encodeURIComponent(systemText);
-  const response = await fetch(`https://text.pollinations.ai/${encodedPrompt}?system=${encodedSystem}`);
+  const promptText = `System Context: ${systemText}\n\nUser Question: ${latestUserQuery}`;
+  const encodedPrompt = encodeURIComponent(promptText);
+  const response = await fetch(`https://text.pollinations.ai/${encodedPrompt}?model=openai`);
   
   if (!response.ok) {
     throw new Error(`GET Fallback HTTP ${response.status}`);
@@ -1281,11 +1281,32 @@ async function callFreeAI() {
 }
 
 
-// Local Conversational Response Engine with Pronoun & Topic Tracking state
+// Local Conversational Response Engine with Stop Words Filtering & Regional Intelligence
 function getLocalConversationalResponse(query) {
   const q = query.toLowerCase().trim();
   
-  // Topic matching logic (updating currentTopicContext state)
+  // 1. Regional Freight & Airport / Seaport Intelligence Hub
+  if (q.includes("japan") && (q.includes("airport") || q.includes("air") || q.includes("hub") || q.includes("flight"))) {
+    return `### ✈️ Major Air Freight Gateways in Japan\n\nJapan operates some of the world's most technologically advanced air cargo hubs:\n\n1. **Narita International Airport (NRT - Tokyo)**:\n   - Japan's primary international air cargo gateway, handling ~2 million tonnes annually.\n   - Features the **NRT Cold Chain Cluster** (temperature-regulated warehouses for pharma and fresh produce).\n2. **Tokyo Haneda Airport (HND)**:\n   - Located close to Tokyo city center; ideal for urgent express shipments and belly-hold cargo on passenger flights.\n3. **Kansai International Airport (KIX - Osaka)**:\n   - 24/7 offshore island airport serving Western Japan's electronics and biotech manufacturing sectors.\n4. **Chubu Centrair Airport (NGO - Nagoya)**:\n   - Dedicated hub for automotive parts (Toyota supply chain) and aerospace components.\n\n💡 *Air Freight Calculation Tip: Chargeable weight for Japan shipments is the higher of Gross Weight or Volumetric Weight (L x W x H in cm / 6000).*`;
+  }
+
+  if (q.includes("japan") && (q.includes("port") || q.includes("sea") || q.includes("ocean") || q.includes("vessel"))) {
+    return `### 🚢 Major Ocean Ports in Japan\n\nJapan's container shipping is centered around key maritime clusters:\n\n- **Keihin Ports (Tokyo Bay)**: Tokyo, Yokohama, and Kawasaki ports (major import gateways for consumer goods).\n- **Hanshin Ports (Kansai)**: Kobe and Osaka ports (major industrial export hubs).\n- **Nagoya Port**: Japan's largest port by total cargo throughput, driving automobile exports.`;
+  }
+
+  if ((q.includes("sri lanka") || q.includes("colombo")) && (q.includes("customs") || q.includes("cusdec") || q.includes("clearance"))) {
+    return `### 🇱🇰 Sri Lanka Customs & Trade Clearance\n\n- **CUSDEC (Customs Declaration)**: Submitted electronically via ASYCUDA World system.\n- **Primary Regulatory Approvals**: SL Tea Board (for tea exports), NMRA (National Medicines Regulatory Authority for pharma), Import & Export Control Department.\n- **Colombo Port Hub**: CICT (Colombo International Container Terminals), SAGT (South Asia Gateway Terminals), and JCT (Jaya Container Terminal).\n- **Air Cargo**: Katunayake Air Cargo Village (CMB BIA Airport).`;
+  }
+
+  if (q.includes("singapore") || q.includes("changi") || q.includes("pasir panjang")) {
+    return `### 🇸🇬 Singapore Global Logistics Hub\n\n- **PSA Singapore**: The world's largest transshipment port, connecting 600+ ports globally.\n- **Changi Air Cargo Centre (SIN)**: 24/7 free trade zone with specialized cold-chain and express handling.`;
+  }
+
+  if (q.includes("dubai") || q.includes("jebel ali") || q.includes("uae")) {
+    return `### 🇦🇪 Dubai & Middle East Logistics Hub\n\n- **Jebel Ali Port (DP World)**: Largest man-made harbor and premier Middle East transshipment port.\n- **Dubai Cargo City (DXB / DWC)**: Seamless sea-to-air multimodal connectivity within 4 hours.`;
+  }
+  
+  // 2. Core Shipping Topic matchers
   if (q.includes("incoterm")) {
     currentTopicContext = "incoterms";
     return SHIPPING_BOT_ANSWERS.incoterms;
@@ -1319,7 +1340,7 @@ function getLocalConversationalResponse(query) {
     return SHIPPING_BOT_ANSWERS.lithium;
   }
   
-  // Stateful Context Reference Matches (resolving "it", "this", "who pays", "how")
+  // 3. Stateful Context Reference Matches (resolving "it", "this", "who pays", "how")
   if (currentTopicContext) {
     if (q.includes("who pays") || q.includes("responsibility") || q.includes("buyer") || q.includes("seller") || q.includes("risk")) {
       if (currentTopicContext === "fob") {
@@ -1349,21 +1370,7 @@ function getLocalConversationalResponse(query) {
     }
   }
   
-  // Offline general shipping details & history matching fallback
-  if (q.includes("history") || q.includes("origin") || q.includes("mclean") || q.includes("sailing")) {
-    return "Maritime shipping history dates back to ancient sailing routes (such as the Silk Road and spice lanes). The modern era was revolutionized in 1956 when Malcolm McLean invented the standardized intermodal container, reducing loading costs from $5.86 per ton to just $0.16 per ton, enabling globalized supply chains.";
-  }
-  if (q.includes("canal") || q.includes("route") || q.includes("suez") || q.includes("panama") || q.includes("strait")) {
-    return "Global trade flows through critical maritime routes and chokepoints:\n\n- **Suez Canal**: Connects the Red Sea and Mediterranean, bypassing Africa.\n- **Panama Canal**: Connects Atlantic and Pacific, bypassing Cape Horn.\n- **Strait of Malacca**: Connects Indian Ocean and South China Sea, vital for Asian energy trade.";
-  }
-  if (q.includes("forwarder") || q.includes("agent") || q.includes("role") || q.includes("carrier")) {
-    return "A freight forwarder acts as an intermediary organizer for transport. They do not typically own the vessels, planes, or trucks, but negotiate carrier contracts, compile customs declarations (CUSDEC), manage bill of lading issuance, and consolidate LCL cargo.";
-  }
-  if (q.includes("compliance") || q.includes("customs") || q.includes("hs code")) {
-    return "Customs compliance requires correct HS Codes (Harmonized System codes for item classification), matching commercial invoices, packing lists, and adhering to import duty/tariff schedules at the destination customs authority.";
-  }
-  
-  // Fix search greeting containing 'hi' word boundary matching (prevent false match with 'shipping'/'shipment')
+  // 4. Greetings and Help
   if (/\b(hi|hello|hey|greetings|howdy)\b/i.test(q)) {
     return SHIPPING_BOT_ANSWERS.greeting;
   }
@@ -1371,37 +1378,54 @@ function getLocalConversationalResponse(query) {
     return SHIPPING_BOT_ANSWERS.help;
   }
   
-  // Intelligent Knowledge Base Deep Search Fallback
+  // 5. Intelligent Knowledge Base Deep Search Engine with Stop-Words Filtering
   const kbData = getKBData();
   if (kbData && kbData.categories) {
-    const searchTerms = q.replace(/[^\w\s]/gi, '').split(/\s+/).filter(w => w.length > 2);
-    let bestSubtopic = null;
-    let maxMatches = 0;
+    const STOP_WORDS = new Set([
+      "give", "me", "the", "of", "and", "a", "an", "in", "on", "at", "to", "for", "with", "is", "are", "was",
+      "were", "be", "been", "being", "have", "has", "had", "do", "does", "did", "can", "could", "should",
+      "would", "will", "shall", "may", "might", "must", "about", "details", "detail", "info", "information",
+      "tell", "show", "explain", "what", "which", "who", "whom", "this", "that", "these", "those", "how",
+      "why", "where", "when", "please", "want", "know", "need", "like", "get", "cargo", "freight", "shipping"
+    ]);
+
+    const searchTerms = q
+      .replace(/[^\w\s]/gi, '')
+      .split(/\s+/)
+      .map(w => w.toLowerCase())
+      .filter(w => w.length > 2 && !STOP_WORDS.has(w));
     
-    kbData.categories.forEach(cat => {
-      cat.subtopics.forEach(sub => {
-        let score = 0;
-        const textToSearch = (sub.title + " " + sub.summary + " " + (sub.content || "")).toLowerCase();
-        searchTerms.forEach(term => {
-          if (textToSearch.includes(term)) score++;
-        });
-        if (score > maxMatches) {
-          maxMatches = score;
-          bestSubtopic = { sub, catTitle: cat.title };
-        }
-      });
-    });
-    
-    if (bestSubtopic && maxMatches > 0) {
-      // Strip HTML tags for clean text presentation in chat
-      let cleanContent = bestSubtopic.sub.content ? bestSubtopic.sub.content.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : '';
-      if (cleanContent.length > 450) cleanContent = cleanContent.substring(0, 450) + '...';
+    if (searchTerms.length > 0) {
+      let bestSubtopic = null;
+      let maxMatches = 0;
       
-      return `### 📦 ${bestSubtopic.sub.title}\n*Category: ${bestSubtopic.catTitle}*\n\n${bestSubtopic.sub.summary}\n\n${cleanContent}\n\n💡 *Ask me specific follow-up questions about ${bestSubtopic.sub.title} or related shipping procedures!*`;
+      kbData.categories.forEach(cat => {
+        cat.subtopics.forEach(sub => {
+          let score = 0;
+          const textToSearch = (sub.title + " " + sub.summary + " " + (sub.content || "")).toLowerCase();
+          searchTerms.forEach(term => {
+            if (textToSearch.includes(term)) score += 2;
+            if (sub.title.toLowerCase().includes(term)) score += 5;
+          });
+          if (score > maxMatches) {
+            maxMatches = score;
+            bestSubtopic = { sub, catTitle: cat.title };
+          }
+        });
+      });
+      
+      if (bestSubtopic && maxMatches >= 2) {
+        // Strip HTML tags for clean text presentation in chat
+        let cleanContent = bestSubtopic.sub.content ? bestSubtopic.sub.content.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : '';
+        if (cleanContent.length > 450) cleanContent = cleanContent.substring(0, 450) + '...';
+        
+        return `### 📦 ${bestSubtopic.sub.title}\n*Category: ${bestSubtopic.catTitle}*\n\n${bestSubtopic.sub.summary}\n\n${cleanContent}\n\n💡 *Ask me specific follow-up questions about ${bestSubtopic.sub.title} or related shipping procedures!*`;
+      }
     }
   }
 
-  return "I understand your question is relating to global logistics. Ask me to explain a specific Incoterm rule (like FOB, EXW, DDP), cargo calculation (like CBM, volumetric weights), shipping history (Malcolm McLean, containers), or global canal routes for accurate parameters!";
+  // Default articulate freight advisor response
+  return `### 🌐 Nexus Cargo Intelligence Advisor\n\nI am specialized in global freight forwarding, supply chain planning, and customs compliance.\n\nYou can ask me about:\n- **Incoterms 2020 / 2026**: FOB, CIF, EXW, DDP, DAP responsibilities.\n- **Cargo Calculations**: CBM volume, Air Volumetric Weight (1:6000), Chargeable Weight.\n- **International Airports & Seaports**: Major hubs in Japan, Singapore, Dubai, Europe, US, Sri Lanka.\n- **Container Specs**: 20ft, 40ft, 40ft High Cube, Reefer, Open Top, Flat Racks.\n- **Customs & Documentation**: Bill of Lading, Air Waybill, CUSDEC, HS Codes, Dangerous Goods (UN 1-9).\n\n*How can I assist your specific shipment today?*`;
 }
 
 
