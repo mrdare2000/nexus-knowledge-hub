@@ -1442,9 +1442,7 @@ function getLocalConversationalResponse(query) {
     return `### 📄 Bill of Lading (B/L) & Air Waybill (AWB) Guide\n\n1. **Ocean Bill of Lading (B/L)**:\n   - **Master B/L (MBL)**: Issued by the ocean shipping line to the freight forwarder.\n   - **House B/L (HBL)**: Issued by the freight forwarder to the actual shipper/consignee.\n   - **Document Types**: Negotiable Original B/L (requires 3 originals surrendered), Express Release / Sea Waybill (no physical originals needed), Telex Release.\n\n2. **Air Waybill (AWB)**:\n   - **MAWB**: Issued by the airline.\n   - **HAWB**: Issued by the forwarder.\n   - *Note: AWBs are strictly non-negotiable transport contracts (never document of title).*`;
   }
 
-  if (q.includes("history") || q.includes("mclean") || q.includes("containerization")) {
-    return `### 📜 History of Global Freight & Containerization\n\nMaritime shipping history was revolutionized in 1956 when **Malcolm McLean** invented the standardized intermodal shipping container.\n\n- **Pre-1956 Breakbulk**: Loading cargo box-by-box cost $5.86 per ton and took days.\n- **Intermodal Container**: Reduced loading costs to **$0.16 per ton**, allowing seamless transfer between ships, trains, and trucks, paving the way for modern globalized supply chains.`;
-  }
+
 
   // Dynamic fallback: Search Knowledge Base context or generate rich global logistics answer
   const kbContext = getRelevantKnowledgeContext(query);
