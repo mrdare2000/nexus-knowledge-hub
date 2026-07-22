@@ -1057,15 +1057,15 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <div style="margin:25px 0; display:flex; flex-wrap:wrap; gap:15px;">
               <div style="flex:1; min-width:200px; background:#F8FAFC; border:1px solid #CBD5E1; padding:15px; border-radius:12px;">
-                <h4 style="margin:0 0 10px 0; color:#334155;">📄 Commercial Invoice (CI)</h4>
+                <h4 style="margin:0 0 10px 0; color:#334155;">\uD83D\uDCCD Commercial Invoice (CI)</h4>
                 <p style="font-size:0.85rem; color:#475569; margin:0;">The ultimate financial contract. It dictates the buyer, seller, exact 6-digit HS codes, unit values, total purchase price, and the agreed Incoterm (crucial for tax calculation).</p>
               </div>
               <div style="flex:1; min-width:200px; background:#F8FAFC; border:1px solid #CBD5E1; padding:15px; border-radius:12px;">
-                <h4 style="margin:0 0 10px 0; color:#334155;">📦 Packing List (PL)</h4>
+                <h4 style="margin:0 0 10px 0; color:#334155;">\uD83D\uDCCD Packing List (PL)</h4>
                 <p style="font-size:0.85rem; color:#475569; margin:0;">The physical map of the cargo used for physical inspections. Shows exact box counts, pallet dimensions, net/gross weights, and cubic volume (CBM).</p>
               </div>
               <div style="flex:1; min-width:200px; background:#F8FAFC; border:1px solid #CBD5E1; padding:15px; border-radius:12px;">
-                <h4 style="margin:0 0 10px 0; color:#334155;">🚢 Bill of Lading (B/L)</h4>
+                <h4 style="margin:0 0 10px 0; color:#334155;">\uD83D\uDCCD Bill of Lading (B/L)</h4>
                 <p style="font-size:0.85rem; color:#475569; margin:0;">The official receipt and title of ownership from the carrier. It lists the container number and security seal number, which customs verifies at the gate.</p>
               </div>
             </div>
@@ -1176,7 +1176,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <img src="images/free_trade_agreements.png" alt="Free Trade Agreements Impact" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
             
             <div style="margin:25px 0; background:#F8FAFC; border-left:4px solid #10B981; padding:15px; border-radius:0 12px 12px 0;">
-              <h4 style="margin:0 0 10px 0; color:#065F46;">⚠️ The "Rules of Origin" Catch</h4>
+              <h4 style="margin:0 0 10px 0; color:#065F46;">\uD83D\uDCCD The "Rules of Origin" Catch</h4>
               <p style="margin:0; font-size:0.9rem; color:#334155;">Simply shipping a product out of an FTA-member country does not qualify it for zero tax. The cargo must meet specific <strong>Rules of Origin (ROO)</strong>. For example, if Sri Lanka and India have an FTA, you cannot import cheap electronics from China into Sri Lanka, put them in a new box, and ship them to India duty-free. You must prove that a substantial percentage of the product's value was <em>actually manufactured</em> locally (value-addition criteria).</p>
             </div>
             
@@ -1243,11 +1243,11 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Critical Certifications:</h3>
             <div style="margin:25px 0; display:flex; flex-wrap:wrap; gap:15px;">
               <div style="flex:1; min-width:200px; background:#F0FDF4; border:1px solid #86EFAC; padding:15px; border-radius:12px;">
-                <h4 style="margin:0 0 10px 0; color:#14532D;">🌱 Phytosanitary Certificate</h4>
+                <h4 style="margin:0 0 10px 0; color:#14532D;">\uD83D\uDCCD Phytosanitary Certificate</h4>
                 <p style="font-size:0.85rem; color:#166534; margin:0;">Issued by the origin country's Department of Agriculture. It legally declares that the shipment was inspected prior to export and found to be free from quarantine pests and practically free from other injurious pests.</p>
               </div>
               <div style="flex:1; min-width:200px; background:#F0FDF4; border:1px solid #86EFAC; padding:15px; border-radius:12px;">
-                <h4 style="margin:0 0 10px 0; color:#14532D;">🪵 ISPM-15 Wood Packing (The Bug Rule)</h4>
+                <h4 style="margin:0 0 10px 0; color:#14532D;">\uD83D\uDCCD ISPM-15 Wood Packing (The Bug Rule)</h4>
                 <p style="font-size:0.85rem; color:#166534; margin:0;">Even if your cargo isn't agricultural (like importing car parts), if they are packed on wooden pallets, the wood must be heat-treated or fumigated. It must bear the IPPC "wheat stamp" to prove beetles/termites aren't hiding inside.</p>
               </div>
             </div>
@@ -1349,7 +1349,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </ul>
             
             <div style="margin:25px 0; background:#FFF1F2; border-left:4px solid #E11D48; padding:15px; border-radius:0 12px 12px 0;">
-              <h4 style="margin:0 0 10px 0; color:#9F1239;">📌 The Golden Rule of Documentation (VGM Compliance)</h4>
+              <h4 style="margin:0 0 10px 0; color:#9F1239;">\uD83D\uDCCD The Golden Rule of Documentation (VGM Compliance)</h4>
               <p style="margin:0; font-size:0.9rem; color:#4C1D95;">Under SOLAS regulations implemented by the Merchant Shipping Secretariat in Sri Lanka, the Verified Gross Mass (VGM) must be declared. The Gross Weight stated on the Packing List MUST exactly match the Gross Weight printed on the Bill of Lading, Commercial Invoice, and the Customs Entry (CusDec). A discrepancy will cause customs to freeze the shipment, and the terminal will not load the container onto the vessel.</p>
             </div>
           `,
@@ -1408,11 +1408,11 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <div style="margin:25px 0; display:flex; flex-direction:column; gap:15px; font-family:'Outfit', sans-serif;">
               <div style="background:#F0F9FF; border-left:5px solid #0284C7; padding:15px; border-radius:8px;">
-                <h4 style="margin:0 0 5px 0; color:#0369A1; font-size:1.1rem;">📌 Master Air Waybill (MAWB)</h4>
+                <h4 style="margin:0 0 5px 0; color:#0369A1; font-size:1.1rem;">\uD83D\uDCCD Master Air Waybill (MAWB)</h4>
                 <p style="margin:0; font-size:0.9rem; color:#0C4A6E;">Issued by the <strong>Airline</strong> (e.g., SriLankan Airlines, Emirates SkyCargo operating out of BIA) to the Freight Forwarder. It covers the consolidated bulk cargo placed on the aircraft. The shipper listed is the forwarder at origin, and the consignee is the forwarder's partner office at destination.</p>
               </div>
               <div style="background:#FDF4FF; border-left:5px solid #C026D3; padding:15px; border-radius:8px;">
-                <h4 style="margin:0 0 5px 0; color:#A21CAF; font-size:1.1rem;">📌 House Air Waybill (HAWB)</h4>
+                <h4 style="margin:0 0 5px 0; color:#A21CAF; font-size:1.1rem;">\uD83D\uDCCD House Air Waybill (HAWB)</h4>
                 <p style="margin:0; font-size:0.9rem; color:#4A044E;">Issued by the <strong>Freight Forwarder</strong> to the actual Shipper (e.g., a local seafood exporter). It details the specific goods of that single client. The consignee is the actual buyer. There are usually multiple HAWBs packed under one MAWB.</p>
               </div>
             </div>
@@ -1685,20 +1685,20 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Air freight pricing is structured very differently from ocean freight. It is entirely weight-based rather than per-container, and it is highly susceptible to fuel price volatility.</p>
             
             <div style="margin:25px 0; background:#F8FAFC; border-left:4px solid #0284C7; padding:15px; border-radius:0 12px 12px 0;">
-              <h4 style="margin:0 0 10px 0; color:#0369A1;">📌 The Chargeable Weight Rule</h4>
+              <h4 style="margin:0 0 10px 0; color:#0369A1;">\uD83D\uDCCD The Chargeable Weight Rule</h4>
               <p style="margin:0; font-size:0.95rem; color:#334155; line-height: 1.6;">Airlines charge based on <strong>Chargeable Weight</strong>—which is the higher value between the <em>Actual Gross Weight (kg)</em> and the <em>Volumetric Weight (Volume in cbm × 167)</em>. Because aircraft have limited space, a massive box of light feathers will be billed for its massive volume (dimensional weight), not its physical weight on a scale.</p>
             </div>
             
             <!-- CSS INFOGRAPHIC: AIR FREIGHT -->
             <div style="margin: 30px 0; display: flex; gap: 20px; flex-wrap: wrap; font-family: 'Outfit', sans-serif;">
               <div style="flex: 1; min-width: 250px; background: #FFF; border: 2px solid #E2E8F0; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <div style="font-size: 3rem; margin-bottom: 10px;">🧱</div>
+                <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                 <h4 style="color: #0F172A; margin: 0 0 5px 0;">Heavy Cargo (e.g. Steel Parts)</h4>
                 <p style="color: #64748B; font-size: 0.9rem; margin: 0 0 15px 0;">Actual Weight > Volumetric Weight</p>
                 <div style="background: #EF4444; color: #FFF; padding: 5px 10px; border-radius: 6px; display: inline-block; font-weight: bold;">Billed by Actual KG</div>
               </div>
               <div style="flex: 1; min-width: 250px; background: #FFF; border: 2px solid #E2E8F0; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <div style="font-size: 3rem; margin-bottom: 10px;">☁️</div>
+                <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                 <h4 style="color: #0F172A; margin: 0 0 5px 0;">Bulky Cargo (e.g. Cushions)</h4>
                 <p style="color: #64748B; font-size: 0.9rem; margin: 0 0 15px 0;">Volumetric Weight > Actual Weight</p>
                 <div style="background: #3B82F6; color: #FFF; padding: 5px 10px; border-radius: 6px; display: inline-block; font-weight: bold;">Billed by Volume (CBM)</div>
@@ -1726,14 +1726,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <!-- CSS INFOGRAPHIC: FUEL -->
             <div style="margin: 30px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-family: 'Outfit', sans-serif;">
               <div style="background: linear-gradient(to bottom, #FFF, #FFF7ED); border: 1px solid #FED7AA; border-radius: 12px; padding: 25px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 15px;">🛢️</div>
+                <div style="font-size: 3rem; margin-bottom: 15px;">\uD83D\uDC55</div>
                 <h4 style="color: #9A3412; font-size: 1.2rem; margin: 0 0 10px 0;">Ocean BAF (Bunker)</h4>
                 <p style="color: #78350F; font-size: 0.9rem; margin: 0 0 15px 0; line-height: 1.6;">Ocean vessels burn heavy fuel oil (Bunker). BAF is usually charged as a <strong>flat fee per container</strong> (e.g., $150 per TEU). If oil prices drop, the BAF drops. Note: In Europe, it's sometimes called EBS (Emergency Bunker Surcharge).</p>
                 <div style="background: #EA580C; color: white; display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">Billed per TEU/FEU</div>
               </div>
               
               <div style="background: linear-gradient(to bottom, #FFF, #F0F9FF); border: 1px solid #BAE6FD; border-radius: 12px; padding: 25px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 15px;">✈️</div>
+                <div style="font-size: 3rem; margin-bottom: 15px;">\uD83D\uDC55</div>
                 <h4 style="color: #0369A1; font-size: 1.2rem; margin: 0 0 10px 0;">Aviation MYC (Jet Fuel)</h4>
                 <p style="color: #0C4A6E; font-size: 0.9rem; margin: 0 0 15px 0; line-height: 1.6;">Airlines burn highly refined Jet-A fuel. MYC is charged <strong>per kilogram</strong> of cargo (e.g., $1.20/kg). It is highly volatile and is published via an index linked to the Rotterdam or US Gulf Coast jet fuel prices.</p>
                 <div style="background: #0284C7; color: white; display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">Billed per KG</div>
@@ -1834,7 +1834,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <div style="margin:25px 0; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; font-family:'Outfit', sans-serif;">
               <div style="background:#F0F9FF; border:2px solid #7DD3FC; padding:20px; border-radius:12px; position:relative; overflow:hidden;">
-                <div style="position:absolute; top:-20px; right:-20px; font-size:5rem; opacity:0.1;">🏢</div>
+                <div style="position:absolute; top:-20px; right:-20px; font-size:5rem; opacity:0.1;">\u2744\uFE0F</div>
                 <h4 style="margin:0 0 10px 0; color:#0369A1; font-size: 1.2rem;">Spot Rates (FAK)</h4>
                 <p style="font-size:0.9rem; color:#0C4A6E; margin:0 0 15px 0; line-height: 1.6;">"Freight All Kinds". These are floating market rates valid for only 15 to 30 days. You book whatever the current market price is on the day of sailing.</p>
                 <div style="background: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px;">
@@ -1844,7 +1844,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               
               <div style="background:#FDF4FF; border:2px solid #F0ABFC; padding:20px; border-radius:12px; position:relative; overflow:hidden;">
-                <div style="position:absolute; top:-20px; right:-20px; font-size:5rem; opacity:0.1;">🚢</div>
+                <div style="position:absolute; top:-20px; right:-20px; font-size:5rem; opacity:0.1;">\u2744\uFE0F</div>
                 <h4 style="margin:0 0 10px 0; color:#A21CAF; font-size: 1.2rem;">Contract Rates (NAC)</h4>
                 <p style="font-size:0.9rem; color:#4A044E; margin:0 0 15px 0; line-height: 1.6;">"Named Account Contracts". Fixed rates locked in directly with a shipping line (e.g., Maersk or MSC) for 6 to 12 months, shielding you from GRI/PSS spikes.</p>
                 <div style="background: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px;">
@@ -1888,7 +1888,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <!-- CSS INFOGRAPHIC: CHECKLIST -->
             <div style="margin:25px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:1px solid #CBD5E1; padding:25px; border-radius:12px; font-family:'Outfit', sans-serif;">
-              <h4 style="color:#0F172A; font-size:1.2rem; margin:0 0 20px 0; border-bottom: 2px solid #CBD5E1; padding-bottom: 10px;">📌 The Forwarder's Quote Audit Checklist</h4>
+              <h4 style="color:#0F172A; font-size:1.2rem; margin:0 0 20px 0; border-bottom: 2px solid #CBD5E1; padding-bottom: 10px;">\uD83D\uDCCD The Forwarder's Quote Audit Checklist</h4>
               <ul style="margin:0; padding-left:0; list-style:none; color:#334155; line-height:1.7; font-size:0.95rem; display: flex; flex-direction: column; gap: 15px;">
                 <li style="display: flex; gap: 15px; background: #FFF; padding: 15px; border-radius: 8px; border-left: 4px solid #3B82F6;">
                   <span style="font-size: 1.5rem;">📄</span>
@@ -2052,7 +2052,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="margin:25px 0; background:#FFFBEB; border-left:4px solid #F59E0B; padding:15px; border-radius:0 12px 12px 0;">
-              <h4 style="margin:0 0 5px 0; color:#B45309;">📌 Optimization Strategy: Slotting</h4>
+              <h4 style="margin:0 0 5px 0; color:#B45309;">\uD83D\uDCCD Optimization Strategy: Slotting</h4>
               <p style="margin:0; font-size:0.9rem; color:#78350F; line-height: 1.6;">Fast-moving consumer goods (FMCG) like daily essentials are "slotted" at the very front of the warehouse on lower racks. Slow-moving goods are stored high up and at the very back. This simple logic saves thousands of hours of forklift driving time annually.</p>
             </div>
           `,
@@ -2069,7 +2069,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <!-- CSS INFOGRAPHIC: BONDED WAREHOUSE -->
             <div style="margin:25px 0; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:12px; font-family:'Outfit', sans-serif;">
-              <h4 style="color:#0369A1; font-size:1.2rem; margin:0 0 15px 0; text-align: center;">📌 The Duty Deferment Cashflow Trick</h4>
+              <h4 style="color:#0369A1; font-size:1.2rem; margin:0 0 15px 0; text-align: center;">\uD83D\uDCCD The Duty Deferment Cashflow Trick</h4>
               <p style="margin:0 0 20px 0; font-size:0.95rem; color:#0C4A6E; line-height:1.6; text-align: center;">Normally, when goods arrive at a seaport, you must pay massive Import Duties upfront before customs releases them. However, if you move the goods directly into a Bonded Warehouse, <strong>no duties are paid yet</strong>.</p>
               
               <div style="display: flex; gap: 15px; flex-wrap: wrap;">
@@ -2101,7 +2101,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               
               <div style="display:flex; gap:20px; flex-wrap:wrap;">
                 <div style="flex:1; min-width:250px; background:#EFF6FF; border: 2px solid #BFDBFE; padding:20px; border-radius:12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">📦 ➡️ 🚢</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                   <strong style="color:#1D4ED8; font-size: 1.2rem; display: block; margin-bottom: 10px;">B2B (Business to Business)</strong>
                   <ul style="text-align: left; margin: 0; padding-left: 20px; font-size: 0.9rem; color: #1E3A8A; line-height: 1.6;">
                     <li><strong>Order Size:</strong> Massive (Full pallets or truckloads).</li>
@@ -2112,7 +2112,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 </div>
                 
                 <div style="flex:1; min-width:250px; background:#FDF4FF; border: 2px solid #F5D0FE; padding:20px; border-radius:12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">🚢 ➡️ 📦</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                   <strong style="color:#C026D3; font-size: 1.2rem; display: block; margin-bottom: 10px;">B2C (Business to Consumer)</strong>
                   <ul style="text-align: left; margin: 0; padding-left: 20px; font-size: 0.9rem; color: #4A044E; line-height: 1.6;">
                     <li><strong>Order Size:</strong> Tiny (1-2 individual items in a polybag).</li>
@@ -2184,7 +2184,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The <strong>Last-Mile</strong> is the final leg of the supply chain, where the package is transported from a local distribution hub directly to the customer's front door.</p>
             
             <div style="margin:25px 0; background:#FFF1F2; border: 2px solid #FDA4AF; padding:25px; border-radius:16px; font-family: 'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem; text-align: center;">📌 The Most Expensive Leg of Logistics</h4>
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem; text-align: center;">\uD83D\uDCCD The Most Expensive Leg of Logistics</h4>
               <p style="margin:0 0 20px 0; font-size:0.95rem; color:#881337; line-height: 1.6; text-align: center;">Ironically, shipping a 65" TV from a factory in China to a port in Los Angeles (6,000 miles) often costs <strong>less per unit</strong> than shipping that same TV from a Los Angeles warehouse to a house 5 miles away. Why?</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
@@ -2222,7 +2222,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <!-- CSS INFOGRAPHIC: INVENTORY FLOWS -->
             <div style="margin:25px 0; display:flex; flex-direction: column; gap:15px; font-family:'Outfit', sans-serif;">
               <div style="display: flex; gap: 20px; align-items: center; background:#F0FDF4; border-left:6px solid #16A34A; padding:20px; border-radius:8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <div style="font-size: 3rem;">🚢</div>
+                <div style="font-size: 3rem;">\uD83D\uDC55</div>
                 <div>
                   <strong style="color:#166534; font-size:1.2rem; display: block; margin-bottom: 5px;">FIFO (First In, First Out)</strong>
                   <p style="font-size:0.95rem; color:#14532D; margin:0; line-height: 1.5;">The oldest inventory received is the first inventory sold. <strong>Critical for:</strong> Perishables (food, medicine) to prevent expiration, and fashion retail to prevent styles from going out of season.</p>
@@ -2230,7 +2230,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               
               <div style="display: flex; gap: 20px; align-items: center; background:#EFF6FF; border-left:6px solid #2563EB; padding:20px; border-radius:8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <div style="font-size: 3rem;">🔄</div>
+                <div style="font-size: 3rem;">\uD83D\uDC55</div>
                 <div>
                   <strong style="color:#1E40AF; font-size:1.2rem; display: block; margin-bottom: 5px;">LIFO (Last In, First Out)</strong>
                   <p style="font-size:0.95rem; color:#1E3A8A; margin:0; line-height: 1.5;">The newest inventory received is the first inventory sold. <strong>Used for:</strong> Non-perishable bulk commodities (like gravel, coal, or lumber) where it is physically impractical to dig to the bottom of the pile to get the older stock.</p>
@@ -2238,7 +2238,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               
               <div style="display: flex; gap: 20px; align-items: center; background:#FEF2F2; border-left:6px solid #DC2626; padding:20px; border-radius:8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <div style="font-size: 3rem;">🚆</div>
+                <div style="font-size: 3rem;">\uD83D\uDC55</div>
                 <div>
                   <strong style="color:#991B1B; font-size:1.2rem; display: block; margin-bottom: 5px;">JIT (Just-In-Time)</strong>
                   <p style="font-size:0.95rem; color:#7F1D1D; margin:0; line-height: 1.5;">Invented by Toyota. Parts arrive at the factory exactly when they are needed for assembly on the line. <strong>Benefit:</strong> Minimizes warehouse storage costs to near zero. <strong>Risk:</strong> Highly vulnerable to supply chain disruptions (e.g., if a ship is late, the entire factory stops).</p>
@@ -2309,7 +2309,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <!-- CSS INFOGRAPHIC: REVERSE LOGISTICS -->
             <div style="margin:25px 0; background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="color:#14532D; font-size:1.2rem; margin:0 0 20px 0; text-align: center;">📌 The 4 Pillars of Reverse Flow</h4>
+              <h4 style="color:#14532D; font-size:1.2rem; margin:0 0 20px 0; text-align: center;">\uD83D\uDCCD The 4 Pillars of Reverse Flow</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
@@ -2345,7 +2345,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>E-commerce logistics is characterized by extremely high volumes of very small orders (usually 1 or 2 items). The expectations set by giants like Amazon have forced the entire logistics industry to adapt to 2-day or even Next-Day delivery standards.</p>
             
             <div style="margin:25px 0; background:#FFFBEB; border: 2px solid #FDE68A; padding:25px; border-radius:16px; display: flex; flex-direction: column; gap: 15px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 10px 0; color:#92400E; font-size:1.1rem;">📌 Key E-Commerce Pillars</h4>
+              <h4 style="margin:0 0 10px 0; color:#92400E; font-size:1.1rem;">\uD83D\uDCCD Key E-Commerce Pillars</h4>
               <ul style="margin:0; padding-left:20px; color:#78350F; font-size:0.95rem; line-height:1.7;">
                 <li><strong>Micro-Fulfillment Centers:</strong> Small urban warehouses located inside major cities for rapid 2-hour or same-day dispatch.</li>
                 <li><strong>Real-time API Integration:</strong> Connecting shopping carts (Shopify, WooCommerce) directly to warehouse management systems (WMS).</li>
@@ -2408,7 +2408,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <div style="display:flex; flex-wrap:wrap; gap:20px;">
                 <!-- ACTIVE COOLING -->
                 <div style="flex:1; min-width:280px; background:#F0F9FF; border: 2px solid #7DD3FC; padding:25px; border-radius:16px; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                  <div style="position: absolute; top: -15px; right: -15px; font-size: 6rem; opacity: 0.1;">â„ï¸</div>
+                  <div style="position: absolute; top: -15px; right: -15px; font-size: 6rem; opacity: 0.1;">\u2744\uFE0F</div>
                   <h4 style="margin:0 0 15px 0; color:#0284C7; font-size: 1.3rem;">Active Cooling (Reefers)</h4>
                   <p style="font-size:0.95rem; color:#0C4A6E; margin:0 0 15px 0; line-height: 1.6;">Active cooling systems rely on mechanical refrigeration units that require a constant power supply to generate cold air.</p>
                   <ul style="margin:0; padding-left:20px; color:#0369A1; font-size:0.9rem; line-height:1.7;">
@@ -2420,7 +2420,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 
                 <!-- PASSIVE COOLING -->
                 <div style="flex:1; min-width:280px; background:#FDF4FF; border: 2px solid #F0ABFC; padding:25px; border-radius:16px; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                  <div style="position: absolute; top: -15px; right: -15px; font-size: 6rem; opacity: 0.1;">ðŸ§Š</div>
+                  <div style="position: absolute; top: -15px; right: -15px; font-size: 6rem; opacity: 0.1;">\u2744\uFE0F</div>
                   <h4 style="margin:0 0 15px 0; color:#A21CAF; font-size: 1.3rem;">Passive Cooling (Envirotainers)</h4>
                   <p style="font-size:0.95rem; color:#4A044E; margin:0 0 15px 0; line-height: 1.6;">Passive systems do not generate cold air; they trap it. They rely on heavy insulation and internal cooling materials. No power required.</p>
                   <ul style="margin:0; padding-left:20px; color:#86198F; font-size:0.9rem; line-height:1.7;">
@@ -2433,7 +2433,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="background:#F8FAFC; border-left:5px solid #334155; padding:20px; border-radius:8px;">
-              <h4 style="margin:0 0 10px 0; color:#0F172A; font-size: 1.1rem;">ðŸ“ˆ The Role of Data Loggers</h4>
+              <h4 style="margin:0 0 10px 0; color:#0F172A; font-size: 1.1rem;">\uD83D\uDCCD The Role of Data Loggers</h4>
               <p style="margin:0; font-size:0.95rem; color:#475569; line-height: 1.6;">How does the buyer know the shipping line didn't unplug the container to save fuel? High-value shipments always contain USB or GPS-enabled temperature data loggers hidden inside the boxes. Upon arrival, the consignee downloads the data to prove the temperature never spiked. If the graph shows a spike, the consignee rejects the cargo and files a massive insurance claim against the carrier.</p>
             </div>
           `,
@@ -2450,7 +2450,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <!-- CSS INFOGRAPHIC: DG CLASSIFICATION -->
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #9F1239; font-size: 1.3rem; margin: 0 0 20px 0;">ðŸ“Œ GLOBAL HAZMAT COMPLIANCE</h4>
+              <h4 style="text-align: center; color: #9F1239; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83D\uDCCD GLOBAL HAZMAT COMPLIANCE</h4>
               
               <div style="display:flex; flex-wrap:wrap; gap:20px;">
                 <div style="flex:1; min-width:250px;">
@@ -2507,8 +2507,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <div style="flex:1; min-width:250px; text-align:center; background:#FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <div style="width:140px; height:80px; background:none; border-bottom:6px solid #1E293B; border-left:4px solid #1E293B; border-right:4px solid #1E293B; margin:0 auto 15px auto; position:relative; border-radius: 4px;">
                    <div style="position:absolute; bottom:0; left:-30px; right:-30px; height:50px; background: linear-gradient(90deg, #34D399 0%, #059669 100%); opacity:0.9; border-radius:4px;"></div>
-                   <div style="position:absolute; bottom:15px; left:-50px; font-size: 1.2rem;">â¬…ï¸</div>
-                   <div style="position:absolute; bottom:15px; right:-50px; font-size: 1.2rem;">âž¡ï¸</div>
+                   <div style="position:absolute; bottom:15px; left:-50px; font-size: 1.2rem;">\u2B05\uFE0F</div>
+                   <div style="position:absolute; bottom:15px; right:-50px; font-size: 1.2rem;">\u27A1\uFE0F</div>
                 </div>
                 <strong style="color:#0F172A; display:block; font-size: 1.2rem; margin-bottom: 5px;">Flat Rack (FR) Container</strong>
                 <p style="font-size:0.9rem; color:#475569; margin:0; line-height: 1.5;">Designed for <strong>Over-Width</strong> and Over-Length cargo. It has no side walls and no roof, just a heavy-duty floor and collapsible end-walls. Cargo can spill out over the sides.</p>
@@ -2516,7 +2516,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="background:#FFFBEB; border-left:5px solid #D97706; padding:20px; border-radius:8px;">
-              <h4 style="margin:0 0 10px 0; color:#92400E; font-size: 1.1rem;">ðŸ“Œ The Lost Slot Surcharge</h4>
+              <h4 style="margin:0 0 10px 0; color:#92400E; font-size: 1.1rem;">\uD83D\uDCCD The Lost Slot Surcharge</h4>
               <p style="margin:0; font-size:0.95rem; color:#78350F; line-height: 1.6;">If your cargo is too wide and spills over the edge of a Flat Rack, the ocean carrier physically cannot load another container next to yours on the ship. They are losing revenue-generating space. Therefore, the carrier will charge you a heavy penalty for the space you are blocking (Lost Slots). Shipping OOG is exponentially more expensive than shipping standard containers.</p>
             </div>
           `,
@@ -2532,7 +2532,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Heavy Lift logistics refers to cargo that is far too heavy to be handled by standard port infrastructure or standard highway trucks. This includes massive industrial transformers, gas turbines, or railway locomotives weighing hundreds of tons.</p>
             
             <div style="margin:30px 0; background:#FFFBEB; border: 2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#92400E; font-size: 1.3rem; text-align: center;">ðŸ“Œ THE LOGISTICS OF EXTREME WEIGHT</h4>
+              <h4 style="margin:0 0 15px 0; color:#92400E; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE LOGISTICS OF EXTREME WEIGHT</h4>
               <p style="margin:0 0 20px 0; font-size:0.95rem; color:#78350F; line-height: 1.6; text-align: center;">Gravity is the ultimate enemy in Heavy Lift logistics. Moving 200 tons requires mathematical precision.</p>
               
               <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -2560,7 +2560,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Importing anything that humans consume (food, beverages, pharmaceuticals, cosmetics) is heavily regulated by local governments to prevent contamination, the spread of disease, and bioterrorism.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #14532D; font-size: 1.3rem; margin: 0 0 20px 0;">ðŸ“Œ THE BORDER COMPLIANCE CHECKLIST</h4>
+              <h4 style="text-align: center; color: #14532D; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83D\uDCCD THE BORDER COMPLIANCE CHECKLIST</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #16A34A;">
@@ -2597,7 +2597,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Raw agricultural goods like tea, coffee beans, and cocoa are highly sensitive to moisture and humidity. Because ocean cargo containers travel through extreme climate zones (from freezing nights off the coast of Japan to baking equatorial sun in the Indian Ocean), they act like massive steel greenhouses.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#0F172A; font-size: 1.3rem; text-align: center;">ðŸ“Œ THE THREAT OF "CONTAINER RAIN"</h4>
+              <h4 style="margin:0 0 15px 0; color:#0F172A; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE THREAT OF "CONTAINER RAIN"</h4>
               <p style="font-size:0.95rem; color:#475569; line-height:1.6; margin:0 0 20px 0; text-align: center;">As external temperatures fluctuate, the natural moisture trapped inside agricultural products evaporates into the hot air inside the container. When night falls, the steel roof gets cold. The humid air hits the cold steel ceiling, condenses into heavy water droplets, and literally "rains" back down onto the cargo, causing catastrophic mold and rot.</p>
               
               <div style="display: flex; gap: 15px; flex-wrap: wrap;">
@@ -2630,17 +2630,17 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The fast-fashion industry (brands like Zara or H&M) relies entirely on speed to market and retail presentation. When clothes are shipped internationally in standard cardboard boxes (flat-pack), they arrive heavily wrinkled. The destination warehouse must unpack, steam iron, and hang every single shirtðŸ’°costing immense time and labor.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">ðŸ‘— THE GOH SOLUTION (Garment on Hanger)</h4>
+              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">\uD83D\uDCCD THE GOH SOLUTION (Garment on Hanger)</h4>
               <p style="font-size:0.95rem; color:#475569; text-align:center; margin:0 0 25px 0; line-height: 1.6;">To eliminate ironing and repacking costs, specialized sea containers are outfitted with internal steel scaffolding. Clothes are hung directly on these bars at the factory in Asia. When the container arrives in New York, workers simply grab the hangers and roll them directly onto the retail store floor.</p>
               
               <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #94A3B8; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">ðŸ‘•</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                   <strong style="color:#3B82F6; display:block; font-size: 1.1rem; margin-bottom: 5px;">The String System</strong>
                   <p style="font-size:0.9rem; color:#64748B; margin: 0; line-height: 1.5;">Multiple knotted nylon strings drop vertically from the main roof bars. Hangers are hooked into the knots. Excellent for maximizing space when shipping lightweight garments like t-shirts, lingerie, and blouses.</p>
                 </div>
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #94A3B8; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">ðŸ§¥</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                   <strong style="color:#8B5CF6; display:block; font-size: 1.1rem; margin-bottom: 5px;">The Bar System</strong>
                   <p style="font-size:0.9rem; color:#64748B; margin: 0; line-height: 1.5;">Solid horizontal metal bars are bolted across the width of the container. Essential for handling extreme weight, such as shipping thousands of heavy winter coats, leather jackets, or denim jeans.</p>
                 </div>
@@ -2659,7 +2659,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>High-Tech cargo (smartphones, microchips, laptops) represents the highest risk of theft in the global supply chain. A single 40-foot container packed with the latest iPhones can be worth tens of millions of dollars on the black market, making it a prime target for organized crime syndicates.</p>
             
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FDA4AF; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.3rem; text-align: center;">ðŸ“Œ HIGH-SECURITY PROTOCOLS</h4>
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD HIGH-SECURITY PROTOCOLS</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; border-left: 4px solid #E11D48;">
@@ -2691,7 +2691,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p><strong>Project Cargo</strong> is the highly specialized, zero-defect transport of massive, complex, and high-value industrial equipment (e.g., oil rig drills, 60-meter wind turbine blades, or entire power plant structures). It is widely considered the most complex and high-stakes form of logistics.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #0F172A; font-size: 1.3rem; margin: 0 0 20px 0;">ðŸ“Œ PROJECT LOGISTICS PLANNING</h4>
+              <h4 style="text-align: center; color: #0F172A; font-size: 1.3rem; margin: 0 0 20px 0;">\uD83D\uDCCD PROJECT LOGISTICS PLANNING</h4>
               <p style="font-size:0.95rem; color:#475569; line-height:1.6; margin: 0 0 20px 0; text-align: center;">Moving a single 60-meter wind turbine blade from a factory in Germany to a mountain top in Chile requires months of intense civil engineering and logistical orchestration. It is not a shipment; it is a project.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -2730,7 +2730,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Sri Lanka to USA trade lane is one of the highest volume and most time-sensitive corridors, heavily dominated by the apparel, textile, and solid tire industries. Fast-fashion brands (like Victoria's Secret, Gap, and Nike) operate on strict seasonal timelines, meaning delays can result in entire collections being rejected by US buyers.</p>
             
             <div style="margin:30px 0; display:flex; flex-direction:column; gap:20px; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0; color:#0F172A; text-align:center; font-size: 1.3rem;">🚢 OCEAN ROUTING & TRANSIT TIMES (COLOMBO TO USA)</h4>
+              <h4 style="margin:0; color:#0F172A; text-align:center; font-size: 1.3rem;">\uD83D\uDCCD OCEAN ROUTING & TRANSIT TIMES (COLOMBO TO USA)</h4>
               
               <div style="display:flex; justify-content:space-between; align-items:center; background:#EFF6FF; border:1px solid #93C5FD; padding:20px; border-radius:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <div>
@@ -2758,7 +2758,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FDA4AF; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">📌 THE ISF 10+2 MANDATE (IMPORTER SECURITY FILING)</h4>
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">\uD83D\uDCCD THE ISF 10+2 MANDATE (IMPORTER SECURITY FILING)</h4>
               <p style="font-size:0.95rem; color:#881337; line-height:1.6; margin:0 0 15px 0;">Post-9/11, U.S. Customs and Border Protection (CBP) enacted strict maritime security laws. The most critical for exporters from Sri Lanka is the <strong>ISF 10+2</strong> rule.</p>
               
               <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#9F1239; line-height:1.7;">
@@ -2778,7 +2778,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>While the Sri Lanka to Canada routes heavily mirror the US trade lanes (often utilizing the same mother vessels across the Pacific or Atlantic), they are subject to Canada's unique geographic challenges, strict winter port operations, and Canada Border Services Agency (CBSA) regulations.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📌 CANADIAN GATEWAY ROUTING & RAIL HUBS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CANADIAN GATEWAY ROUTING & RAIL HUBS</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                 <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #0284C7;">
@@ -2810,7 +2810,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Asia-to-Europe trade lane is one of the highest volume corridors in the world. Sri Lanka is geographically positioned perfectly along this route. Historically, this lane relies entirely on the Suez Canal to avoid the massive, costly, and time-consuming detour around the Cape of Good Hope (tip of Africa).</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📌 THE EUROPEAN LOGISTICS FRAMEWORK</h4>
+              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE EUROPEAN LOGISTICS FRAMEWORK</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #D97706; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
@@ -2840,7 +2840,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Sri Lanka to Australia lane primarily feeds into major coastal cities (Sydney, Melbourne, Brisbane, Fremantle/Perth). Because trade volumes from Colombo to Australia don't justify many direct ships, transit times average 18-25 days, usually relying on massive transshipment operations at the Port of Singapore (PSA) or Port Klang (Malaysia).</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border:2px solid #FCA5A5; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">📌 DAFF BIOSECURITY: THE STRICTEST IN THE WORLD</h4>
+              <h4 style="margin:0 0 15px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD DAFF BIOSECURITY: THE STRICTEST IN THE WORLD</h4>
               <p style="font-size:0.95rem; color:#7F1D1D; line-height:1.6; margin:0 0 20px 0; text-align: center;">Australia (an isolated island continent) enforces ruthless environmental protection laws through the Department of Agriculture, Fisheries and Forestry (DAFF) to prevent invasive pests, weed seeds, and diseases from devastating their unique ecosystem and agricultural industry.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -2871,7 +2871,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The trade lane between Sri Lanka and India is characterized by ultra-short transit times, immense volume, and high-frequency "Feeder" vessel schedules. Because many massive global mother vessels (e.g., from Europe) are too deep to dock at Indian ports, they drop thousands of containers in Colombo, acting as the primary transshipment hub for the entire Indian Subcontinent.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border:2px solid #FDBA74; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#C2410C; text-align: center; font-size: 1.3rem;">📌 THE REGIONAL FEEDER NETWORK</h4>
+              <h4 style="margin:0 0 15px 0; color:#C2410C; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE REGIONAL FEEDER NETWORK</h4>
               <p style="font-size:0.95rem; color:#9A3412; margin:0 0 20px 0; text-align: center; line-height: 1.6;">Smaller, shallow-draft "Feeder" vessels constantly shuttle back and forth between Colombo and various Indian ports, distributing the cargo dropped off by the global mother vessels.</p>
               
               <div style="display:flex; justify-content:space-around; align-items:stretch; flex-wrap:wrap; gap:15px;">
@@ -2903,7 +2903,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Indonesia is an export powerhouse for furniture, footwear, rubber, and electronics heading to the United States. However, due to Indonesia's challenging archipelagic geography and port infrastructure, cargo heavily relies on a complex web of transshipment hubs.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%); border:2px solid #F0ABFC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">📌 THE SOUTHEAST ASIAN TRANSSHIPMENT PIPELINE</h4>
+              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE SOUTHEAST ASIAN TRANSSHIPMENT PIPELINE</h4>
               <p style="font-size:0.95rem; color:#701A75; line-height:1.6; margin:0 0 20px 0; text-align: center;">Very few massive Trans-Pacific vessels call directly at Indonesian ports (like Jakarta or Surabaya) due to draft (water depth) restrictions and port congestion.</p>
               
               <div style="display:flex; flex-direction:column; gap:10px;">
@@ -2943,7 +2943,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Indonesia-to-Europe trade lane primarily exports palm oil, textiles, furniture, and electronics to Northern Europe (Rotterdam, Hamburg, Felixstowe) and Mediterranean ports (Genoa, Barcelona).</p>
             
             <div style="margin:30px 0; background:#F0FDF4; border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#14532D; font-size: 1.3rem; text-align: center;">📌 THE MALACCA STRAIT BOTTLENECK</h4>
+              <h4 style="margin:0 0 15px 0; color:#14532D; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE MALACCA STRAIT BOTTLENECK</h4>
               
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
                 <div style="flex:1; min-width: 250px;">
@@ -2969,7 +2969,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>While Jebel Ali (Dubai) is a massive ocean transshipment hub, much of the cargo bound for neighboring Middle Eastern countries (Saudi Arabia, Oman, Bahrain, Kuwait) moves via extensive and highly efficient Cross-Border Road Freight networks.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📌 GCC TRUCKING CORRIDORS</h4>
+              <h4 style="margin:0 0 15px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD GCC TRUCKING CORRIDORS</h4>
               <p style="margin:0 0 20px 0; font-size:0.95rem; color:#92400E; text-align: center; line-height:1.6;">A standard 18-wheeler (or Curtain-Sider trailer) can reach Riyadh (Saudi Arabia) or Muscat (Oman) from Dubai in under 2-3 days, making it significantly faster and often more cost-effective than ocean feeder vessels.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -3000,7 +3000,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>This is the absolute backbone of Sri Lanka's import economy. Almost all raw materials for the massive Sri Lankan apparel sector (fabric rolls, zippers, buttons), as well as consumer electronics, solar panels, and construction materials, flow exclusively through this lane.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border:2px solid #FCA5A5; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">📌 MAJOR CHINESE HUBS TO COLOMBO</h4>
+              <h4 style="margin:0 0 20px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD MAJOR CHINESE HUBS TO COLOMBO</h4>
               
               <table style="width:100%; border-collapse:collapse; font-size:0.95rem; text-align:left; background:#FFF; border-radius:12px; overflow:hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <tr style="background:#EF4444; color: white;">
@@ -3041,18 +3041,18 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The India-UAE corridor is one of the fastest, highest volume, and most lucrative trade lanes globally, driven by massive expatriate populations, food security needs, and recent geopolitical free trade agreements.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#14532D; text-align: center; font-size: 1.3rem;">📌 THE CEPA ADVANTAGE</h4>
+              <h4 style="margin:0 0 15px 0; color:#14532D; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE CEPA ADVANTAGE</h4>
               <p style="font-size:0.95rem; color:#166534; line-height:1.6; margin:0 0 20px 0; text-align: center;">The <strong>Comprehensive Economic Partnership Agreement (CEPA)</strong> signed between India and the UAE eliminated customs duties on nearly 80% of goods traded between the two countries.</p>
               
               <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #4ADE80; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">📦</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Ultra-Fast Ocean Transit</strong>
                   <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">Vessels departing from West Coast Indian ports (Nhava Sheva, Mundra) can arrive directly into Jebel Ali (Dubai) with incredibly fast transit times of <strong>4-7 Days</strong>. It is almost as fast as air freight but at a fraction of the cost.</p>
                 </div>
                 
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #4ADE80; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">✈️</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Primary Commodities</strong>
                   <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">This lane is dominated by agricultural exports (rice, spices, fresh produce) ensuring food security for the UAE, alongside massive volumes of textiles, jewelry, and machinery.</p>
                 </div>
@@ -3077,7 +3077,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Exporting cargo involves highly synchronized steps between the shipper, forwarder, customs broker, and ocean carrier. A failure at any single point in this pipeline can cause the cargo to miss the vessel—a disastrous event known as a <strong>Roll-Over</strong>.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">📌 END-TO-END EXPORT STANDARD OPERATING PROCEDURE</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">\uD83D\uDCCD END-TO-END EXPORT STANDARD OPERATING PROCEDURE</h4>
               
               <div style="position: relative; padding-left: 40px;">
                 <!-- Vertical Line -->
@@ -3126,7 +3126,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Import operations revolve around an extreme sense of urgency. The primary goal is to release the cargo from the port jurisdiction as quickly as possible to avoid devastating Demurrage and Detention (D&D) penalties, which can quickly wipe out the entire profit margin of the goods.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FDF4FF 0%, #F5D0FE 100%); border:2px solid #F0ABFC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">📌 THE INBOUND RELEASE SEQUENCE</h4>
+              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE INBOUND RELEASE SEQUENCE</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px;">
                 <div style="background: #FFF; padding: 15px; border-radius: 10px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -3160,7 +3160,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Unlike ocean freight, air freight moves in hours, not days. The standard operating procedure at an airport terminal is a high-speed environment built entirely around two non-negotiable pillars: <strong>Security</strong> and <strong>Weight Audits</strong>.</p>
             
             <div style="margin:30px 0; background:#F0F9FF; border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📌 TERMINAL HANDLING STEPS (EXPORT)</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD TERMINAL HANDLING STEPS (EXPORT)</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <div style="display:flex; align-items:center; background:#FFF; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
@@ -3199,7 +3199,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Ocean Freight process is entirely dictated by strict carrier cutoff deadlines. These are hard stops—if you miss a cutoff by even 5 minutes, your container will not be loaded onto the ship, and you will wait another week for the next vessel, incurring port storage charges in the meantime.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">⏳ THE THREE GOLDEN CUT-OFFS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE THREE GOLDEN CUT-OFFS</h4>
               
               <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">
                 <div style="flex:1; min-width:250px; background:#FFF; border-top:5px solid #1D4ED8; padding:20px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05); text-align:center;">
@@ -3231,7 +3231,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Cargo doesn't move on ships; it moves on paper. The documentation flow runs parallel to the physical cargo flow. A delay in the document pipeline can cause the physical cargo to be held hostage at the destination port, racking up thousands of dollars in Demurrage penalties.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📑 THE DOCUMENT PIPELINE</h4>
+              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE DOCUMENT PIPELINE</h4>
               
               <div style="display:flex; flex-direction:column; gap:12px;">
                 <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:center;">
@@ -3286,7 +3286,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>While the forwarder sits at a desk managing data and tracking milestones, the actual physical cargo is handed off multiple times between different heavy-machinery operators across the globe. Each handoff is a liability transfer point.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📌 CHAIN OF CUSTODY & LIABILITY</h4>
+              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CHAIN OF CUSTODY & LIABILITY</h4>
               <p style="font-size:0.95rem; color:#475569; line-height:1.6; margin:0 0 20px 0; text-align: center;">Whenever cargo physically changes hands, an <strong>Equipment Interchange Receipt (EIR)</strong> is signed. If the cargo is damaged, the last party to sign a "clean" EIR (without noting the damage) is held legally liable for the insurance claim.</p>
               
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; position: relative;">
@@ -3332,7 +3332,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Sales SOP (Standard Operating Procedure) dictates how quickly, accurately, and profitably a forwarder can respond to a customer's Request for Quotation (RFQ). A bad quote can result in massive financial losses for the forwarder.</p>
             
             <div style="margin:30px 0; background:#FFF1F2; border:2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">📌 THE QUOTATION PROCESS</h4>
+              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE QUOTATION PROCESS</h4>
               
               <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
                 <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
@@ -3365,7 +3365,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>This is the high-level operational milestone checklist used by forwarders globally to ensure a shipment is moving without delays and data is transmitted accurately to all parties.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📅 END-TO-END MILESTONE CHECKLIST</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD END-TO-END MILESTONE CHECKLIST</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
@@ -3412,7 +3412,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>When cargo arrives damaged (water damage, crushed cartons, temperature spikes in reefers), or is completely lost at sea, the consignee must act immediately to protect their legal right to file a claim against the carrier or their marine insurance provider.</p>
             
             <div style="margin:30px 0; background:#FFF1F2; border:2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">📌 CLAIMS & ESCALATION PROTOCOL</h4>
+              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CLAIMS & ESCALATION PROTOCOL</h4>
               
               <div style="display:flex; flex-direction:column; gap:12px;">
                 <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
@@ -3446,7 +3446,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>In modern logistics, information visibility is just as important as the physical movement of the cargo. Shippers demand to know exactly where their million-dollar inventories are at all times to plan their manufacturing or retail schedules.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📌 TRACKING TECHNOLOGIES</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD TRACKING TECHNOLOGIES</h4>
               
               <div style="display:flex; flex-wrap:wrap; gap:15px;">
                 <div style="flex:1; min-width:250px; background:#FFF; border-top:4px solid #0EA5E9; padding:20px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
@@ -3482,7 +3482,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>A comprehensive, quick-reference dictionary for the most critical supply chain terminology used by global forwarders. Understanding this vocabulary is the first step to mastering international trade.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📌 GENERAL SHIPPING GLOSSARY</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD GENERAL SHIPPING GLOSSARY</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 
@@ -3529,7 +3529,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Air cargo has its own distinct, high-speed vocabulary driven by IATA (International Air Transport Association) regulations. Every hour counts, so the terminology is precise and standardized globally.</p>
             
             <div style="margin:30px 0; background:#F0F9FF; border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📌 AVIATION CARGO GLOSSARY</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD AVIATION CARGO GLOSSARY</h4>
               
               <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:15px;">
                 
@@ -3571,7 +3571,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Maritime shipping operations deal with massive volumes, immense weight, and strict port regulations. Understanding these terms is crucial to avoiding thousands of dollars in port penalties.</p>
             
             <div style="margin:30px 0; background:#EFF6FF; border:2px solid #93C5FD; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#1E3A8A; text-align: center; font-size: 1.3rem;">🚢 MARITIME & PORT GLOSSARY</h4>
+              <h4 style="margin:0 0 20px 0; color:#1E3A8A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD MARITIME & PORT GLOSSARY</h4>
               
               <div style="display:flex; flex-direction:column; gap:12px;">
                 <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #2563EB; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:flex-start;">
@@ -3626,7 +3626,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Customs authorities operate as the ultimate gatekeepers of international borders. Their terminology focuses entirely on revenue collection (taxes) and border security.</p>
             
             <div style="margin:30px 0; background:#F0FDF4; border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#14532D; text-align: center; font-size: 1.3rem;">🛂 CUSTOMS & BORDER GLOSSARY</h4>
+              <h4 style="margin:0 0 20px 0; color:#14532D; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CUSTOMS & BORDER GLOSSARY</h4>
               
               <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:15px;">
                 <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #16A34A; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
@@ -3661,7 +3661,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Incoterms® (International Commercial Terms) are published by the ICC. They are universally recognized three-letter acronyms that legally dictate exactly who pays for what part of the freight journey, and precisely where the risk of loss transfers from the seller to the buyer.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">🤝 THE 4 CRITICAL INCOTERMS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE 4 CRITICAL INCOTERMS</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 
@@ -3723,7 +3723,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Standard ocean freight equipment dimensions and their maximum physical payloads. <em>Note: While a container can physically hold 28 tons, local road weight limits in the destination country often restrict the legal weight to much less (e.g., US road limits are often 19.9 tons for a 20').</em></p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">🚢 OCEAN CONTAINER CAPACITIES</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD OCEAN CONTAINER CAPACITIES</h4>
               
               <div style="overflow-x:auto;">
                 <table style="width:100%; border-collapse:collapse; font-size:0.9rem; text-align:left; background:#FFF; border-radius:12px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
@@ -3776,7 +3776,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>A single missing document can halt a million-dollar supply chain, resulting in customs holds and massive terminal storage fees. Here is the mandatory "Clearance Pack" checklist required for almost every international shipment.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📌 THE CLEARANCE PACK</h4>
+              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE CLEARANCE PACK</h4>
               
               <div style="display:flex; flex-wrap:wrap; gap:15px; margin-bottom:20px;">
                 <div style="flex:1; min-width:250px; background:#FFF; border-left:5px solid #F59E0B; padding:20px; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
@@ -3876,7 +3876,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Carriers do not price shipments purely on physical weight; they price them based on the space the cargo takes up inside their plane or ship. Every forwarder must memorize these exact conversion formulas to calculate the final "Chargeable Weight."</p>
             
             <div style="margin:30px 0; background:#F0F9FF; border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">⚖️ CHARGEABLE WEIGHT FORMULAS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CHARGEABLE WEIGHT FORMULAS</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border-left:5px solid #0EA5E9; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
