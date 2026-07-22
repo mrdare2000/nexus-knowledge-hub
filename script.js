@@ -139,12 +139,16 @@ window.onerror = function(message, source, lineno, colno, error) {
    3. LEARNING HUB & ADAPTIVE MODALS
    ========================================== */
 function getKBData() {
-  if (typeof NEXUS_KNOWLEDGE_BASE !== "undefined" && NEXUS_KNOWLEDGE_BASE && NEXUS_KNOWLEDGE_BASE.categories) {
-    return NEXUS_KNOWLEDGE_BASE;
-  }
-  if (typeof window !== "undefined" && window.NEXUS_KNOWLEDGE_BASE && window.NEXUS_KNOWLEDGE_BASE.categories) {
-    return window.NEXUS_KNOWLEDGE_BASE;
-  }
+  try {
+    if (typeof window !== "undefined" && window.NEXUS_KNOWLEDGE_BASE && window.NEXUS_KNOWLEDGE_BASE.categories) {
+      return window.NEXUS_KNOWLEDGE_BASE;
+    }
+  } catch (e) {}
+  try {
+    if (typeof NEXUS_KNOWLEDGE_BASE !== "undefined" && NEXUS_KNOWLEDGE_BASE && NEXUS_KNOWLEDGE_BASE.categories) {
+      return NEXUS_KNOWLEDGE_BASE;
+    }
+  } catch (e) {}
   return null;
 }
 
