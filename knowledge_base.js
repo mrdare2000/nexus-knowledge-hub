@@ -2408,8 +2408,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <div style="display:flex; flex-wrap:wrap; gap:20px;">
                 <!-- ACTIVE COOLING -->
                 <div style="flex:1; min-width:280px; background:#F0F9FF; border: 2px solid #7DD3FC; padding:25px; border-radius:16px; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                  <div style="position: absolute; top: -15px; right: -15px; font-size: 6rem; opacity: 0.1;">\u2744\uFE0F</div>
-                  <h4 style="margin:0 0 15px 0; color:#0284C7; font-size: 1.3rem;">Active Cooling (Reefers)</h4>
+                  <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;"><span style="font-size:2rem;">\u2744\uFE0F</span><h4 style="margin:0; color:#0284C7; font-size:1.3rem;">Active Cooling (Reefers)</h4></div>
+
                   <p style="font-size:0.95rem; color:#0C4A6E; margin:0 0 15px 0; line-height: 1.6;">Active cooling systems rely on mechanical refrigeration units that require a constant power supply to generate cold air.</p>
                   <ul style="margin:0; padding-left:20px; color:#0369A1; font-size:0.9rem; line-height:1.7;">
                     <li><strong>Ocean Reefers:</strong> Specialized shipping containers with built-in AC units. They must be plugged into the ship's massive electrical grid during the voyage.</li>
@@ -2420,8 +2420,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 
                 <!-- PASSIVE COOLING -->
                 <div style="flex:1; min-width:280px; background:#FDF4FF; border: 2px solid #F0ABFC; padding:25px; border-radius:16px; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                  <div style="position: absolute; top: -15px; right: -15px; font-size: 6rem; opacity: 0.1;">\u2744\uFE0F</div>
-                  <h4 style="margin:0 0 15px 0; color:#A21CAF; font-size: 1.3rem;">Passive Cooling (Envirotainers)</h4>
+                  <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;"><span style="font-size:2rem;">\uD83E\uDDCA</span><h4 style="margin:0; color:#A21CAF; font-size:1.3rem;">Passive Cooling (Envirotainers)</h4></div>
+
                   <p style="font-size:0.95rem; color:#4A044E; margin:0 0 15px 0; line-height: 1.6;">Passive systems do not generate cold air; they trap it. They rely on heavy insulation and internal cooling materials. No power required.</p>
                   <ul style="margin:0; padding-left:20px; color:#86198F; font-size:0.9rem; line-height:1.7;">
                     <li><strong>Coolants:</strong> Packed with Dry Ice (frozen carbon dioxide) or advanced Phase-Change Material (PCM) gel packs.</li>
