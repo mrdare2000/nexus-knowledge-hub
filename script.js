@@ -106,7 +106,20 @@ function switchPage(pageId) {
 
   // Scroll to top after layout has been updated
   setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
+
+  // Close mobile navigation menu if active
+  const mainNav = document.querySelector("header nav");
+  const mobileBtn = document.getElementById("mobile-menu-btn");
+  if (mainNav) mainNav.classList.remove("active");
+  if (mobileBtn) mobileBtn.classList.remove("active");
 }
+
+window.toggleMobileMenu = function() {
+  const mainNav = document.querySelector("header nav");
+  const mobileBtn = document.getElementById("mobile-menu-btn");
+  if (mainNav) mainNav.classList.toggle("active");
+  if (mobileBtn) mobileBtn.classList.toggle("active");
+};
 
 // Global visual panel switch helper
 window.toggleToolPanel = function(panelId) {
@@ -237,20 +250,17 @@ function openSubtopicModal(categoryId, subtopicId) {
       `;
   }
   
-  // Custom headers based on subtopic styling tags
-  if (subtopic.layoutType === "infographic") {
-    bodyHTML += `<div style="background: linear-gradient(135deg, rgba(255, 90, 31, 0.05) 0%, rgba(10, 37, 64, 0.05) 100%); padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(255,90,31,0.15);">
-      <span style="font-weight: 700; color: var(--accent-orange);">📊 Interactive Visual Insight:</span> Details, schematics, and metrics are compiled below.
-    </div>`;
-  }
-  
   // Show specialized launcher if connected to an interactive tool
   if (subtopic.linkToWidget) {
-    let widgetName = "Interactive Simulator";
+    let widgetName = "Interactive Tool";
     if (subtopic.linkToWidget === "incoterms") widgetName = "Interactive Incoterms Matrix";
-    if (subtopic.linkToWidget === "containers") widgetName = "Container Volumetric Calculator";
-    if (subtopic.linkToWidget === "aircraft") widgetName = "Freighter Hotspots Inspector";
-    if (subtopic.linkToWidget === "logistics") widgetName = "Logistics Models Guide";
+    else if (subtopic.linkToWidget === "containers") widgetName = "Container Volumetric & CBM Calculator";
+    else if (subtopic.linkToWidget === "aircraft") widgetName = "Air Freight Aircraft & ULD Inspector";
+    else if (subtopic.linkToWidget === "logistics") widgetName = "1PL-5PL Logistics Models Explorer";
+    else if (subtopic.linkToWidget === "docs") widgetName = "Shipping Documentation Workflow Checklist";
+    else if (subtopic.linkToWidget === "dg") widgetName = "Dangerous Goods (HAZMAT) Class Inspector";
+    else if (subtopic.linkToWidget === "reefer") widgetName = "Cold Chain & Reefer Container Specs";
+    else if (subtopic.linkToWidget === "hs") widgetName = "HS Code Classifier & Tariff Lookup";
     
     bodyHTML += `
       <div style="margin-bottom: 25px; padding: 16px; border: 1px solid var(--border-color); border-radius: 14px; background-color: var(--bg-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
@@ -323,43 +333,28 @@ function revealModalVideo(btn, videoUrl) {
 }
 
 function openImageModal(imageSrc, imageTitle) {
-  const modalOverlay = document.getElementById("modal-overlay");
-  const modalTitle = document.getElementById("modal-title");
-  const modalTag = document.getElementById("modal-category-tag");
-  const modalBody = document.getElementById("modal-body");
+  const lightboxModal = document.getElementById("image-lightbox-modal");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxTitle = document.getElementById("lightbox-image-title");
+  const lightboxDownload = document.getElementById("lightbox-download-btn");
   
-  modalTitle.textContent = imageTitle;
-  modalTag.textContent = "Featured Infographic";
-  
-  let bodyHTML = `
-    <div style="text-align: center; margin-bottom: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-      <a href="${imageSrc}" download="${imageTitle.replace(/\s+/g, '_')}.jpg" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.92rem; padding: 12px 30px; text-decoration: none; box-shadow: var(--shadow-orange-glow); border-radius: 50px; font-family: var(--font-title); font-weight: 700; color: #fff;">
-        📥 Download
-      </a>
-      <a href="${imageSrc}" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.92rem; padding: 12px 30px; text-decoration: none; border-radius: 50px; font-family: var(--font-title); font-weight: 700; color: var(--primary-color); border: 2px solid var(--primary-color); background: #fff;">
-        🔍 View Full Size
-      </a>
-    </div>
-    <div class="lightbox-image-container" style="width: 100%; border-radius: 12px; overflow-y: auto; overflow-x: auto; max-height: 70vh; border: 1.5px solid var(--border-color); background-color: #f8fafc; text-align: center; padding: 10px;">
-      <img src="${imageSrc}" alt="${imageTitle}" style="max-width: 100%; height: auto; display: inline-block; border-radius: 6px; box-shadow: var(--shadow-sm);">
-    </div>
-  `;
-  
-  modalBody.innerHTML = bodyHTML;
-  modalOverlay.classList.add("active");
-  document.body.style.overflow = "hidden"; // Disable scroll
-  
-  const closeBtn = document.getElementById("modal-close");
-  const closeModal = () => {
-    modalOverlay.classList.remove("active");
-    modalBody.innerHTML = "";
-    document.body.style.overflow = "";
-  };
-  
-  closeBtn.onclick = closeModal;
-  modalOverlay.onclick = (e) => {
-    if (e.target === modalOverlay) closeModal();
-  };
+  if (lightboxModal && lightboxImg && lightboxTitle && lightboxDownload) {
+    lightboxImg.src = imageSrc;
+    lightboxImg.alt = imageTitle || "Subtopic Image";
+    lightboxTitle.textContent = imageTitle || "Image View";
+    lightboxDownload.href = imageSrc;
+    lightboxDownload.download = (imageTitle || "image").replace(/\s+/g, '_') + '.jpg';
+    
+    lightboxModal.classList.add("active");
+  }
+}
+
+function closeImageLightbox(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const lightboxModal = document.getElementById("image-lightbox-modal");
+  if (lightboxModal) {
+    lightboxModal.classList.remove("active");
+  }
 }
 
 
@@ -1928,19 +1923,42 @@ function renderNews(allArticles) {
   }
 }
 
+const fallbackNewsImages = [
+  'images/bg_ocean_freight.jpg',
+  'images/ocean_vs_air_freight.png',
+  'images/container_knowledge.jpg',
+  'images/cargo_aircraft.jpg',
+  'images/what_is_freight_forwarding.png'
+];
+
+function extractImageFromHTML(htmlContent) {
+  if (!htmlContent) return null;
+  const match = htmlContent.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return match ? match[1] : null;
+}
+
 function generateNewsHTML(articles) {
   let html = '';
-  articles.forEach(article => {
-    const defaultImg = 'images/bg_ocean_freight.jpg';
-    const imgUrl = article.thumbnail || article.enclosure?.link || defaultImg;
+  articles.forEach((article, index) => {
+    let imgUrl = article.thumbnail || article.enclosure?.link;
+    if (!imgUrl || imgUrl.trim() === "") {
+      imgUrl = extractImageFromHTML(article.description) || extractImageFromHTML(article.content);
+    }
+    const defaultImg = fallbackNewsImages[index % fallbackNewsImages.length];
+    if (!imgUrl || imgUrl.trim() === "") {
+      imgUrl = defaultImg;
+    }
+
     const pubDate = new Date(article.pubDate);
-    const dateString = pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const dateString = isNaN(pubDate.getTime()) ? '' : pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     const rawDesc = article.description || '';
     const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, "");
 
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
-        <div class="news-card-image" style="background-image: url('${imgUrl}');"></div>
+        <div class="news-card-image">
+          <img src="${imgUrl}" alt="${article.title}" onerror="this.onerror=null; this.src='${defaultImg}';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
         <div class="news-card-content">
           <span class="news-date">${dateString}</span>
           <h3 class="news-title">${article.title}</h3>

@@ -199,7 +199,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>5. ISO Tank Container</h3>
             <p>A cylindrical steel tank mounted within a standard 20ft container frame. Designed for bulk transport of food-grade liquids, spirits, gases, and dangerous chemicals.</p>
           `,
-          youtube: "https://www.youtube.com/embed/t-6Qx4_4G7k"
+          youtube: "https://www.youtube.com/embed/t-6Qx4_4G7k",
+          linkToWidget: "containers"
         },
         {
           id: "container-sizes-specifications",
@@ -457,7 +458,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </tbody>
             </table>
           `,
-          youtube: "https://www.youtube.com/embed/1Bv1YyL71pE"
+          youtube: "https://www.youtube.com/embed/1Bv1YyL71pE",
+          linkToWidget: "aircraft"
         },
         {
           id: "inside-cargo-aircraft",
@@ -624,7 +626,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </tbody>
             </table>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y",
+          linkToWidget: "aircraft"
         },
         {
           id: "direct-consolidated-deferred-air",
@@ -693,7 +696,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Class 2: Gases:</strong> Aerosols, compressed cylinders. Cabin pressure drop risks make these highly sensitive.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y",
+          linkToWidget: "dg"
         }
       ]
     },
@@ -1106,7 +1110,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Overpaying Duties:</strong> Importers often accept generic HS codes from their suppliers. If a more specific code exists for your exact product that has a lower tariff rate, you are losing money on every shipment. Always consult a licensed customs broker to index your products.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/eS10pXlTszs"
+          youtube: "https://www.youtube.com/embed/eS10pXlTszs",
+          linkToWidget: "hs"
         },
         {
           id: "duties-taxes-vat-gst",
@@ -1138,7 +1143,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Understanding Tax Exemptions:</h3>
             <p>VAT (Value Added Tax) is often recoverable if the importer is a registered business. However, Import Duties are a sunk cost that directly eats into profit margins, unless you utilize Free Trade Agreements or bonded warehousing.</p>
           `,
-          youtube: "https://www.youtube.com/embed/YI4X2Xj4c68"
+          youtube: "https://www.youtube.com/embed/YI4X2Xj4c68",
+          linkToWidget: "hs"
         },
         {
           id: "certificates-of-origin",
@@ -1353,7 +1359,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.9rem; color:#4C1D95;">Under SOLAS regulations implemented by the Merchant Shipping Secretariat in Sri Lanka, the Verified Gross Mass (VGM) must be declared. The Gross Weight stated on the Packing List MUST exactly match the Gross Weight printed on the Bill of Lading, Commercial Invoice, and the Customs Entry (CusDec). A discrepancy will cause customs to freeze the shipment, and the terminal will not load the container onto the vessel.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0",
+          linkToWidget: "docs"
         },
         {
           id: "bill-of-lading",
@@ -1395,7 +1402,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>House B/L (HBL):</strong> Issued by the local Freight Forwarder (NVOCC) to the actual factory/importer.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/5tXJp0T_zT0"
+          youtube: "https://www.youtube.com/embed/5tXJp0T_zT0",
+          linkToWidget: "docs"
         },
         {
           id: "air-waybill",
@@ -1420,7 +1428,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Why is it Non-Negotiable?</h3>
             <p>Because airplanes travel so fast (e.g., a flight from Colombo to Dubai takes only 4.5 hours), there is no time to wait for courier services to mail original paper documents to banks or buyers. Since the AWB is non-negotiable, the airline terminal will release the cargo to the named consignee immediately upon arrival and identification. This aligns perfectly with the rapid, just-in-time nature of air freight exports like fresh tuna or high-fashion garments from Sri Lanka.</p>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y",
+          linkToWidget: "docs"
         },
         {
           id: "certificate-of-origin-doc",
@@ -2392,7 +2401,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Specialized Handling and Packaging</h3>
             <p>Handling perishables requires highly specialized infrastructure. Warehouses must have distinct temperature zones (e.g., a 2Â°C to 8Â°C room for vaccines, and a -20Â°C room for frozen meats). Furthermore, packaging is crucial. Exporters use heavily insulated styrofoam boxes, layered with specialized gel packs or dry ice, and sealed meticulously to maintain the micro-climate inside the box for up to 72 hours of transit time.</p>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w"
+          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w",
+          linkToWidget: "reefer"
         },
         {
           id: "temperature-controlled-cargo",
@@ -2437,7 +2447,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.95rem; color:#475569; line-height: 1.6;">How does the buyer know the shipping line didn't unplug the container to save fuel? High-value shipments always contain USB or GPS-enabled temperature data loggers hidden inside the boxes. Upon arrival, the consignee downloads the data to prove the temperature never spiked. If the graph shows a spike, the consignee rejects the cargo and files a massive insurance claim against the carrier.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w"
+          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w",
+          linkToWidget: "reefer"
         },
         {
           id: "dangerous-goods",
@@ -3811,7 +3822,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0",
+          linkToWidget: "docs"
         },
         {
           id: "common-abbreviations-ref",

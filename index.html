@@ -19,6 +19,9 @@
         style="height: 38px; width: auto; object-fit: contain;">
     </div>
 
+    <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
+      <span class="hamburger-icon">☰</span>
+    </button>
 
     <nav>
       <a class="nav-link active" data-page="home">Home</a>
@@ -987,6 +990,24 @@
       </div>
       <div class="modal-body" id="modal-body">
         <!-- Inside content dynamically built -->
+      </div>
+    </div>
+  </div>
+
+  <!-- DEDICATED FULLSCREEN IMAGE LIGHTBOX MODAL -->
+  <div class="image-lightbox-overlay" id="image-lightbox-modal" onclick="closeImageLightbox(event)">
+    <div class="image-lightbox-container" onclick="event.stopPropagation()">
+      <div class="image-lightbox-header">
+        <button class="lightbox-btn lightbox-back-btn" onclick="closeImageLightbox()" aria-label="Back to subtopic">
+          &larr; Back
+        </button>
+        <span id="lightbox-image-title" class="lightbox-title">Image View</span>
+        <a id="lightbox-download-btn" href="#" download class="lightbox-btn lightbox-download-btn">
+          📥 Download Image
+        </a>
+      </div>
+      <div class="image-lightbox-body">
+        <img id="lightbox-img" src="" alt="Subtopic Image">
       </div>
     </div>
   </div>
