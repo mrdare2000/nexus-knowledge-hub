@@ -1378,54 +1378,33 @@ function getLocalConversationalResponse(query) {
     return SHIPPING_BOT_ANSWERS.help;
   }
   
-  // 5. Intelligent Knowledge Base Deep Search Engine with Stop-Words Filtering
-  const kbData = getKBData();
-  if (kbData && kbData.categories) {
-    const STOP_WORDS = new Set([
-      "give", "me", "the", "of", "and", "a", "an", "in", "on", "at", "to", "for", "with", "is", "are", "was",
-      "were", "be", "been", "being", "have", "has", "had", "do", "does", "did", "can", "could", "should",
-      "would", "will", "shall", "may", "might", "must", "about", "details", "detail", "info", "information",
-      "tell", "show", "explain", "what", "which", "who", "whom", "this", "that", "these", "those", "how",
-      "why", "where", "when", "please", "want", "know", "need", "like", "get", "cargo", "freight", "shipping"
-    ]);
+  // 5. Standalone Conversational Freight AI Engine (Trade Lanes, Routes, Customs, Regulations)
+  if ((q.includes("china") || q.includes("asia")) && (q.includes("usa") || q.includes("america") || q.includes("us") || q.includes("transpacific"))) {
+    return `### 🌐 Transpacific Shipping Corridor (China & Asia to USA)\n\nThe Transpacific container shipping lane is the highest-volume maritime trade corridor in the world:\n\n1. **US West Coast (USWC)**:\n   - **Primary Ports**: Los Angeles (LA), Long Beach (LB), Oakland, Seattle/Tacoma.\n   - **Transit Time**: 12 to 16 days direct ocean transit from Shanghai/Ningbo/Shenzhen.\n\n2. **US East Coast (USEC)**:\n   - **Primary Ports**: New York / New Jersey, Savannah, Charleston, Norfolk (routed via the Panama Canal).\n   - **Transit Time**: 24 to 32 days ocean transit.\n\n3. **Intermodal Landbridge (MLB / IPI)**:\n   - Cargo Discharges at USWC ports and moves by rail (BNSF / Union Pacific) to inland hubs like Chicago, Dallas, Memphis, and Atlanta.\n\n4. **Key Customs Compliance Requirements**:\n   - **ISF 10+2 Filing**: Must be filed with US Customs (CBP) at least 24 hours BEFORE cargo is loaded on the ship at origin.\n   - **Section 301 Tariffs**: Import tariffs applicable to Chinese-origin goods.\n   - **AMS (Automated Manifest System)**: Transmitted by carriers before vessel departure.`;
+  }
 
-    const searchTerms = q
-      .replace(/[^\w\s]/gi, '')
-      .split(/\s+/)
-      .map(w => w.toLowerCase())
-      .filter(w => w.length > 2 && !STOP_WORDS.has(w));
-    
-    if (searchTerms.length > 0) {
-      let bestSubtopic = null;
-      let maxMatches = 0;
-      
-      kbData.categories.forEach(cat => {
-        cat.subtopics.forEach(sub => {
-          let score = 0;
-          const textToSearch = (sub.title + " " + sub.summary + " " + (sub.content || "")).toLowerCase();
-          searchTerms.forEach(term => {
-            if (textToSearch.includes(term)) score += 2;
-            if (sub.title.toLowerCase().includes(term)) score += 5;
-          });
-          if (score > maxMatches) {
-            maxMatches = score;
-            bestSubtopic = { sub, catTitle: cat.title };
-          }
-        });
-      });
-      
-      if (bestSubtopic && maxMatches >= 2) {
-        // Strip HTML tags for clean text presentation in chat
-        let cleanContent = bestSubtopic.sub.content ? bestSubtopic.sub.content.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : '';
-        if (cleanContent.length > 450) cleanContent = cleanContent.substring(0, 450) + '...';
-        
-        return `### 📦 ${bestSubtopic.sub.title}\n*Category: ${bestSubtopic.catTitle}*\n\n${bestSubtopic.sub.summary}\n\n${cleanContent}\n\n💡 *Ask me specific follow-up questions about ${bestSubtopic.sub.title} or related shipping procedures!*`;
-      }
-    }
+  if ((q.includes("china") || q.includes("asia")) && (q.includes("europe") || q.includes("uk") || q.includes("eu") || q.includes("suez"))) {
+    return `### 🇪🇺 Far East to Europe Trade Lane (FEWB)\n\nThe Asia-Europe trade lane connects East Asian manufacturing hubs to European consumer markets:\n\n1. **Key Routing & Transit Times**:\n   - **Via Suez Canal**: 25-30 days to Northern Europe (Rotterdam, Hamburg, Antwerp, Felixstowe) and Mediterranean (Valencia, Piraeus).\n   - **Via Cape of Good Hope (Red Sea Bypass)**: Adds ~10-14 days due to rerouting around Southern Africa.\n\n2. **Major Alliances**: Ocean Alliance, 2M, Premier Alliance.\n\n3. **Customs & Rules**: ICS2 (Import Control System 2) pre-arrival security declarations, EORI number requirement, and EU Customs Duties.`;
+  }
+
+  if (q.includes("trade lane") || q.includes("shipping lane") || q.includes("corridor") || q.includes("route")) {
+    return `### 🌐 Major Global Trade Lanes\n\n1. **Transpacific (Asia - North America)**: Largest volume lane connecting China/SE Asia to US West/East Coasts.\n2. **Asia - Europe (FEWB)**: Major consumer goods route passing through the Strait of Malacca, Red Sea/Suez, and Mediterranean.\n3. **Transatlantic (Europe - North America)**: Connects Northern Europe to US East Coast (NY/NJ, Savannah).\n4. **Intra-Asia**: Fastest growing trade corridor connecting China, Vietnam, Thailand, Malaysia, Singapore, India, and Sri Lanka.`;
+  }
+
+  if (q.includes("free trade") || q.includes("fta") || q.includes("tariff") || q.includes("duty free")) {
+    return `### 📜 Free Trade Agreements (FTAs) & Tariff Preferences\n\nFree Trade Agreements reduce or eliminate customs import tariffs between member nations:\n\n1. **Rules of Origin**: Products must qualify as "originating goods" under specific Regional Value Content (RVC) or Change in Tariff Classification (CTC) rules.\n2. **Proof of Origin**: Exporters must obtain official Certificates of Origin (e.g., Form A, Form E, EUR.1, or RCEP Certificate).\n3. **Major Global FTAs**: RCEP (Asia-Pacific), USMCA (US-Mexico-Canada), CPTPP, EU-Singapore FTA, SAFTA (South Asia).`;
+  }
+
+  if (q.includes("bill of lading") || q.includes("bl") || q.includes("hawb") || q.includes("mawb") || q.includes("lading")) {
+    return `### 📄 Bill of Lading (B/L) & Air Waybill (AWB) Guide\n\n1. **Ocean Bill of Lading (B/L)**:\n   - **Master B/L (MBL)**: Issued by the ocean shipping line to the freight forwarder.\n   - **House B/L (HBL)**: Issued by the freight forwarder to the actual shipper/consignee.\n   - **Document Types**: Negotiable Original B/L (requires 3 originals surrendered), Express Release / Sea Waybill (no physical originals needed), Telex Release.\n\n2. **Air Waybill (AWB)**:\n   - **MAWB**: Issued by the airline.\n   - **HAWB**: Issued by the forwarder.\n   - *Note: AWBs are strictly non-negotiable transport contracts (never document of title).*`;
+  }
+
+  if (q.includes("history") || q.includes("mclean") || q.includes("containerization")) {
+    return `### 📜 History of Global Freight & Containerization\n\nMaritime shipping history was revolutionized in 1956 when **Malcolm McLean** invented the standardized intermodal shipping container.\n\n- **Pre-1956 Breakbulk**: Loading cargo box-by-box cost $5.86 per ton and took days.\n- **Intermodal Container**: Reduced loading costs to **$0.16 per ton**, allowing seamless transfer between ships, trains, and trucks, paving the way for modern globalized supply chains.`;
   }
 
   // Default articulate freight advisor response
-  return `### 🌐 Nexus Cargo Intelligence Advisor\n\nI am specialized in global freight forwarding, supply chain planning, and customs compliance.\n\nYou can ask me about:\n- **Incoterms 2020 / 2026**: FOB, CIF, EXW, DDP, DAP responsibilities.\n- **Cargo Calculations**: CBM volume, Air Volumetric Weight (1:6000), Chargeable Weight.\n- **International Airports & Seaports**: Major hubs in Japan, Singapore, Dubai, Europe, US, Sri Lanka.\n- **Container Specs**: 20ft, 40ft, 40ft High Cube, Reefer, Open Top, Flat Racks.\n- **Customs & Documentation**: Bill of Lading, Air Waybill, CUSDEC, HS Codes, Dangerous Goods (UN 1-9).\n\n*How can I assist your specific shipment today?*`;
+  return `### 🌐 Nexus Cargo Intelligence Advisor\n\nI am specialized in global freight forwarding, supply chain planning, and customs compliance.\n\nYou can ask me about:\n- **Global Trade Lanes**: China to USA, Asia to Europe, Intra-Asia, Transatlantic routes.\n- **Incoterms 2020 / 2026**: FOB, CIF, EXW, DDP, DAP responsibilities.\n- **Cargo Calculations**: CBM volume, Air Volumetric Weight (1:6000), Chargeable Weight.\n- **International Airports & Seaports**: Major hubs in Japan, Singapore, Dubai, Europe, US, Sri Lanka.\n- **Container Specs**: 20ft, 40ft, 40ft High Cube, Reefer, Open Top, Flat Racks.\n- **Customs & Documentation**: Bill of Lading, Air Waybill, CUSDEC, HS Codes, Dangerous Goods (UN 1-9).\n\n*How can I assist your specific shipment today?*`;
 }
 
 
