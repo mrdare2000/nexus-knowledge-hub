@@ -242,10 +242,10 @@ function openSubtopicModal(categoryId, subtopicId) {
   modalTag.textContent = category.title;
   
   let bodyHTML = "";
-  if (subtopic.image) {
+  if (subtopic.image && (!subtopic.content || !subtopic.content.includes(subtopic.image))) {
       bodyHTML += `
       <div class="modal-feature-image-wrapper" style="width: 100%; margin-bottom: 25px;">
-        <img src="${subtopic.image}" alt="${subtopic.title}" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-sm); cursor: pointer;" onclick="openImageModal('${subtopic.image}', '${subtopic.title}')">
+        <img src="${subtopic.image}" alt="${subtopic.title}" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-sm); cursor: pointer;">
       </div>
       `;
   }
@@ -306,6 +306,19 @@ function openSubtopicModal(categoryId, subtopicId) {
   }
   
   modalBody.innerHTML = bodyHTML;
+
+  // Make ALL images inside subtopic modal clickable to open in Fullscreen Lightbox Modal
+  const allModalImages = modalBody.querySelectorAll("img");
+  allModalImages.forEach(img => {
+    img.style.cursor = "pointer";
+    if (!img.title) img.title = "Click to view full screen & download";
+    const imgTitle = img.alt || subtopic.title || "Infographic View";
+    img.onclick = function(e) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      openImageModal(img.getAttribute("src") || img.src, imgTitle);
+    };
+  });
+
   modalOverlay.classList.add("active");
   document.body.style.overflow = "hidden"; // Disable scroll
   
@@ -343,17 +356,26 @@ function openImageModal(imageSrc, imageTitle) {
     lightboxImg.alt = imageTitle || "Subtopic Image";
     lightboxTitle.textContent = imageTitle || "Image View";
     lightboxDownload.href = imageSrc;
-    lightboxDownload.download = (imageTitle || "image").replace(/\s+/g, '_') + '.jpg';
+    const cleanFilename = (imageTitle || "image").replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') + '.jpg';
+    lightboxDownload.download = cleanFilename;
     
+    lightboxModal.style.display = "flex";
+    void lightboxModal.offsetWidth; // Force layout recalculation
     lightboxModal.classList.add("active");
   }
 }
 
 function closeImageLightbox(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
+  if (e) {
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
+  }
   const lightboxModal = document.getElementById("image-lightbox-modal");
   if (lightboxModal) {
     lightboxModal.classList.remove("active");
+    setTimeout(() => {
+      lightboxModal.style.display = "none";
+    }, 200);
   }
 }
 

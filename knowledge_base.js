@@ -892,6 +892,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "buyer-vs-seller-cost-responsibility",
           title: "Buyer vs Seller Cost Responsibility",
           summary: "Allocating fees based on purchase contract terms.",
+          image: "images/buyer_seller_cost.png",
           content: `
             <p>Cost responsibility details which party pays for which local fees at each stage of transit. Commercial contract terms dictate whether freight is billed as \"Prepaid\" or \"Collect\":</p>
             
@@ -913,6 +914,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "risk-transfer-international-trade",
           title: "Risk Transfer in International Trade",
           summary: "Pinpointing the exact moment cargo liability shifts.",
+          image: "images/risk_transfer_trade.png",
           content: `
             <p>A common misconception in logistics is that risk transfer and cost responsibility move together. Under Incoterms, cost responsibility and risk of cargo damage/loss can shift at entirely different points.</p>
             
@@ -940,6 +942,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "common-incoterm-mistakes",
           title: "Common Incoterm Mistakes",
           summary: "Classic pitfalls including misuse of ocean terms for air containers.",
+          image: "images/incoterm_mistakes.png",
           content: `
             <p>Mistakes in choosing Incoterms lead to cargo delays, custom audits, unexpected port fees, and legal disputes over who bears cargo loss liability. Ensure you avoid these common pitfalls:</p>
             
@@ -961,6 +964,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "choosing-the-right-incoterm",
           title: "Choosing the Right Incoterm",
           summary: "Tactical guidelines for negotiating shipping contracts.",
+          image: "images/choosing_incoterm.png",
           content: `
             <p>Selecting the optimal Incoterm is a strategic business decision. It balances freight control, buying power, and customs capabilities against risk tolerance:</p>
             
@@ -993,6 +997,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "export-customs-process",
           title: "Export Customs Process",
           summary: "Border control filing and origin clearing methods.",
+          image: "images/export_customs.png",
           content: `
             <p>Export clearance is the mandatory legal process of obtaining government permission to send goods out of a country. It serves multiple national interests: verifying that cargo is legal, properly classified, ensuring export taxes are paid (if applicable), and confirming compliance with national security and trade embargo protocols.</p>
             
@@ -1016,6 +1021,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "import-customs-process",
           title: "Import Customs Process",
           summary: "Entry clearance, declarations, and destination checks.",
+          image: "images/import_customs.png",
           content: `
             <p>Import clearance is significantly more rigorous than export clearance. When cargo arrives, destination border authorities must calculate applicable import duties, VAT/GST, and ensure the goods meet local safety, health, and intellectual property regulations before releasing them to the domestic market.</p>
             
@@ -1054,6 +1060,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "customs-documentation",
           title: "Customs Documentation",
           summary: "Core papers required for smooth border transitions.",
+          image: "images/customs_docs.png",
           content: `
             <p>A flawless paper trail is the absolute secret to avoiding border delays. Customs operates on strict verification: if one document contains a typo—such as mismatched weights between the Packing List and the Bill of Lading, or an incorrect HS code🛂customs will freeze the shipment and issue severe penalties.</p>
             
@@ -1088,6 +1095,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "hs-codes-explained",
           title: "HS Codes Explained",
           summary: "The global Harmonized System for product tax indexing.",
+          image: "images/hs_codes.png",
           content: `
             <p>An <strong>HS Code</strong> (Harmonized System Code) is a standardized numerical method of classifying traded products. Developed by the World Customs Organization (WCO), it is used by over 200 countries to identify products for the application of duties, taxes, and specialized import controls.</p>
             
@@ -1117,6 +1125,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "duties-taxes-vat-gst",
           title: "Duties, Taxes and VAT/GST",
           summary: "How customs duties are calculated on CIF valuation.",
+          image: "images/duties_taxes.png",
           content: `
             <p>Import taxes are a major component of landed cargo costs. They are generally calculated on the <strong>CIF Customs Value</strong> (Cost, Insurance, and Freight). This means customs taxes the value of the goods PLUS the cost to ship and insure them to the border. Never assume duty is calculated on just the invoice price!</p>
             
@@ -1301,6 +1310,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "commercial-invoice",
           title: "Commercial Invoice",
           summary: "Essential elements of the primary trade invoice.",
+          image: "images/srilankan_commercial_invoice.png",
           content: `
             <p>The <strong>Commercial Invoice (CI)</strong> is the foundational document of international trade. It is the bill of sale issued by the exporter to the importer, and Sri Lanka Customs (SLC) uses it as the primary declaration of cargo value for taxation and statistical purposes.</p>
             
@@ -1340,6 +1350,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "packing-list",
           title: "Packing List",
           summary: "Declaring gross weight, net weight, dimensions, and packing units.",
+          image: "images/srilankan_packing_list.png",
           content: `
             <p>While the Commercial Invoice details the <em>value</em> of the goods, the <strong>Packing List (PL)</strong> details their <em>physical logistics attributes</em>. It acts as a map for warehouse staff, truck drivers, terminal operators (e.g., CICT, SAGT in Colombo), and Sri Lanka Customs inspectors.</p>
             
@@ -1366,6 +1377,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "bill-of-lading",
           title: "Bill of Lading",
           summary: "Functions, negotiable types, and Telex releases.",
+          image: "images/srilankan_bill_of_lading.png",
           content: `
             <p>The <strong>Bill of Lading (B/L)</strong> is the single most important document in ocean freight. It is a legally binding contract issued by the shipping carrier (or forwarder) to the shipper. In Sri Lanka, B/Ls are heavily regulated by the Merchant Shipping Secretariat.</p>
             
@@ -1409,6 +1421,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "air-waybill",
           title: "Air Waybill",
           summary: "MAWB vs HAWB, non-negotiable air transit document rules.",
+          image: "images/srilankan_air_waybill.png",
           content: `
             <p>The <strong>Air Waybill (AWB)</strong> is the equivalent of the Bill of Lading, but used exclusively for air freight. The critical difference is that an AWB is <strong>non-negotiable</strong>. It acts only as a contract of carriage and receipt of goods, <em>not</em> as a document of title.</p>
             
@@ -1435,6 +1448,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "certificate-of-origin-doc",
           title: "Certificate of Origin",
           summary: "Chamber of Commerce authorization procedures.",
+          image: "images/srilankan_coo.png",
           content: `
             <p>The <strong>Certificate of Origin (COO)</strong> is the passport for your cargo. It legally declares the nationality of the product, which customs uses to determine tariff rates, embargoes, and trade quotas. In Sri Lanka, securing Preferential Tariff rates is critical for export competitiveness.</p>
             
@@ -1984,6 +1998,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "types-of-logistics",
           title: "Types of Logistics",
           summary: "The key logistics channels driving supply chains.",
+          image: "images/types_of_logistics.png",
           content: `
             <img src="images/types_of_logistics.png" alt="types-of-logistics infographic" class="kb-infographic" />
 
@@ -2031,6 +2046,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "warehousing-basics",
           title: "Warehousing Basics",
           summary: "Receiving, sorting, storage, and order pick/pack systems.",
+          image: "images/warehousing_basics.png",
           content: `
             <img src="images/warehousing_basics.png" alt="warehousing-basics infographic" class="kb-infographic" />
 
@@ -2071,6 +2087,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "bonded-warehousing",
           title: "Bonded Warehousing",
           summary: "Deferring customs duties under regulatory bond.",
+          image: "images/bonded_warehousing.png",
           content: `
             <img src="images/bonded_warehousing.png" alt="bonded-warehousing infographic" class="kb-infographic" />
 
@@ -2099,6 +2116,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "distribution-and-fulfilment",
           title: "Distribution and Fulfilment",
           summary: "B2B and B2C warehouse pick/pack logistics.",
+          image: "images/distribution_fulfilment.png",
           content: `
             <img src="images/distribution_fulfilment.png" alt="distribution-and-fulfilment infographic" class="kb-infographic" />
 
@@ -2139,6 +2157,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "cross-docking",
           title: "Cross-Docking",
           summary: "Direct cargo transfers without intermediate warehousing.",
+          image: "images/cross_docking.png",
           content: `
             <img src="images/cross_docking.png" alt="cross-docking infographic" class="kb-infographic" />
 
@@ -2187,6 +2206,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "last-mile-delivery",
           title: "Last-Mile Delivery",
           summary: "Local courier, final home parcel drop challenges.",
+          image: "images/last_mile_delivery.png",
           content: `
             <img src="images/last_mile_delivery.png" alt="last-mile-delivery infographic" class="kb-infographic" />
 
@@ -2223,6 +2243,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "inventory-flow",
           title: "Inventory Flow",
           summary: "FIFO, LIFO, and Just-In-Time (JIT) stock control.",
+          image: "images/inventory_flow.png",
           content: `
             <img src="images/inventory_flow.png" alt="inventory-flow infographic" class="kb-infographic" />
 
@@ -2261,6 +2282,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "3pl-and-4pl-logistics",
           title: "3PL and 4PL Logistics",
           summary: "Asset-based services vs supply chain integrations.",
+          image: "images/3pl_4pl_logistics.png",
           content: `
             <img src="images/3pl_4pl_logistics.png" alt="3pl-and-4pl-logistics infographic" class="kb-infographic" />
 
@@ -2311,6 +2333,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "reverse-logistics",
           title: "Reverse Logistics",
           summary: "Returns management, recycling, and refurbishing loops.",
+          image: "images/reverse_logistics.png",
           content: `
             <img src="images/reverse_logistics.png" alt="reverse-logistics infographic" class="kb-infographic" />
 
@@ -2376,6 +2399,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "perishable-cargo",
           title: "Perishable Cargo",
           summary: "Cold chain logistics, shelf life, and air prioritizations.",
+          image: "images/perishable_cargo.png",
           content: `
             <img src="images/perishable_cargo.png" alt="perishable-cargo infographic" class="kb-infographic" />
 
@@ -2408,6 +2432,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "temperature-controlled-cargo",
           title: "Temperature-Controlled Cargo",
           summary: "Operating reefers, gel packs, and data loggers.",
+          image: "images/temperature_controlled_cargo.png",
           content: `
             <img src="images/temperature_controlled_cargo.png" alt="temperature-controlled-cargo infographic" class="kb-infographic" />
 
@@ -2454,6 +2479,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "dangerous-goods",
           title: "Dangerous Goods",
           summary: "UN hazard classes, declarations, safety labeling.",
+          image: "images/dangerous_goods.png",
           content: `
             <img src="images/dangerous_goods.png" alt="dangerous-goods infographic" class="kb-infographic" />
 
@@ -2496,6 +2522,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "oversized-cargo",
           title: "Oversized Cargo",
           summary: "Out of Gauge (OOG) shipping, open tops, flat racks.",
+          image: "images/oversized_cargo.png",
           content: `
             <img src="images/oversized_cargo.png" alt="oversized-cargo infographic" class="kb-infographic" />
 
@@ -2537,6 +2564,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "heavy-lift-cargo",
           title: "Heavy Lift Cargo",
           summary: "Handling heavy cargo with cranes and low-bed trailers.",
+          image: "images/heavy_lift_cargo.png",
           content: `
             <img src="images/heavy_lift_cargo.png" alt="heavy-lift-cargo infographic" class="kb-infographic" />
 
@@ -2565,6 +2593,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "food-and-beverage-cargo",
           title: "Food and Beverage Cargo",
           summary: "Customs hygiene regulations, FDA clearances.",
+          image: "images/food_and_beverage_cargo.png",
           content: `
             <img src="images/food_and_beverage_cargo.png" alt="food-and-beverage-cargo infographic" class="kb-infographic" />
 
@@ -2602,6 +2631,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "tea-and-agricultural-products",
           title: "Tea and Agricultural Products",
           summary: "Ventilation settings and moisture control for tea.",
+          image: "images/tea_and_agricultural_products.png",
           content: `
             <img src="images/tea_and_agricultural_products.png" alt="tea-and-agricultural-products infographic" class="kb-infographic" />
 
@@ -2635,6 +2665,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "garments-and-retail-cargo",
           title: "Garments and Retail Cargo",
           summary: "Garment on Hanger (GOH) sea containers.",
+          image: "images/garments_and_retail_cargo.png",
           content: `
             <img src="images/garments_and_retail_cargo.png" alt="garments-and-retail-cargo infographic" class="kb-infographic" />
 
@@ -2664,6 +2695,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "electronics-and-high-value-cargo",
           title: "Electronics and High-Value Cargo",
           summary: "GPS tracking, security seals, and high-value transits.",
+          image: "images/electronics_and_high_value_cargo.png",
           content: `
             <img src="images/electronics_and_high_value_cargo.png" alt="electronics-and-high-value-cargo infographic" class="kb-infographic" />
 
@@ -2696,6 +2728,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "project-cargo",
           title: "Project Cargo",
           summary: "Industrial construction transport planning.",
+          image: "images/project_cargo.png",
           content: `
             <img src="images/project_cargo.png" alt="project-cargo infographic" class="kb-infographic" />
 
@@ -3934,7 +3967,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                   <strong style="display:block; font-size:1.1rem; color:#1E293B; margin-bottom:5px;">Commercial Invoice Template (.csv)</strong>
                   <span style="font-size:0.85rem; color:#64748B;">Standardized global format. Includes legally required fields for exact HS codes, Incoterms, and harmonized currency declarations.</span>
                 </div>
-                <div style="background:#F1F5F9; color:#475569; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold;">DOWNLOAD ⬇️</div>
+                <div style="background:#F1F5F9; color:#475569; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold; white-space:nowrap;">DOWNLOAD ⬇️</div>
               </a>
               
               <a href="templates/packing_list_template.csv" download="Packing_List_Template.csv" style="display:flex; align-items:center; background: linear-gradient(to right, #F8FAFC, #FFFFFF); border:2px solid #E2E8F0; padding:20px; border-radius:12px; text-decoration:none; color:#0F172A; transition:all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
@@ -3943,7 +3976,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                   <strong style="display:block; font-size:1.1rem; color:#1E293B; margin-bottom:5px;">Packing List Template (.csv)</strong>
                   <span style="font-size:0.85rem; color:#64748B;">Operations-ready. Includes built-in Excel formulas for automatically calculating total CBM and aggregating Net/Gross Weights per carton.</span>
                 </div>
-                <div style="background:#F1F5F9; color:#475569; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold;">DOWNLOAD ⬇️</div>
+                <div style="background:#F1F5F9; color:#475569; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold; white-space:nowrap;">DOWNLOAD ⬇️</div>
               </a>
               
               <a href="https://www.iata.org/contentassets/1d29c36dfc24458b975e533c39832810/shippers-declaration-column-format.pdf" target="_blank" style="display:flex; align-items:center; background: linear-gradient(to right, #FFF1F2, #FFFFFF); border:2px solid #FECACA; padding:20px; border-radius:12px; text-decoration:none; color:#9F1239; transition:all 0.3s ease; box-shadow: 0 4px 6px rgba(225,29,72,0.05);">
@@ -3952,6 +3985,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                   <strong style="display:block; font-size:1.1rem; color:#BE123C; margin-bottom:5px;">Shipper's Declaration for Dangerous Goods (DGD) (.pdf)</strong>
                   <span style="font-size:0.85rem; color:#9F1239;">Strict IATA compliant format. Mandatory for any air freight shipment containing hazardous materials, chemicals, or lithium batteries.</span>
                 </div>
+                <div style="background:#FFE4E6; color:#9F1239; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold; white-space:nowrap;">OPEN PDF ↗️</div>
+              </a>
             </div>
           `,
           youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
