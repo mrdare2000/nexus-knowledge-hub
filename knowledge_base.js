@@ -2361,7 +2361,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
       id: "special-cargo",
       title: "9. Special Cargo Handling",
       description: "Dangerous goods, heavy lift, and perishables.",
-      icon: "ðŸ—ï¸",
+      icon: "\uD83C\uDFD7\uFE0F",
       subtopics: [
         {
           id: "perishable-cargo",
@@ -2373,7 +2373,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Perishable goods (such as fresh seafood, cut flowers, vaccines, pharmaceuticals, and fresh produce) have a strictly limited shelf life. Unlike shipping furniture, time is literally money. Any delay in transit destroys the physical integrity and commercial value of the cargo.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #ECFEFF 0%, #CFFAFE 100%); border:2px solid #67E8F9; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="text-align: center; color: #0891B2; font-size: 1.3rem; margin: 0 0 20px 0; letter-spacing: 1px;">ðŸ“Œ THE COLD CHAIN DOCTRINE</h4>
+              <h4 style="text-align: center; color: #0891B2; font-size: 1.3rem; margin: 0 0 20px 0; letter-spacing: 1px;">\uD83D\uDCCD THE COLD CHAIN DOCTRINE</h4>
               <p style="margin:0 0 20px 0; font-size:1rem; color:#164E63; line-height:1.7; text-align: center;">A "Cold Chain" is an uninterrupted, temperature-controlled supply chain. It encompasses refrigerated production, storage, and distribution activities. The golden rule is absolute: <strong>The chain must never break.</strong></p>
               
               <div style="display: flex; gap: 15px; flex-wrap: wrap;">
