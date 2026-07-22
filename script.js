@@ -1371,6 +1371,36 @@ function getLocalConversationalResponse(query) {
     return SHIPPING_BOT_ANSWERS.help;
   }
   
+  // Intelligent Knowledge Base Deep Search Fallback
+  const kbData = getKBData();
+  if (kbData && kbData.categories) {
+    const searchTerms = q.replace(/[^\w\s]/gi, '').split(/\s+/).filter(w => w.length > 2);
+    let bestSubtopic = null;
+    let maxMatches = 0;
+    
+    kbData.categories.forEach(cat => {
+      cat.subtopics.forEach(sub => {
+        let score = 0;
+        const textToSearch = (sub.title + " " + sub.summary + " " + (sub.content || "")).toLowerCase();
+        searchTerms.forEach(term => {
+          if (textToSearch.includes(term)) score++;
+        });
+        if (score > maxMatches) {
+          maxMatches = score;
+          bestSubtopic = { sub, catTitle: cat.title };
+        }
+      });
+    });
+    
+    if (bestSubtopic && maxMatches > 0) {
+      // Strip HTML tags for clean text presentation in chat
+      let cleanContent = bestSubtopic.sub.content ? bestSubtopic.sub.content.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : '';
+      if (cleanContent.length > 450) cleanContent = cleanContent.substring(0, 450) + '...';
+      
+      return `### 📦 ${bestSubtopic.sub.title}\n*Category: ${bestSubtopic.catTitle}*\n\n${bestSubtopic.sub.summary}\n\n${cleanContent}\n\n💡 *Ask me specific follow-up questions about ${bestSubtopic.sub.title} or related shipping procedures!*`;
+    }
+  }
+
   return "I understand your question is relating to global logistics. Ask me to explain a specific Incoterm rule (like FOB, EXW, DDP), cargo calculation (like CBM, volumetric weights), shipping history (Malcolm McLean, containers), or global canal routes for accurate parameters!";
 }
 
