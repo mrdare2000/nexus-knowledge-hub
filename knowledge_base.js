@@ -2770,11 +2770,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "sri-lanka-to-usa",
           title: "Sri Lanka to USA",
           summary: "ISF compliance and ports routing.",
+          image: "images/sri_lanka_to_usa.png",
           content: `
+            <img src="images/sri_lanka_to_usa.png" alt="sri-lanka-to-usa infographic" class="kb-infographic" />
+
             <p>The Sri Lanka to USA trade lane is one of the highest volume and most time-sensitive corridors, heavily dominated by the apparel, textile, and solid tire industries. Fast-fashion brands (like Victoria's Secret, Gap, and Nike) operate on strict seasonal timelines, meaning delays can result in entire collections being rejected by US buyers.</p>
             
             <div style="margin:30px 0; display:flex; flex-direction:column; gap:20px; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0; color:#0F172A; text-align:center; font-size: 1.3rem;">\uD83D\uDCCD OCEAN ROUTING & TRANSIT TIMES (COLOMBO TO USA)</h4>
+              <h4 style="margin:0; color:#0F172A; text-align:center; font-size: 1.3rem;">📍 OCEAN ROUTING & TRANSIT TIMES (COLOMBO TO USA)</h4>
               
               <div style="display:flex; justify-content:space-between; align-items:center; background:#EFF6FF; border:1px solid #93C5FD; padding:20px; border-radius:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <div>
@@ -2802,7 +2805,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FDA4AF; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">\uD83D\uDCCD THE ISF 10+2 MANDATE (IMPORTER SECURITY FILING)</h4>
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">📍 THE ISF 10+2 MANDATE (IMPORTER SECURITY FILING)</h4>
               <p style="font-size:0.95rem; color:#881337; line-height:1.6; margin:0 0 15px 0;">Post-9/11, U.S. Customs and Border Protection (CBP) enacted strict maritime security laws. The most critical for exporters from Sri Lanka is the <strong>ISF 10+2</strong> rule.</p>
               
               <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#9F1239; line-height:1.7;">
@@ -2818,11 +2821,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "sri-lanka-to-canada",
           title: "Sri Lanka to Canada",
           summary: "Routing to Montreal and Vancouver gateways.",
+          image: "images/sri_lanka_to_canada.png",
           content: `
+            <img src="images/sri_lanka_to_canada.png" alt="sri-lanka-to-canada infographic" class="kb-infographic" />
+
             <p>While the Sri Lanka to Canada routes heavily mirror the US trade lanes (often utilizing the same mother vessels across the Pacific or Atlantic), they are subject to Canada's unique geographic challenges, strict winter port operations, and Canada Border Services Agency (CBSA) regulations.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CANADIAN GATEWAY ROUTING & RAIL HUBS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📍 CANADIAN GATEWAY ROUTING & RAIL HUBS</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                 <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #0284C7;">
@@ -2850,11 +2856,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "sri-lanka-to-europe",
           title: "Sri Lanka to Europe",
           summary: "Suez Canal routing and ICS2 customs guidelines.",
+          image: "images/sri_lanka_to_europe.png",
           content: `
+            <img src="images/sri_lanka_to_europe.png" alt="sri-lanka-to-europe infographic" class="kb-infographic" />
+
             <p>The Asia-to-Europe trade lane is one of the highest volume corridors in the world. Sri Lanka is geographically positioned perfectly along this route. Historically, this lane relies entirely on the Suez Canal to avoid the massive, costly, and time-consuming detour around the Cape of Good Hope (tip of Africa).</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE EUROPEAN LOGISTICS FRAMEWORK</h4>
+              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📍 THE EUROPEAN LOGISTICS FRAMEWORK</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #D97706; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
@@ -2880,11 +2889,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "sri-lanka-to-australia",
           title: "Sri Lanka to Australia",
           summary: "Biosecurity compliance and transshipment at Singapore.",
+          image: "images/sri_lanka_to_australia.png",
           content: `
+            <img src="images/sri_lanka_to_australia.png" alt="sri-lanka-to-australia infographic" class="kb-infographic" />
+
             <p>The Sri Lanka to Australia lane primarily feeds into major coastal cities (Sydney, Melbourne, Brisbane, Fremantle/Perth). Because trade volumes from Colombo to Australia don't justify many direct ships, transit times average 18-25 days, usually relying on massive transshipment operations at the Port of Singapore (PSA) or Port Klang (Malaysia).</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border:2px solid #FCA5A5; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD DAFF BIOSECURITY: THE STRICTEST IN THE WORLD</h4>
+              <h4 style="margin:0 0 15px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">📍 DAFF BIOSECURITY: THE STRICTEST IN THE WORLD</h4>
               <p style="font-size:0.95rem; color:#7F1D1D; line-height:1.6; margin:0 0 20px 0; text-align: center;">Australia (an isolated island continent) enforces ruthless environmental protection laws through the Department of Agriculture, Fisheries and Forestry (DAFF) to prevent invasive pests, weed seeds, and diseases from devastating their unique ecosystem and agricultural industry.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -2911,11 +2923,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "sri-lanka-to-india",
           title: "Sri Lanka to India",
           summary: "Feeder network links to Nhava Sheva and Chennai.",
+          image: "images/sri_lanka_to_india.png",
           content: `
+            <img src="images/sri_lanka_to_india.png" alt="sri-lanka-to-india infographic" class="kb-infographic" />
+
             <p>The trade lane between Sri Lanka and India is characterized by ultra-short transit times, immense volume, and high-frequency "Feeder" vessel schedules. Because many massive global mother vessels (e.g., from Europe) are too deep to dock at Indian ports, they drop thousands of containers in Colombo, acting as the primary transshipment hub for the entire Indian Subcontinent.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border:2px solid #FDBA74; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#C2410C; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE REGIONAL FEEDER NETWORK</h4>
+              <h4 style="margin:0 0 15px 0; color:#C2410C; text-align: center; font-size: 1.3rem;">📍 THE REGIONAL FEEDER NETWORK</h4>
               <p style="font-size:0.95rem; color:#9A3412; margin:0 0 20px 0; text-align: center; line-height: 1.6;">Smaller, shallow-draft "Feeder" vessels constantly shuttle back and forth between Colombo and various Indian ports, distributing the cargo dropped off by the global mother vessels.</p>
               
               <div style="display:flex; justify-content:space-around; align-items:stretch; flex-wrap:wrap; gap:15px;">
@@ -2943,11 +2958,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "indonesia-to-usa",
           title: "Indonesia to USA",
           summary: "Jakarta and Surabaya exports via Singapore hubs.",
+          image: "images/indonesia_to_usa.png",
           content: `
+            <img src="images/indonesia_to_usa.png" alt="indonesia-to-usa infographic" class="kb-infographic" />
+
             <p>Indonesia is an export powerhouse for furniture, footwear, rubber, and electronics heading to the United States. However, due to Indonesia's challenging archipelagic geography and port infrastructure, cargo heavily relies on a complex web of transshipment hubs.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%); border:2px solid #F0ABFC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE SOUTHEAST ASIAN TRANSSHIPMENT PIPELINE</h4>
+              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">📍 THE SOUTHEAST ASIAN TRANSSHIPMENT PIPELINE</h4>
               <p style="font-size:0.95rem; color:#701A75; line-height:1.6; margin:0 0 20px 0; text-align: center;">Very few massive Trans-Pacific vessels call directly at Indonesian ports (like Jakarta or Surabaya) due to draft (water depth) restrictions and port congestion.</p>
               
               <div style="display:flex; flex-direction:column; gap:10px;">
@@ -2983,11 +3001,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "indonesia-to-europe",
           title: "Indonesia to Europe",
           summary: "Asia-Europe routes via Malacca Strait.",
+          image: "images/indonesia_to_europe.png",
           content: `
+            <img src="images/indonesia_to_europe.png" alt="indonesia-to-europe infographic" class="kb-infographic" />
+
             <p>The Indonesia-to-Europe trade lane primarily exports palm oil, textiles, furniture, and electronics to Northern Europe (Rotterdam, Hamburg, Felixstowe) and Mediterranean ports (Genoa, Barcelona).</p>
             
             <div style="margin:30px 0; background:#F0FDF4; border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#14532D; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE MALACCA STRAIT BOTTLENECK</h4>
+              <h4 style="margin:0 0 15px 0; color:#14532D; font-size: 1.3rem; text-align: center;">📍 THE MALACCA STRAIT BOTTLENECK</h4>
               
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
                 <div style="flex:1; min-width: 250px;">
@@ -3009,11 +3030,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "uae-to-gcc",
           title: "UAE to GCC",
           summary: "Cross-border road freight networks in the Middle East.",
+          image: "images/uae_to_gcc.png",
           content: `
+            <img src="images/uae_to_gcc.png" alt="uae-to-gcc infographic" class="kb-infographic" />
+
             <p>While Jebel Ali (Dubai) is a massive ocean transshipment hub, much of the cargo bound for neighboring Middle Eastern countries (Saudi Arabia, Oman, Bahrain, Kuwait) moves via extensive and highly efficient Cross-Border Road Freight networks.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD GCC TRUCKING CORRIDORS</h4>
+              <h4 style="margin:0 0 15px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📍 GCC TRUCKING CORRIDORS</h4>
               <p style="margin:0 0 20px 0; font-size:0.95rem; color:#92400E; text-align: center; line-height:1.6;">A standard 18-wheeler (or Curtain-Sider trailer) can reach Riyadh (Saudi Arabia) or Muscat (Oman) from Dubai in under 2-3 days, making it significantly faster and often more cost-effective than ocean feeder vessels.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -3040,11 +3064,14 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "china-to-sri-lanka",
           title: "China to Sri Lanka",
           summary: "Inbound supply chains from Shanghai, Shenzhen to Colombo.",
+          image: "images/china_to_sri_lanka.png",
           content: `
+            <img src="images/china_to_sri_lanka.png" alt="china-to-sri-lanka infographic" class="kb-infographic" />
+
             <p>This is the absolute backbone of Sri Lanka's import economy. Almost all raw materials for the massive Sri Lankan apparel sector (fabric rolls, zippers, buttons), as well as consumer electronics, solar panels, and construction materials, flow exclusively through this lane.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border:2px solid #FCA5A5; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD MAJOR CHINESE HUBS TO COLOMBO</h4>
+              <h4 style="margin:0 0 20px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">📍 MAJOR CHINESE HUBS TO COLOMBO</h4>
               
               <table style="width:100%; border-collapse:collapse; font-size:0.95rem; text-align:left; background:#FFF; border-radius:12px; overflow:hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <tr style="background:#EF4444; color: white;">
@@ -3081,22 +3108,25 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "india-to-uae",
           title: "India to UAE",
           summary: "Trade routes linking Mumbai, Mundra to Jebel Ali.",
+          image: "images/india_to_uae.png",
           content: `
+            <img src="images/india_to_uae.png" alt="india-to-uae infographic" class="kb-infographic" />
+
             <p>The India-UAE corridor is one of the fastest, highest volume, and most lucrative trade lanes globally, driven by massive expatriate populations, food security needs, and recent geopolitical free trade agreements.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#14532D; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE CEPA ADVANTAGE</h4>
+              <h4 style="margin:0 0 15px 0; color:#14532D; text-align: center; font-size: 1.3rem;">📍 THE CEPA ADVANTAGE</h4>
               <p style="font-size:0.95rem; color:#166534; line-height:1.6; margin:0 0 20px 0; text-align: center;">The <strong>Comprehensive Economic Partnership Agreement (CEPA)</strong> signed between India and the UAE eliminated customs duties on nearly 80% of goods traded between the two countries.</p>
               
               <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #4ADE80; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">👕</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Ultra-Fast Ocean Transit</strong>
                   <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">Vessels departing from West Coast Indian ports (Nhava Sheva, Mundra) can arrive directly into Jebel Ali (Dubai) with incredibly fast transit times of <strong>4-7 Days</strong>. It is almost as fast as air freight but at a fraction of the cost.</p>
                 </div>
                 
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #4ADE80; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">\uD83D\uDC55</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">👕</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Primary Commodities</strong>
                   <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">This lane is dominated by agricultural exports (rice, spices, fresh produce) ensuring food security for the UAE, alongside massive volumes of textiles, jewelry, and machinery.</p>
                 </div>
