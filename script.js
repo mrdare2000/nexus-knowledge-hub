@@ -2003,11 +2003,13 @@ function renderNews(allArticles) {
 }
 
 const fallbackNewsImages = [
-  'images/bg_ocean_freight.jpg',
-  'images/ocean_vs_air_freight.png',
-  'images/container_knowledge.jpg',
+  'images/bg_ocean.png',
+  'images/bg_air.png',
+  'images/bg_warehouse.png',
   'images/cargo_aircraft.jpg',
-  'images/what_is_freight_forwarding.png'
+  'images/container_knowledge.jpg',
+  'images/incoterms_2026.jpg',
+  'images/types_of_logistics.jpg'
 ];
 
 function extractImageFromHTML(htmlContent) {
@@ -2023,6 +2025,12 @@ function generateNewsHTML(articles) {
     if (!imgUrl || imgUrl.trim() === "") {
       imgUrl = extractImageFromHTML(article.description) || extractImageFromHTML(article.content);
     }
+    
+    // Ensure HTTPS for mixed content safety
+    if (imgUrl && imgUrl.startsWith('http://')) {
+      imgUrl = imgUrl.replace('http://', 'https://');
+    }
+
     const defaultImg = fallbackNewsImages[index % fallbackNewsImages.length];
     if (!imgUrl || imgUrl.trim() === "") {
       imgUrl = defaultImg;
