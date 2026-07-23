@@ -3823,15 +3823,15 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "container-quick-guide",
           title: "Container Quick Guide",
-          image: "images/container_specs_infographic.png",
+          image: "images/container_knowledge.jpg",
           summary: "Equipment volume capacities and gross weight capacities.",
           content: `
             <p>Standard ocean freight equipment dimensions and their maximum physical payloads. <em>Note: While a container can physically hold 28 tons, local road weight limits in the destination country often restrict the legal weight to much less (e.g., US road limits are often 19.9 tons for a 20').</em></p>
             
-            <img src="images/container_specs_infographic.png" alt="Ocean Container Specifications Infographic" onclick="openLightbox('images/container_specs_infographic.png')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
+            <img src="images/container_knowledge.jpg" alt="Ocean Container Specifications Infographic" onclick="openLightbox('images/container_knowledge.jpg')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📌 OCEAN CONTAINER CAPACITIES</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📌 ACCURATE OCEAN CONTAINER CAPACITIES</h4>
               
               <div style="overflow-x:auto;">
                 <table style="width:100%; border-collapse:collapse; font-size:0.9rem; text-align:left; background:#FFF; border-radius:12px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
@@ -3844,25 +3844,25 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="border-bottom:1px solid #E2E8F0; transition: background 0.3s; hover:background:#F1F5F9;">
+                    <tr style="border-bottom:1px solid #E2E8F0;">
                       <td style="padding:15px;"><strong style="color:#0F172A;">20' Standard Dry (20GP)</strong></td>
                       <td style="padding:15px; color:#475569;">~33.2 CBM</td>
                       <td style="padding:15px; color:#475569;">28.2 Tons</td>
                       <td style="padding:15px; color:#475569;">Heavy, dense cargo (e.g., machinery, steel, tile).</td>
                     </tr>
-                    <tr style="border-bottom:1px solid #E2E8F0; transition: background 0.3s;">
+                    <tr style="border-bottom:1px solid #E2E8F0;">
                       <td style="padding:15px;"><strong style="color:#0F172A;">40' Standard Dry (40GP)</strong></td>
                       <td style="padding:15px; color:#475569;">~67.7 CBM</td>
                       <td style="padding:15px; color:#475569;">28.8 Tons</td>
                       <td style="padding:15px; color:#475569;">Voluminous, lighter cargo (e.g., apparel, toys).</td>
                     </tr>
-                    <tr style="border-bottom:1px solid #E2E8F0; transition: background 0.3s;">
+                    <tr style="border-bottom:1px solid #E2E8F0;">
                       <td style="padding:15px;"><strong style="color:#0F172A;">40' High Cube (40HC)</strong></td>
                       <td style="padding:15px; color:#475569;">~76.4 CBM</td>
                       <td style="padding:15px; color:#475569;">28.6 Tons</td>
                       <td style="padding:15px; color:#475569;">Standard for most consumer goods. Extra 1ft height.</td>
                     </tr>
-                    <tr style="transition: background 0.3s;">
+                    <tr>
                       <td style="padding:15px;"><strong style="color:#0F172A;">40' Reefer (40RF)</strong></td>
                       <td style="padding:15px; color:#475569;">~66.2 CBM</td>
                       <td style="padding:15px; color:#475569;">29.4 Tons</td>
