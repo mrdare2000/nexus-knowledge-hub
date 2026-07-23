@@ -1936,6 +1936,35 @@ function filterHSOptions() {
    ========================================== */
 let globalNewsCache = null;
 
+// Neutral background photos ONLY (NO internal educational/learning diagrams)
+const fallbackNewsImages = [
+  'images/bg_ocean.png',
+  'images/bg_air.png',
+  'images/bg_warehouse.png'
+];
+
+function extractImageFromHTML(htmlContent) {
+  if (!htmlContent) return null;
+  const match = htmlContent.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return match ? match[1] : null;
+}
+
+function getArticlePublisherImage(article) {
+  let imgUrl = article.thumbnail || article.enclosure?.link || article.enclosure?.url;
+  if (!imgUrl || imgUrl.trim() === "") {
+    imgUrl = extractImageFromHTML(article.content) || extractImageFromHTML(article.description);
+  }
+  
+  if (imgUrl && typeof imgUrl === 'string') {
+    imgUrl = imgUrl.trim();
+    if (imgUrl.startsWith('http://')) {
+      imgUrl = imgUrl.replace('http://', 'https://');
+    }
+    return imgUrl;
+  }
+  return null;
+}
+
 async function fetchLogisticsNews() {
   if (globalNewsCache) {
     renderNews(globalNewsCache);
@@ -1951,7 +1980,6 @@ async function fetchLogisticsNews() {
   const fullLoading = document.getElementById('full-news-loading-state');
   
   try {
-    // Fetch all feeds in parallel using free RSS-to-JSON API (without invalid count parameter)
     const fetchPromises = feeds.map(feedUrl => {
       const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
       return fetch(apiUrl).then(res => res.json());
@@ -1967,7 +1995,15 @@ async function fetchLogisticsNews() {
     });
 
     if (allArticles.length > 0) {
-      allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+      // Prioritize articles that have authentic publisher images extracted
+      allArticles.sort((a, b) => {
+        const hasImgA = !!getArticlePublisherImage(a);
+        const hasImgB = !!getArticlePublisherImage(b);
+        if (hasImgA && !hasImgB) return -1;
+        if (!hasImgA && hasImgB) return 1;
+        return new Date(b.pubDate) - new Date(a.pubDate);
+      });
+      
       globalNewsCache = allArticles;
       renderNews(allArticles);
     } else {
@@ -1994,45 +2030,22 @@ function renderNews(allArticles) {
     homeContainer.style.display = 'grid';
   }
   
-  // Render Full Page (All articles)
+  // Render Full Page (All articles up to 20)
   if (fullContainer) {
-    fullContainer.innerHTML = generateNewsHTML(allArticles);
+    const articles = allArticles.slice(0, 20);
+    fullContainer.innerHTML = generateNewsHTML(articles);
     if (fullLoading) fullLoading.style.display = 'none';
     fullContainer.style.display = 'grid';
   }
 }
 
-const fallbackNewsImages = [
-  'images/bg_ocean.png',
-  'images/bg_air.png',
-  'images/bg_warehouse.png',
-  'images/cargo_aircraft.jpg',
-  'images/container_knowledge.jpg',
-  'images/incoterms_2026.jpg',
-  'images/types_of_logistics.jpg'
-];
-
-function extractImageFromHTML(htmlContent) {
-  if (!htmlContent) return null;
-  const match = htmlContent.match(/<img[^>]+src=["']([^"']+)["']/i);
-  return match ? match[1] : null;
-}
-
 function generateNewsHTML(articles) {
   let html = '';
   articles.forEach((article, index) => {
-    let imgUrl = article.thumbnail || article.enclosure?.link;
-    if (!imgUrl || imgUrl.trim() === "") {
-      imgUrl = extractImageFromHTML(article.description) || extractImageFromHTML(article.content);
-    }
-    
-    // Ensure HTTPS for mixed content safety
-    if (imgUrl && imgUrl.startsWith('http://')) {
-      imgUrl = imgUrl.replace('http://', 'https://');
-    }
-
+    let imgUrl = getArticlePublisherImage(article);
     const defaultImg = fallbackNewsImages[index % fallbackNewsImages.length];
-    if (!imgUrl || imgUrl.trim() === "") {
+    
+    if (!imgUrl) {
       imgUrl = defaultImg;
     }
 
