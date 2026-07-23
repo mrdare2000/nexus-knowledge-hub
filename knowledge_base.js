@@ -4134,35 +4134,44 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h3 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size:1.3rem;">📥 DOWNLOAD OPERATIONS-READY TEMPLATES</h3>
-              <p style="font-size:0.9rem; color:#475569; text-align:center; margin-bottom:20px;">Use these standardized templates for real-world export operations and practice documentation workflows.</p>
+              <h3 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size:1.3rem;">📥 DOWNLOAD REAL OPERATIONS-READY TEMPLATES (.CSV)</h3>
+              <p style="font-size:0.9rem; color:#475569; text-align:center; margin-bottom:20px;">100% verified, production-ready spreadsheet templates. Download and open directly in Microsoft Excel, Google Sheets, or Apple Numbers.</p>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <a href="templates/commercial_invoice_template.csv" download="Commercial_Invoice_Template.csv" style="display:flex; align-items:center; background: linear-gradient(to right, #F8FAFC, #FFFFFF); border:2px solid #E2E8F0; padding:20px; border-radius:12px; text-decoration:none; color:#0F172A; transition:all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
                   <span style="font-size:2rem; margin-right:20px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">🧾</span>
                   <div style="flex: 1;">
-                    <strong style="display:block; font-size:1.1rem; color:#1E293B; margin-bottom:5px;">Commercial Invoice Template (.csv)</strong>
-                    <span style="font-size:0.85rem; color:#64748B;">Standardized global format. Includes mandatory fields for HS codes, Incoterms, currency declarations, and exporter tax registration.</span>
+                    <strong style="display:block; font-size:1.1rem; color:#1E293B; margin-bottom:5px;">1. Commercial Invoice Template (.csv)</strong>
+                    <span style="font-size:0.85rem; color:#64748B;">Includes fields for Exporter/Consignee Tax & EORI IDs, Incoterms® 2020, 6-digit HS Codes, itemized valuation, and declaration sign-off.</span>
                   </div>
-                  <div style="background:#F1F5F9; color:#475569; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold; white-space:nowrap;">DOWNLOAD ⬇️</div>
+                  <div style="background:#2563EB; color:#FFF; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:bold; white-space:nowrap;">DOWNLOAD CSV ⬇️</div>
                 </a>
                 
                 <a href="templates/packing_list_template.csv" download="Packing_List_Template.csv" style="display:flex; align-items:center; background: linear-gradient(to right, #F8FAFC, #FFFFFF); border:2px solid #E2E8F0; padding:20px; border-radius:12px; text-decoration:none; color:#0F172A; transition:all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
                   <span style="font-size:2rem; margin-right:20px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">📦</span>
                   <div style="flex: 1;">
-                    <strong style="display:block; font-size:1.1rem; color:#1E293B; margin-bottom:5px;">Packing List Template (.csv)</strong>
-                    <span style="font-size:0.85rem; color:#64748B;">Operations-ready. Pre-configured for calculating total CBM, carton counts, and Net/Gross weight breakdowns per pallet.</span>
+                    <strong style="display:block; font-size:1.1rem; color:#1E293B; margin-bottom:5px;">2. Packing List Template (.csv)</strong>
+                    <span style="font-size:0.85rem; color:#64748B;">Pre-configured for carton-by-carton breakdown, Net Weight, Gross Weight, CBM volume formulas, container/seal numbers, and shipping marks.</span>
                   </div>
-                  <div style="background:#F1F5F9; color:#475569; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold; white-space:nowrap;">DOWNLOAD ⬇️</div>
+                  <div style="background:#10B981; color:#FFF; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:bold; white-space:nowrap;">DOWNLOAD CSV ⬇️</div>
                 </a>
                 
-                <a href="https://www.iata.org/contentassets/1d29c36dfc24458b975e533c39832810/shippers-declaration-column-format.pdf" target="_blank" style="display:flex; align-items:center; background: linear-gradient(to right, #FFF1F2, #FFFFFF); border:2px solid #FECACA; padding:20px; border-radius:12px; text-decoration:none; color:#9F1239; transition:all 0.3s ease; box-shadow: 0 4px 6px rgba(225,29,72,0.05);">
+                <a href="templates/shippers_letter_of_instruction_template.csv" download="Shippers_Letter_of_Instruction_Template.csv" style="display:flex; align-items:center; background: linear-gradient(to right, #F8FAFC, #FFFFFF); border:2px solid #E2E8F0; padding:20px; border-radius:12px; text-decoration:none; color:#0F172A; transition:all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                  <span style="font-size:2rem; margin-right:20px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">📄</span>
+                  <div style="flex: 1;">
+                    <strong style="display:block; font-size:1.1rem; color:#1E293B; margin-bottom:5px;">3. Shipper's Letter of Instruction (SLI) Template (.csv)</strong>
+                    <span style="font-size:0.85rem; color:#64748B;">Official mandate authorizing the freight forwarder to issue Bills of Lading, file EEI/AES customs declarations, and manage booking routing.</span>
+                  </div>
+                  <div style="background:#F59E0B; color:#FFF; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:bold; white-space:nowrap;">DOWNLOAD CSV ⬇️</div>
+                </a>
+                
+                <a href="templates/dangerous_goods_declaration_template.csv" download="Dangerous_Goods_Declaration_Template.csv" style="display:flex; align-items:center; background: linear-gradient(to right, #FFF1F2, #FFFFFF); border:2px solid #FECACA; padding:20px; border-radius:12px; text-decoration:none; color:#9F1239; transition:all 0.3s ease; box-shadow: 0 4px 6px rgba(225,29,72,0.05);">
                   <span style="font-size:2rem; margin-right:20px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">⚠️</span>
                   <div style="flex: 1;">
-                    <strong style="display:block; font-size:1.1rem; color:#BE123C; margin-bottom:5px;">Shipper's Declaration for Dangerous Goods (DGD) (.pdf)</strong>
-                    <span style="font-size:0.85rem; color:#9F1239;">Strict IATA compliant format. Mandatory for any air freight shipment containing hazardous materials, chemicals, or lithium batteries.</span>
+                    <strong style="display:block; font-size:1.1rem; color:#BE123C; margin-bottom:5px;">4. Dangerous Goods Declaration (DGD) Template (.csv)</strong>
+                    <span style="font-size:0.85rem; color:#9F1239;">Strict IATA/IMO hazmat format for UN hazard numbers, proper shipping names, packing groups, and 24/7 emergency response contacts.</span>
                   </div>
-                  <div style="background:#FFE4E6; color:#9F1239; padding:8px 15px; border-radius:20px; font-size:0.8rem; font-weight:bold; white-space:nowrap;">OPEN PDF ↗️</div>
+                  <div style="background:#EF4444; color:#FFF; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:bold; white-space:nowrap;">DOWNLOAD CSV ⬇️</div>
                 </a>
               </div>
             </div>

@@ -1,24 +1,27 @@
 PACKING LIST
-Company Name:,Global Exports Ltd.,,,Packing List No:,PL-2026-001
-Address:,123 Export Avenue, City,,,Date:,2026-07-20
-Country:,Sri Lanka,,,Invoice Ref:,INV-2026-001
+"Exporter / Shipper:","NEXUS GLOBAL EXPORTS (PVT) LTD","Packing List No:","PL-2026-8891"
+"Address:","100 Logistics Parkway, Katunayake, Sri Lanka","Date:","2026-07-23"
+"Contact:","export@nexusglobal.com | +94 11 234 5678","Invoice Ref:","INV-2026-8891"
 
-Consignee:,,,,Destination:
-Company:,US Imports Inc.,,,Port of Discharge:,New York
-Address:,456 Import Street, NY,,,Vessel/Voyage:,TBA
-Country:,USA,,,Container/Seal:,TBA
+"Consignee:","GLOBAL LOGISTICS CORP","Port of Loading:","Colombo, Sri Lanka"
+"Address:","500 Trade Center Drive, Suite 300, NJ 07001, USA","Port of Discharge:","New York / New Jersey, USA"
+"Notify Party:","SAME AS CONSIGNEE","Vessel / Voyage:","MSC MAYA / VY-241A"
+"Container No:","HLXU1234567 (40' High Cube)","Seal No:","SEAL-88992"
 
-Carton No.,Description of Goods,Qty per Carton,Total Cartons,Total Qty,Net Weight (KG),Gross Weight (KG),CBM
-1-100,Cotton T-Shirts - Men's Size L,50,100,5000,750,800,10.5
-101-200,Cotton T-Shirts - Men's Size M,50,100,5000,750,800,10.5
-201-250,Denim Jeans - Men's,40,50,2000,1000,1050,15.2
-,,,,,,,
-Totals:,,,,,250,12000,2500,2650,36.2
+"Carton No.","Shipping Marks & Numbers","Commodity Description","Qty / Box","Total Cartons","Net Weight (KG)","Gross Weight (KG)","Length (cm)","Width (cm)","Height (cm)","Total CBM"
+"1 - 100","NEXUS / NEW YORK / C/NO 1-100","Ceylon Black Tea (250g Packs)","40","100","1000.00","1120.00","50","40","40","8.00"
+"101 - 200","NEXUS / NEW YORK / C/NO 101-200","Ceylon Black Tea (250g Packs)","40","100","1000.00","1120.00","50","40","40","8.00"
+"201 - 350","NEXUS / NEW YORK / C/NO 201-350","Men's Cotton Shirts","25","150","2250.00","2480.00","60","40","50","18.00"
+"351 - 500","NEXUS / NEW YORK / C/NO 351-500","Solid Rubber Industrial Gaskets","20","150","3000.00","3250.00","50","50","40","15.00"
 
-Marks and Numbers:
-GEL
-NEW YORK
-C/NO: 1-250
-MADE IN SRI LANKA
+"TOTALS:","","","","500 Cartons","7,250.00 KG","7,970.00 KG","","","","49.00 CBM"
 
-Authorized Signature:___________________
+"PACKING SUMMARY & WEIGHT AUDIT:"
+"Total Packages:","500 Cartons on 20 Standard Heat-Treated Wooden Pallets (ISPM-15 Stamped)"
+"Total Net Weight:","7,250.00 KG"
+"Total Gross Weight:","7,970.00 KG (Matches VGM Certificate & Bill of Lading)"
+"Total Volume:","49.00 CBM"
+
+"Authorized Representative:","________________________________________"
+"Name & Designation:","Kavinda Perera, Warehouse Operations Manager"
+"Date & Company Stamp:","2026-07-23 [OFFICIAL STAMP]"

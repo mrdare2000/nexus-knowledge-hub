@@ -1,27 +1,30 @@
 COMMERCIAL INVOICE
-Company Name:,Global Exports Ltd.,,,Invoice No:,INV-2026-001
-Address:,123 Export Avenue, City,,,Date:,2026-07-20
-Country:,Sri Lanka,,,PO Number:,PO-998877
+"Exporter / Shipper:","NEXUS GLOBAL EXPORTS (PVT) LTD","Invoice No:","INV-2026-8891"
+"Address:","100 Logistics Parkway, Katunayake, Sri Lanka","Invoice Date:","2026-07-23"
+"Tax / EORI ID:","LK1234567890","Exporters Ref:","PO-2026-991"
+"Contact:","export@nexusglobal.com | +94 11 234 5678","Currency:","USD"
 
-Bill To:,,,,Ship To:
-Company:,US Imports Inc.,,,Company:,US Imports Warehouse
-Address:,456 Import Street, NY,,,Address:,789 Logistics Blvd, NJ
-Country:,USA,,,Country:,USA
+"Importer / Consignee:","GLOBAL LOGISTICS CORP","Country of Origin:","Sri Lanka"
+"Address:","500 Trade Center Drive, Suite 300, NJ 07001, USA","Country of Destination:","United States"
+"Tax / IRS ID:","US-987654321","Terms of Sale:","FOB Colombo, Sri Lanka (Incoterms 2020)"
+"Notify Party:","SAME AS CONSIGNEE","Payment Terms:","Letter of Credit at Sight (L/C No: LC-554421)"
 
-Terms of Sale (Incoterm):,FOB Colombo,,,Payment Terms:,Net 30
-Port of Loading:,Colombo,,,Port of Discharge:,New York
+"Port of Loading:","Colombo, Sri Lanka","Vessel / Voyage:","MSC MAYA / VY-241A"
+"Port of Discharge:","New York / New Jersey, USA","Container / Seal No:","HLXU1234567 / SEAL-88992"
 
-Item No.,Description of Goods,HS Code,Quantity,Unit Price (USD),Total Amount (USD)
-101,Cotton T-Shirts - Men's Size L,6109.10.00,5000,2.50,12500.00
-102,Cotton T-Shirts - Men's Size M,6109.10.00,5000,2.50,12500.00
-103,Denim Jeans - Men's,6203.42.40,2000,8.00,16000.00
-,,,,
-,,,,Sub Total:,41000.00
-,,,,Freight:,0.00
-,,,,Insurance:,0.00
-,,,,Total Invoice Value:,41000.00
+"Item No.","Commodity Description","6-Digit HS Code","Quantity","Unit of Measure","Unit Price (USD)","Total Amount (USD)"
+"1","100% Organic Ceylon Black Tea (BOPF Grade - 250g Packs)","0902.30","4000","Cartons","12.50","50000.00"
+"2","Handmade Apparel - Finished Men's Cotton Shirts","6105.10","2500","Cartons","18.00","45000.00"
+"3","Natural Solid Rubber Industrial Gaskets","4016.93","1500","Cartons","15.00","22500.00"
 
-Declaration:
-We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.
+"SUBTOTAL:","","","","8000","Cartons","USD 117,500.00"
+"FREIGHT CHARGES:","","","","","","USD 0.00 (FOB Term)"
+"INSURANCE PREM:","","","","","","USD 0.00 (FOB Term)"
+"TOTAL INVOICE VALUE:","","","","","","USD 117,500.00"
 
-Authorized Signature:___________________
+"DECLARATION & CERTIFICATION:"
+"We hereby certify that this commercial invoice shows the full and actual price of the goods described, that all particulars are true and correct, and that no other invoice has been issued."
+
+"Authorized Representative:","________________________________________"
+"Name & Designation:","Darshika Prabhashwara, Director of Exports"
+"Date & Company Stamp:","2026-07-23 [OFFICIAL STAMP]"
