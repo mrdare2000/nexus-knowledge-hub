@@ -1936,13 +1936,6 @@ function filterHSOptions() {
    ========================================== */
 let globalNewsCache = null;
 
-// Neutral background photos ONLY (NO internal educational/learning diagrams)
-const fallbackNewsImages = [
-  'images/bg_ocean.png',
-  'images/bg_air.png',
-  'images/bg_warehouse.png'
-];
-
 function extractImageFromHTML(htmlContent) {
   if (!htmlContent) return null;
   const match = htmlContent.match(/<img[^>]+src=["']([^"']+)["']/i);
@@ -1972,7 +1965,7 @@ async function fetchLogisticsNews() {
   }
   
   const feeds = [
-    'https://splash247.com/feed/',
+    'https://www.porttechnology.org/feed/',
     'https://www.supplychaindive.com/feeds/news/'
   ];
   
@@ -1987,27 +1980,27 @@ async function fetchLogisticsNews() {
 
     const results = await Promise.all(fetchPromises);
     
-    let allArticles = [];
+    let rawArticles = [];
     results.forEach(data => {
       if (data.status === 'ok' && data.items) {
-        allArticles = allArticles.concat(data.items);
+        rawArticles = rawArticles.concat(data.items);
       }
     });
 
-    if (allArticles.length > 0) {
-      // Prioritize articles that have authentic publisher images extracted
-      allArticles.sort((a, b) => {
-        const hasImgA = !!getArticlePublisherImage(a);
-        const hasImgB = !!getArticlePublisherImage(b);
-        if (hasImgA && !hasImgB) return -1;
-        if (!hasImgA && hasImgB) return 1;
-        return new Date(b.pubDate) - new Date(a.pubDate);
-      });
-      
-      globalNewsCache = allArticles;
-      renderNews(allArticles);
+    // Strictly filter articles to ONLY those with authentic publisher images from news channels
+    const articlesWithImages = rawArticles.map(article => {
+      const pubImg = getArticlePublisherImage(article);
+      return { ...article, publisherImage: pubImg };
+    }).filter(article => article.publisherImage && article.publisherImage.trim() !== "");
+
+    // Sort strictly by publication date
+    articlesWithImages.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+    if (articlesWithImages.length > 0) {
+      globalNewsCache = articlesWithImages;
+      renderNews(articlesWithImages);
     } else {
-      throw new Error("No valid articles found from any feed.");
+      throw new Error("No valid articles with publisher images found.");
     }
   } catch (error) {
     console.error("Failed to fetch news:", error);
@@ -2022,7 +2015,7 @@ function renderNews(allArticles) {
   const homeLoading = document.getElementById('news-loading-state');
   const fullLoading = document.getElementById('full-news-loading-state');
   
-  // Render Homepage (Top 6)
+  // Render Homepage (Top 6 authentic news stories with publisher images)
   if (homeContainer) {
     const articles = allArticles.slice(0, 6);
     homeContainer.innerHTML = generateNewsHTML(articles);
@@ -2030,7 +2023,7 @@ function renderNews(allArticles) {
     homeContainer.style.display = 'grid';
   }
   
-  // Render Full Page (All articles up to 20)
+  // Render Full Page (Top 20 authentic news stories with publisher images)
   if (fullContainer) {
     const articles = allArticles.slice(0, 20);
     fullContainer.innerHTML = generateNewsHTML(articles);
@@ -2041,14 +2034,8 @@ function renderNews(allArticles) {
 
 function generateNewsHTML(articles) {
   let html = '';
-  articles.forEach((article, index) => {
-    let imgUrl = getArticlePublisherImage(article);
-    const defaultImg = fallbackNewsImages[index % fallbackNewsImages.length];
-    
-    if (!imgUrl) {
-      imgUrl = defaultImg;
-    }
-
+  articles.forEach((article) => {
+    const imgUrl = article.publisherImage || getArticlePublisherImage(article);
     const pubDate = new Date(article.pubDate);
     const dateString = isNaN(pubDate.getTime()) ? '' : pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     const rawDesc = article.description || '';
@@ -2057,7 +2044,7 @@ function generateNewsHTML(articles) {
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
         <div class="news-card-image">
-          <img src="${imgUrl}" alt="${article.title}" onerror="this.onerror=null; this.src='${defaultImg}';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <img src="${imgUrl}" alt="${article.title}" onerror="this.parentElement.parentElement.style.display='none';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
         </div>
         <div class="news-card-content">
           <span class="news-date">${dateString}</span>
