@@ -3758,12 +3758,15 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "incoterms-quick-guide",
           title: "Incoterms Quick Guide",
+          image: "images/incoterms_matrix_infographic.png",
           summary: "Reference definitions for the 11 standard terms.",
           content: `
             <p>Incoterms® (International Commercial Terms) are published by the ICC. They are universally recognized three-letter acronyms that legally dictate exactly who pays for what part of the freight journey, and precisely where the risk of loss transfers from the seller to the buyer.</p>
             
+            <img src="images/incoterms_matrix_infographic.png" alt="Incoterms Quick Guide Matrix Infographic" onclick="openLightbox('images/incoterms_matrix_infographic.png')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
+            
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE 4 CRITICAL INCOTERMS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📌 THE 4 CRITICAL INCOTERMS</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 
@@ -3820,12 +3823,15 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "container-quick-guide",
           title: "Container Quick Guide",
+          image: "images/container_specs_infographic.png",
           summary: "Equipment volume capacities and gross weight capacities.",
           content: `
             <p>Standard ocean freight equipment dimensions and their maximum physical payloads. <em>Note: While a container can physically hold 28 tons, local road weight limits in the destination country often restrict the legal weight to much less (e.g., US road limits are often 19.9 tons for a 20').</em></p>
             
+            <img src="images/container_specs_infographic.png" alt="Ocean Container Specifications Infographic" onclick="openLightbox('images/container_specs_infographic.png')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
+            
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD OCEAN CONTAINER CAPACITIES</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📌 OCEAN CONTAINER CAPACITIES</h4>
               
               <div style="overflow-x:auto;">
                 <table style="width:100%; border-collapse:collapse; font-size:0.9rem; text-align:left; background:#FFF; border-radius:12px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
@@ -3873,12 +3879,15 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "documentation-checklist",
           title: "Documentation Checklist",
+          image: "images/export_clearance_checklist_infographic.png",
           summary: "Core paperwork checklist required to clear global trades.",
           content: `
             <p>A single missing document can halt a million-dollar supply chain, resulting in customs holds and massive terminal storage fees. Here is the mandatory "Clearance Pack" checklist required for almost every international shipment.</p>
             
+            <img src="images/export_clearance_checklist_infographic.png" alt="Export Clearance Checklist Infographic" onclick="openLightbox('images/export_clearance_checklist_infographic.png')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
+            
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE CLEARANCE PACK</h4>
+              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📌 THE CLEARANCE PACK</h4>
               
               <div style="display:flex; flex-wrap:wrap; gap:15px; margin-bottom:20px;">
                 <div style="flex:1; min-width:250px; background:#FFF; border-left:5px solid #F59E0B; padding:20px; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
@@ -3919,9 +3928,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "common-abbreviations-ref",
           title: "Common Abbreviations",
+          image: "images/logistics_abbreviations_infographic.png",
           summary: "Glossary lookup for standard shipping acronyms.",
           content: `
             <p>Global logistics is communicated almost entirely in three-letter acronyms (TLAs). Here are the absolute essentials every new operator must memorize to read a carrier email.</p>
+            
+            <img src="images/logistics_abbreviations_infographic.png" alt="Common Logistics Abbreviations Infographic" onclick="openLightbox('images/logistics_abbreviations_infographic.png')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
               <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; font-size:0.95rem;">
@@ -3974,12 +3986,15 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "freight-calculation-formulas-ref",
           title: "Freight Calculation Formulas",
+          image: "images/freight_formulas_infographic.png",
           summary: "CBM volume, chargeable weights, LCL calculations.",
           content: `
             <p>Carriers do not price shipments purely on physical weight; they price them based on the space the cargo takes up inside their plane or ship. Every forwarder must memorize these exact conversion formulas to calculate the final "Chargeable Weight."</p>
             
+            <img src="images/freight_formulas_infographic.png" alt="Freight Calculation Formulas Infographic" onclick="openLightbox('images/freight_formulas_infographic.png')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
+            
             <div style="margin:30px 0; background:#F0F9FF; border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CHARGEABLE WEIGHT FORMULAS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📌 CHARGEABLE WEIGHT FORMULAS</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border-left:5px solid #0EA5E9; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
