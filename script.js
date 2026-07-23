@@ -5,6 +5,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   initHeroSlider();
   initSPARouting();
+  initHomeScrollSpy();
   renderLearningHub();
   initSearch();
   initIncotermsMatrix();
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("load", () => {
   renderLearningHub();
   initNexusAIChat();
+  initHomeScrollSpy();
 });
 
 /* ==========================================
@@ -69,6 +71,62 @@ function initSPARouting() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+}
+
+/* ==========================================
+   2B. HOME SECTION SCROLLSPY & SMOOTH NAV
+   ========================================== */
+window.scrollToHomeSection = function(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+  
+  const headerOffset = 135; // Accounts for sticky header + sub-nav height
+  const elementPosition = section.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth"
+  });
+};
+
+function initHomeScrollSpy() {
+  const homePills = document.querySelectorAll(".home-nav-pill");
+  const homeSections = [
+    document.getElementById("home-hero"),
+    document.getElementById("home-featured-boards"),
+    document.getElementById("home-news-section"),
+    document.getElementById("home-features-section")
+  ].filter(Boolean);
+
+  if (homePills.length === 0 || homeSections.length === 0) return;
+
+  function onScrollSpy() {
+    const homePage = document.getElementById("home-page");
+    if (!homePage || !homePage.classList.contains("active")) return;
+
+    const scrollPos = window.scrollY + 180;
+
+    let currentSectionId = "home-hero";
+    homeSections.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      if (scrollPos >= top && scrollPos < top + height) {
+        currentSectionId = sec.id;
+      }
+    });
+
+    homePills.forEach(pill => {
+      const target = pill.getAttribute("data-home-target");
+      if (target === currentSectionId) {
+        pill.classList.add("active");
+      } else {
+        pill.classList.remove("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", onScrollSpy, { passive: true });
 }
 
 function switchPage(pageId) {

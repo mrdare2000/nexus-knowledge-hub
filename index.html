@@ -36,7 +36,7 @@
   <!-- HOME PAGE -->
   <div id="home-page" class="page-section active">
     <!-- Hero Slider Container -->
-    <section class="hero-container" aria-label="Nexus Cargo Hero Slideshow">
+    <section id="home-hero" class="hero-container" aria-label="Nexus Cargo Hero Slideshow">
       <div class="hero-slider">
         <div class="slide active" style="background-image: url('images/bg_ocean.png');" role="img"
           aria-label="Cargo Container Ship at Sunrise"></div>
@@ -64,14 +64,32 @@
       </div>
     </section>
 
-    <!-- FEATURED HOMEPAGE SECTIONS -->
-    <main style="background-color: var(--bg-light);">
+    <!-- STICKY HOME SECTION SUB-NAVIGATION (SCROLLSPY TABS) -->
+    <nav class="home-section-nav-sticky" id="home-section-nav" aria-label="Home section navigation">
+      <div class="home-nav-pills-container">
+        <button class="home-nav-pill active" data-home-target="home-hero" onclick="scrollToHomeSection('home-hero')">
+          <span class="pill-dot"></span><span class="pill-icon">✨</span> Overview
+        </button>
+        <button class="home-nav-pill" data-home-target="home-featured-boards" onclick="scrollToHomeSection('home-featured-boards')">
+          <span class="pill-dot"></span><span class="pill-icon">📚</span> Learning Boards
+        </button>
+        <button class="home-nav-pill" data-home-target="home-news-section" onclick="scrollToHomeSection('home-news-section')">
+          <span class="pill-dot"></span><span class="pill-icon">📰</span> Global News
+        </button>
+        <button class="home-nav-pill" data-home-target="home-features-section" onclick="scrollToHomeSection('home-features-section')">
+          <span class="pill-dot"></span><span class="pill-icon">⚡</span> Platform Features
+        </button>
+      </div>
+    </nav>
+
+    <!-- FEATURED HOMEPAGE SECTIONS WITH ALTERNATING THEMES -->
+    <main class="home-main-content">
+      
       <!-- 1. Featured Learning Boards -->
-      <section class="home-featured-section" aria-labelledby="featured-boards-title">
+      <section id="home-featured-boards" class="home-featured-section home-section-light" aria-labelledby="featured-boards-title">
+        <div class="home-section-badge"><span>LIBRARY SPOTLIGHT</span></div>
         <h2 class="home-section-title" id="featured-boards-title">Featured Learning Boards</h2>
-        <p
-          style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
-          Interactive visual guides based on shipping industry infographics.</p>
+        <p class="home-section-subtitle">Interactive visual guides based on shipping industry infographics.</p>
 
         <div class="featured-boards-grid">
           <!-- Board 1: Incoterms -->
@@ -82,8 +100,7 @@
             </div>
             <div class="board-image-info">
               <span class="board-image-title">All Types of Incoterms 2026</span>
-              <span class="board-image-desc">Cost divisions, risk transfer splits, and shipping carrier
-                obligations.</span>
+              <span class="board-image-desc">Cost divisions, risk transfer splits, and shipping carrier obligations.</span>
               <span class="board-badge">Trade Rules</span>
             </div>
           </div>
@@ -95,8 +112,7 @@
             </div>
             <div class="board-image-info">
               <span class="board-image-title">Inside a Cargo Aircraft</span>
-              <span class="board-image-desc">Explore loading doors, roller beds, and lower cargo holds on a
-                freighter.</span>
+              <span class="board-image-desc">Explore loading doors, roller beds, and lower cargo holds on a freighter.</span>
               <span class="board-badge">Air Cargo</span>
             </div>
           </div>
@@ -107,8 +123,7 @@
             </div>
             <div class="board-image-info">
               <span class="board-image-title">Types of Logistics</span>
-              <span class="board-image-desc">The 10 logistics categories including inbound, outbound, 3PL, and
-                reverse.</span>
+              <span class="board-image-desc">The 10 logistics categories including inbound, outbound, 3PL, and reverse.</span>
               <span class="board-badge">Supply Chain</span>
             </div>
           </div>
@@ -138,22 +153,21 @@
           </div>
         </div>
 
-
         <div style="text-align: center; margin-top: 50px;">
-          <button class="btn btn-primary see-more-btn" onclick="switchPage('learning')">See More Knowledge (Open Full
-            Library) &rarr;</button>
+          <button class="btn btn-primary see-more-btn" onclick="switchPage('learning')">See More Knowledge (Open Full Library) &rarr;</button>
         </div>
       </section>
 
+      <!-- DIVIDER BAR -->
+      <div class="section-divider-ribbon ribbon-navy-cyan"></div>
 
-
-      <!-- GLOBAL INDUSTRY NEWS -->
-      <section class="home-featured-section" style="background-color: var(--bg-gray);" aria-labelledby="global-news-title">
-        <h2 class="home-section-title" id="global-news-title">Latest Global Logistics News</h2>
-        <p style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
-          The latest supply chain and freight forwarding headlines worldwide.</p>
+      <!-- 2. GLOBAL INDUSTRY NEWS (MIDNIGHT NAVY THEME) -->
+      <section id="home-news-section" class="home-featured-section home-section-dark" aria-labelledby="global-news-title">
+        <div class="home-section-badge badge-dark"><span>LIVE INDUSTRY DISPATCHES</span></div>
+        <h2 class="home-section-title dark-title" id="global-news-title">Latest Global Logistics News</h2>
+        <p class="home-section-subtitle dark-subtitle">The latest supply chain and freight forwarding headlines worldwide.</p>
         
-        <div id="news-loading-state" style="text-align: center; padding: 40px; color: var(--text-muted);">
+        <div id="news-loading-state" style="text-align: center; padding: 40px; color: #94A3B8;">
           <div class="news-spinner"></div>
           <p style="margin-top: 15px;">Fetching latest global news...</p>
         </div>
@@ -162,45 +176,48 @@
           <!-- News cards will be dynamically injected here via JS -->
         </div>
 
-        <div style="text-align: center; margin-top: 35px;">
-          <button class="btn btn-primary" onclick="switchPage('news')" style="padding: 12px 30px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(255, 90, 31, 0.25);">More News &rarr;</button>
+        <div style="text-align: center; margin-top: 40px;">
+          <button class="btn btn-primary" onclick="switchPage('news')" style="padding: 14px 35px; font-size: 1.1rem; box-shadow: 0 4px 20px rgba(255, 90, 31, 0.4);">Explore News Archive &rarr;</button>
         </div>
       </section>
 
-      <!-- CORE PLATFORM FEATURES -->
-      <section class="home-featured-section" aria-labelledby="core-features-title">
+      <!-- DIVIDER BAR -->
+      <div class="section-divider-ribbon ribbon-cyan-orange"></div>
+
+      <!-- 3. CORE PLATFORM FEATURES (ICE GRADIENT THEME) -->
+      <section id="home-features-section" class="home-featured-section home-section-gradient" aria-labelledby="core-features-title">
+        <div class="home-section-badge"><span>ECOSYSTEM OVERVIEW</span></div>
         <h2 class="home-section-title" id="core-features-title">Nexus Knowledge Hub Features</h2>
-        <p style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
-          Everything you need to master global trade and logistics in one platform.</p>
+        <p class="home-section-subtitle">Everything you need to master global trade and logistics in one platform.</p>
 
         <div class="core-features-grid">
           <!-- News Feed -->
-          <div class="feature-pillar-card">
-            <div class="feature-icon">📰</div>
+          <div class="feature-pillar-card pillar-news">
+            <div class="feature-icon-badge">📰</div>
             <h3 class="feature-title">News Feed</h3>
             <p class="feature-desc">Stay updated with a continuous stream of the latest global logistics and supply chain headlines.</p>
             <button class="btn btn-primary feature-btn" onclick="switchPage('news')">Read More News &rarr;</button>
           </div>
 
           <!-- Knowledge Hub -->
-          <div class="feature-pillar-card">
-            <div class="feature-icon">📚</div>
+          <div class="feature-pillar-card pillar-learning">
+            <div class="feature-icon-badge">📚</div>
             <h3 class="feature-title">Knowledge Hub</h3>
             <p class="feature-desc">A comprehensive library covering the entire trade, operations, and freight forwarding ecosystem.</p>
-            <button class="btn btn-primary feature-btn" onclick="switchPage('learning')">Browse Knowledge Base &rarr;</button>
+            <button class="btn btn-primary feature-btn" onclick="switchPage('learning')">Browse Library &rarr;</button>
           </div>
 
           <!-- Interactive Tools -->
-          <div class="feature-pillar-card">
-            <div class="feature-icon">⚙️</div>
+          <div class="feature-pillar-card pillar-tools">
+            <div class="feature-icon-badge">⚙️</div>
             <h3 class="feature-title">Interactive Tools</h3>
             <p class="feature-desc">Access our interactive matrices, specs visualizers, CBM calculators, and simulators.</p>
             <button class="btn btn-primary feature-btn" onclick="switchPage('tools')">Explore Tools &rarr;</button>
           </div>
 
           <!-- Nexus AI -->
-          <div class="feature-pillar-card">
-            <div class="feature-icon">🤖</div>
+          <div class="feature-pillar-card pillar-ai">
+            <div class="feature-icon-badge">🤖</div>
             <h3 class="feature-title">Nexus AI</h3>
             <p class="feature-desc">Solve complex logistics challenges instantly with our expert AI assistant.</p>
             <button class="btn btn-primary feature-btn" onclick="switchPage('ai')">Start Chatting &rarr;</button>
