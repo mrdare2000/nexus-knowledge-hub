@@ -3120,13 +3120,13 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               
               <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #4ADE80; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">👕</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">🚢</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Ultra-Fast Ocean Transit</strong>
                   <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">Vessels departing from West Coast Indian ports (Nhava Sheva, Mundra) can arrive directly into Jebel Ali (Dubai) with incredibly fast transit times of <strong>4-7 Days</strong>. It is almost as fast as air freight but at a fraction of the cost.</p>
                 </div>
                 
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #4ADE80; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <div style="font-size: 3rem; margin-bottom: 10px;">👕</div>
+                  <div style="font-size: 3rem; margin-bottom: 10px;">🌾</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Primary Commodities</strong>
                   <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">This lane is dominated by agricultural exports (rice, spices, fresh produce) ensuring food security for the UAE, alongside massive volumes of textiles, jewelry, and machinery.</p>
                 </div>
