@@ -3823,12 +3823,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "container-quick-guide",
           title: "Container Quick Guide",
-          image: "images/container_knowledge.jpg",
+          image: "images/ocean_containers.png",
           summary: "Equipment volume capacities and gross weight capacities.",
           content: `
             <p>Standard ocean freight equipment dimensions and their maximum physical payloads. <em>Note: While a container can physically hold 28 tons, local road weight limits in the destination country often restrict the legal weight to much less (e.g., US road limits are often 19.9 tons for a 20').</em></p>
             
-            <img src="images/container_knowledge.jpg" alt="Ocean Container Specifications Infographic" onclick="openLightbox('images/container_knowledge.jpg')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
+            <img src="images/ocean_containers.png" alt="Ocean Container Specifications Infographic" onclick="openLightbox('images/ocean_containers.png')" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15); cursor:pointer;">
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
               <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📌 ACCURATE OCEAN CONTAINER CAPACITIES</h4>
