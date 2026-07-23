@@ -3722,7 +3722,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "customs-glossary",
           title: "Customs Glossary",
           summary: "ASYCUDA, customs classifications, tariffs, and duty codes.",
+          image: "images/customs_glossary.png",
           content: `
+            <img src="images/customs_glossary.png" alt="Customs Glossary Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>Customs authorities operate as the ultimate gatekeepers of international borders. Their terminology focuses entirely on revenue collection (taxes) and border security.</p>
             
             <div style="margin:30px 0; background:#F0FDF4; border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
