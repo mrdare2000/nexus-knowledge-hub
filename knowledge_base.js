@@ -3147,7 +3147,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "export-shipment-process-flow",
           title: "Export Shipment Process Flow",
           summary: "Timeline from booking request to loading confirmation.",
+          image: "images/export_shipment_flow.png",
           content: `
+            <img src="images/export_shipment_flow.png" alt="Export Shipment Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>Exporting cargo involves highly synchronized steps between the shipper, forwarder, customs broker, and ocean carrier. A failure at any single point in this pipeline can cause the cargo to miss the vessel—a disastrous event known as a <strong>Roll-Over</strong>.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3196,7 +3198,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "import-shipment-process-flow",
           title: "Import Shipment Process Flow",
           summary: "Managing arrivals, clearances, and destination deliveries.",
+          image: "images/import_shipment_flow.png",
           content: `
+            <img src="images/import_shipment_flow.png" alt="Import Shipment Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>Import operations revolve around an extreme sense of urgency. The primary goal is to release the cargo from the port jurisdiction as quickly as possible to avoid devastating Demurrage and Detention (D&D) penalties, which can quickly wipe out the entire profit margin of the goods.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FDF4FF 0%, #F5D0FE 100%); border:2px solid #F0ABFC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3230,7 +3234,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "air-freight-process-flow",
           title: "Air Freight Process Flow",
           summary: "Airport terminal operations and airway bill controls.",
+          image: "images/air_freight_flow.png",
           content: `
+            <img src="images/air_freight_flow.png" alt="Air Freight Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>Unlike ocean freight, air freight moves in hours, not days. The standard operating procedure at an airport terminal is a high-speed environment built entirely around two non-negotiable pillars: <strong>Security</strong> and <strong>Weight Audits</strong>.</p>
             
             <div style="margin:30px 0; background:#F0F9FF; border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3269,7 +3275,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "ocean-freight-process-flow",
           title: "Ocean Freight Process Flow",
           summary: "Port container yard gates and shipping line manifests.",
+          image: "images/ocean_freight_flow.png",
           content: `
+            <img src="images/ocean_freight_flow.png" alt="Ocean Freight Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>The Ocean Freight process is entirely dictated by strict carrier cutoff deadlines. These are hard stops—if you miss a cutoff by even 5 minutes, your container will not be loaded onto the ship, and you will wait another week for the next vessel, incurring port storage charges in the meantime.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3301,7 +3309,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "documentation-flow",
           title: "Documentation Flow",
           summary: "Managing certificates and switch bills of lading.",
+          image: "images/documentation_flow.png",
           content: `
+            <img src="images/documentation_flow.png" alt="Documentation Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>Cargo doesn't move on ships; it moves on paper. The documentation flow runs parallel to the physical cargo flow. A delay in the document pipeline can cause the physical cargo to be held hostage at the destination port, racking up thousands of dollars in Demurrage penalties.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3356,7 +3366,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "physical-cargo-flow",
           title: "Physical Cargo Flow",
           summary: "Tracking the physical cargo movements across modes.",
+          image: "images/physical_cargo_flow.png",
           content: `
+            <img src="images/physical_cargo_flow.png" alt="Physical Cargo Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>While the forwarder sits at a desk managing data and tracking milestones, the actual physical cargo is handed off multiple times between different heavy-machinery operators across the globe. Each handoff is a liability transfer point.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3402,7 +3414,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "customer-inquiry-to-quotation",
           title: "Customer Inquiry to Quotation",
           summary: "Analyzing pricing requests and preparing commercial quotes.",
+          image: "images/quotation_process_flow.png",
           content: `
+            <img src="images/quotation_process_flow.png" alt="Customer Inquiry to Quotation Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>The Sales SOP (Standard Operating Procedure) dictates how quickly, accurately, and profitably a forwarder can respond to a customer's Request for Quotation (RFQ). A bad quote can result in massive financial losses for the forwarder.</p>
             
             <div style="margin:30px 0; background:#FFF1F2; border:2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3435,7 +3449,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "booking-to-final-delivery",
           title: "Booking to Final Delivery",
           summary: "End-to-end milestone timeline checklist.",
+          image: "images/booking_to_delivery_flow.png",
           content: `
+            <img src="images/booking_to_delivery_flow.png" alt="Booking to Final Delivery Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>This is the high-level operational milestone checklist used by forwarders globally to ensure a shipment is moving without delays and data is transmitted accurately to all parties.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3482,7 +3498,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "claims-and-escalation-process",
           title: "Claims and Escalation Process",
           summary: "Handling cargo damage, losses, and insurance claims.",
+          image: "images/claims_escalation_flow.png",
           content: `
+            <img src="images/claims_escalation_flow.png" alt="Claims and Escalation Process Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>When cargo arrives damaged (water damage, crushed cartons, temperature spikes in reefers), or is completely lost at sea, the consignee must act immediately to protect their legal right to file a claim against the carrier or their marine insurance provider.</p>
             
             <div style="margin:30px 0; background:#FFF1F2; border:2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3516,7 +3534,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "shipment-milestone-tracking",
           title: "Shipment Milestone Tracking",
           summary: "Using EDI and track-and-trace links for visibility.",
+          image: "images/shipment_tracking_flow.png",
           content: `
+            <img src="images/shipment_tracking_flow.png" alt="Shipment Milestone Tracking Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>In modern logistics, information visibility is just as important as the physical movement of the cargo. Shippers demand to know exactly where their million-dollar inventories are at all times to plan their manufacturing or retail schedules.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
