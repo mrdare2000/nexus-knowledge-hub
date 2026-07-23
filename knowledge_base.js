@@ -3572,7 +3572,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "shipping-glossary-a-z",
           title: "Shipping Glossary A-Z",
           summary: "Comprehensive index of common shipping terms.",
+          image: "images/shipping_glossary_az.png",
           content: `
+            <img src="images/shipping_glossary_az.png" alt="Shipping Glossary A-Z Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>A comprehensive, quick-reference dictionary for the most critical supply chain terminology used by global forwarders. Understanding this vocabulary is the first step to mastering international trade.</p>
             
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3619,7 +3621,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "air-freight-glossary",
           title: "Air Freight Glossary",
           summary: "Aviation cargo codes, airport codes, and airline terms.",
+          image: "images/air_freight_glossary.png",
           content: `
+            <img src="images/air_freight_glossary.png" alt="Air Freight Glossary Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>Air cargo has its own distinct, high-speed vocabulary driven by IATA (International Air Transport Association) regulations. Every hour counts, so the terminology is precise and standardized globally.</p>
             
             <div style="margin:30px 0; background:#F0F9FF; border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
@@ -3661,7 +3665,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "ocean-freight-glossary",
           title: "Ocean Freight Glossary",
           summary: "Maritime shipping line terms, container types, and vessel size terms.",
+          image: "images/ocean_freight_glossary.png",
           content: `
+            <img src="images/ocean_freight_glossary.png" alt="Ocean Freight Glossary Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
             <p>Maritime shipping operations deal with massive volumes, immense weight, and strict port regulations. Understanding these terms is crucial to avoiding thousands of dollars in port penalties.</p>
             
             <div style="margin:30px 0; background:#EFF6FF; border:2px solid #93C5FD; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
