@@ -1965,8 +1965,14 @@ async function fetchLogisticsNews() {
   }
   
   const feeds = [
-    'https://www.porttechnology.org/feed/',
-    'https://www.supplychaindive.com/feeds/news/'
+    'https://simpleflying.com/feed/',                           // Aviation
+    'https://www.seatrade-maritime.com/rss.xml',                // Maritime
+    'https://www.porttechnology.org/feed/',                    // Maritime & Ports
+    'https://feeds.bbci.co.uk/news/politics/rss.xml',            // Politics & Trade Policy
+    'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml', // Politics & Trade Policy
+    'https://www.freightwaves.com/feed',                       // Land Transport & Freight
+    'https://www.supplychaindive.com/feeds/news/',             // Logistics & Supply Chain
+    'https://feeds.bbci.co.uk/news/world/rss.xml'              // World Emergency News
   ];
   
   const homeLoading = document.getElementById('news-loading-state');
@@ -1975,25 +1981,37 @@ async function fetchLogisticsNews() {
   try {
     const fetchPromises = feeds.map(feedUrl => {
       const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-      return fetch(apiUrl).then(res => res.json());
+      return fetch(apiUrl)
+        .then(res => res.ok ? res.json() : null)
+        .catch(() => null);
     });
 
     const results = await Promise.all(fetchPromises);
     
     let rawArticles = [];
     results.forEach(data => {
-      if (data.status === 'ok' && data.items) {
+      if (data && data.status === 'ok' && Array.isArray(data.items)) {
         rawArticles = rawArticles.concat(data.items);
       }
     });
 
+    // Deduplicate articles by normalized title
+    const seenTitles = new Set();
+    const uniqueArticles = rawArticles.filter(article => {
+      if (!article || !article.title) return false;
+      const normTitle = article.title.trim().toLowerCase();
+      if (seenTitles.has(normTitle)) return false;
+      seenTitles.add(normTitle);
+      return true;
+    });
+
     // Strictly filter articles to ONLY those with authentic publisher images from news channels
-    const articlesWithImages = rawArticles.map(article => {
+    const articlesWithImages = uniqueArticles.map(article => {
       const pubImg = getArticlePublisherImage(article);
       return { ...article, publisherImage: pubImg };
     }).filter(article => article.publisherImage && article.publisherImage.trim() !== "");
 
-    // Sort strictly by publication date
+    // Sort strictly by publication date (newest first)
     articlesWithImages.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
     if (articlesWithImages.length > 0) {
@@ -2023,9 +2041,9 @@ function renderNews(allArticles) {
     homeContainer.style.display = 'grid';
   }
   
-  // Render Full Page (Top 20 authentic news stories with publisher images)
+  // Render Full Page (Top 30 authentic news stories with publisher images)
   if (fullContainer) {
-    const articles = allArticles.slice(0, 20);
+    const articles = allArticles.slice(0, 30);
     fullContainer.innerHTML = generateNewsHTML(articles);
     if (fullLoading) fullLoading.style.display = 'none';
     fullContainer.style.display = 'grid';
@@ -2057,7 +2075,5 @@ function generateNewsHTML(articles) {
   });
   return html;
 }
-
-// Remove the old fetchFullLogisticsNews as it is now integrated
 
 
