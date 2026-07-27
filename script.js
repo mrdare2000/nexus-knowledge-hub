@@ -1964,15 +1964,22 @@ async function fetchLogisticsNews() {
     return;
   }
   
+  // Dedicated feeds strictly covering Global Supply Chain, Maritime, Ports, Freight & Cargo Logistics
   const feeds = [
-    'https://simpleflying.com/feed/',                           // Aviation
-    'https://www.seatrade-maritime.com/rss.xml',                // Maritime
-    'https://www.porttechnology.org/feed/',                    // Maritime & Ports
-    'https://feeds.bbci.co.uk/news/politics/rss.xml',            // Politics & Trade Policy
-    'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml', // Politics & Trade Policy
-    'https://www.freightwaves.com/feed',                       // Land Transport & Freight
     'https://www.supplychaindive.com/feeds/news/',             // Logistics & Supply Chain
-    'https://feeds.bbci.co.uk/news/world/rss.xml'              // World Emergency News
+    'https://www.seatrade-maritime.com/rss.xml',                // Maritime & Ocean Shipping
+    'https://www.porttechnology.org/feed/',                    // Ports & Container Terminals
+    'https://www.freightwaves.com/feed',                       // Freight, Trucking & Ground Transport
+    'https://simpleflying.com/feed/'                            // Air Aviation & Air Freight
+  ];
+
+  const LOGISTICS_KEYWORDS = [
+    'logistics', 'supply chain', 'shipping', 'port', 'freight', 'maritime',
+    'cargo', 'vessel', 'container', 'transport', 'trucking', 'aviation',
+    'airline', 'fleet', 'rail', 'trade', 'tariff', 'export', 'import',
+    'warehouse', 'customs', 'houthi', 'red sea', 'panama', 'suez',
+    'carrier', 'ocean', 'bunker', 'tanker', 'chokepoint', 'tonnage', 'teu',
+    'dockworker', 'terminal', 'boeing', 'airbus', 'shipment', 'freighter'
   ];
   
   const homeLoading = document.getElementById('news-loading-state');
@@ -1995,18 +2002,23 @@ async function fetchLogisticsNews() {
       }
     });
 
-    // Deduplicate articles by normalized title
+    // Filter articles for logistics relevance & deduplicate by normalized title
     const seenTitles = new Set();
-    const uniqueArticles = rawArticles.filter(article => {
+    const uniqueRelevantArticles = rawArticles.filter(article => {
       if (!article || !article.title) return false;
       const normTitle = article.title.trim().toLowerCase();
       if (seenTitles.has(normTitle)) return false;
+      
+      const contentText = (article.title + " " + (article.description || "")).toLowerCase();
+      const isRelevant = LOGISTICS_KEYWORDS.some(kw => contentText.includes(kw));
+      if (!isRelevant) return false;
+
       seenTitles.add(normTitle);
       return true;
     });
 
-    // Strictly filter articles to ONLY those with authentic publisher images from news channels
-    const articlesWithImages = uniqueArticles.map(article => {
+    // Strictly filter articles to ONLY those with authentic publisher images
+    const articlesWithImages = uniqueRelevantArticles.map(article => {
       const pubImg = getArticlePublisherImage(article);
       return { ...article, publisherImage: pubImg };
     }).filter(article => article.publisherImage && article.publisherImage.trim() !== "");
@@ -2018,7 +2030,7 @@ async function fetchLogisticsNews() {
       globalNewsCache = articlesWithImages;
       renderNews(articlesWithImages);
     } else {
-      throw new Error("No valid articles with publisher images found.");
+      throw new Error("No valid logistics articles with publisher images found.");
     }
   } catch (error) {
     console.error("Failed to fetch news:", error);
