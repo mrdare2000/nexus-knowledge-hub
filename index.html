@@ -44,6 +44,10 @@
           aria-label="Cargo Aircraft loading containers at night"></div>
         <div class="slide" style="background-image: url('images/bg_warehouse.png');" role="img"
           aria-label="Modern Logistics Warehouse interior"></div>
+        <div class="slide" style="background-image: url('images/bg_port.png');" role="img"
+          aria-label="Deep sea container port terminal with gantry cranes at sunset"></div>
+        <div class="slide" style="background-image: url('images/bg_trucking.png');" role="img"
+          aria-label="Intermodal freight semi-truck carrying sea container on trade highway"></div>
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
@@ -61,6 +65,8 @@
         <div class="indicator active"></div>
         <div class="indicator"></div>
         <div class="indicator"></div>
+        <div class="indicator"></div>
+        <div class="indicator"></div>
       </div>
     </section>
 
@@ -68,14 +74,14 @@
     <main style="background-color: var(--bg-light);">
       <!-- 1. Featured Learning Boards -->
       <section class="home-featured-section" aria-labelledby="featured-boards-title">
-        <h2 class="home-section-title" id="featured-boards-title">Featured Learning Boards</h2>
-        <p
+        <h2 class="home-section-title reveal-on-scroll" id="featured-boards-title">Featured Learning Boards</h2>
+        <p class="reveal-on-scroll"
           style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
           Interactive visual guides based on shipping industry infographics.</p>
 
         <div class="featured-boards-grid">
           <!-- Board 1: Incoterms -->
-          <div class="board-image-card"
+          <div class="board-image-card reveal-on-scroll reveal-delay-1"
             onclick="openImageModal('images/incoterms_2026.jpg', 'All Types of Incoterms 2026')">
             <div class="board-image-wrapper">
               <img src="images/incoterms_2026.jpg" alt="All Types of Incoterms 2026">
@@ -88,7 +94,7 @@
             </div>
           </div>
           <!-- Board 2: Cargo plane -->
-          <div class="board-image-card"
+          <div class="board-image-card reveal-on-scroll reveal-delay-2"
             onclick="openImageModal('images/cargo_aircraft.jpg', 'Inside a Cargo Aircraft')">
             <div class="board-image-wrapper">
               <img src="images/cargo_aircraft.jpg" alt="Inside a Cargo Aircraft">
@@ -101,7 +107,7 @@
             </div>
           </div>
           <!-- Board 3: Logistics models -->
-          <div class="board-image-card" onclick="openImageModal('images/passenger_aircraft.jpg', 'Types of Logistics')">
+          <div class="board-image-card reveal-on-scroll reveal-delay-3" onclick="openImageModal('images/passenger_aircraft.jpg', 'Types of Logistics')">
             <div class="board-image-wrapper">
               <img src="images/passenger_aircraft.jpg" alt="Types of Logistics">
             </div>
@@ -113,7 +119,7 @@
             </div>
           </div>
           <!-- Board 4: Passenger Aircraft -->
-          <div class="board-image-card"
+          <div class="board-image-card reveal-on-scroll reveal-delay-4"
             onclick="openImageModal('images/container_knowledge.jpg', 'Inside a Passenger Aircraft')">
             <div class="board-image-wrapper">
               <img src="images/container_knowledge.jpg" alt="Inside a Passenger Aircraft">
@@ -125,7 +131,7 @@
             </div>
           </div>
           <!-- Board 5: Types of Containers -->
-          <div class="board-image-card"
+          <div class="board-image-card reveal-on-scroll reveal-delay-5"
             onclick="openImageModal('images/types_of_logistics.jpg', 'Types of Containers')">
             <div class="board-image-wrapper">
               <img src="images/types_of_logistics.jpg" alt="Types of Containers">
@@ -138,19 +144,16 @@
           </div>
         </div>
 
-
-        <div style="text-align: center; margin-top: 50px;">
+        <div style="text-align: center; margin-top: 50px;" class="reveal-on-scroll">
           <button class="btn btn-primary see-more-btn" onclick="switchPage('learning')">See More Knowledge (Open Full
             Library) &rarr;</button>
         </div>
       </section>
 
-
-
       <!-- GLOBAL INDUSTRY NEWS -->
       <section class="home-featured-section" style="background-color: var(--bg-gray);" aria-labelledby="global-news-title">
-        <h2 class="home-section-title" id="global-news-title">Latest Global Logistics News</h2>
-        <p style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
+        <h2 class="home-section-title reveal-on-scroll" id="global-news-title">Latest Global Logistics News</h2>
+        <p class="reveal-on-scroll" style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
           The latest supply chain and freight forwarding headlines worldwide.</p>
         
         <div id="news-loading-state" style="text-align: center; padding: 40px; color: var(--text-muted);">
@@ -162,20 +165,20 @@
           <!-- News cards will be dynamically injected here via JS -->
         </div>
 
-        <div style="text-align: center; margin-top: 35px;">
+        <div style="text-align: center; margin-top: 35px;" class="reveal-on-scroll">
           <button class="btn btn-primary" onclick="switchPage('news')" style="padding: 12px 30px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(255, 90, 31, 0.25);">More News &rarr;</button>
         </div>
       </section>
 
       <!-- CORE PLATFORM FEATURES -->
       <section class="home-featured-section" aria-labelledby="core-features-title">
-        <h2 class="home-section-title" id="core-features-title">Nexus Knowledge Hub Features</h2>
-        <p style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
+        <h2 class="home-section-title reveal-on-scroll" id="core-features-title">Nexus Knowledge Hub Features</h2>
+        <p class="reveal-on-scroll" style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
           Everything you need to master global trade and logistics in one platform.</p>
 
         <div class="core-features-grid">
           <!-- News Feed -->
-          <div class="feature-pillar-card">
+          <div class="feature-pillar-card reveal-on-scroll reveal-delay-1">
             <div class="feature-icon">📰</div>
             <h3 class="feature-title">News Feed</h3>
             <p class="feature-desc">Stay updated with a continuous stream of the latest global logistics and supply chain headlines.</p>
@@ -183,7 +186,7 @@
           </div>
 
           <!-- Knowledge Hub -->
-          <div class="feature-pillar-card">
+          <div class="feature-pillar-card reveal-on-scroll reveal-delay-2">
             <div class="feature-icon">📚</div>
             <h3 class="feature-title">Knowledge Hub</h3>
             <p class="feature-desc">A comprehensive library covering the entire trade, operations, and freight forwarding ecosystem.</p>
@@ -191,7 +194,7 @@
           </div>
 
           <!-- Interactive Tools -->
-          <div class="feature-pillar-card">
+          <div class="feature-pillar-card reveal-on-scroll reveal-delay-3">
             <div class="feature-icon">⚙️</div>
             <h3 class="feature-title">Interactive Tools</h3>
             <p class="feature-desc">Access our interactive matrices, specs visualizers, CBM calculators, and simulators.</p>
@@ -199,7 +202,7 @@
           </div>
 
           <!-- Nexus AI -->
-          <div class="feature-pillar-card">
+          <div class="feature-pillar-card reveal-on-scroll reveal-delay-4">
             <div class="feature-icon">🤖</div>
             <h3 class="feature-title">Nexus AI</h3>
             <p class="feature-desc">Solve complex logistics challenges instantly with our expert AI assistant.</p>
@@ -903,7 +906,7 @@
       <!-- Contact Info -->
       <div class="contact-info-panel">
         <div class="contact-info-top">
-          <h2 class="contact-info-title">Contact Details</h2>
+          <h2 class="contact-info-title">Connect With Us</h2>
           <p class="contact-info-desc">Reach out directly via email, phone, or visit our primary website.</p>
 
           <div class="contact-details">

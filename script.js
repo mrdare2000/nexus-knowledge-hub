@@ -14,11 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initNexusAIChat();
   initContactForm();
   fetchLogisticsNews();
+  initScrollAnimations();
 });
 
 window.addEventListener("load", () => {
   renderLearningHub();
   initNexusAIChat();
+  initScrollAnimations();
 });
 
 /* ==========================================
@@ -43,6 +45,30 @@ function initHeroSlider() {
   }
   
   setInterval(nextSlide, slideInterval);
+}
+
+/* ==========================================
+   SCROLL MOTION ANIMATION OBSERVER
+   ========================================== */
+function initScrollAnimations() {
+  const revealElements = document.querySelectorAll(".reveal-on-scroll, .reveal-from-left, .reveal-from-right");
+  if (revealElements.length === 0) return;
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -40px 0px",
+    threshold: 0.12
+  };
+
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+      }
+    });
+  }, observerOptions);
+
+  revealElements.forEach(el => scrollObserver.observe(el));
 }
 
 /* ==========================================
@@ -106,6 +132,7 @@ function switchPage(pageId) {
 
   // Scroll to top after layout has been updated
   setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
+  setTimeout(initScrollAnimations, 150);
 
   // Close mobile navigation menu if active
   const mainNav = document.querySelector("header nav");
