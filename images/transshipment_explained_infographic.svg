@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#0D9488"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">ðŸ”„ INFOGRAPHIC: HOW TRANSSHIPMENT WORKS IN MARITIME TRADE</text>
+
+  <g transform="translate(50, 130)">
+    <rect width="260" height="240" rx="12" fill="#1E293B" stroke="#2DD4BF" stroke-width="2"/>
+    <text x="20" y="35" fill="#2DD4BF" font-size="18" font-weight="bold">Port A: Origin Port</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="13">â€¢ Shallow local feeder port</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="13">â€¢ Cargo loaded on Feeder Vessel</text>
+    <text x="20" y="135" fill="#CBD5E1" font-size="13">â€¢ Export Customs cleared</text>
+    <rect x="20" y="170" width="220" height="40" fill="#0F172A" rx="6"/>
+    <text x="30" y="195" fill="#38BDF8" font-size="13" font-weight="bold">Feeder Vessel Leg 1</text>
+  </g>
+
+  <text x="330" y="250" fill="#2DD4BF" font-size="36">âž”</text>
+
+  <g transform="translate(370, 130)">
+    <rect width="260" height="240" rx="12" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+    <text x="20" y="35" fill="#F59E0B" font-size="18" font-weight="bold">Transshipment Hub</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="13">â€¢ Deep-water Megaport</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="13">â€¢ Container discharged to yard</text>
+    <text x="20" y="135" fill="#10B981" font-size="13" font-weight="bold">â€¢ Zero Import Duty (Bonded)</text>
+    <rect x="20" y="170" width="220" height="40" fill="#0F172A" rx="6"/>
+    <text x="30" y="195" fill="#F59E0B" font-size="13" font-weight="bold">Transferred to Mother Vessel</text>
+  </g>
+
+  <text x="650" y="250" fill="#2DD4BF" font-size="36">âž”</text>
+
+  <g transform="translate(690, 130)">
+    <rect width="260" height="240" rx="12" fill="#1E293B" stroke="#2DD4BF" stroke-width="2"/>
+    <text x="20" y="35" fill="#2DD4BF" font-size="18" font-weight="bold">Port B: Destination</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="13">â€¢ Mother Vessel arrives</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="13">â€¢ Final Container Discharge</text>
+    <text x="20" y="135" fill="#CBD5E1" font-size="13">â€¢ Import Customs Clearance</text>
+    <rect x="20" y="170" width="220" height="40" fill="#0F172A" rx="6"/>
+    <text x="30" y="195" fill="#34D399" font-size="13" font-weight="bold">Final Consignee Delivery</text>
+  </g>
+
+  <g transform="translate(50, 410)">
+    <rect width="900" height="140" rx="12" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="20" y="35" fill="#38BDF8" font-size="16" font-weight="bold">ðŸ’¡ WHY CARRIERS USE TRANSSHIPMENT:</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13.5">1. Connects ports where no direct ocean shipping lane exists.</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13.5">2. Allows mega vessels (18,000+ TEU) to only dock at deep-water hub ports, optimizing fuel &amp; transit costs.</text>
+  </g>
+</svg>

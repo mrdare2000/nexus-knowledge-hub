@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#DC2626"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">ðŸ’° INFOGRAPHIC: DEMURRAGE vs DETENTION vs PORT STORAGE</text>
+
+  <!-- Demurrage -->
+  <g transform="translate(50, 130)">
+    <rect width="280" height="420" rx="12" fill="#1E293B" stroke="#EF4444" stroke-width="2"/>
+    <rect x="15" y="15" width="250" height="40" rx="6" fill="#EF4444"/>
+    <text x="25" y="41" fill="#FFF" font-size="16" font-weight="bold">1. DEMURRAGE</text>
+    <text x="15" y="85" fill="#F87171" font-size="15" font-weight="bold">Location: Inside Port</text>
+
+    <text x="15" y="125" fill="#CBD5E1" font-size="13.5">Charged by: <strong style="fill:#FFF;">Shipping Line</strong></text>
+    <text x="15" y="160" fill="#CBD5E1" font-size="13.5">â€¢ Applies to container staying inside the port yard beyond allowed free days.</text>
+    <text x="15" y="215" fill="#CBD5E1" font-size="13.5">â€¢ Typical Free Time: 3 to 7 days.</text>
+
+    <rect x="15" y="260" width="250" height="135" fill="#0F172A" rx="8"/>
+    <text x="25" y="290" fill="#EF4444" font-size="13" font-weight="bold">Triggers:</text>
+    <text x="25" y="315" fill="#94A3B8" font-size="12">â€¢ Delayed Customs clearance</text>
+    <text x="25" y="335" fill="#94A3B8" font-size="12">â€¢ Missing import documents</text>
+    <text x="25" y="355" fill="#94A3B8" font-size="12">â€¢ Unpaid duty / port holds</text>
+  </g>
+
+  <!-- Detention -->
+  <g transform="translate(360, 130)">
+    <rect width="280" height="420" rx="12" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+    <rect x="15" y="15" width="250" height="40" rx="6" fill="#F59E0B"/>
+    <text x="25" y="41" fill="#FFF" font-size="16" font-weight="bold">2. DETENTION</text>
+    <text x="15" y="85" fill="#FBBF24" font-size="15" font-weight="bold">Location: Outside Port</text>
+
+    <text x="15" y="125" fill="#CBD5E1" font-size="13.5">Charged by: <strong style="fill:#FFF;">Shipping Line</strong></text>
+    <text x="15" y="160" fill="#CBD5E1" font-size="13.5">â€¢ Applies when importer holds empty container equipment outside port.</text>
+    <text x="15" y="215" fill="#CBD5E1" font-size="13.5">â€¢ Starts when container pulled out, ends when returned empty to depot.</text>
+
+    <rect x="15" y="260" width="250" height="135" fill="#0F172A" rx="8"/>
+    <text x="25" y="290" fill="#F59E0B" font-size="13" font-weight="bold">Triggers:</text>
+    <text x="25" y="315" fill="#94A3B8" font-size="12">â€¢ Slow warehouse unloading</text>
+    <text x="25" y="335" fill="#94A3B8" font-size="12">â€¢ Haulage truck delays</text>
+    <text x="25" y="355" fill="#94A3B8" font-size="12">â€¢ Container damage holds</text>
+  </g>
+
+  <!-- Storage -->
+  <g transform="translate(670, 130)">
+    <rect width="280" height="420" rx="12" fill="#1E293B" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="15" y="15" width="250" height="40" rx="6" fill="#3B82F6"/>
+    <text x="25" y="41" fill="#FFF" font-size="16" font-weight="bold">3. PORT STORAGE</text>
+    <text x="15" y="85" fill="#60A5FA" font-size="15" font-weight="bold">Ground Rent Fee</text>
+
+    <text x="15" y="125" fill="#CBD5E1" font-size="13.5">Charged by: <strong style="fill:#FFF;">Port Authority</strong></text>
+    <text x="15" y="160" fill="#CBD5E1" font-size="13.5">â€¢ Fee for container occupying physical space on the terminal ground.</text>
+    <text x="15" y="215" fill="#CBD5E1" font-size="13.5">â€¢ Charged directly by terminal operator, separate from shipping line.</text>
+
+    <rect x="15" y="260" width="250" height="135" fill="#0F172A" rx="8"/>
+    <text x="25" y="290" fill="#3B82F6" font-size="13" font-weight="bold">Triggers:</text>
+    <text x="25" y="315" fill="#94A3B8" font-size="12">â€¢ Port terminal congestion</text>
+    <text x="25" y="335" fill="#94A3B8" font-size="12">â€¢ Gate-in before free window</text>
+    <text x="25" y="355" fill="#94A3B8" font-size="12">â€¢ Overstayed containers</text>
+  </g>
+</svg>

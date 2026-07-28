@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#D97706"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">ðŸ—ï¸ INFOGRAPHIC: CONTAINER LOADING &amp; STUFFING PROTOCOLS</text>
+
+  <g transform="translate(50, 120)">
+    <rect width="420" height="210" rx="12" fill="#1E293B" stroke="#FBBF24" stroke-width="2"/>
+    <text x="20" y="35" fill="#FBBF24" font-size="18" font-weight="bold">1. Weight Distribution</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ Spread weight evenly across entire floor</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Avoid high center-of-gravity concentration</text>
+    <text x="20" y="135" fill="#EF4444" font-size="14" font-weight="bold">âš ï¸ Maximum 60% payload in any single half!</text>
+  </g>
+
+  <g transform="translate(530, 120)">
+    <rect width="420" height="210" rx="12" fill="#1E293B" stroke="#FBBF24" stroke-width="2"/>
+    <text x="20" y="35" fill="#FBBF24" font-size="18" font-weight="bold">2. Inflatable Dunnage Bags</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ Fill void spaces between cargo stacks</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Prevents cargo crashing during sea pitch</text>
+    <text x="20" y="135" fill="#10B981" font-size="14" font-weight="bold">âœ” Absorbs severe wave impact shocks</text>
+  </g>
+
+  <g transform="translate(50, 360)">
+    <rect width="420" height="200" rx="12" fill="#1E293B" stroke="#FBBF24" stroke-width="2"/>
+    <text x="20" y="35" fill="#FBBF24" font-size="18" font-weight="bold">3. Lashing &amp; Corner D-Rings</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ Secure straps directly to floor D-rings</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Block heavy machinery with timber chocks</text>
+    <text x="20" y="135" fill="#38BDF8" font-size="14" font-weight="bold">âœ” High tensile ratchet straps required</text>
+  </g>
+
+  <g transform="translate(530, 360)">
+    <rect width="420" height="200" rx="12" fill="#1E293B" stroke="#FBBF24" stroke-width="2"/>
+    <text x="20" y="35" fill="#FBBF24" font-size="18" font-weight="bold">4. Packing Order &amp; Liquids</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ Heavy items on bottom, light items on top</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Isolate liquid drums from absorbent dry goods</text>
+    <text x="20" y="135" fill="#EF4444" font-size="14" font-weight="bold">âš ï¸ Never stack heavy cargo on fragile boxes!</text>
+  </g>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#064E3B; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#064E3B"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#047857"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">CONTAINER SIZES &amp; TECHNICAL SPECIFICATIONS TABLE</text>
+
+  <g transform="translate(50, 110)">
+    <rect width="900" height="40" fill="#10B981" rx="6"/>
+    <text x="20" y="26" fill="#FFF" font-size="14" font-weight="bold">Dimension / Metric</text>
+    <text x="250" y="26" fill="#FFF" font-size="14" font-weight="bold">20ft Dry Van (20' GP)</text>
+    <text x="480" y="26" fill="#FFF" font-size="14" font-weight="bold">40ft Dry Van (40' GP)</text>
+    <text x="700" y="26" fill="#FFF" font-size="14" font-weight="bold">40ft High Cube (40' HC)</text>
+  </g>
+
+  <g transform="translate(50, 160)">
+    <rect width="900" height="50" fill="#065F46" rx="4"/>
+    <text x="20" y="30" fill="#A7F3D0" font-size="14" font-weight="bold">Internal Length</text>
+    <text x="250" y="30" fill="#FFF" font-size="14">5.90 m (19.4 ft)</text>
+    <text x="480" y="30" fill="#FFF" font-size="14">12.03 m (39.5 ft)</text>
+    <text x="700" y="30" fill="#FFF" font-size="14">12.03 m (39.5 ft)</text>
+  </g>
+
+  <g transform="translate(50, 220)">
+    <rect width="900" height="50" fill="#047857" rx="4"/>
+    <text x="20" y="30" fill="#A7F3D0" font-size="14" font-weight="bold">Internal Width</text>
+    <text x="250" y="30" fill="#FFF" font-size="14">2.35 m (7.8 ft)</text>
+    <text x="480" y="30" fill="#FFF" font-size="14">2.35 m (7.8 ft)</text>
+    <text x="700" y="30" fill="#FFF" font-size="14">2.35 m (7.8 ft)</text>
+  </g>
+
+  <g transform="translate(50, 280)">
+    <rect width="900" height="50" fill="#065F46" rx="4"/>
+    <text x="20" y="30" fill="#A7F3D0" font-size="14" font-weight="bold">Internal Height</text>
+    <text x="250" y="30" fill="#FFF" font-size="14">2.39 m (7.9 ft)</text>
+    <text x="480" y="30" fill="#FFF" font-size="14">2.39 m (7.9 ft)</text>
+    <text x="700" y="30" fill="#FBBF24" font-size="14" font-weight="bold">2.69 m (8.9 ft) [High]</text>
+  </g>
+
+  <g transform="translate(50, 340)">
+    <rect width="900" height="50" fill="#047857" rx="4"/>
+    <text x="20" y="30" fill="#A7F3D0" font-size="14" font-weight="bold">Usable Volume</text>
+    <text x="250" y="30" fill="#34D399" font-size="14" font-weight="bold">~33.2 CBM</text>
+    <text x="480" y="30" fill="#34D399" font-size="14" font-weight="bold">~67.7 CBM</text>
+    <text x="700" y="30" fill="#34D399" font-size="14" font-weight="bold">~76.4 CBM</text>
+  </g>
+
+  <g transform="translate(50, 400)">
+    <rect width="900" height="50" fill="#065F46" rx="4"/>
+    <text x="20" y="30" fill="#A7F3D0" font-size="14" font-weight="bold">Tare Weight</text>
+    <text x="250" y="30" fill="#FFF" font-size="14">2,200 kg (4,850 lbs)</text>
+    <text x="480" y="30" fill="#FFF" font-size="14">3,700 kg (8,160 lbs)</text>
+    <text x="700" y="30" fill="#FFF" font-size="14">3,900 kg (8,600 lbs)</text>
+  </g>
+
+  <g transform="translate(50, 460)">
+    <rect width="900" height="50" fill="#047857" rx="4"/>
+    <text x="20" y="30" fill="#A7F3D0" font-size="14" font-weight="bold">Max Cargo Payload</text>
+    <text x="250" y="30" fill="#F87171" font-size="14" font-weight="bold">28,280 kg (Heavy Density)</text>
+    <text x="480" y="30" fill="#FFF" font-size="14">26,780 kg (59,040 lbs)</text>
+    <text x="700" y="30" fill="#FFF" font-size="14">26,580 kg (58,600 lbs)</text>
+  </g>
+
+  <g transform="translate(50, 525)">
+    <rect width="900" height="45" fill="#022C22" stroke="#34D399" stroke-width="1.5" rx="6"/>
+    <text x="20" y="27" fill="#6EE7B7" font-size="13" font-weight="bold">LOGISTICS ADVICE: 20ft accommodates heavy weight density, while 40ft HC maximizes volumetric CBM.</text>
+  </g>
+</svg>

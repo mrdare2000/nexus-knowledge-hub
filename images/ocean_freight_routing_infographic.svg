@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#0284C7"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">ðŸ—ºï¸ INFOGRAPHIC: GLOBAL OCEAN FREIGHT ROUTING &amp; NETWORKS</text>
+
+  <!-- Main Routes -->
+  <g transform="translate(50, 120)">
+    <rect width="900" height="200" rx="12" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+    <text x="20" y="35" fill="#38BDF8" font-size="18" font-weight="bold">ðŸŒ Major East-West Global Shipping Lanes</text>
+
+    <text x="20" y="75" fill="#FFF" font-size="15" font-weight="bold">1. Transpacific Lane:</text>
+    <text x="200" y="75" fill="#CBD5E1" font-size="14">East Asia (China/Japan) âž” US West Coast (LA/Long Beach)</text>
+
+    <text x="20" y="115" fill="#FFF" font-size="15" font-weight="bold">2. Asia-Europe Lane:</text>
+    <text x="200" y="115" fill="#CBD5E1" font-size="14">China/SE Asia âž” Malacca Strait âž” Indian Ocean âž” Red Sea/Suez âž” Europe</text>
+
+    <text x="20" y="155" fill="#FFF" font-size="15" font-weight="bold">3. Transatlantic Lane:</text>
+    <text x="200" y="155" fill="#CBD5E1" font-size="14">Northern Europe (Rotterdam/Hamburg) âž” US East Coast (NY/NJ)</text>
+  </g>
+
+  <!-- Hub & Spoke System -->
+  <g transform="translate(50, 350)">
+    <rect width="900" height="210" rx="12" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+    <text x="20" y="35" fill="#34D399" font-size="18" font-weight="bold">âš“ The Hub-and-Spoke Containership Network</text>
+    
+    <rect x="20" y="60" width="260" height="120" rx="8" fill="#0F172A"/>
+    <text x="35" y="90" fill="#38BDF8" font-size="15" font-weight="bold">Mega Containership</text>
+    <text x="35" y="115" fill="#CBD5E1" font-size="13">â€¢ 18,000+ TEU Capacity</text>
+    <text x="35" y="140" fill="#CBD5E1" font-size="13">â€¢ Deep-water ports only</text>
+
+    <text x="310" y="125" fill="#34D399" font-size="24">âž”</text>
+
+    <rect x="360" y="60" width="260" height="120" rx="8" fill="#0F172A"/>
+    <text x="375" y="90" fill="#F59E0B" font-size="15" font-weight="bold">Transshipment Hub</text>
+    <text x="375" y="115" fill="#CBD5E1" font-size="13">â€¢ Singapore / Colombo</text>
+    <text x="375" y="140" fill="#CBD5E1" font-size="13">â€¢ Rotterdam / Shanghai</text>
+
+    <text x="650" y="125" fill="#34D399" font-size="24">âž”</text>
+
+    <rect x="700" y="60" width="180" height="120" rx="8" fill="#0F172A"/>
+    <text x="715" y="90" fill="#A7F3D0" font-size="15" font-weight="bold">Regional Feeder</text>
+    <text x="715" y="115" fill="#CBD5E1" font-size="13">â€¢ 1,000 - 3,000 TEU</text>
+    <text x="715" y="140" fill="#CBD5E1" font-size="13">â€¢ Shallow local ports</text>
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#7C3AED"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">ðŸ“‘ INFOGRAPHIC: LCL (LESS-THAN-CONTAINER LOAD) CONSOLIDATION</text>
+
+  <g transform="translate(50, 130)">
+    <rect width="270" height="190" rx="10" fill="#1E293B" stroke="#C084FC" stroke-width="2"/>
+    <text x="20" y="35" fill="#C084FC" font-size="16" font-weight="bold">1. Delivery to CFS</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13">â€¢ Shipper sends loose boxes/pallets</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13">â€¢ Delivered to Origin CFS Warehouse</text>
+    <text x="20" y="120" fill="#CBD5E1" font-size="13">â€¢ Checked for outer carton damage</text>
+  </g>
+
+  <g transform="translate(365, 130)">
+    <rect width="270" height="190" rx="10" fill="#1E293B" stroke="#C084FC" stroke-width="2"/>
+    <text x="20" y="35" fill="#C084FC" font-size="16" font-weight="bold">2. Measurement &amp; Receipt</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13">â€¢ Weight &amp; Dimensions (CBM) scanned</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13">â€¢ Cargo Receipt issued to Shipper</text>
+    <text x="20" y="120" fill="#38BDF8" font-size="13" font-weight="bold">â€¢ Chargeable CBM calculated</text>
+  </g>
+
+  <g transform="translate(680, 130)">
+    <rect width="270" height="190" rx="10" fill="#1E293B" stroke="#C084FC" stroke-width="2"/>
+    <text x="20" y="35" fill="#C084FC" font-size="16" font-weight="bold">3. CFS Consolidation</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13">â€¢ Cargo mixed with other shippers</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13">â€¢ Stuffed into shared container</text>
+    <text x="20" y="120" fill="#CBD5E1" font-size="13">â€¢ House B/L issued per shipper</text>
+  </g>
+
+  <g transform="translate(50, 360)">
+    <rect width="270" height="190" rx="10" fill="#1E293B" stroke="#34D399" stroke-width="2"/>
+    <text x="20" y="35" fill="#34D399" font-size="16" font-weight="bold">4. Ocean Voyage</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13">â€¢ Master B/L issued to Forwarder</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13">â€¢ Ocean vessel transit to dest. port</text>
+    <text x="20" y="120" fill="#CBD5E1" font-size="13">â€¢ Pre-alert sent to Destination CFS</text>
+  </g>
+
+  <g transform="translate(365, 360)">
+    <rect width="270" height="190" rx="10" fill="#1E293B" stroke="#34D399" stroke-width="2"/>
+    <text x="20" y="35" fill="#34D399" font-size="16" font-weight="bold">5. Dest. De-Stuffing</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13">â€¢ Container transferred to Dest. CFS</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13">â€¢ Container seal broken &amp; unstripped</text>
+    <text x="20" y="120" fill="#CBD5E1" font-size="13">â€¢ Packages sorted by House B/L</text>
+  </g>
+
+  <g transform="translate(680, 360)">
+    <rect width="270" height="190" rx="10" fill="#1E293B" stroke="#34D399" stroke-width="2"/>
+    <text x="20" y="35" fill="#34D399" font-size="16" font-weight="bold">6. Consignee Delivery</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13">â€¢ Local CFS charges settled</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13">â€¢ Import Customs released</text>
+    <text x="20" y="120" fill="#34D399" font-size="13" font-weight="bold">â€¢ Cargo picked up or delivered</text>
+  </g>
+</svg>

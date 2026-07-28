@@ -1995,40 +1995,53 @@ async function fetchLogisticsNews() {
 
     const results = await Promise.all(fetchPromises);
     
-    let rawArticles = [];
+    // Group valid articles by feed source to guarantee balanced representation
+    const feedBuckets = [];
+    const seenTitles = new Set();
+
     results.forEach(data => {
       if (data && data.status === 'ok' && Array.isArray(data.items)) {
-        rawArticles = rawArticles.concat(data.items);
+        const validFeedItems = [];
+        data.items.forEach(article => {
+          if (!article || !article.title) return;
+          const normTitle = article.title.trim().toLowerCase();
+          if (seenTitles.has(normTitle)) return;
+
+          const contentText = (article.title + " " + (article.description || "")).toLowerCase();
+          const isRelevant = LOGISTICS_KEYWORDS.some(kw => contentText.includes(kw));
+          if (!isRelevant) return;
+
+          const pubImg = getArticlePublisherImage(article);
+          if (!pubImg || pubImg.trim() === "") return;
+
+          seenTitles.add(normTitle);
+          validFeedItems.push({ ...article, publisherImage: pubImg });
+        });
+
+        // Sort feed items descending by date
+        validFeedItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+        if (validFeedItems.length > 0) {
+          feedBuckets.push(validFeedItems);
+        }
       }
     });
 
-    // Filter articles for logistics relevance & deduplicate by normalized title
-    const seenTitles = new Set();
-    const uniqueRelevantArticles = rawArticles.filter(article => {
-      if (!article || !article.title) return false;
-      const normTitle = article.title.trim().toLowerCase();
-      if (seenTitles.has(normTitle)) return false;
-      
-      const contentText = (article.title + " " + (article.description || "")).toLowerCase();
-      const isRelevant = LOGISTICS_KEYWORDS.some(kw => contentText.includes(kw));
-      if (!isRelevant) return false;
+    // Interleave articles round-robin from each feed bucket
+    const interleavedArticles = [];
+    let maxBucketLen = 0;
+    feedBuckets.forEach(b => { if (b.length > maxBucketLen) maxBucketLen = b.length; });
 
-      seenTitles.add(normTitle);
-      return true;
-    });
+    for (let i = 0; i < maxBucketLen; i++) {
+      feedBuckets.forEach(bucket => {
+        if (i < bucket.length) {
+          interleavedArticles.push(bucket[i]);
+        }
+      });
+    }
 
-    // Strictly filter articles to ONLY those with authentic publisher images
-    const articlesWithImages = uniqueRelevantArticles.map(article => {
-      const pubImg = getArticlePublisherImage(article);
-      return { ...article, publisherImage: pubImg };
-    }).filter(article => article.publisherImage && article.publisherImage.trim() !== "");
-
-    // Sort strictly by publication date (newest first)
-    articlesWithImages.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-
-    if (articlesWithImages.length > 0) {
-      globalNewsCache = articlesWithImages;
-      renderNews(articlesWithImages);
+    if (interleavedArticles.length > 0) {
+      globalNewsCache = interleavedArticles;
+      renderNews(interleavedArticles);
     } else {
       throw new Error("No valid logistics articles with publisher images found.");
     }

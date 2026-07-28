@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#991B1B"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">âš ï¸ INFOGRAPHIC: COMMON OCEAN FREIGHT CHALLENGES &amp; RISKS</text>
+
+  <g transform="translate(50, 120)">
+    <rect width="420" height="210" rx="12" fill="#1E293B" stroke="#F87171" stroke-width="2"/>
+    <text x="20" y="35" fill="#F87171" font-size="18" font-weight="bold">1. Port Congestion ðŸš¢âŒ›</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ High vessel arrivals &amp; labor strikes cause queuing</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Trucks face long gate turnaround delays</text>
+    <text x="20" y="135" fill="#10B981" font-size="14" font-weight="bold">Mitigation: Reroute via secondary ports or off-peak gates.</text>
+  </g>
+
+  <g transform="translate(530, 120)">
+    <rect width="420" height="210" rx="12" fill="#1E293B" stroke="#F87171" stroke-width="2"/>
+    <text x="20" y="35" fill="#F87171" font-size="18" font-weight="bold">2. Container Deficits ðŸ“¦</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ Empty containers stuck at import destinations</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Asian origin factories face equipment shortages</text>
+    <text x="20" y="135" fill="#10B981" font-size="14" font-weight="bold">Mitigation: Book SOC (Shipper Owned Containers).</text>
+  </g>
+
+  <g transform="translate(50, 360)">
+    <rect width="420" height="200" rx="12" fill="#1E293B" stroke="#F87171" stroke-width="2"/>
+    <text x="20" y="35" fill="#F87171" font-size="18" font-weight="bold">3. Cargo Rollover ðŸ“‘</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ Overbooking by shipping lines causes vessel cutoff</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Containers bumped to next week's sailing</text>
+    <text x="20" y="135" fill="#10B981" font-size="14" font-weight="bold">Mitigation: Submit SI &amp; gate-in well before cutoff.</text>
+  </g>
+
+  <g transform="translate(530, 360)">
+    <rect width="420" height="200" rx="12" fill="#1E293B" stroke="#F87171" stroke-width="2"/>
+    <text x="20" y="35" fill="#F87171" font-size="18" font-weight="bold">4. Blank Sailings ðŸš«</text>
+    <text x="20" y="75" fill="#CBD5E1" font-size="14">â€¢ Carriers cancel voyages to control freight rates</text>
+    <text x="20" y="105" fill="#CBD5E1" font-size="14">â€¢ Severe schedule disruptions during low season</text>
+    <text x="20" y="135" fill="#10B981" font-size="14" font-weight="bold">Mitigation: Maintain flexible multi-carrier contracts.</text>
+  </g>
+</svg>

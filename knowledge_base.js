@@ -185,9 +185,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "types-of-shipping-containers",
           title: "Types of Shipping Containers",
           summary: "An overview of container equipment types used in sea shipping.",
-          image: "images/ocean_containers.png",
+          image: "images/types_of_shipping_containers_infographic.png",
           content: `
             <p>Choosing the correct shipping container is vital to protect cargo integrity and minimize deadweight transport costs. Standard container designs are classified under international ISO standards:</p>
+
+            <img src="images/types_of_shipping_containers_infographic.png" alt="Types of Shipping Containers Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>1. Dry Van / General Purpose (DV/GP)</h3>
             <p>Standard fully enclosed containers with rigid walls, roof, and end doors. Used for dry general cargo like textiles, packaged consumer products, paper, and dry bulk items.</p>
             <h3>2. Reefer Container (RF)</h3>
@@ -206,10 +209,13 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "container-sizes-specifications",
           title: "Container Sizes and Specifications",
           summary: "Internal metrics, tare, and payloads for ocean equipment.",
-          image: "images/ocean_containers.png",
+          image: "images/container_sizes_specifications_infographic.png",
           layoutType: "infographic",
           content: `
             <p>Understanding internal dimensions and load limitations is critical to calculate CBM capacity and avoid overloading violations:</p>
+
+            <img src="images/container_sizes_specifications_infographic.png" alt="Container Sizes and Specifications Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <table class="kb-table">
               <thead>
                 <tr>
@@ -267,9 +273,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "fcl-shipping-process",
           title: "FCL Shipping Process",
           summary: "Step-by-step Full Container Load logistics steps.",
-          image: "images/ocean_shipping_process.png",
+          image: "images/fcl_shipping_process_infographic.png",
           content: `
             <p>The Full Container Load (FCL) process follows a structured logistical flow to ensure security and speed:</p>
+
+            <img src="images/fcl_shipping_process_infographic.png" alt="FCL Shipping Process Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>FCL Step-by-Step Flowchart:</h3>
             <ol>
               <li><strong>Booking Confirmation:</strong> The shipper sends details to the forwarder, who books space on a vessel. A Booking Confirmation (BC) with container release instructions is issued.</li>
@@ -286,9 +295,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "lcl-shipping-process",
           title: "LCL Shipping Process",
           summary: "Less-than-container consolidation and CFS handling guides.",
-          image: "images/ocean_shipping_process.png",
+          image: "images/lcl_shipping_process_infographic.png",
           content: `
             <p>When a shipper's cargo does not fill a full container, Less than Container Load (LCL) consolidation is used to share costs:</p>
+
+            <img src="images/lcl_shipping_process_infographic.png" alt="LCL Shipping Process Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>LCL Consolidation Process:</h3>
             <ol>
               <li><strong>Delivery to CFS:</strong> The shipper delivers loose boxes or pallets to the freight forwarder's designated origin Container Freight Station (CFS).</li>
@@ -305,9 +317,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "container-loading-basics",
           title: "Container Loading Basics",
           summary: "Weight distribution, dunnage, and lashing protocols.",
-          image: "images/ocean_containers.png",
+          image: "images/container_loading_basics_infographic.png",
           content: `
             <p>Improper cargo stuffing leads to container damage, vessel imbalances, and severe accidents at sea. Follow these core loading protocols:</p>
+
+            <img src="images/container_loading_basics_infographic.png" alt="Container Loading Basics Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>1. Uniform Weight Distribution</h3>
             <p>Do not concentrate heavy weights in one corner or in the center. Spread cargo weight evenly across the entire floor plan. Ensure the center of gravity aligns closely with the center of the container.</p>
             <h3>2. Lashing & Securing</h3>
@@ -323,9 +338,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "ocean-freight-routing",
           title: "Ocean Freight Routing",
           summary: "Global shipping lanes, hub-and-spoke networks.",
-          image: "images/ocean_routing.png",
+          image: "images/ocean_freight_routing_infographic.png",
           content: `
             <p>Ocean networks use a hub-and-spoke routing model to achieve economies of scale and optimize vessel space:</p>
+
+            <img src="images/ocean_freight_routing_infographic.png" alt="Ocean Freight Routing Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>Main Maritime Routes:</h3>
             <ul>
               <li><strong>Transpacific:</strong> Connecting manufacturing centers in East Asia (China, Japan) with North American West Coast ports.</li>
@@ -341,9 +359,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "transshipment-explained",
           title: "Transshipment Explained",
           summary: "Why cargo is moved between vessels at intermediate ports.",
-          image: "images/ocean_routing.png",
+          image: "images/transshipment_explained_infographic.png",
           content: `
             <p><strong>Transshipment</strong> occurs when a container is discharged from one vessel at an intermediate port and subsequently loaded onto another vessel to reach its final port of discharge.</p>
+
+            <img src="images/transshipment_explained_infographic.png" alt="Transshipment Explained Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>Key Reasons for Transshipment:</h3>
             <ul>
               <li><strong>No Direct Service:</strong> If the carrier has no direct shipping lane connecting Port A to Port B, they route cargo through a transshipment hub.</li>
@@ -358,9 +379,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "vessel-schedules-transit-times",
           title: "Vessel Schedules and Transit Times",
           summary: "Understanding cut-offs, transit duration, and blank sailings.",
-          image: "images/ocean_routing.png",
+          image: "images/vessel_schedules_transit_times_infographic.png",
           content: `
             <p>Shipping lines coordinate port operations on strict schedules, though schedules are subject to maritime delays:</p>
+
+            <img src="images/vessel_schedules_transit_times_infographic.png" alt="Vessel Schedules and Transit Times Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>1. Scheduled Deadlines (Cut-offs)</h3>
             <ul>
               <li><strong>CY Cut-Off:</strong> The final deadline by which the loaded and sealed container must arrive at the port terminal yard. Late containers are rolled over.</li>
@@ -375,9 +399,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "detention-demurrage-storage",
           title: "Detention, Demurrage and Storage",
           summary: "How to distinguish equipment charges and port storage fees.",
-          image: "images/ocean_demurrage_challenges.png",
+          image: "images/detention_demurrage_storage_infographic.png",
           content: `
             <p>Demurrage, detention, and storage penalties generate major expenses if cargo clearances are delayed. Understanding the divisions is crucial:</p>
+
+            <img src="images/detention_demurrage_storage_infographic.png" alt="Detention Demurrage and Storage Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>1. Demurrage (Port Inside)</h3>
             <p>A fee charged by the shipping line for keeping the container inside the port terminal yard past the allowed free time (typically 3 to 7 days). It covers the container equipment occupancy at the port.</p>
             <h3>2. Detention (Port Outside)</h3>
@@ -391,9 +418,12 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "common-ocean-freight-challenges",
           title: "Common Ocean Freight Challenges",
           summary: "Congestion, blank sailings, weather delays, and capacity shortages.",
-          image: "images/ocean_demurrage_challenges.png",
+          image: "images/common_ocean_freight_challenges_infographic.png",
           content: `
             <p>Ocean freight operations require proactive risk management to counter standard logistics challenges:</p>
+
+            <img src="images/common_ocean_freight_challenges_infographic.png" alt="Common Ocean Freight Challenges Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
             <h3>1. Port Congestion</h3>
             <p>High vessel arrivals combined with labor shortages cause vessels to queue outside ports for days. This delays imports and causes truckers to face delays at terminal gates.</p>
             <h3>2. Container & Equipment Shortage</h3>
@@ -1281,17 +1311,48 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           id: "country-specific-compliance-guides",
           title: "Country-Specific Compliance Guides",
           summary: "Navigating US FMC, European ICS2, and local Sri Lankan rules.",
+          image: "images/country_specific_compliance_guides.png",
           content: `
             <p>Customs laws are not universal. While the World Trade Organization sets baselines, different regions have established incredibly strict pre-arrival notification systems primarily designed for national anti-terrorism security:</p>
             
-            <div style="margin:25px 0; background:#F8FAFC; border:1px solid #CBD5E1; padding:20px; border-radius:12px; font-family:'Outfit', sans-serif;">
-              <ul style="margin:0; padding-left:20px; line-height:1.8;">
-                <li><strong style="color:#0A2540; font-size:1.05rem;">🇺🇸 USA (ISF 10+2 / AMS):</strong> The Importer Security Filing MUST be submitted to US Customs and Border Protection at least <strong>24 hours before</strong> the cargo is physically loaded onto the vessel at the foreign origin port. If you miss this deadline by even one minute, US Customs issues an automatic <strong>$5,000 fine</strong>.</li>
-                <li><strong style="color:#0A2540; font-size:1.05rem;">🇪🇺 European Union (ICS2):</strong> The Import Control System 2 mandates advanced cargo manifest data declarations for all air and sea freight prior to loading. This system is designed to screen for bomb threats and illicit cargo before it enters European airspace or waters.</li>
-                <li><strong style="color:#0A2540; font-size:1.05rem;">🇨🇳 China (CCAM):</strong> China Customs Advanced Manifest requires cargo data to be submitted electronically 24 hours prior to loading at the port of origin for all shipments destined for, or transshipping through, mainland China ports.</li>
-                <li><strong style="color:#0A2540; font-size:1.05rem;">🔹 Australia/New Zealand (BMSB):</strong> Strict seasonal measures are enforced against the Brown Marmorated Stink Bug. During risk season (Sept-April), high-risk cargo from target risk countries MUST be chemically treated (fumigated) offshore before arriving in Oceania.</li>
-                <li><strong style="color:#0A2540; font-size:1.05rem;">🔹 Sri Lanka (ASYCUDA World):</strong> Sri Lanka Customs utilizes the UN-developed ASYCUDA World platform. All commercial imports require electronic CUSDEC filing by a registered broker, with duty payments integrated directly through recognized banking gateways before release can be authorized.</li>
-              </ul>
+            <img src="images/country_specific_compliance_guides.png" alt="Country-Specific Compliance Infographic Guide" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="margin:25px 0; background: linear-gradient(135deg, #0A2540 0%, #1E293B 100%); color:#FFF; padding:24px; border-radius:14px; font-family:'Outfit', sans-serif; box-shadow: 0 10px 25px rgba(10,37,64,0.25);">
+              <h4 style="margin:0 0 15px 0; font-size:1.2rem; color:#38BDF8; display:flex; align-items:center; gap:10px;">
+                <span>🌐</span> Global Customs Compliance & Regulations Infographic
+              </h4>
+
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:15px; margin-top:15px;">
+                <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); padding:16px; border-radius:10px; backdrop-filter:blur(5px);">
+                  <strong style="color:#F3F4F6; font-size:1rem; display:block; margin-bottom:6px;">🇺🇸 USA (ISF 10+2 / AMS)</strong>
+                  <span style="font-size:0.85rem; color:#94A3B8; display:block; margin-bottom:8px;">Submissions due <strong>24h before loading</strong> at origin port.</span>
+                  <span style="display:inline-block; background:#EF4444; color:#FFF; font-size:0.75rem; padding:3px 8px; border-radius:4px; font-weight:600;">Penalty: $5,000 Fine</span>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); padding:16px; border-radius:10px; backdrop-filter:blur(5px);">
+                  <strong style="color:#F3F4F6; font-size:1rem; display:block; margin-bottom:6px;">🇪🇺 European Union (ICS2)</strong>
+                  <span style="font-size:0.85rem; color:#94A3B8; display:block; margin-bottom:8px;">Import Control System 2 pre-loading manifest screening.</span>
+                  <span style="display:inline-block; background:#F59E0B; color:#FFF; font-size:0.75rem; padding:3px 8px; border-radius:4px; font-weight:600;">Security Screening</span>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); padding:16px; border-radius:10px; backdrop-filter:blur(5px);">
+                  <strong style="color:#F3F4F6; font-size:1rem; display:block; margin-bottom:6px;">🇨🇳 China (CCAM)</strong>
+                  <span style="font-size:0.85rem; color:#94A3B8; display:block; margin-bottom:8px;">China Customs Advanced Manifest electronic filing 24h prior.</span>
+                  <span style="display:inline-block; background:#3B82F6; color:#FFF; font-size:0.75rem; padding:3px 8px; border-radius:4px; font-weight:600;">24h Advance Filing</span>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); padding:16px; border-radius:10px; backdrop-filter:blur(5px);">
+                  <strong style="color:#F3F4F6; font-size:1rem; display:block; margin-bottom:6px;">🇦🇺 Australia/NZ (BMSB)</strong>
+                  <span style="font-size:0.85rem; color:#94A3B8; display:block; margin-bottom:8px;">Brown Marmorated Stink Bug seasonal treatment (Sept-April).</span>
+                  <span style="display:inline-block; background:#10B981; color:#FFF; font-size:0.75rem; padding:3px 8px; border-radius:4px; font-weight:600;">Offshore Fumigation</span>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); padding:16px; border-radius:10px; backdrop-filter:blur(5px); grid-column: span 1 / -1;">
+                  <strong style="color:#F3F4F6; font-size:1rem; display:block; margin-bottom:6px;">🇱🇰 Sri Lanka (ASYCUDA World)</strong>
+                  <span style="font-size:0.85rem; color:#94A3B8; display:block; margin-bottom:8px;">Electronic CUSDEC broker filing with direct bank gateway duty settlement prior to release authorization.</span>
+                  <span style="display:inline-block; background:#8B5CF6; color:#FFF; font-size:0.75rem; padding:3px 8px; border-radius:4px; font-weight:600;">Online CUSDEC & Bank Payment</span>
+                </div>
+              </div>
             </div>
             
             <p><strong>Note on Documentation:</strong> It is crucial for shippers to verify the exact document formatting requirements of the destination country. For instance, Middle Eastern countries often require the Commercial Invoice to be physically stamped and attested by the local Chamber of Commerce before shipping.</p>

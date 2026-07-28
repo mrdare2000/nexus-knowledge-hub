@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#2563EB"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">â±ï¸ INFOGRAPHIC: VESSEL SCHEDULES, DEADLINES &amp; TRANSIT TIMES</text>
+
+  <!-- Timeline Line -->
+  <line x1="80" y1="200" x2="920" y2="200" stroke="#0284C7" stroke-width="6"/>
+
+  <!-- Milestone 1 -->
+  <circle cx="150" cy="200" r="18" fill="#EF4444"/>
+  <text x="144" y="206" fill="#FFF" font-size="14" font-weight="bold">1</text>
+  <g transform="translate(50, 240)">
+    <rect width="200" height="130" rx="8" fill="#1E293B" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="15" y="30" fill="#F87171" font-size="14" font-weight="bold">SI Cut-Off</text>
+    <text x="15" y="55" fill="#CBD5E1" font-size="12">Shipping Instructions</text>
+    <text x="15" y="75" fill="#CBD5E1" font-size="12">Document deadline to</text>
+    <text x="15" y="95" fill="#CBD5E1" font-size="12">carrier for B/L draft.</text>
+  </g>
+
+  <!-- Milestone 2 -->
+  <circle cx="400" cy="200" r="18" fill="#F59E0B"/>
+  <text x="394" y="206" fill="#FFF" font-size="14" font-weight="bold">2</text>
+  <g transform="translate(300, 240)">
+    <rect width="200" height="130" rx="8" fill="#1E293B" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="15" y="30" fill="#FBBF24" font-size="14" font-weight="bold">CY Cut-Off</text>
+    <text x="15" y="55" fill="#CBD5E1" font-size="12">Container Yard Gate-in</text>
+    <text x="15" y="75" fill="#CBD5E1" font-size="12">Sealed container must be</text>
+    <text x="15" y="95" fill="#CBD5E1" font-size="12">inside port terminal.</text>
+  </g>
+
+  <!-- Milestone 3 -->
+  <circle cx="650" cy="200" r="18" fill="#10B981"/>
+  <text x="644" y="206" fill="#FFF" font-size="14" font-weight="bold">3</text>
+  <g transform="translate(550, 240)">
+    <rect width="200" height="130" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+    <text x="15" y="30" fill="#34D399" font-size="14" font-weight="bold">ETD (Departure)</text>
+    <text x="15" y="55" fill="#CBD5E1" font-size="12">Estimated Time of</text>
+    <text x="15" y="75" fill="#CBD5E1" font-size="12">Departure from origin</text>
+    <text x="15" y="95" fill="#CBD5E1" font-size="12">port berth.</text>
+  </g>
+
+  <!-- Milestone 4 -->
+  <circle cx="880" cy="200" r="18" fill="#3B82F6"/>
+  <text x="874" y="206" fill="#FFF" font-size="14" font-weight="bold">4</text>
+  <g transform="translate(750, 240)">
+    <rect width="180" height="130" rx="8" fill="#1E293B" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="15" y="30" fill="#60A5FA" font-size="14" font-weight="bold">ETA (Arrival)</text>
+    <text x="15" y="55" fill="#CBD5E1" font-size="12">Estimated Time of</text>
+    <text x="15" y="75" fill="#CBD5E1" font-size="12">Arrival at dest.</text>
+    <text x="15" y="95" fill="#CBD5E1" font-size="12">port berth.</text>
+  </g>
+
+  <!-- Blank Sailing Box -->
+  <g transform="translate(50, 410)">
+    <rect width="900" height="140" rx="10" fill="#1E293B" stroke="#EF4444" stroke-width="2"/>
+    <text x="20" y="35" fill="#EF4444" font-size="18" font-weight="bold">âš ï¸ BLANK SAILING EXPLAINED:</text>
+    <text x="20" y="70" fill="#CBD5E1" font-size="13.5">A Blank Sailing occurs when a ocean carrier CANCELS a scheduled vessel port call or entire voyage.</text>
+    <text x="20" y="95" fill="#CBD5E1" font-size="13.5">Used by carriers during low market demand, port congestion delays, or severe weather to manage capacity.</text>
+    <text x="20" y="120" fill="#F87171" font-size="13.5" font-weight="bold">Result: Containers are rolled over to the next available sailing, delaying cargo transit.</text>
+  </g>
+</svg>

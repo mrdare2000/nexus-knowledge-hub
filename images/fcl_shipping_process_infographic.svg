@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#0F172A; font-family:'Segoe UI', Roboto, sans-serif;">
+  <rect width="1000" height="600" fill="#0F172A"/>
+  <rect x="30" y="30" width="940" height="60" rx="10" fill="#1E3A8A"/>
+  <text x="50" y="68" fill="#FFFFFF" font-size="22" font-weight="bold">ðŸ“¦ INFOGRAPHIC: FCL (FULL CONTAINER LOAD) SHIPPING PROCESS</text>
+
+  <!-- Step 1 -->
+  <g transform="translate(50, 140)">
+    <rect width="270" height="180" rx="10" fill="#1E293B" stroke="#0284C7" stroke-width="2"/>
+    <circle cx="35" cy="35" r="20" fill="#0284C7"/>
+    <text x="29" y="42" fill="#FFF" font-size="16" font-weight="bold">1</text>
+    <text x="65" y="40" fill="#38BDF8" font-size="16" font-weight="bold">Booking &amp; Release</text>
+    <text x="15" y="80" fill="#CBD5E1" font-size="13">â€¢ Forwarder books space</text>
+    <text x="15" y="105" fill="#CBD5E1" font-size="13">â€¢ Carrier issues Confirmation</text>
+    <text x="15" y="130" fill="#CBD5E1" font-size="13">â€¢ Empty truck collects container</text>
+  </g>
+
+  <!-- Step 2 -->
+  <g transform="translate(365, 140)">
+    <rect width="270" height="180" rx="10" fill="#1E293B" stroke="#0284C7" stroke-width="2"/>
+    <circle cx="35" cy="35" r="20" fill="#0284C7"/>
+    <text x="29" y="42" fill="#FFF" font-size="16" font-weight="bold">2</text>
+    <text x="65" y="40" fill="#38BDF8" font-size="16" font-weight="bold">Stuffing &amp; Sealing</text>
+    <text x="15" y="80" fill="#CBD5E1" font-size="13">â€¢ Factory loads cargo inside</text>
+    <text x="15" y="105" fill="#CBD5E1" font-size="13">â€¢ Weight evenly balanced</text>
+    <text x="15" y="130" fill="#EF4444" font-size="13" font-weight="bold">â€¢ ISO 17712 Bolt Seal locked</text>
+  </g>
+
+  <!-- Step 3 -->
+  <g transform="translate(680, 140)">
+    <rect width="270" height="180" rx="10" fill="#1E293B" stroke="#0284C7" stroke-width="2"/>
+    <circle cx="35" cy="35" r="20" fill="#0284C7"/>
+    <text x="29" y="42" fill="#FFF" font-size="16" font-weight="bold">3</text>
+    <text x="65" y="40" fill="#38BDF8" font-size="16" font-weight="bold">Customs Gate-In</text>
+    <text x="15" y="80" fill="#CBD5E1" font-size="13">â€¢ Haulage to Port Terminal</text>
+    <text x="15" y="105" fill="#CBD5E1" font-size="13">â€¢ CUSDEC Export Clearance</text>
+    <text x="15" y="130" fill="#CBD5E1" font-size="13">â€¢ Verified Gross Mass (VGM)</text>
+  </g>
+
+  <!-- Step 4 -->
+  <g transform="translate(50, 360)">
+    <rect width="270" height="180" rx="10" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+    <circle cx="35" cy="35" r="20" fill="#10B981"/>
+    <text x="29" y="42" fill="#FFF" font-size="16" font-weight="bold">4</text>
+    <text x="65" y="40" fill="#34D399" font-size="16" font-weight="bold">Gantry &amp; Ocean Transit</text>
+    <text x="15" y="80" fill="#CBD5E1" font-size="13">â€¢ Quay Crane loads on Vessel</text>
+    <text x="15" y="105" fill="#CBD5E1" font-size="13">â€¢ Master B/L generated</text>
+    <text x="15" y="130" fill="#CBD5E1" font-size="13">â€¢ International Sea Voyage</text>
+  </g>
+
+  <!-- Step 5 -->
+  <g transform="translate(365, 360)">
+    <rect width="270" height="180" rx="10" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+    <circle cx="35" cy="35" r="20" fill="#10B981"/>
+    <text x="29" y="42" fill="#FFF" font-size="16" font-weight="bold">5</text>
+    <text x="65" y="40" fill="#34D399" font-size="16" font-weight="bold">Port Discharge</text>
+    <text x="15" y="80" fill="#CBD5E1" font-size="13">â€¢ Discharged at Dest. Port</text>
+    <text x="15" y="105" fill="#CBD5E1" font-size="13">â€¢ Moved to Container Yard</text>
+    <text x="15" y="130" fill="#CBD5E1" font-size="13">â€¢ Import Clearance &amp; Duties</text>
+  </g>
+
+  <!-- Step 6 -->
+  <g transform="translate(680, 360)">
+    <rect width="270" height="180" rx="10" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+    <circle cx="35" cy="35" r="20" fill="#10B981"/>
+    <text x="29" y="42" fill="#FFF" font-size="16" font-weight="bold">6</text>
+    <text x="65" y="40" fill="#34D399" font-size="16" font-weight="bold">Delivery &amp; Unloading</text>
+    <text x="15" y="80" fill="#CBD5E1" font-size="13">â€¢ Truck hauls to Consignee</text>
+    <text x="15" y="105" fill="#CBD5E1" font-size="13">â€¢ Bolt Seal cut &amp; verified</text>
+    <text x="15" y="130" fill="#CBD5E1" font-size="13">â€¢ Empty container returned</text>
+  </g>
+</svg>
