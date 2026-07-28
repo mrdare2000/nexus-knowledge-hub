@@ -607,37 +607,77 @@
       </div>
     </div>
 
-    <!-- Tool Panel 5: Documentation Checklist Generator -->
+    <!-- Tool Panel 5: Bilateral Trade Documentation Checklist Generator -->
     <div class="tool-panel" id="panel-docs">
-      <h3 class="calc-title" style="text-align:center; margin-bottom:30px;">Documentation Checklist Generator</h3>
-      <div class="interactive-tool-container" style="max-width: 800px; margin: 0 auto; background: var(--bg-white); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-sm);">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px;">
+      <h3 class="calc-title" style="text-align:center; margin-bottom:30px;">Bilateral Trade Documentation Checklist Generator</h3>
+      <div class="doc-generator-card">
+        <!-- Dual Country Route Selector - 4 in 1 Single Row -->
+        <div class="doc-controls-grid">
           <div>
-            <label style="display:block; font-weight: 600; margin-bottom: 8px; color: var(--primary-navy);">Shipment Type</label>
-            <select id="doc-shipment-type" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px;">
-              <option value="export">Export</option>
-              <option value="import">Import</option>
+            <label style="display:block; font-weight: 700; margin-bottom: 8px; color: var(--primary-navy); font-size:0.88rem;">🛫 Origin Country (Exporter)</label>
+            <select id="doc-origin-country" style="width: 100%; padding: 10px 12px; border: 1.5px solid #CBD5E1; border-radius: 8px; font-weight: 600; background:#FFF; font-size:0.9rem;">
+              <option value="LK">🇱🇰 Sri Lanka</option>
+              <option value="CN">🇨🇳 China</option>
+              <option value="US">🇺🇸 United States</option>
+              <option value="DE">🇩🇪 Germany (EU)</option>
+              <option value="IN">🇮🇳 India</option>
+              <option value="GB">🇬🇧 United Kingdom</option>
+              <option value="AE">🇦🇪 United Arab Emirates</option>
+              <option value="JP">🇯🇵 Japan</option>
+              <option value="AU">🇦🇺 Australia</option>
+              <option value="VN">🇻🇳 Vietnam</option>
+              <option value="SG">🇸🇬 Singapore</option>
+              <option value="NL">🇳🇱 Netherlands (EU)</option>
             </select>
           </div>
           <div>
-            <label style="display:block; font-weight: 600; margin-bottom: 8px; color: var(--primary-navy);">Transport Mode</label>
-            <select id="doc-transport-mode" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px;">
-              <option value="ocean">Ocean Freight</option>
-              <option value="air">Air Freight</option>
+            <label style="display:block; font-weight: 700; margin-bottom: 8px; color: var(--primary-navy); font-size:0.88rem;">🛬 Destination Country (Importer)</label>
+            <select id="doc-dest-country" style="width: 100%; padding: 10px 12px; border: 1.5px solid #CBD5E1; border-radius: 8px; font-weight: 600; background:#FFF; font-size:0.9rem;">
+              <option value="US">🇺🇸 United States</option>
+              <option value="DE">🇩🇪 Germany (EU)</option>
+              <option value="IN">🇮🇳 India</option>
+              <option value="GB">🇬🇧 United Kingdom</option>
+              <option value="AE">🇦🇪 United Arab Emirates</option>
+              <option value="LK">🇱🇰 Sri Lanka</option>
+              <option value="CN">🇨🇳 China</option>
+              <option value="JP">🇯🇵 Japan</option>
+              <option value="AU">🇦🇺 Australia</option>
+              <option value="VN">🇻🇳 Vietnam</option>
+              <option value="SG">🇸🇬 Singapore</option>
+              <option value="NL">🇳🇱 Netherlands (EU)</option>
             </select>
           </div>
           <div>
-            <label style="display:block; font-weight: 600; margin-bottom: 8px; color: var(--primary-navy);">Cargo Type</label>
-            <select id="doc-cargo-type" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px;">
-              <option value="general">General Cargo</option>
+            <label style="display:block; font-weight: 700; margin-bottom: 8px; color: var(--primary-navy); font-size:0.88rem;">🚢 Transport Mode</label>
+            <select id="doc-transport-mode" style="width: 100%; padding: 10px 12px; border: 1.5px solid #CBD5E1; border-radius: 8px; font-weight: 600; background:#FFF; font-size:0.9rem;">
+              <option value="ocean">Ocean Freight (FCL / LCL)</option>
+              <option value="air">Air Freight (Express / Pax)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-weight: 700; margin-bottom: 8px; color: var(--primary-navy); font-size:0.88rem;">📦 Cargo Category</label>
+            <select id="doc-cargo-type" style="width: 100%; padding: 10px 12px; border: 1.5px solid #CBD5E1; border-radius: 8px; font-weight: 600; background:#FFF; font-size:0.9rem;">
+              <option value="general">General Goods</option>
               <option value="dangerous">Dangerous Goods (DG)</option>
-              <option value="perishable">Perishable/Reefer</option>
+              <option value="food">Agricultural &amp; Food</option>
+              <option value="textiles">Apparel &amp; Textiles</option>
+              <option value="machinery">Electronics &amp; Machinery</option>
             </select>
           </div>
         </div>
-        <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="generateDocChecklist()">Generate Checklist</button>
-        <div id="doc-checklist-result" style="margin-top: 30px;">
-          <!-- Checklist items generated here -->
+
+        <div style="display:flex; gap:15px; margin-bottom: 25px;">
+          <button class="btn btn-primary" style="flex:1; padding: 14px; font-size:1rem;" onclick="generateDocChecklist()">⚡ Generate Specialized Dossier</button>
+          <button class="btn btn-secondary" style="padding: 14px 20px; font-size:0.95rem; background:#F1F5F9; color:#334155; border:1px solid #CBD5E1;" onclick="printDocChecklist()">🖨️ Export / Print</button>
+        </div>
+
+        <div id="doc-checklist-result">
+          <!-- Initial Clean Placeholder -->
+          <div style="text-align:center; padding: 45px 20px; color: #64748B; background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 12px;">
+            <div style="font-size: 2.8rem; margin-bottom: 12px;">📑</div>
+            <h4 style="color: var(--primary-navy); margin-bottom: 8px; font-size: 1.15rem; font-weight:700;">Select Trade Route &amp; Click Generate</h4>
+            <p style="font-size: 0.92rem; max-width: 520px; margin: 0 auto; line-height:1.6; color:#64748B;">Configure your Origin Exporter Country, Destination Importer Country, Transport Mode, and Cargo Category above, then click <strong style="color:var(--primary-navy);">"⚡ Generate Specialized Dossier"</strong> to construct your tailored documentation checklist.</p>
+          </div>
         </div>
       </div>
     </div>

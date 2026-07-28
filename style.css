@@ -2416,3 +2416,256 @@ footer {
 
 /* Infographic styling for knowledge base */
 .kb-infographic { width: 100%; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+/* Enhanced Documentation Checklist Generator Styling */
+.doc-generator-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(42, 48, 109, 0.1);
+}
+
+.doc-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 850px) {
+  .doc-controls-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .doc-controls-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.doc-route-banner {
+  background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+  color: #FFFFFF;
+  padding: 20px 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.2);
+}
+
+.doc-route-flags {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.doc-route-arrow {
+  color: #38BDF8;
+  font-size: 1.4rem;
+}
+
+.doc-trade-agreement {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid #38BDF8;
+  color: #38BDF8;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.doc-progress-wrapper {
+  margin: 25px 0 20px 0;
+  background: #F1F5F9;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+}
+
+.doc-progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: var(--primary-navy);
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.doc-progress-bg {
+  width: 100%;
+  height: 12px;
+  background: #CBD5E1;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.doc-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981 0%, #059669 100%);
+  width: 0%;
+  transition: width 0.4s ease;
+  border-radius: 20px;
+}
+
+.doc-filter-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.doc-pill {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  color: #475569;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-pill:hover, .doc-pill.active {
+  background: var(--primary-navy);
+  color: #FFFFFF;
+  border-color: var(--primary-navy);
+  box-shadow: 0 4px 12px rgba(42, 48, 109, 0.2);
+}
+
+.doc-item-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-left: 5px solid var(--primary-navy);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.25 ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.doc-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.doc-item-card.completed {
+  border-left-color: #10B981;
+  background: #F0FDF4;
+  opacity: 0.88;
+}
+
+.doc-checkbox {
+  width: 22px;
+  height: 22px;
+  accent-color: #10B981;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+.doc-priority-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.badge-24h { background: #FEE2E2; color: #DC2626; border: 1px solid #FCA5A5; }
+.badge-customs { background: #DBEAFE; color: #1D4ED8; border: 1px solid #93C5FD; }
+.badge-title { background: #FEF3C7; color: #D97706; border: 1px solid #FCD34D; }
+.badge-safety { background: #F3E8FF; color: #7E22CE; border: 1px solid #D8B4FE; }
+
+.doc-detail-btn {
+  background: transparent;
+  border: 1px solid var(--primary-navy);
+  color: var(--primary-navy);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.2s ease;
+}
+
+.doc-detail-btn:hover {
+  background: var(--primary-navy);
+  color: #FFFFFF;
+}
+
+/* Modal Popup for Document Guide Details */
+.doc-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.doc-modal-container {
+  background: #FFFFFF;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+.doc-modal-header {
+  background: var(--primary-navy);
+  color: #FFFFFF;
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-modal-body {
+  padding: 25px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.doc-modal-section {
+  margin-bottom: 20px;
+}
+
+.doc-modal-section h5 {
+  font-size: 0.95rem;
+  color: var(--primary-navy);
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.doc-modal-section p {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+

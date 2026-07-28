@@ -1654,55 +1654,380 @@ function initContactForm() {
 // NEW INTERACTIVE TOOLS LOGIC
 // ==========================================
 
-// Tool 5: Documentation Checklist Generator
+// ==========================================
+// Tool 5: Bilateral Trade Documentation Checklist Generator
+// ==========================================
+
+const countryNames = {
+  LK: { name: "Sri Lanka", flag: "🇱🇰", region: "South Asia" },
+  CN: { name: "China", flag: "🇨🇳", region: "East Asia" },
+  US: { name: "United States", flag: "🇺🇸", region: "North America" },
+  DE: { name: "Germany (EU)", flag: "🇩🇪", region: "Europe" },
+  IN: { name: "India", flag: "🇮🇳", region: "South Asia" },
+  GB: { name: "United Kingdom", flag: "🇬🇧", region: "Europe" },
+  AE: { name: "United Arab Emirates", flag: "🇦🇪", region: "Middle East" },
+  JP: { name: "Japan", flag: "🇯🇵", region: "East Asia" },
+  AU: { name: "Australia", flag: "🇦🇺", region: "Oceania" },
+  VN: { name: "Vietnam", flag: "🇻🇳", region: "Southeast Asia" },
+  SG: { name: "Singapore", flag: "🇸🇬", region: "Southeast Asia" },
+  NL: { name: "Netherlands (EU)", flag: "🇳🇱", region: "Europe" }
+};
+
+const docKnowledgeBase = {
+  commercial_invoice: {
+    title: "Commercial Invoice",
+    authority: "Exporter / Shipper",
+    deadline: "Prior to origin gate-in and customs clearance",
+    rejectionRisks: "HS code mismatch, missing invoice currency, un-signed invoice, incorrect Incoterms breakdown.",
+    details: "The primary legal and financial document declaring cargo value, buyer/seller details, 6-digit HS tariff codes, Incoterms 2020, and payment terms."
+  },
+  packing_list: {
+    title: "Detailed Packing List",
+    authority: "Shipper / Freight Packer",
+    deadline: "Prior to container stuffing / warehouse receipt",
+    rejectionRisks: "Discrepancy between invoice gross weight and actual scale weight, un-numbered carton counts.",
+    details: "Specifies precise cargo breakdown per package, container stuffing orientation, net/gross weight, dimensions, and shipping marks."
+  },
+  bill_of_lading: {
+    title: "Ocean Bill of Lading (B/L) / Sea Waybill",
+    authority: "Ocean Transport Carrier (Vessel Operator / Freight Forwarder)",
+    deadline: "Issued 24-48 hours after vessel departure from origin port",
+    rejectionRisks: "Missing onboard notation date, seal number mismatch, un-signed original endorsement.",
+    details: "Acts as official contract of carriage, receipt of cargo by vessel, and legal document of title required for destination cargo release."
+  },
+  air_waybill: {
+    title: "Air Waybill (AWB) / Master AWB",
+    authority: "Airline / Air Freight Forwarder",
+    deadline: "Issued upon cargo acceptance at airport freight terminal",
+    rejectionRisks: "Chargeable weight calculation error, missing ICAO/IATA dangerous goods code.",
+    details: "Non-negotiable contract of carriage for air cargo, tracking number for flight transit and customs clearance."
+  },
+  isf_10_2: {
+    title: "US Customs ISF 10+2 (Importer Security Filing)",
+    authority: "US Importer of Record / Authorized Customs Broker",
+    deadline: "STRICT CUT-OFF: Must be filed 24 Hours BEFORE vessel departure at origin port",
+    rejectionRisks: "$5,000 fine per late filing by US CBP, hold on container at US discharge port.",
+    details: "Mandatory security filing for ocean imports to the USA requiring 10 data elements from importer and 2 from carrier."
+  },
+  ics2_ens: {
+    title: "EU Import Control System 2 (ICS2) ENS Filing",
+    authority: "Carrier / Forwarder",
+    deadline: "STRICT CUT-OFF: Must be filed 24 Hours BEFORE vessel loading at origin port",
+    rejectionRisks: "Do Not Load (DNL) order issued by EU customs, vessel loading refusal.",
+    details: "Advance cargo security declaration for all shipments entering or transiting European Union customs territory."
+  },
+  ccam_filing: {
+    title: "China Customs Advance Manifest (CCAM)",
+    authority: "Carrier / Shipping Agent",
+    deadline: "STRICT CUT-OFF: 24 Hours prior to cargo loading at origin port",
+    rejectionRisks: "Immediate rejection of vessel stowage slot by GACC (China Customs).",
+    details: "Mandatory electronic cargo manifest filing required for all imports entering Chinese maritime ports."
+  },
+  cusdec_sl: {
+    title: "Sri Lanka ASYCUDA CUSDEC Export/Import Declaration",
+    authority: "Licensed Customs House Agent (CHA) / Declarant",
+    deadline: "Prior to port gate-in (export) or prior to discharge (import)",
+    rejectionRisks: "Incorrect TIN/VAT registration number, missing SVAT voucher, HS code misclassification.",
+    details: "Official customs declaration submitted electronically via Sri Lanka Customs ASYCUDA World system."
+  },
+  icegate_be: {
+    title: "India ICEGATE Bill of Entry / Shipping Bill",
+    authority: "Customs Broker / Importer via ICEGATE Portal",
+    deadline: "Prior to end of day following vessel arrival at Indian port",
+    rejectionRisks: "Late filing penalty per day, CAROTAR 2020 origin compliance verification query.",
+    details: "Electronic declaration filed on Indian Customs ICEGATE portal for duty calculation and cargo release."
+  },
+  cds_uk: {
+    title: "UK Customs Declaration Service (CDS) Entry",
+    authority: "UK Declarant / Customs Agent",
+    deadline: "Prior to vessel arrival or GVMS movement reference generation",
+    rejectionRisks: "Invalid GB EORI number, missing CPC procedure code.",
+    details: "Official UK HMRC customs entry declaration system governing all imports following Brexit."
+  },
+  mirsal_uae: {
+    title: "Dubai Customs Mirsal II Declaration",
+    authority: "Dubai Customs Broker / Importer",
+    deadline: "24 Hours prior to cargo arrival at UAE port/airport",
+    rejectionRisks: "Unregistered UAE Customs Code, failure to submit commercial invoice in Arabic.",
+    details: "Electronic customs clearing declaration required for all cargo entering UAE free zones or mainland."
+  },
+  sea_ams_jp: {
+    title: "Japan Sea AMS (Advance Manifest System)",
+    authority: "Carrier / NVOCC",
+    deadline: "STRICT CUT-OFF: 24 Hours prior to departure from origin port",
+    rejectionRisks: "Japan Customs Do Not Load notice, administrative fines.",
+    details: "Electronic advance manifest rule requiring vessel operators to file cargo details to Japan NACCS."
+  },
+  bmsb_cert: {
+    title: "Seasonal BMSB Stink Bug Treatment Certificate",
+    authority: "Approved Offshore Treatment Provider (Heat / Fumigation)",
+    deadline: "Prior to vessel departure during seasonal window (Sept - May)",
+    rejectionRisks: "Immediate refusal of vessel berth by DAFF Australia, container re-export order.",
+    details: "Mandatory biosecurity treatment certificate for high-risk target goods shipped to Australia/NZ."
+  },
+  certificate_of_origin: {
+    title: "Certificate of Origin (Preferential / Non-Preferential)",
+    authority: "Chamber of Commerce / National Trade Ministry",
+    deadline: "Submitted during import customs clearance",
+    rejectionRisks: "Invalid origin criteria stamp, missing Chamber verification QR code.",
+    details: "Official document certifying the manufacturing country of origin to qualify for concessionary tariffs under FTAs."
+  },
+  msds_dgd: {
+    title: "Shipper's Declaration for Dangerous Goods (DGD) & SDS",
+    authority: "Certified ICAO/IMDG Dangerous Goods Packer",
+    deadline: "Submitted at time of booking & container stuffing",
+    rejectionRisks: "Rejection by vessel master, emergency port detention, severe regulatory fines.",
+    details: "Mandatory hazardous material safety dossier containing 16-section Safety Data Sheet (SDS) & IMDG UN classification."
+  },
+  phytosanitary_health: {
+    title: "Phytosanitary / Quarantine & Health Certificate",
+    authority: "National Plant Protection Organization (NPPO) / Food Safety Authority",
+    deadline: "Issued prior to export shipment departure",
+    rejectionRisks: "Immediate quarantine hold, container fumigation order, cargo destruction.",
+    details: "Official plant/food health certification confirming cargo is free from regulated pests and fits human consumption."
+  }
+};
+
+let currentDocChecklistState = [];
+let currentActiveFilter = 'all';
+
 function generateDocChecklist() {
-  const shipmentType = document.getElementById('doc-shipment-type').value;
-  const transportMode = document.getElementById('doc-transport-mode').value;
-  const cargoType = document.getElementById('doc-cargo-type').value;
+  const origin = document.getElementById('doc-origin-country').value;
+  const dest = document.getElementById('doc-dest-country').value;
+  const mode = document.getElementById('doc-transport-mode').value;
+  const cargo = document.getElementById('doc-cargo-type').value;
   const resultDiv = document.getElementById('doc-checklist-result');
 
-  let checklist = [
-    { name: "Commercial Invoice", desc: "Mandatory for all international shipments to declare value and HS codes." },
-    { name: "Packing List", desc: "Details dimensions, weight, and carton counts for handling." }
+  const originInfo = countryNames[origin] || { name: origin, flag: "🌐" };
+  const destInfo = countryNames[dest] || { name: dest, flag: "🌐" };
+
+  // Detect Trade Agreement Corridors
+  let activeFTA = null;
+  const corridorKey = `${origin}-${dest}`;
+  if ((origin === 'LK' && dest === 'IN') || (origin === 'IN' && dest === 'LK')) {
+    activeFTA = { name: "SAFTA / ISFTA Preferential Tariff Corridor", code: "ISFTA / SAFTA Form I", desc: "0-5% Concessionary Duty rates applicable." };
+  } else if ((origin === 'DE' && dest === 'NL') || (origin === 'NL' && dest === 'DE')) {
+    activeFTA = { name: "EU Single Market & Customs Union", code: "Free Movement", desc: "No customs duties or tariffs required." };
+  } else if ((origin === 'DE' && dest === 'GB') || (origin === 'GB' && dest === 'DE')) {
+    activeFTA = { name: "UK-EU Trade and Cooperation Agreement (TCA)", code: "EUR.1 / Statement on Origin", desc: "Zero tariff access with origin compliance." };
+  } else if (['CN', 'VN', 'SG', 'JP', 'AU'].includes(origin) && ['CN', 'VN', 'SG', 'JP', 'AU'].includes(dest)) {
+    activeFTA = { name: "RCEP Trade Corridor", code: "Form RCEP", desc: "Regional Comprehensive Economic Partnership tariff concessions." };
+  }
+
+  // Build Comprehensive Document Array
+  currentDocChecklistState = [
+    { key: "commercial_invoice", name: "Commercial Invoice", category: "title", priority: "MANDATORY CUSTOMS", badgeClass: "badge-customs", checked: false },
+    { key: "packing_list", name: "Detailed Packing List", category: "title", priority: "CARRIER TITLE", badgeClass: "badge-title", checked: false }
   ];
 
-  if (transportMode === 'ocean') {
-    checklist.push({ name: "Bill of Lading (B/L)", desc: "Ocean freight transport contract and title of goods." });
+  // Transport Mode Document
+  if (mode === 'ocean') {
+    currentDocChecklistState.push({ key: "bill_of_lading", name: "Ocean Bill of Lading (B/L) / Sea Waybill", category: "title", priority: "TITLE OF GOODS", badgeClass: "badge-title", checked: false });
   } else {
-    checklist.push({ name: "Air Waybill (AWB)", desc: "Air freight transport contract (non-negotiable)." });
+    currentDocChecklistState.push({ key: "air_waybill", name: "Air Waybill (AWB)", category: "title", priority: "CARRIER TITLE", badgeClass: "badge-title", checked: false });
   }
 
-  if (shipmentType === 'export') {
-    checklist.push({ name: "Export Customs Declaration (CUSDEC)", desc: "Mandatory filing for origin customs clearance." });
-    checklist.push({ name: "Certificate of Origin (C/O)", desc: "Proves where the goods were manufactured." });
+  // 24H Pre-Loading Security Filings & Country Mandates
+  if (dest === 'US' && mode === 'ocean') {
+    currentDocChecklistState.unshift({ key: "isf_10_2", name: "US Customs ISF 10+2 (Importer Security Filing)", category: "24h", priority: "CRITICAL 24H PRE-LOAD", badgeClass: "badge-24h", checked: false });
+  }
+  if ((dest === 'DE' || dest === 'NL') && mode === 'ocean') {
+    currentDocChecklistState.unshift({ key: "ics2_ens", name: "EU ICS2 Entry Summary Declaration (ENS)", category: "24h", priority: "CRITICAL 24H PRE-LOAD", badgeClass: "badge-24h", checked: false });
+  }
+  if (dest === 'CN' && mode === 'ocean') {
+    currentDocChecklistState.unshift({ key: "ccam_filing", name: "China Customs Advance Manifest (CCAM)", category: "24h", priority: "CRITICAL 24H PRE-LOAD", badgeClass: "badge-24h", checked: false });
+  }
+  if (dest === 'JP' && mode === 'ocean') {
+    currentDocChecklistState.unshift({ key: "sea_ams_jp", name: "Japan Sea AMS (Advance Manifest)", category: "24h", priority: "CRITICAL 24H PRE-LOAD", badgeClass: "badge-24h", checked: false });
+  }
+
+  // Destination Customs Declarations
+  if (origin === 'LK') {
+    currentDocChecklistState.push({ key: "cusdec_sl", name: "Sri Lanka CUSDEC Export Declaration", category: "customs", priority: "ORIGIN CUSTOMS", badgeClass: "badge-customs", checked: false });
+  }
+  if (dest === 'IN') {
+    currentDocChecklistState.push({ key: "icegate_be", name: "India ICEGATE Bill of Entry & CAROTAR Form", category: "customs", priority: "DESTINATION CUSTOMS", badgeClass: "badge-customs", checked: false });
+  }
+  if (dest === 'GB') {
+    currentDocChecklistState.push({ key: "cds_uk", name: "UK Customs Declaration Service (CDS) Entry", category: "customs", priority: "DESTINATION CUSTOMS", badgeClass: "badge-customs", checked: false });
+  }
+  if (dest === 'AE') {
+    currentDocChecklistState.push({ key: "mirsal_uae", name: "Dubai Customs Mirsal II Declaration", category: "customs", priority: "DESTINATION CUSTOMS", badgeClass: "badge-customs", checked: false });
+  }
+
+  // Seasonal & Biosecurity
+  if (dest === 'AU') {
+    currentDocChecklistState.push({ key: "bmsb_cert", name: "Australia Seasonal BMSB Stink Bug Treatment Cert", category: "safety", priority: "BIOSECURITY MANDATE", badgeClass: "badge-safety", checked: false });
+  }
+
+  // Trade Agreement Certificate of Origin
+  if (activeFTA) {
+    currentDocChecklistState.push({ key: "certificate_of_origin", name: `Certificate of Origin (${activeFTA.code})`, category: "customs", priority: "PREFERENTIAL TARIFF", badgeClass: "badge-customs", checked: false });
   } else {
-    checklist.push({ name: "Import Customs Declaration", desc: "Mandatory filing for destination customs and duty assessment." });
+    currentDocChecklistState.push({ key: "certificate_of_origin", name: "Standard Chamber Certificate of Origin", category: "customs", priority: "CUSTOMS REQUIREMENT", badgeClass: "badge-customs", checked: false });
   }
 
-  if (cargoType === 'dangerous') {
-    checklist.push({ name: "Shipper's Declaration for Dangerous Goods (DGD)", desc: "Strictly required for hazardous materials. Must be signed by a certified DG packer." });
-    checklist.push({ name: "MSDS (Material Safety Data Sheet)", desc: "Provides chemical breakdown and emergency handling instructions." });
-  } else if (cargoType === 'perishable') {
-    checklist.push({ name: "Phytosanitary or Health Certificate", desc: "Required for agricultural or food products." });
+  // Cargo Category Special Requirements
+  if (cargo === 'dangerous') {
+    currentDocChecklistState.push({ key: "msds_dgd", name: "IMO/ICAO Dangerous Goods Declaration & SDS", category: "safety", priority: "HAZARDOUS MANDATE", badgeClass: "badge-safety", checked: false });
+  } else if (cargo === 'food') {
+    currentDocChecklistState.push({ key: "phytosanitary_health", name: "Phytosanitary & Food Safety Health Certificate", category: "safety", priority: "QUARANTINE MANDATE", badgeClass: "badge-safety", checked: false });
   }
 
-  let html = `<h4 style="color: var(--primary-navy); margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Required Documents (${checklist.length})</h4>`;
-  html += `<ul style="list-style: none; padding: 0;">`;
-  
-  checklist.forEach(doc => {
+  renderDocChecklistUI(originInfo, destInfo, activeFTA);
+}
+
+function renderDocChecklistUI(originInfo, destInfo, activeFTA) {
+  const resultDiv = document.getElementById('doc-checklist-result');
+  const totalCount = currentDocChecklistState.length;
+  const completedCount = currentDocChecklistState.filter(d => d.checked).length;
+  const pct = Math.round((completedCount / totalCount) * 100) || 0;
+
+  let html = `
+    <!-- Corridor Route Banner -->
+    <div class="doc-route-banner">
+      <div class="doc-route-flags">
+        <span>${originInfo.flag} ${originInfo.name}</span>
+        <span class="doc-route-arrow">➔</span>
+        <span>${destInfo.flag} ${destInfo.name}</span>
+      </div>
+      ${activeFTA ? `<span class="doc-trade-agreement">📜 ${activeFTA.name}</span>` : `<span class="doc-trade-agreement" style="border-color:#94A3B8; color:#94A3B8;">🌐 Standard MFN Corridor</span>`}
+    </div>
+
+    <!-- Live Completion Progress Tracker Bar -->
+    <div class="doc-progress-wrapper">
+      <div class="doc-progress-text">
+        <span>Dossier Completion Progress</span>
+        <span id="doc-pct-text">${completedCount} of ${totalCount} Required Documents (${pct}%)</span>
+      </div>
+      <div class="doc-progress-bg">
+        <div class="doc-progress-fill" id="doc-progress-fill" style="width: ${pct}%;"></div>
+      </div>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="doc-filter-pills">
+      <button class="doc-pill ${currentActiveFilter === 'all' ? 'active' : ''}" onclick="filterDocCategory('all')">All Documents (${totalCount})</button>
+      <button class="doc-pill ${currentActiveFilter === '24h' ? 'active' : ''}" onclick="filterDocCategory('24h')">🚨 24h Pre-Loading Filings</button>
+      <button class="doc-pill ${currentActiveFilter === 'title' ? 'active' : ''}" onclick="filterDocCategory('title')">📄 Transport Titles</button>
+      <button class="doc-pill ${currentActiveFilter === 'customs' ? 'active' : ''}" onclick="filterDocCategory('customs')">⚖️ Customs & Origin</button>
+      <button class="doc-pill ${currentActiveFilter === 'safety' ? 'active' : ''}" onclick="filterDocCategory('safety')">🛡️ Safety & Inspection</button>
+    </div>
+
+    <!-- Document List Items -->
+    <div id="doc-items-list">
+  `;
+
+  currentDocChecklistState.forEach((doc, idx) => {
+    if (currentActiveFilter !== 'all' && doc.category !== currentActiveFilter) return;
+
+    const info = docKnowledgeBase[doc.key] || { details: "Standard required shipment document.", authority: "Authority", deadline: "Pre-departure" };
+
     html += `
-      <li style="margin-bottom: 15px; background: var(--bg-gray); padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent-orange); display: flex; gap: 15px; align-items: flex-start;">
-        <span style="font-size: 1.5rem;">📄</span>
-        <div>
-          <strong style="display: block; color: var(--primary-navy); margin-bottom: 5px;">${doc.name}</strong>
-          <span style="font-size: 0.9rem; color: var(--text-muted);">${doc.desc}</span>
+      <div class="doc-item-card ${doc.checked ? 'completed' : ''}" id="doc-card-${idx}">
+        <input type="checkbox" class="doc-checkbox" ${doc.checked ? 'checked' : ''} onchange="toggleDocCheckbox(${idx})">
+        <div style="flex:1;">
+          <span class="doc-priority-badge ${doc.badgeClass}">${doc.priority}</span>
+          <strong style="display:block; font-size:1.05rem; color:var(--primary-navy); margin-bottom:4px;">${doc.name}</strong>
+          <p style="font-size:0.88rem; color:#64748B; margin-bottom:8px;">${info.details}</p>
+          <div style="display:flex; gap:20px; font-size:0.8rem; color:#475569;">
+            <span>🏛️ <strong>Authority:</strong> ${info.authority}</span>
+            <span>⏱️ <strong>Deadline:</strong> ${info.deadline}</span>
+          </div>
+          <button class="doc-detail-btn" onclick="openDocDetailModal('${doc.key}')">🔍 View Full Document Guide & Rejection Risks</button>
         </div>
-      </li>
+      </div>
     `;
   });
-  
-  html += `</ul>`;
+
+  html += `</div>`;
   resultDiv.innerHTML = html;
+}
+
+function toggleDocCheckbox(index) {
+  if (currentDocChecklistState[index]) {
+    currentDocChecklistState[index].checked = !currentDocChecklistState[index].checked;
+    
+    // Update card styling live
+    const card = document.getElementById(`doc-card-${index}`);
+    if (card) {
+      if (currentDocChecklistState[index].checked) {
+        card.classList.add('completed');
+      } else {
+        card.classList.remove('completed');
+      }
+    }
+
+    // Update progress bar
+    const totalCount = currentDocChecklistState.length;
+    const completedCount = currentDocChecklistState.filter(d => d.checked).length;
+    const pct = Math.round((completedCount / totalCount) * 100) || 0;
+
+    const pctText = document.getElementById('doc-pct-text');
+    const fillBar = document.getElementById('doc-progress-fill');
+
+    if (pctText) pctText.innerText = `${completedCount} of ${totalCount} Required Documents (${pct}%)`;
+    if (fillBar) fillBar.style.width = `${pct}%`;
+  }
+}
+
+function filterDocCategory(category) {
+  currentActiveFilter = category;
+  const origin = document.getElementById('doc-origin-country').value;
+  const dest = document.getElementById('doc-dest-country').value;
+  const originInfo = countryNames[origin] || { name: origin, flag: "🌐" };
+  const destInfo = countryNames[dest] || { name: dest, flag: "🌐" };
+  
+  renderDocChecklistUI(originInfo, destInfo, null);
+}
+
+function openDocDetailModal(docKey) {
+  const doc = docKnowledgeBase[docKey];
+  if (!doc) return;
+
+  // Remove existing modal if any
+  closeDocDetailModal();
+
+  const modalHtml = `
+    <div class="doc-modal-overlay" id="doc-modal-overlay" onclick="closeDocDetailModal()">
+      <div class="doc-modal-container" onclick="event.stopPropagation()">
+        <div class="doc-modal-header">
+          <h4 style="font-size:1.1rem; font-weight:700;">📄 ${doc.title}</h4>
+          <button style="background:none; border:none; color:#FFF; font-size:1.5rem; cursor:pointer;" onclick="closeDocDetailModal()">✕</button>
+        </div>
+        <div class="doc-modal-body">
+          <div class="doc-modal-section">
+            <h5>🏛️ Issuing / Regulatory Authority</h5>
+            <p>${doc.authority}</p>
+          </div>
+          <div class="doc-modal-section">
+            <h5>⏱️ Strict Cut-Off &amp; Filing Deadline</h5>
+            <p style="color:#DC2626; font-weight:700;">${doc.deadline}</p>
+          </div>
+          <div class="doc-modal-section">
+            <h5>⚠️ Common Customs Rejection &amp; Fine Risks</h5>
+            <p style="background:#FEE2E2; padding:12px; border-radius:8px; border-left:4px solid #DC2626; color:#991B1B;">${doc.rejectionRisks}</p>
+          </div>
+          <div class="doc-modal-section">
+            <h5>📋 Operational Instructions &amp; Purpose</h5>
+            <p>${doc.details}</p>
+          </div>
+          <button class="btn btn-primary" style="width:100%; padding:12px; margin-top:15px;" onclick="closeDocDetailModal()">Close Guide</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
+
+function closeDocDetailModal() {
+  const modal = document.getElementById('doc-modal-overlay');
+  if (modal) modal.remove();
+}
+
+function printDocChecklist() {
+  window.print();
 }
 
 // Tool 6: Dangerous Goods (DG) Class Identifier
