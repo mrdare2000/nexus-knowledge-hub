@@ -71,15 +71,39 @@ function initScrollAnimations() {
   revealElements.forEach(el => scrollObserver.observe(el));
 }
 
+/* Helper utility for XSS sanitization */
+function escapeHTML(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str.replace(/[&<>'"]/g, 
+    tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag)
+  );
+}
+
 /* ==========================================
-   2. SPA ROUTING & DYNAMIC SEO TITLES
+   2. SPA ROUTING & DYNAMIC SEO TITLES & META
    ========================================== */
 const PAGE_SEO_TITLES = {
-  home: "Nexus Knowledge Hub | Nexys Cargo (Pvt) Ltd",
+  home: "Nexus Knowledge Hub | Freight Forwarding & Logistics Guide | Nexus Cargo (Pvt) Ltd",
+  news: "Global Logistics & Freight Supply Chain News | Nexus Knowledge Hub",
   learning: "Freight Forwarding Operations Library | Nexus Knowledge Hub",
-  tools: "Interactive Infographics & Calculators | Nexus Knowledge Hub",
-  ai: "Nexus AI Chat Assistant - Global Logistics Intelligence",
-  contact: "Get in Touch & Booking Inquiries | Nexys Cargo (Pvt) Ltd"
+  tools: "Interactive Shipping Tools & CBM Calculators | Nexus Knowledge Hub",
+  ai: "Nexus AI Shipping Assistant - Freight Intelligence | Nexus Cargo",
+  contact: "Get in Touch & Booking Inquiries | Nexus Cargo (Pvt) Ltd"
+};
+
+const PAGE_SEO_DESCRIPTIONS = {
+  home: "Master freight forwarding, ocean & air cargo, Incoterms 2026, customs clearance, and supply chain logistics with Nexus Knowledge Hub by Nexus Cargo (Pvt) Ltd Sri Lanka.",
+  news: "Stay updated with real-time global logistics, ocean shipping rates, air freight market updates, and supply chain headlines.",
+  learning: "Explore comprehensive guides on ocean freight, air cargo, Incoterms, customs clearance, container specs, and shipping documentation.",
+  tools: "Access interactive Incoterms 2026 matrix, CBM container loading calculator, aircraft specs visualizers, and shipping process simulators.",
+  ai: "Ask Nexus AI for immediate answers on shipping terms, container specs, Incoterms rules, and freight operations compliance.",
+  contact: "Connect with Nexus Cargo (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support."
 };
 
 function initSPARouting() {
@@ -98,9 +122,15 @@ function initSPARouting() {
 }
 
 function switchPage(pageId) {
-  // Update browser window SEO title
+  // Update browser window SEO title and meta description dynamically
   if (PAGE_SEO_TITLES[pageId]) {
     document.title = PAGE_SEO_TITLES[pageId];
+  }
+  if (PAGE_SEO_DESCRIPTIONS[pageId]) {
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", PAGE_SEO_DESCRIPTIONS[pageId]);
+    }
   }
 
   // Update nav link active state
@@ -325,7 +355,7 @@ function openSubtopicModal(categoryId, subtopicId) {
     
     bodyHTML += `
       <div class="youtube-direct-container" style="margin-top: 25px; margin-bottom: 25px;">
-        <a href="${watchUrl}" target="_blank" class="btn btn-secondary reveal-video-btn" style="text-decoration: none; font-size: 0.88rem; padding: 12px 22px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid var(--border-color); color: var(--primary-navy); background: var(--bg-white); font-weight: 700; border-radius: 50px; cursor: pointer; transition: var(--transition-smooth);">
+        <a href="${watchUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary reveal-video-btn" style="text-decoration: none; font-size: 0.88rem; padding: 12px 22px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid var(--border-color); color: var(--primary-navy); background: var(--bg-white); font-weight: 700; border-radius: 50px; cursor: pointer; transition: var(--transition-smooth);">
           📺 Watch Video Guide on YouTube &rarr;
         </a>
       </div>
@@ -2436,15 +2466,18 @@ function generateNewsHTML(articles) {
     const rawDesc = article.description || '';
     const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, "");
 
+    const safeTitle = escapeHTML(article.title || '');
+    const safeDesc = escapeHTML(cleanDesc);
+
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
         <div class="news-card-image">
-          <img src="${imgUrl}" alt="${article.title}" onerror="this.parentElement.parentElement.style.display='none';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <img src="${imgUrl}" alt="${safeTitle}" onerror="this.parentElement.parentElement.style.display='none';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
         </div>
         <div class="news-card-content">
           <span class="news-date">${dateString}</span>
-          <h3 class="news-title">${article.title}</h3>
-          <div class="news-desc">${cleanDesc}</div>
+          <h3 class="news-title">${safeTitle}</h3>
+          <div class="news-desc">${safeDesc}</div>
           <div class="news-read-more">Read Full Article &rarr;</div>
         </div>
       </a>

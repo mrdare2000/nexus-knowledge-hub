@@ -1,0 +1,18 @@
+{
+  "name": "Nexus Knowledge Hub | Nexus Cargo (Pvt) Ltd",
+  "short_name": "Nexus Hub",
+  "description": "Practical shipping, freight forwarding, ocean & air cargo, and logistics knowledge base by Nexus Cargo (Pvt) Ltd Sri Lanka.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a192f",
+  "theme_color": "#ff5a1f",
+  "orientation": "portrait"
+}
