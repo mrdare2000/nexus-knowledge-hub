@@ -4,10 +4,22 @@
   "description": "Practical shipping, freight forwarding, ocean & air cargo, and logistics knowledge base by Nexus Cargo (Pvt) Ltd Sri Lanka.",
   "icons": [
     {
-      "src": "favicon.svg",
-      "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "src": "favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
   "start_url": "./index.html",
