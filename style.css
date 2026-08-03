@@ -2717,4 +2717,292 @@ footer {
 .reveal-delay-4 { transition-delay: 0.32s; }
 .reveal-delay-5 { transition-delay: 0.40s; }
 
+/* ==========================================
+   INTERACTIVE TOOLS RESPONSIVE DESIGN
+   ========================================== */
+
+.tools-category-strip {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  gap: 10px;
+  justify-items: center;
+}
+
+.hs-code-digits {
+  font-size: clamp(1.4rem, 6vw, 2.5rem);
+}
+
+@media (max-width: 1024px) {
+  .tools-category-strip {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tool-panel {
+    padding: 20px 15px;
+    border-radius: var(--border-radius-md);
+  }
+
+  .tools-category-strip {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 4px 18px 4px;
+    margin-bottom: 25px;
+    gap: 10px;
+    justify-content: flex-start;
+    width: 100%;
+    scrollbar-width: none;
+  }
+
+  .tools-category-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tools-page-tab-card {
+    flex: 0 0 130px;
+    min-width: 130px;
+    scroll-snap-align: start;
+    padding: 14px 10px;
+    border-radius: 12px;
+  }
+
+  .tools-page-tab-card .category-strip-icon {
+    font-size: 1.5rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .tools-page-tab-card .category-strip-title {
+    font-size: 0.72rem !important;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* 1. Incoterms Matrix Mobile */
+  .incoterms-matrix-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .incoterms-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    max-height: none;
+    padding-bottom: 12px;
+    padding-right: 0;
+    gap: 8px;
+    scrollbar-width: thin;
+  }
+
+  .incoterm-selector-btn {
+    flex: 0 0 auto;
+    min-width: 100px;
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    scroll-snap-align: start;
+  }
+
+  .incoterm-code {
+    font-size: 1.05rem;
+  }
+
+  .incoterm-name {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .incoterms-details-panel {
+    padding: 20px 15px;
+  }
+
+  .incoterm-header-display {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .incoterm-title-large {
+    font-size: 1.35rem;
+  }
+
+  .timeline-step {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+
+  .step-label {
+    font-size: 0.82rem;
+  }
+
+  .step-bar-container {
+    height: 16px;
+  }
+
+  .step-bar {
+    font-size: 0.7rem;
+  }
+
+  .matrix-legend {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* 2. Container Specs & CBM Mobile */
+  .container-calc-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .container-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .container-btn {
+    padding: 10px 6px;
+    font-size: 0.78rem;
+  }
+
+  .container-visualizer {
+    height: 150px;
+  }
+
+  .container-box-graphic {
+    width: 90%;
+    max-width: 260px;
+    height: 80px;
+    font-size: 1rem;
+  }
+
+  .calculator-card {
+    padding: 20px 15px;
+  }
+
+  .form-group-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .calc-btn-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* 3. Aircraft Hotspots Mobile */
+  .aircraft-svg-wrapper {
+    touch-action: manipulation;
+  }
+
+  .hotspot {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.85rem !important;
+    margin-left: -16px !important;
+    margin-top: -16px !important;
+  }
+
+  .hotspot-info-card {
+    padding: 18px 15px;
+  }
+
+  .hotspot-info-title {
+    font-size: 1.1rem;
+  }
+
+  /* 4. 10 Logistics Models Mobile */
+  .logistics-interactive-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .logistic-card {
+    padding: 18px 15px;
+  }
+
+  /* 5. Document Checklist Generator Mobile */
+  .doc-generator-card {
+    padding: 20px 15px;
+  }
+
+  .doc-btn-group {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .doc-route-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .doc-item-card {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  /* 6. Dangerous Goods Identifier Mobile */
+  .interactive-tool-container {
+    padding: 20px 15px !important;
+  }
+
+  /* 7. Reefer Simulator Mobile */
+  #reefer-temp-display {
+    font-size: clamp(2.2rem, 9vw, 3.5rem) !important;
+  }
+
+  .reefer-status-grid {
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: center;
+  }
+
+  .reefer-btn {
+    width: 100%;
+    padding: 10px 15px !important;
+  }
+
+  /* 8. HS Code Explainer Mobile */
+  .hs-code-digits {
+    font-size: clamp(1.2rem, 5.5vw, 2.2rem) !important;
+    gap: 6px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-group-row {
+    grid-template-columns: 1fr;
+  }
+
+  .tools-page-tab-card {
+    flex: 0 0 115px;
+    min-width: 115px;
+    padding: 12px 8px;
+  }
+
+  .hotspot {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.75rem !important;
+    margin-left: -14px !important;
+    margin-top: -14px !important;
+  }
+}
+
+
 

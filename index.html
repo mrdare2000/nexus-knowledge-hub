@@ -384,7 +384,7 @@
       <p>Use visual dashboards to understand responsibilities, cargo capacities, and logistics frameworks.</p>
     </div>
 
-    <div class="category-strip" style="display: grid; grid-template-columns: repeat(8, 1fr); max-width: 1200px; margin: 0 auto 40px auto; gap: 10px; justify-items: center;">
+    <div class="tools-category-strip category-strip">
       <div class="category-strip-card tool-tab active tools-page-tab-card" id="tab-incoterms" onclick="toggleToolPanel('incoterms')">
         <span class="category-strip-icon" style="font-size: 1.8rem; margin-bottom: 5px;">📊</span>
         <span class="category-strip-title" style="font-size: 0.75rem; line-height: 1.1;">Incoterms Matrix</span>
@@ -565,11 +565,11 @@
             </div>
           </div>
           <div class="form-group-row">
-            <div class="form-group" style="grid-column: span 1.5;">
+            <div class="form-group">
               <label for="cargo-qty">Quantity (Boxes)</label>
               <input type="number" id="cargo-qty" class="form-input" placeholder="e.g. 10" min="1">
             </div>
-            <div class="form-group" style="grid-column: span 1.5;">
+            <div class="form-group">
               <label for="cargo-weight">Total Gross Wt (kg)</label>
               <input type="number" id="cargo-weight" class="form-input" placeholder="e.g. 900" min="0.1">
             </div>
@@ -794,7 +794,7 @@
           </div>
         </div>
 
-        <div style="display:flex; gap:15px; margin-bottom: 25px;">
+        <div class="doc-btn-group" style="display:flex; gap:15px; margin-bottom: 25px;">
           <button class="btn btn-primary" style="flex:1; padding: 14px; font-size:1rem;" onclick="generateDocChecklist()">⚡ Generate Specialized Dossier</button>
           <button class="btn btn-secondary" style="padding: 14px 20px; font-size:0.95rem; background:#F1F5F9; color:#334155; border:1px solid #CBD5E1;" onclick="printDocChecklist()">🖨️ Export / Print</button>
         </div>
@@ -851,7 +851,7 @@
           <div style="background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%); padding: 30px; border-radius: 12px; border: 1px solid #7DD3FC; text-align: center; position: relative; overflow: hidden;">
             <div id="reefer-temp-display" style="font-size: 3.5rem; font-weight: 800; color: #0284C7; margin-bottom: 10px; text-shadow: 1px 1px 0px rgba(255,255,255,0.5);">-20°C</div>
             <h4 id="reefer-cargo-name" style="color: #0369A1; font-size: 1.2rem; margin-bottom: 20px;">Ice Cream, Frozen Meat</h4>
-            <div style="display: flex; justify-content: space-around; background: rgba(255,255,255,0.6); padding: 15px; border-radius: 8px;">
+            <div class="reefer-status-grid" style="display: flex; justify-content: space-around; background: rgba(255,255,255,0.6); padding: 15px; border-radius: 8px;">
               <div>
                 <span style="display: block; font-size: 0.8rem; color: #075985; text-transform: uppercase; font-weight: bold;">Ventilation</span>
                 <span id="reefer-ventilation" style="font-weight: 600; color: #0F172A;">Closed</span>
@@ -935,7 +935,7 @@
         </div>
         
         <div id="hs-result-container" style="display: none;">
-          <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; font-size: 2.5rem; font-weight: 800; font-family: 'Courier New', monospace; flex-wrap: wrap;">
+          <div class="hs-code-digits" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; font-weight: 800; font-family: 'Courier New', monospace; flex-wrap: wrap;">
             <span id="hs-chapter" style="color: #E11D48; border-bottom: 4px solid #E11D48; padding-bottom: 5px;" title="Chapter">61</span>
             <span style="color: #94A3B8;">.</span>
             <span id="hs-heading" style="color: #2563EB; border-bottom: 4px solid #2563EB; padding-bottom: 5px;" title="Heading">09</span>

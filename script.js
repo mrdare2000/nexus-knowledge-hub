@@ -180,19 +180,22 @@ window.toggleMobileMenu = function() {
 
 // Global visual panel switch helper
 window.toggleToolPanel = function(panelId) {
-  const tabBtns = document.querySelectorAll(".tool-tab-btn");
+  const tabBtns = document.querySelectorAll(".tools-page-tab-card, .tool-tab, .tool-tab-btn");
   const panels = document.querySelectorAll(".tool-panel");
   
   tabBtns.forEach(btn => {
-    if (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes(panelId)) {
+    if (btn.id === `tab-${panelId}` || (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes(panelId))) {
       btn.classList.add("active");
+      if (btn.scrollIntoView && window.innerWidth <= 768) {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     } else {
       btn.classList.remove("active");
     }
   });
   
   panels.forEach(panel => {
-    if (panel.id === `${panelId}-panel`) {
+    if (panel.id === `panel-${panelId}`) {
       panel.classList.add("active");
     } else {
       panel.classList.remove("active");
