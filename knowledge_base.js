@@ -1092,7 +1092,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           summary: "Core papers required for smooth border transitions.",
           image: "images/customs_docs.png",
           content: `
-            <p>A flawless paper trail is the absolute secret to avoiding border delays. Customs operates on strict verification: if one document contains a typo—such as mismatched weights between the Packing List and the Bill of Lading, or an incorrect HS code🛂customs will freeze the shipment and issue severe penalties.</p>
+            <p>A flawless paper trail is the absolute secret to avoiding border delays. Customs operates on strict verification: if one document contains a typo (such as mismatched weights between the Packing List and the Bill of Lading, or an incorrect HS code digits), customs will freeze the shipment and issue severe penalties.</p>
             
             <img src="images/customs_docs.png" alt="Customs Documentation" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
             
@@ -1770,7 +1770,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <div style="margin:25px 0; background:#F8FAFC; border-left:4px solid #0284C7; padding:15px; border-radius:0 12px 12px 0;">
               <h4 style="margin:0 0 10px 0; color:#0369A1;">\uD83D\uDCCD The Chargeable Weight Rule</h4>
-              <p style="margin:0; font-size:0.95rem; color:#334155; line-height: 1.6;">Airlines charge based on <strong>Chargeable Weight</strong>—which is the higher value between the <em>Actual Gross Weight (kg)</em> and the <em>Volumetric Weight (Volume in cbm × 167)</em>. Because aircraft have limited space, a massive box of light feathers will be billed for its massive volume (dimensional weight), not its physical weight on a scale.</p>
+              <p style="margin:0; font-size:0.95rem; color:#334155; line-height: 1.6;">Airlines charge based on <strong>Chargeable Weight</strong>, defined as the higher value between the <em>Actual Gross Weight (kg)</em> and the <em>Volumetric Weight (Volume in cbm × 167)</em>. Because aircraft have limited space, a massive box of light feathers will be billed for its massive volume (dimensional weight), not its physical weight on a scale.</p>
             </div>
             
             <!-- CSS INFOGRAPHIC: AIR FREIGHT -->
@@ -3184,8 +3184,9 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                   <div style="font-size: 3rem; margin-bottom: 10px;">🚢</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Ultra-Fast Ocean Transit</strong>
                   <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">Vessels departing from West Coast Indian ports (Nhava Sheva, Mundra) can arrive directly into Jebel Ali (Dubai) with incredibly fast transit times of <strong>4-7 Days</strong>. It is almost as fast as air freight but at a fraction of the cost.</p>
+                  <p style="font-size:0.9rem; color:#166534; margin: 0; line-height: 1.5;">Vessels departing from West Coast Indian ports (Nhava Sheva, Mundra) can arrive directly into Jebel Ali (Dubai) with incredibly fast transit times of 4-7 Days. It is almost as fast as air freight but at a fraction of the cost.</p>
                 </div>
-                
+
                 <div style="background:#FFF; padding:20px; border-radius:12px; border:2px dashed #4ADE80; flex:1; min-width:250px; text-align:center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                   <div style="font-size: 3rem; margin-bottom: 10px;">🌾</div>
                   <strong style="color:#15803D; display:block; font-size: 1.1rem; margin-bottom: 5px;">Primary Commodities</strong>
@@ -3207,51 +3208,88 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "export-shipment-process-flow",
           title: "Export Shipment Process Flow",
-          summary: "Timeline from booking request to loading confirmation.",
+          summary: "Complete 7-step SOP from booking placement to loading confirmation.",
           image: "images/export_shipment_flow.png",
           content: `
             <img src="images/export_shipment_flow.png" alt="Export Shipment Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>Exporting cargo involves highly synchronized steps between the shipper, forwarder, customs broker, and ocean carrier. A failure at any single point in this pipeline can cause the cargo to miss the vessel—a disastrous event known as a <strong>Roll-Over</strong>.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Exporting commercial cargo across international borders is a multi-jurisdictional operation requiring seamless synchronization between the Exporter (Shipper), Freight Forwarder, Drayage Trucker, Customs Authorities, Port Terminal Operators, and Ocean Carriers. Each participant operates on strict chronological deadlines. A bottleneck or error at any single node in this pipeline can cause the container to miss its booked vessel loading window, a costly operational failure known in international logistics as a Container Roll-Over.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              The standard export workflow starts long before physical cargo touches a truck. It begins with contractual alignment under Incoterms (such as FOB, CIF, or EXW), establishing when legal risk transfers from seller to buyer. Once space is reserved on a container vessel, the physical equipment handoff begins. Drayage truckers collect empty containers from shipping line depots, transport them to manufacturing facilities for cargo stuffing, and enforce mandatory security protocols including ISO 17712 high-security seal installation and SOLAS Verified Gross Mass (VGM) weighing before port gate entrance.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              Customs compliance acts as the final regulatory gateway. Exporters must file electronic customs declarations (such as CUSDEC or US AES EEI) to verify export licensing, HS code classifications, and valuation. Upon green-channel customs clearance and successful port gate-in prior to terminal cut-off deadlines, ship-to-shore gantry cranes load the container onto the vessel according to the bay stowage plan. Following vessel departure, the carrier issues the official Bill of Lading stamped Shipped on Board, marking the formal start of ocean transit.
+            </p>
+
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">\uD83D\uDCCD END-TO-END EXPORT STANDARD OPERATING PROCEDURE</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">📍 END-TO-END EXPORT STANDARD OPERATING PROCEDURE (SOP)</h4>
               
               <div style="position: relative; padding-left: 40px;">
-                <!-- Vertical Line -->
                 <div style="position: absolute; left: 15px; top: 0; bottom: 0; width: 4px; background: #CBD5E1; border-radius: 2px;"></div>
                 
                 <div style="position: relative; margin-bottom: 25px;">
                   <div style="position: absolute; left: -50px; top: 0; background: #3B82F6; color: white; font-weight: bold; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #F8FAFC;">1</div>
                   <div style="background: #FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #3B82F6;">
-                    <strong style="color: #1E40AF; display: block; font-size: 1.1rem; margin-bottom: 8px;">Booking & Space Allocation</strong>
-                    <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.5;">The Shipper sends an SI (Shipping Instruction) to the Forwarder. The Forwarder logs into the Carrier's portal (e.g., INTTRA) and secures space on a specific vessel voyage. The Carrier issues a <strong>Booking Confirmation</strong> and a <strong>Container Release Order (CRO)</strong> to authorize empty container pickup.</p>
+                    <strong style="color: #1E40AF; display: block; font-size: 1.1rem; margin-bottom: 8px;">Booking Placement & Space Allocation (Days 1 to 3)</strong>
+                    <p style="font-size: 0.95rem; color: #475569; margin: 0 0 8px 0; line-height: 1.6;">The Shipper issues a formal Shipping Instruction (SI) or Booking Order to the Freight Forwarder containing exact cargo dimensions, total weight, commodity description, ready date, and target port of discharge. The Forwarder submits the request to ocean carriers via platforms like INTTRA. The carrier confirms vessel voyage space and issues a Booking Confirmation (BC) and a Container Release Order (CRO).</p>
+                    <span style="font-size:0.8rem; background:#EFF6FF; color:#1E40AF; padding:3px 8px; border-radius:4px; font-weight:600;">Key Document: Booking Confirmation & CRO</span>
                   </div>
                 </div>
                 
                 <div style="position: relative; margin-bottom: 25px;">
                   <div style="position: absolute; left: -50px; top: 0; background: #10B981; color: white; font-weight: bold; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #F8FAFC;">2</div>
                   <div style="background: #FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
-                    <strong style="color: #047857; display: block; font-size: 1.1rem; margin-bottom: 8px;">Empty Placement & Stuffing</strong>
-                    <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.5;">A transporter uses the CRO to pick up an empty, clean container from the shipping line's depot. The truck drives to the Shipper's factory where the cargo is loaded (stuffed) inside. The container doors are closed, and a high-security steel <strong>Bottle Seal</strong> is affixed.</p>
+                    <strong style="color: #047857; display: block; font-size: 1.1rem; margin-bottom: 8px;">Empty Container Pickup & 7-Point Inspection (Day 4)</strong>
+                    <p style="font-size: 0.95rem; color: #475569; margin: 0 0 8px 0; line-height: 1.6;">The drayage trucker presents the CRO at the shipping line's empty container depot to collect the allocated empty box. Drivers must conduct a thorough 7-Point Container Inspection Protocol (checking front wall, left side, right side, floor, ceiling, doors inside/outside, and undercarriage) to verify structural integrity, cleanliness, and absence of odor or holes.</p>
+                    <span style="font-size:0.8rem; background:#ECFDF5; color:#047857; padding:3px 8px; border-radius:4px; font-weight:600;">Key Document: Equipment Interchange Receipt (EIR) Out</span>
                   </div>
                 </div>
                 
                 <div style="position: relative; margin-bottom: 25px;">
                   <div style="position: absolute; left: -50px; top: 0; background: #F59E0B; color: white; font-weight: bold; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #F8FAFC;">3</div>
                   <div style="background: #FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #F59E0B;">
-                    <strong style="color: #B45309; display: block; font-size: 1.1rem; margin-bottom: 8px;">Customs Clearance & Gate-In</strong>
-                    <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.5;">The Customs Broker files the Export Declaration (CUSDEC) via the ASYCUDA system. Once cleared, the loaded container is driven to the port and must pass through the terminal gates <em>before</em> the strict CY Cut-Off deadline. The terminal issues a Gate-In receipt.</p>
+                    <strong style="color: #B45309; display: block; font-size: 1.1rem; margin-bottom: 8px;">Cargo Stuffing & High-Security Bolt Sealing (Days 4 to 5)</strong>
+                    <p style="font-size: 0.95rem; color: #475569; margin: 0 0 8px 0; line-height: 1.6;">Cargo is carefully loaded inside the container at the manufacturer's facility. Weight distribution must be balanced evenly across the floor payload area. Once stuffed, an ISO 17712 compliant High-Security Bolt Seal is locked onto the right-hand door latch and recorded on the Packing List.</p>
+                    <span style="font-size:0.8rem; background:#FFFBEB; color:#B45309; padding:3px 8px; border-radius:4px; font-weight:600;">Mandatory Rule: ISO 17712 High Security Seal Required</span>
                   </div>
                 </div>
-                
-                <div style="position: relative;">
-                  <div style="position: absolute; left: -50px; top: 0; background: #8B5CF6; color: white; font-weight: bold; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #F8FAFC;">4</div>
+
+                <div style="position: relative; margin-bottom: 25px;">
+                  <div style="position: absolute; left: -50px; top: 0; background: #EC4899; color: white; font-weight: bold; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #F8FAFC;">4</div>
+                  <div style="background: #FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #EC4899;">
+                    <strong style="color: #BE185D; display: block; font-size: 1.1rem; margin-bottom: 8px;">SOLAS Verified Gross Mass (VGM) Submission (Day 5)</strong>
+                    <p style="font-size: 0.95rem; color: #475569; margin: 0 0 8px 0; line-height: 1.6;">Under International Maritime Organization SOLAS rules, shippers must electronically transmit a certified VGM to the carrier before the VGM cutoff. Calculated via Method 1 (weighing packed container on a weighbridge) or Method 2 (weighing cargo packages + packaging + dunnage + container tare weight).</p>
+                    <span style="font-size:0.8rem; background:#FDF2F8; color:#BE185D; padding:3px 8px; border-radius:4px; font-weight:600;">Deadline: Mandatory VGM Cut-Off</span>
+                  </div>
+                </div>
+
+                <div style="position: relative; margin-bottom: 25px;">
+                  <div style="position: absolute; left: -50px; top: 0; background: #8B5CF6; color: white; font-weight: bold; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #F8FAFC;">5</div>
                   <div style="background: #FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #8B5CF6;">
-                    <strong style="color: #6D28D9; display: block; font-size: 1.1rem; margin-bottom: 8px;">Vessel Loading (On-Board)</strong>
-                    <p style="font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.5;">Massive STS (Ship-to-Shore) gantry cranes lift the container onto the vessel according to the stowage plan. Once physically on the ship, the Carrier issues the <strong>Original Master Bill of Lading (MBL)</strong> with a "Shipped on Board" stamp and date.</p>
+                    <strong style="color: #6D28D9; display: block; font-size: 1.1rem; margin-bottom: 8px;">Customs Export Declaration & Terminal Gate-In (Day 5)</strong>
+                    <p style="font-size: 0.95rem; color: #475569; margin: 0 0 8px 0; line-height: 1.6;">The Customs Broker files the electronic Export Customs Declaration (CUSDEC) via national customs portals. Upon approval, the drayage truck enters the port terminal gate prior to the Container Yard (CY) Cut-off deadline.</p>
+                    <span style="font-size:0.8rem; background:#F5F3FF; color:#6D28D9; padding:3px 8px; border-radius:4px; font-weight:600;">Key Document: CUSDEC Clearance & Port Gate-In Receipt</span>
+                  </div>
+                </div>
+
+                <div style="position: relative;">
+                  <div style="position: absolute; left: -50px; top: 0; background: #06B6D4; color: white; font-weight: bold; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 4px #F8FAFC;">6</div>
+                  <div style="background: #FFF; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #06B6D4;">
+                    <strong style="color: #0E7490; display: block; font-size: 1.1rem; margin-bottom: 8px;">Vessel Loading & Shipped On-Board B/L Release (Days 6 to 7)</strong>
+                    <p style="font-size: 0.95rem; color: #475569; margin: 0 0 8px 0; line-height: 1.6;">Gantry cranes load the container onto the vessel according to the Bay Plan. Following vessel departure, the Carrier issues the official Bill of Lading (B/L) stamped Shipped on Board with actual departure date.</p>
+                    <span style="font-size:0.8rem; background:#ECFEFF; color:#0E7490; padding:3px 8px; border-radius:4px; font-weight:600;">Final Document: Shipped On-Board Bill of Lading</span>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div style="background:#FFFBEB; border:1px solid #FDE68A; padding:20px; border-radius:12px; margin-top:20px;">
+              <h5 style="color:#B45309; margin:0 0 8px 0; font-size:1.05rem;">💡 Industry Best Practice to Prevent Container Roll-Over:</h5>
+              <p style="margin:0; font-size:0.92rem; color:#78350F; line-height:1.6;">Always submit Shipping Instructions and Gate-In the container at least 24 hours prior to the CY Cut-Off. During peak shipping seasons, carriers routinely overbook vessels by 10% to 15%. Containers arriving last at terminal gates are always bumped first to next week's sailing!</p>
             </div>
           `
         },
@@ -3262,71 +3300,126 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
           image: "images/import_shipment_flow.png",
           content: `
             <img src="images/import_shipment_flow.png" alt="Import Shipment Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>Import operations revolve around an extreme sense of urgency. The primary goal is to release the cargo from the port jurisdiction as quickly as possible to avoid devastating Demurrage and Detention (D&D) penalties, which can quickly wipe out the entire profit margin of the goods.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Inbound import operations represent the most time-critical phase of the international freight ecosystem. When ocean vessels or cargo aircraft touch down at destination ports, a strict financial clock begins ticking. Importers and freight forwarders must navigate a complex web of customs duty assessments, regulatory compliance inspections, local port fee settlements, and drayage transport logistics under extreme time pressure.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              The financial urgency stems directly from port authority and ocean carrier tariff structures. Terminals grant importers a limited window of Port Free-Time (typically 3 to 7 calendar days) to clear customs and remove containers from port grounds. Failure to gate-out cargo within this free-time window triggers compounding penalties known as Demurrage and Port Storage, which can exceed $300 to $500 per container for every day of delay.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              A successful import clearance workflow relies on proactive pre-alert document processing. Origin forwarders transmit electronic pre-alerts containing the Commercial Invoice, Packing List, Certificate of Origin, and House Bill of Lading days before vessel arrival. This enables customs brokers to pre-file customs declarations, pay import taxes, secure carrier Delivery Orders (D/O), and dispatch trucks for immediate terminal retrieval the moment the vessel discharges cargo.
+            </p>
+
             <div style="margin:30px 0; background: linear-gradient(135deg, #FDF4FF 0%, #F5D0FE 100%); border:2px solid #F0ABFC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">\uD83D\uDCCD THE INBOUND RELEASE SEQUENCE</h4>
+              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">📍 THE 5-STAGE INBOUND RELEASE SEQUENCE</h4>
               
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px;">
-                <div style="background: #FFF; padding: 15px; border-radius: 10px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <strong style="color: #86198F; font-size: 1.05rem; display: block; margin-bottom: 5px;">1. Pre-Alert & Arrival Notice</strong>
-                  <p style="margin: 0; font-size: 0.85rem; color: #4A044E; line-height: 1.5;">The Forwarder receives Pre-Alert documents from origin. 3 days before the ship docks, the Carrier issues the <strong>Arrival Notice (AN)</strong> outlining local charges.</p>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 20px;">
+                <div style="background: #FFF; padding: 20px; border-radius: 12px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color: #86198F; font-size: 1.1rem; display: block; margin-bottom: 8px;">1. Pre-Alert & Vessel Manifest Submission</strong>
+                  <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #4A044E; line-height: 1.6;">The origin forwarder dispatches digital Pre-Alert packages. Ocean carriers electronically submit inward vessel manifests to local customs authorities 48 to 72 hours prior to vessel arrival (ETA).</p>
+                  <span style="font-size:0.78rem; background:#FAE8FF; color:#86198F; padding:3px 8px; border-radius:4px; font-weight:600;">Timeline: ETA minus 3 Days</span>
                 </div>
                 
-                <div style="background: #FFF; padding: 15px; border-radius: 10px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <strong style="color: #86198F; font-size: 1.05rem; display: block; margin-bottom: 5px;">2. D/O Collection</strong>
-                  <p style="margin: 0; font-size: 0.85rem; color: #4A044E; line-height: 1.5;">The importer surrenders the Original Bill of Lading and pays the local port charges. The Carrier then issues the golden ticket: the <strong>Delivery Order (D/O)</strong>.</p>
+                <div style="background: #FFF; padding: 20px; border-radius: 12px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color: #86198F; font-size: 1.1rem; display: block; margin-bottom: 8px;">2. Arrival Notice & Delivery Order (D/O) Exchange</strong>
+                  <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #4A044E; line-height: 1.6;">Carriers issue the Arrival Notice (AN) detailing local charges (Terminal Handling THC, Delivery Order fee, Manifest fee). The importer surrenders endorsed B/L and collects the official Delivery Order (D/O).</p>
+                  <span style="font-size:0.78rem; background:#FAE8FF; color:#86198F; padding:3px 8px; border-radius:4px; font-weight:600;">Key Document: Delivery Order (D/O)</span>
                 </div>
                 
-                <div style="background: #FFF; padding: 15px; border-radius: 10px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <strong style="color: #86198F; font-size: 1.05rem; display: block; margin-bottom: 5px;">3. Customs Clearance</strong>
-                  <p style="margin: 0; font-size: 0.85rem; color: #4A044E; line-height: 1.5;">The importer pays all import duties and taxes via the customs portal. Customs reviews the CUSDEC and electronically transmits a "Release" message to the port.</p>
+                <div style="background: #FFF; padding: 20px; border-radius: 12px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color: #86198F; font-size: 1.1rem; display: block; margin-bottom: 8px;">3. Customs Declaration & Tax Assessment</strong>
+                  <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #4A044E; line-height: 1.6;">The Customs Broker files the Import CUSDEC, verifying HS Code classification. The importer settles Duty, VAT, and regulatory taxes. Customs issues electronic clearance after document check or physical inspection.</p>
+                  <span style="font-size:0.78rem; background:#FAE8FF; color:#86198F; padding:3px 8px; border-radius:4px; font-weight:600;">Key Document: Customs Release Note</span>
                 </div>
                 
-                <div style="background: #FFF; padding: 15px; border-radius: 10px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                  <strong style="color: #86198F; font-size: 1.05rem; display: block; margin-bottom: 5px;">4. Gate-Out & Empty Return</strong>
-                  <p style="margin: 0; font-size: 0.85rem; color: #4A044E; line-height: 1.5;">A truck presents the D/O at the terminal, loads the full container, and drives to the consignee's warehouse. After unloading, the empty, swept-clean container must be returned to the Carrier's depot before the free-time clock expires.</p>
+                <div style="background: #FFF; padding: 20px; border-radius: 12px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color: #86198F; font-size: 1.1rem; display: block; margin-bottom: 8px;">4. Terminal Gate-Out & Drayage Transport</strong>
+                  <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #4A044E; line-height: 1.6;">Drayage truckers present D/O and Customs Release at terminal gates. Gantry cranes mount full containers onto truck chassis for immediate transit to the importer's warehouse.</p>
+                  <span style="font-size:0.78rem; background:#FAE8FF; color:#86198F; padding:3px 8px; border-radius:4px; font-weight:600;">Key Document: Gate-Out Ticket & EIR In</span>
+                </div>
+
+                <div style="background: #FFF; padding: 20px; border-radius: 12px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color: #86198F; font-size: 1.1rem; display: block; margin-bottom: 8px;">5. Warehouse Unstuffing & Empty Return</strong>
+                  <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #4A044E; line-height: 1.6;">Cargo is unloaded at the warehouse. The empty container is swept clean, inspected for damage, and returned to the shipping line's empty depot before detention free-days expire.</p>
+                  <span style="font-size:0.78rem; background:#FAE8FF; color:#86198F; padding:3px 8px; border-radius:4px; font-weight:600;">Deadline: Detention Free-Time Clock</span>
                 </div>
               </div>
+            </div>
+
+            <div style="background:#EFF6FF; border:1px solid #BFDBFE; padding:20px; border-radius:12px; margin-top:20px;">
+              <h5 style="color:#1E40AF; margin:0 0 8px 0; font-size:1.05rem;">⚠️ Key Distinctions: Demurrage vs Detention Charges</h5>
+              <ul style="margin:0; padding-left:20px; font-size:0.92rem; color:#1E3A8A; line-height:1.6;">
+                <li>Demurrage: Penalties charged when a full container remains inside the port terminal past allowed free days (usually 3 to 7 days after vessel discharge).</li>
+                <li>Detention: Penalties charged when an empty or full container remains outside the port terminal in the importer's possession past allowed free days (usually 5 to 7 days).</li>
+              </ul>
             </div>
           `
         },
         {
           id: "air-freight-process-flow",
           title: "Air Freight Process Flow",
-          summary: "Airport terminal operations and airway bill controls.",
+          summary: "Airport terminal handling, security screening, and airway bill execution.",
           image: "images/air_freight_flow.png",
           content: `
             <img src="images/air_freight_flow.png" alt="Air Freight Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>Unlike ocean freight, air freight moves in hours, not days. The standard operating procedure at an airport terminal is a high-speed environment built entirely around two non-negotiable pillars: <strong>Security</strong> and <strong>Weight Audits</strong>.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Air freight shipping represents the high-velocity apex of global supply chains. Reserved for high-value electronics, perishable foodstuffs, pharmaceuticals, automotive parts, and urgent fashion apparel, air cargo operates on flight departure schedules measured in minutes rather than days. Ground Handling Agents (GHA) operating at major airport cargo hubs execute cargo acceptance, weight auditing, screening, and pallet build-up under rapid turnarounds.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Air cargo pricing is governed strictly by the International Air Transport Association (IATA) Volumetric Weight formula. Aircraft cargo holds possess strict weight and volume constraints. Airlines compute costs based on Chargeable Weight, defined as whichever is higher between Actual Gross Weight (kg) and Volumetric Weight calculated as (Length × Width × Height in cm) / 6000. Light, bulky shipments are billed based on space consumption rather than deadweight.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              Aviation security screening forms the non-negotiable core of air cargo operations under International Civil Aviation Organization (ICAO) rules. Every box entering an airport terminal must undergo 100% security screening via Dual-View X-Ray equipment, Explosive Trace Detection (ETD), or trained K9 sniffer dog units. Undeclared Dangerous Goods (DG), such as loose lithium-ion batteries or flammable aerosols, result in immediate cargo rejection and severe legal penalties.
+            </p>
+
             <div style="margin:30px 0; background:#F0F9FF; border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD TERMINAL HANDLING STEPS (EXPORT)</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">✈️ AIRPORT CARGO TERMINAL HANDLING PIPELINE</h4>
               
-              <div style="display:flex; flex-direction:column; gap:15px;">
-                <div style="display:flex; align-items:center; background:#FFF; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
-                  <strong style="color:#0284C7; font-size:1.1rem; min-width: 140px;">1. RCS (Received)</strong>
-                  <span style="font-size:0.9rem; color:#0C4A6E;">Cargo arrives at the Ground Handling Agent (GHA) warehouse at the airport. A physical tally confirms box count against the Air Waybill.</span>
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <div style="display:flex; align-items:flex-start; background:#FFF; padding:18px; border-radius:12px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
+                  <div style="background:#0284C7; color:#FFF; font-weight:700; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;">1</div>
+                  <div>
+                    <strong style="color:#0284C7; font-size:1.1rem; display:block; margin-bottom:4px;">Cargo Acceptance & Receipt (RCS Milestone)</strong>
+                    <span style="font-size:0.92rem; color:#0C4A6E; line-height:1.6; display:block;">Truckers deliver loose cartons or pre-built pallets to the GHA airport warehouse. Acceptance staff tally physical package counts against the Master Air Waybill (MAWB) and transmit the RCS electronic status code to airline systems.</span>
+                  </div>
                 </div>
                 
-                <div style="display:flex; align-items:center; background:#FFF; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
-                  <strong style="color:#0284C7; font-size:1.1rem; min-width: 140px;">2. Weight & Vol.</strong>
-                  <span style="font-size:0.9rem; color:#0C4A6E;">The GHA places the cargo on a calibrated scale and uses a laser scanner (Cubiscan) to calculate the exact dimensions. The higher of Actual vs. Volumetric Weight dictates the final airline cost.</span>
+                <div style="display:flex; align-items:flex-start; background:#FFF; padding:18px; border-radius:12px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
+                  <div style="background:#0284C7; color:#FFF; font-weight:700; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;">2</div>
+                  <div>
+                    <strong style="color:#0284C7; font-size:1.1rem; display:block; margin-bottom:4px;">Dimensional & Weight Audit (Dim-Weight Check)</strong>
+                    <span style="font-size:0.92rem; color:#0C4A6E; line-height:1.6; display:block;">Cargo passes through automated weight scales and laser dimensional scanners (such as Cubiscan). The system applies the IATA formula (L × W × H in cm) / 6000 to establish Chargeable Weight for billing.</span>
+                  </div>
                 </div>
                 
-                <div style="display:flex; align-items:center; background:#FFF; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #EF4444;">
-                  <strong style="color:#DC2626; font-size:1.1rem; min-width: 140px;">3. Security X-Ray</strong>
-                  <span style="font-size:0.9rem; color:#0C4A6E;"><strong>CRITICAL STEP:</strong> Mandatory X-Ray or Explosive Trace Detection (ETD). Cargo cannot fly if it fails screening or if it contains undeclared Dangerous Goods (batteries, flammables). It gets held as "Unknown Cargo."</span>
+                <div style="display:flex; align-items:flex-start; background:#FFF; padding:18px; border-radius:12px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #EF4444;">
+                  <div style="background:#DC2626; color:#FFF; font-weight:700; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;">3</div>
+                  <div>
+                    <strong style="color:#DC2626; font-size:1.1rem; display:block; margin-bottom:4px;">Aviation Security & Dangerous Goods (DG) Screening</strong>
+                    <span style="font-size:0.92rem; color:#0C4A6E; line-height:1.6; display:block;">MANDATORY SECURITY GATEWAY: Shipments undergo Dual-View X-Ray, Explosive Trace Detection (ETD), or K9 inspection. Dangerous goods must be accompanied by a certified Shipper's Declaration for Dangerous Goods (DGD).</span>
+                  </div>
                 </div>
                 
-                <div style="display:flex; align-items:center; background:#FFF; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
-                  <strong style="color:#0284C7; font-size:1.1rem; min-width: 140px;">4. ULD Build-Up</strong>
-                  <span style="font-size:0.9rem; color:#0C4A6E;">Loose cartons are meticulously stacked by warehouse staff onto aluminum aircraft pallets (ULDs), contour-shaped to fit the curve of the airplane belly, and tightly secured with cargo nets.</span>
+                <div style="display:flex; align-items:flex-start; background:#FFF; padding:18px; border-radius:12px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
+                  <div style="background:#0284C7; color:#FFF; font-weight:700; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;">4</div>
+                  <div>
+                    <strong style="color:#0284C7; font-size:1.1rem; display:block; margin-bottom:4px;">Unit Load Device (ULD) Pallet Build-Up</strong>
+                    <span style="font-size:0.92rem; color:#0C4A6E; line-height:1.6; display:block;">Airport staff stack cargo onto aluminum Unit Load Devices (such as PMC aircraft pallets or AKE contoured belly containers) matched to aircraft fuselage curves. Cargo is secured with heavy-duty structural netting.</span>
+                  </div>
                 </div>
                 
-                <div style="display:flex; align-items:center; background:#FFF; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
-                  <strong style="color:#0284C7; font-size:1.1rem; min-width: 140px;">5. DEP (Departed)</strong>
-                  <span style="font-size:0.9rem; color:#0C4A6E;">Tug tractors pull the ULDs onto the tarmac, where high-loaders push them into the aircraft hold. Flight departs.</span>
+                <div style="display:flex; align-items:flex-start; background:#FFF; padding:18px; border-radius:12px; box-shadow:0 2px 5px rgba(0,0,0,0.05); border-left:4px solid #0EA5E9;">
+                  <div style="background:#0284C7; color:#FFF; font-weight:700; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; margin-right:14px; flex-shrink:0;">5</div>
+                  <div>
+                    <strong style="color:#0284C7; font-size:1.1rem; display:block; margin-bottom:4px;">Tarmac Transport & Aircraft Flight Loading (DEP)</strong>
+                    <span style="font-size:0.92rem; color:#0C4A6E; line-height:1.6; display:block;">Tug tractors tow ULDs to aircraft positions on the apron. Hydraulic main-deck or lower-deck loaders hoist ULDs into aircraft holds. Flight manifests (FWB/FHL) transmit electronically before takeoff.</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3335,90 +3428,122 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "ocean-freight-process-flow",
           title: "Ocean Freight Process Flow",
-          summary: "Port container yard gates and shipping line manifests.",
+          summary: "Terminal yard operations, bay planning, and strict cutoff compliance.",
           image: "images/ocean_freight_flow.png",
           content: `
             <img src="images/ocean_freight_flow.png" alt="Ocean Freight Process Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>The Ocean Freight process is entirely dictated by strict carrier cutoff deadlines. These are hard stops—if you miss a cutoff by even 5 minutes, your container will not be loaded onto the ship, and you will wait another week for the next vessel, incurring port storage charges in the meantime.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Ocean shipping forms the spine of global international trade, accounting for over 80% of world merchandise transport by volume. Modern container shipping operates through massive ocean liner alliances (such as 2M, Ocean Alliance, and THE Alliance) utilizing ultra-large container vessels capable of carrying up to 24,000 TEUs (Twenty-Foot Equivalent Units). Managing ocean freight requires precise adherence to vessel berthing schedules and terminal yard operations.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Ocean terminal operations revolve around three absolute Cut-Off Deadlines. Port terminal management software enforces strict automated lockouts. If a container fails to pass terminal gates or lacks certified SOLAS weight documentation before cutoff timers expire, terminal systems automatically block loading, forcing the container to wait for subsequent vessel voyages while accruing storage costs.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              Vessel stability and safety depend on advanced computer Stowage Planning. Planners assign each container a 6-digit coordinate position defining its Bay, Row, and Tier. Heavy containers are stowed deep in vessel holds for center-of-gravity stability, refrigerated reefers are loaded into slots equipped with electrical power plugs, and Dangerous Goods containers are isolated in specialized fire-protected zones.
+            </p>
+
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE THREE GOLDEN CUT-OFFS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">⚓ THE 3 CRITICAL CUT-OFF DEADLINES</h4>
               
-              <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">
-                <div style="flex:1; min-width:250px; background:#FFF; border-top:5px solid #1D4ED8; padding:20px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05); text-align:center;">
-                  <div style="font-size:2.5rem; margin-bottom:10px;">⚖️</div>
-                  <strong style="color:#1E40AF; display:block; font-size:1.15rem; margin-bottom:10px;">VGM Cut-Off</strong>
-                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.5;"><strong>Verified Gross Mass.</strong> The exact certified weight of the packed container must be electronically submitted to the carrier. By maritime law (SOLAS), a ship cannot load a container without a VGM on file, as it affects the vessel's balance.</p>
+              <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center;">
+                <div style="flex:1; min-width:250px; background:#FFF; border-top:5px solid #1D4ED8; padding:22px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size:2.2rem; margin-bottom:8px; text-align:center;">⚖️</div>
+                  <strong style="color:#1E40AF; display:block; font-size:1.1rem; margin-bottom:8px; text-align:center;">1. VGM Cut-Off Deadline</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.6;">Verified Gross Mass. Under International Maritime Organization SOLAS rules, certified total container weight must be electronically transmitted to the carrier. Vessel masters are legally prohibited from loading containers lacking an official VGM.</p>
                 </div>
                 
-                <div style="display:flex; flex-direction:column; gap:15px; flex:1; min-width:250px;">
-                  <div style="background:#FFF; border-left:5px solid #15803D; padding:20px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
-                    <strong style="color:#166534; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.5rem; margin-right:8px;">🏗️</span> CY Gate-In Cut-Off</strong>
-                    <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.5;">The absolute physical deadline for the loaded, customs-cleared container to enter the port gates. The terminal needs time to stack containers in the yard before the ship arrives.</p>
-                  </div>
-                  
-                  <div style="background:#FFF; border-left:5px solid #B91C1C; padding:20px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
-                    <strong style="color:#991B1B; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.5rem; margin-right:8px;">📄</span> SI (Docs) Cut-Off</strong>
-                    <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.5;"><strong>Shipping Instructions.</strong> The final deadline to submit the exact shipper, consignee, and cargo description data to the carrier so they can draft the Bill of Lading and submit Advanced Manifest filings to customs.</p>
-                  </div>
+                <div style="flex:1; min-width:250px; background:#FFF; border-top:5px solid #15803D; padding:22px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size:2.2rem; margin-bottom:8px; text-align:center;">🏗️</div>
+                  <strong style="color:#166534; display:block; font-size:1.1rem; margin-bottom:8px; text-align:center;">2. CY Gate-In Cut-Off Deadline</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.6;">The absolute physical deadline for loaded, customs-cleared containers to pass through terminal gates. Yard planners require this window to stack boxes by weight and destination tier prior to ship arrival.</p>
+                </div>
+                
+                <div style="flex:1; min-width:250px; background:#FFF; border-top:5px solid #B91C1C; padding:22px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                  <div style="font-size:2.2rem; margin-bottom:8px; text-align:center;">📄</div>
+                  <strong style="color:#991B1B; display:block; font-size:1.1rem; margin-bottom:8px; text-align:center;">3. Shipping Instruction (SI) Cut-Off</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.6;">The deadline to submit final Bill of Lading data (Shipper, Consignee, Cargo Description, HS Code) enabling carriers to file advanced customs manifests such as US AMS or EU ENS.</p>
                 </div>
               </div>
+            </div>
+
+            <div style="background:#F0FDF4; border:1px solid #BBF7D0; padding:20px; border-radius:12px; margin-top:20px;">
+              <h5 style="color:#15803D; margin:0 0 8px 0; font-size:1.05rem;">🧩 Understanding Vessel Stowage Planning (Bay-Row-Tier):</h5>
+              <p style="margin:0; font-size:0.92rem; color:#166534; line-height:1.6;">Container positions on a vessel are identified by a 6-digit coordinate format: <strong>Bay (Lengthwise position) - Row (Crosswise width position) - Tier (Vertical height stack position)</strong>. Heavy containers occupy lower tiers inside ship holds, while lighter boxes are stacked higher on deck hatches.</p>
             </div>
           `
         },
         {
           id: "documentation-flow",
           title: "Documentation Flow",
-          summary: "Managing certificates and switch bills of lading.",
+          summary: "Mastering international trade document pipelines and Switch Bills of Lading.",
           image: "images/documentation_flow.png",
           content: `
             <img src="images/documentation_flow.png" alt="Documentation Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>Cargo doesn't move on ships; it moves on paper. The documentation flow runs parallel to the physical cargo flow. A delay in the document pipeline can cause the physical cargo to be held hostage at the destination port, racking up thousands of dollars in Demurrage penalties.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              In international logistics, an established trade axiom states that <em>cargo moves on paper</em>. Physical goods cannot cross international boundaries without an accompanying digital and physical paper trail. A single typographical error on a Commercial Invoice or Bill of Lading, such as mismatched weight values or incorrect HS code digits, will trigger customs audits, port holds, and financial penalties.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Trade documentation falls into three functional categories. First, Commercial Documents (Commercial Invoice and Packing List) define financial values and cargo packaging details. Second, Transport Documents (Master Bill of Lading, House Bill of Lading, or Sea Waybill) serve as contracts of carriage, receipts of goods, and legal documents of title. Third, Regulatory Certificates (Certificate of Origin, Phytosanitary Certificate, and ISPM 15 Fumigation Certificate) prove compliance with destination import laws.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              Specialized trading scenarios utilize advanced document structures such as <strong>Switch Bills of Lading</strong>. In 3rd-party triangular cross-trade transactions, middle traders request forwarders to issue a second set of Bills of Lading (the Switch B/L) to replace the original set issued at origin. This hides original manufacturer identities and factory pricing from ultimate buyers, preserving middle trader profit margins.
+            </p>
+
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE DOCUMENT PIPELINE</h4>
+              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📄 THE 5-PHASE DOCUMENT PIPELINE</h4>
               
-              <div style="display:flex; flex-direction:column; gap:12px;">
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:center;">
-                  <span style="font-size:2rem; margin-right:15px;">1️⃣</span>
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:flex-start;">
+                  <span style="font-size:1.8rem; margin-right:14px; line-height:1;">1️⃣</span>
                   <div>
-                    <strong style="color:#B45309; display:block; margin-bottom:4px;">Commercial Documents (Day 1)</strong>
-                    <span style="font-size:0.9rem; color:#92400E;">The Exporter generates the Commercial Invoice (CI) detailing the cargo value, and the Packing List (PL) detailing dimensions and weight.</span>
+                    <strong style="color:#B45309; display:block; margin-bottom:4px; font-size:1.05rem;">Commercial Document Generation (Origin)</strong>
+                    <span style="font-size:0.9rem; color:#92400E; line-height:1.6;">The Exporter generates the Commercial Invoice (CI) stating total sale values and currency, along with the Packing List (PL) detailing gross weight, net weight, dimensions, and carton counts.</span>
                   </div>
                 </div>
                 
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:center;">
-                  <span style="font-size:2rem; margin-right:15px;">2️⃣</span>
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:flex-start;">
+                  <span style="font-size:1.8rem; margin-right:14px; line-height:1;">2️⃣</span>
                   <div>
-                    <strong style="color:#B45309; display:block; margin-bottom:4px;">Draft B/L & Certificates (Day 2-3)</strong>
-                    <span style="font-size:0.9rem; color:#92400E;">Forwarder drafts the Bill of Lading for approval. Simultaneously, the Exporter applies for the Certificate of Origin (COO) and any necessary Phytosanitary/Fumigation certificates.</span>
+                    <strong style="color:#B45309; display:block; margin-bottom:4px; font-size:1.05rem;">Transport Drafting & Regulatory Certification</strong>
+                    <span style="font-size:0.9rem; color:#92400E; line-height:1.6;">The Forwarder drafts the House Bill of Lading for shipper review. Exporters secure Chamber of Commerce Certificates of Origin (COO), phytosanitary clearance, or ISPM 15 timber treatment records.</span>
                   </div>
                 </div>
                 
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:center;">
-                  <span style="font-size:2rem; margin-right:15px;">3️⃣</span>
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:flex-start;">
+                  <span style="font-size:1.8rem; margin-right:14px; line-height:1;">3️⃣</span>
                   <div>
-                    <strong style="color:#B45309; display:block; margin-bottom:4px;">Original Issue (Vessel Sails)</strong>
-                    <span style="font-size:0.9rem; color:#92400E;">Once the vessel departs, the Carrier issues the <strong>Original Bill of Lading (OBL)</strong>. The OBL is the legal title to the goods.</span>
+                    <strong style="color:#B45309; display:block; margin-bottom:4px; font-size:1.05rem;">Title Document Issuance (On-Board Departure)</strong>
+                    <span style="font-size:0.9rem; color:#92400E; line-height:1.6;">Once the vessel departs, ocean carriers issue 3 Original Master Bills of Lading (MBL) stamped Shipped on Board. The Bill of Lading functions as: (1) Receipt of Goods, (2) Document of Title, and (3) Contract of Carriage.</span>
                   </div>
                 </div>
                 
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:center;">
-                  <span style="font-size:2rem; margin-right:15px;">4️⃣</span>
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:flex-start;">
+                  <span style="font-size:1.8rem; margin-right:14px; line-height:1;">4️⃣</span>
                   <div>
-                    <strong style="color:#B45309; display:block; margin-bottom:4px;">Bank Negotiation / Courier</strong>
-                    <span style="font-size:0.9rem; color:#92400E;">The Exporter takes the complete "Clearance Pack" (OBL, CI, PL, COO) and submits it to their bank (if using an LC) or couriers it via DHL/FedEx directly to the Importer.</span>
+                    <strong style="color:#B45309; display:block; margin-bottom:4px; font-size:1.05rem;">Bank Negotiation / Express Telex Release</strong>
+                    <span style="font-size:0.9rem; color:#92400E; line-height:1.6;">Under Letter of Credit (LC) terms, shippers submit documents to issuing banks. If paid upfront, shippers request an Express Telex Release, authorizing digital cargo release without physical paper courier delays.</span>
                   </div>
                 </div>
-                
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:center;">
-                  <span style="font-size:2rem; margin-right:15px;">5️⃣</span>
+
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05); display:flex; align-items:flex-start;">
+                  <span style="font-size:1.8rem; margin-right:14px; line-height:1;">5️⃣</span>
                   <div>
-                    <strong style="color:#B45309; display:block; margin-bottom:4px;">Surrender & Release</strong>
-                    <span style="font-size:0.9rem; color:#92400E;">The Importer receives the physical OBL, endorses the back of it, and surrenders it to the destination Carrier office to secure the Delivery Order.</span>
+                    <strong style="color:#B45309; display:block; margin-bottom:4px; font-size:1.05rem;">Surrender & Delivery Order (D/O) Exchange</strong>
+                    <span style="font-size:0.9rem; color:#92400E; line-height:1.6;">The Importer surrenders endorsed Original B/Ls to destination carrier offices, settles port charges, and receives the official Delivery Order (D/O) authorizing physical terminal release.</span>
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div style="background:#EFF6FF; border:1px solid #BFDBFE; padding:20px; border-radius:12px; margin-top:20px;">
+              <h5 style="color:#1E40AF; margin:0 0 8px 0; font-size:1.05rem;">🔄 Mechanics of a Switch Bill of Lading:</h5>
+              <p style="margin:0; font-size:0.92rem; color:#1E3A8A; line-height:1.6;">A <strong>Switch Bill of Lading</strong> replaces the original B/L set during 3rd-party cross-trade shipments. It edits shipper details (showing the middle trader as exporter) and buyer details while keeping cargo descriptions identical, protecting commercial trade secrets.</p>
             </div>
           `,
           youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
@@ -3426,47 +3551,67 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "physical-cargo-flow",
           title: "Physical Cargo Flow",
-          summary: "Tracking the physical cargo movements across modes.",
+          summary: "Tracking physical cargo handoffs, Equipment Interchange Receipts, and chain of custody.",
           image: "images/physical_cargo_flow.png",
           content: `
             <img src="images/physical_cargo_flow.png" alt="Physical Cargo Flow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>While the forwarder sits at a desk managing data and tracking milestones, the actual physical cargo is handed off multiple times between different heavy-machinery operators across the globe. Each handoff is a liability transfer point.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              While freight forwarders handle digital manifests and commercial paperwork, physical cargo undergoes rigorous physical handling across multimodal transport networks. From factory loading docks to drayage trucks, rail ramps, container yard stacking cranes, and vessel holds, cargo is transferred through multiple hands. Each physical handoff represents a legal transfer of custody and financial risk.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Chain of custody protection relies on strict inspection protocols recorded via <strong>Equipment Interchange Receipts (EIR)</strong> and Proof of Delivery (POD) notes. If cargo or container damage occurs during transit, liability falls squarely on the last party that signed a clean receipt without noting physical exceptions. Receiving managers must inspect seal numbers, exterior container walls, and door latches before signing equipment receipts.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              Cargo preservation during ocean transit requires specialized packaging techniques. Ocean voyages expose containers to violent pitch and roll motions, extreme humidity changes, and sea spray. Professional packers employ heavy-duty polyester lashing straps anchored to container D-rings, inflatable air dunnage bags between pallet rows, and industrial desiccant bags to prevent moisture condensation known as <strong>Container Rain</strong>.
+            </p>
+
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CHAIN OF CUSTODY & LIABILITY</h4>
-              <p style="font-size:0.95rem; color:#475569; line-height:1.6; margin:0 0 20px 0; text-align: center;">Whenever cargo physically changes hands, an <strong>Equipment Interchange Receipt (EIR)</strong> is signed. If the cargo is damaged, the last party to sign a "clean" EIR (without noting the damage) is held legally liable for the insurance claim.</p>
+              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">📦 CHAIN OF CUSTODY & PHYSICAL HANDOFF PIPELINE</h4>
+              <p style="font-size:0.95rem; color:#475569; line-height:1.6; margin:0 0 20px 0; text-align: center;">At each physical custody transfer, an Equipment Interchange Receipt (EIR) or Proof of Delivery (POD) must be inspected and signed.</p>
               
-              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; position: relative;">
-                
-                <div style="background:#FFF; padding:15px; border-radius:8px; border:2px solid #94A3B8; text-align:center; width:22%; min-width: 120px; z-index: 2;">
-                  <div style="font-size:2rem; margin-bottom:5px;">🏭</div>
-                  <strong style="color:#1E293B; font-size: 0.9rem; display: block;">Shipper Factory</strong>
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                <div style="background:#FFF; padding:18px; border-radius:12px; border:2px solid #94A3B8; text-align:center; flex:1; min-width:130px;">
+                  <div style="font-size:2.2rem; margin-bottom:6px;">🏭</div>
+                  <strong style="color:#1E293B; font-size: 0.95rem; display: block;">1. Shipper Factory</strong>
+                  <span style="font-size:0.78rem; color:#64748B;">Cargo stuffed & sealed</span>
                 </div>
                 
-                <div style="font-size: 1.5rem; color: #94A3B8;">➡️</div>
+                <div style="font-size: 1.4rem; color: #94A3B8;">➡️</div>
                 
-                <div style="background:#FFF; padding:15px; border-radius:8px; border:2px solid #94A3B8; text-align:center; width:22%; min-width: 120px; z-index: 2;">
-                  <div style="font-size:2rem; margin-bottom:5px;">🚛</div>
-                  <strong style="color:#1E293B; font-size: 0.9rem; display: block;">Origin Trucker</strong>
+                <div style="background:#FFF; padding:18px; border-radius:12px; border:2px solid #94A3B8; text-align:center; flex:1; min-width:130px;">
+                  <div style="font-size:2.2rem; margin-bottom:6px;">🚛</div>
+                  <strong style="color:#1E293B; font-size: 0.95rem; display: block;">2. Origin Drayage</strong>
+                  <span style="font-size:0.78rem; color:#64748B;">Highway transport to port</span>
                 </div>
                 
-                <div style="font-size: 1.5rem; color: #94A3B8;">➡️</div>
+                <div style="font-size: 1.4rem; color: #94A3B8;">➡️</div>
                 
-                <div style="background:#FFF; padding:15px; border-radius:8px; border:2px solid #94A3B8; text-align:center; width:22%; min-width: 120px; z-index: 2;">
-                  <div style="font-size:2rem; margin-bottom:5px;">🏗️</div>
-                  <strong style="color:#1E293B; font-size: 0.9rem; display: block;">Port Terminal</strong>
+                <div style="background:#FFF; padding:18px; border-radius:12px; border:2px solid #94A3B8; text-align:center; flex:1; min-width:130px;">
+                  <div style="font-size:2.2rem; margin-bottom:6px;">🏗️</div>
+                  <strong style="color:#1E293B; font-size: 0.95rem; display: block;">3. Terminal Yard</strong>
+                  <span style="font-size:0.78rem; color:#64748B;">Gantry crane stacking</span>
                 </div>
                 
-                <div style="font-size: 1.5rem; color: #94A3B8;">➡️</div>
+                <div style="font-size: 1.4rem; color: #94A3B8;">➡️</div>
                 
-                <div style="background:#FFF; padding:15px; border-radius:8px; border:2px solid #94A3B8; text-align:center; width:22%; min-width: 120px; z-index: 2;">
-                  <div style="font-size:2rem; margin-bottom:5px;">🚢</div>
-                  <strong style="color:#1E293B; font-size: 0.9rem; display: block;">Vessel Master</strong>
+                <div style="background:#FFF; padding:18px; border-radius:12px; border:2px solid #94A3B8; text-align:center; flex:1; min-width:130px;">
+                  <div style="font-size:2.2rem; margin-bottom:6px;">🚢</div>
+                  <strong style="color:#1E293B; font-size: 0.95rem; display: block;">4. Ocean Transit</strong>
+                  <span style="font-size:0.78rem; color:#64748B;">STS crane to vessel</span>
                 </div>
-                
               </div>
-              
-              <div style="margin-top: 15px; text-align: center; font-size: 0.85rem; color: #64748B;">* The process repeats in reverse at the destination port until final delivery to the Consignee.</div>
+            </div>
+
+            <div style="background:#FFF1F2; border:1px solid #FECACA; padding:20px; border-radius:12px; margin-top:20px;">
+              <h5 style="color:#9F1239; margin:0 0 8px 0; font-size:1.05rem;">⚠️ Cargo Protection Best Practices:</h5>
+              <ul style="margin:0; padding-left:20px; font-size:0.92rem; color:#881337; line-height:1.6;">
+                <li>Air Dunnage Bags: Inflatable cushions placed between pallets to prevent lateral shifting during heavy ocean swells.</li>
+                <li>Desiccant Packs: Calcium chloride moisture packs positioned inside containers to absorb ambient humidity and stop Container Rain.</li>
+                <li>Polyester Lashing Straps: Heavy-duty webbed straps anchored to corner D-rings to lock heavy machinery in position.</li>
+              </ul>
             </div>
           `,
           youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
@@ -3474,33 +3619,46 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "customer-inquiry-to-quotation",
           title: "Customer Inquiry to Quotation",
-          summary: "Analyzing pricing requests and preparing commercial quotes.",
+          summary: "Analyzing pricing requests, sourcing buy rates, and issuing commercial quotes.",
           image: "images/quotation_process_flow.png",
           content: `
             <img src="images/quotation_process_flow.png" alt="Customer Inquiry to Quotation Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>The Sales SOP (Standard Operating Procedure) dictates how quickly, accurately, and profitably a forwarder can respond to a customer's Request for Quotation (RFQ). A bad quote can result in massive financial losses for the forwarder.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              The commercial sales process in freight forwarding begins with a customer's Request for Quotation (RFQ). Pricing requests accurately requires freight brokers and sales executives to thoroughly evaluate trade lane dynamics, carrier capacity, seasonal surcharges, and landside transport legs. A poorly structured freight quote can easily result in severe financial losses for the logistics provider.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Pricing executives source <strong>Buy Rates</strong> directly from ocean liners and airlines, taking into account ocean freight surcharges such as Bunker Adjustment Factors (BAF), Peak Season Surcharges (PSS), and General Rate Increases (GRI). The forwarder then adds origin terminal handling charges (THC), drayage trucking rates, customs brokerage fees, and a net profit margin to generate the final <strong>Sell Rate</strong> presented to the client.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              A critical component of freight quotation SOPs is enforcing strict liability exclusion clauses. Commercial quotes must explicitly detail excluded destination charges, such as import customs duties, local taxes, port demurrage, storage penalties, and customs physical examination fees. Unclear quotation terms leave forwarders legally exposed to absorbing unbudgeted port expenses.
+            </p>
+
             <div style="margin:30px 0; background:#FFF1F2; border:2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD THE QUOTATION PROCESS</h4>
+              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">📋 COMMERCIAL FREIGHT QUOTATION WORKFLOW</h4>
               
-              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#BE123C; display:block; margin-bottom:5px;">1. Qualify the Cargo</strong>
-                  <span style="font-size:0.85rem; color:#9F1239; line-height: 1.5; display:block;">Ask the customer for exact details: Origin/Destination, Commodity (Is it Hazardous?), Weight, Dimensions, and the Incoterm.</span>
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap:16px;">
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; display:block; margin-bottom:8px; font-size:1.1rem;">1. Inquiry Qualification</strong>
+                  <span style="font-size:0.9rem; color:#9F1239; line-height:1.6; display:block;">Gather essential cargo parameters: Origin, Destination, Commodity, HS Code, Gross Weight, CBM Volume, Hazardous Material class, and target Incoterm (FOB, CIF, DDP).</span>
                 </div>
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#BE123C; display:block; margin-bottom:5px;">2. Source Buy Rates</strong>
-                  <span style="font-size:0.85rem; color:#9F1239; line-height: 1.5; display:block;">Look up current Ocean/Air buy rates from carriers, checking validity dates (rates change mid-month) and space availability.</span>
+
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; display:block; margin-bottom:8px; font-size:1.1rem;">2. Carrier Buy Rate Sourcing</strong>
+                  <span style="font-size:0.9rem; color:#9F1239; line-height:1.6; display:block;">Query ocean and air carrier rate tariffs, verifying validity windows, transit times, vessel space allocations, bunker surcharges (BAF), and peak season surcharges (PSS).</span>
                 </div>
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#BE123C; display:block; margin-bottom:5px;">3. Calculate Margin</strong>
-                  <span style="font-size:0.85rem; color:#9F1239; line-height: 1.5; display:block;">Add the company's profit margin (markup) to the buy rate while remaining competitive in the market.</span>
+
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; display:block; margin-bottom:8px; font-size:1.1rem;">3. Landed Cost & Margin Calculation</strong>
+                  <span style="font-size:0.9rem; color:#9F1239; line-height:1.6; display:block;">Combine origin trucking, terminal handling (THC), main ocean/air freight, destination drayage, customs clearance fees, and company margin into a clear sell quotation.</span>
                 </div>
               </div>
               
-              <div style="margin-top: 20px; background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px; border: 1px dashed #F43F5E;">
-                <strong style="color:#9F1239; display:flex; align-items:center; font-size:1.05rem; margin-bottom:5px;"><span style="font-size:1.2rem; margin-right:8px;">🚫</span> The Golden Rule: Exclusions</strong>
-                <p style="font-size:0.9rem; color:#7F1D1D; margin:0; line-height: 1.5;">Never send a quote without listing strict exclusions. Always state: <em>"Quote excludes Customs Duties, Taxes, Port Demurrage, Detention, Storage, and Customs Physical Inspection fees."</em> If these are not excluded, the customer will legally force the forwarder to pay them.</p>
+              <div style="margin-top: 22px; background: rgba(255,255,255,0.95); padding: 20px; border-radius: 12px; border: 1px dashed #F43F5E;">
+                <strong style="color:#9F1239; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.4rem; margin-right:10px;">🚫</span> Mandatory Quotation Exclusions Checklist</strong>
+                <p style="font-size:0.9rem; color:#7F1D1D; margin:0; line-height:1.6;">Every freight quote MUST explicitly state: <em>Quotation excludes Customs Duties, Import Taxes, Port Demurrage, Detention, Terminal Storage, Cargo Insurance, and Physical Customs Inspection Fees.</em></p>
               </div>
             </div>
           `,
@@ -3509,47 +3667,75 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "booking-to-final-delivery",
           title: "Booking to Final Delivery",
-          summary: "End-to-end milestone timeline checklist.",
+          summary: "End-to-end operational milestone execution checklist.",
           image: "images/booking_to_delivery_flow.png",
           content: `
             <img src="images/booking_to_delivery_flow.png" alt="Booking to Final Delivery Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>This is the high-level operational milestone checklist used by forwarders globally to ensure a shipment is moving without delays and data is transmitted accurately to all parties.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Managing an international shipment from initial booking to final destination delivery requires tracking multiple operational milestones. Global freight forwarders utilize standardized Control Tower software platforms to monitor shipment progression, detect supply chain exceptions early, and maintain real-time visibility for cargo owners.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              The shipment lifecycle is divided into 10 sequential operational milestones. Each milestone represents a completed physical action verified by digital data transmissions (such as Electronic Data Interchange EDI messages). Tracking these milestones enables logistics managers to proactively resolve bottlenecks, such as customs inspection holds or missed feeder vessel connections.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              The operational journey concludes with the execution of final door delivery (DLV). Upon cargo arrival at the consignee's warehouse, receiving staff conduct piece-count tally checks, verify container seal integrity, and sign the official Proof of Delivery (POD), successfully closing the shipment file.
+            </p>
+
             <div style="margin:30px 0; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD END-TO-END MILESTONE CHECKLIST</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align: center; font-size: 1.3rem;">🎯 10-MILESTONE SHIPMENT EXECUTION TIMELINE</h4>
               
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">📝</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>Booking Confirmed</strong><br>Space secured on vessel.</span>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">1. Booking Confirmed (BKD)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Vessel space and equipment allocated by carrier.</span>
                 </div>
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">🚛</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>Empty Out</strong><br>Trucker picked up empty.</span>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">2. Empty Picked Up (EMP)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Trucker collects empty container from depot.</span>
                 </div>
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">🏗️</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>Gate-In Full</strong><br>Container delivered to port.</span>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">3. Gate-In Full (GI)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Stuffed container delivered to terminal yard.</span>
                 </div>
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">🛂</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>Customs Released</strong><br>Origin customs cleared.</span>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">4. Export Customs Cleared</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Customs authority grants export approval.</span>
                 </div>
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">🚢</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>SOB (Shipped On Board)</strong><br>Vessel departed origin.</span>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">5. Shipped On-Board (SOB)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Vessel departs origin port of loading (ATD).</span>
                 </div>
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">✅</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>Arrival Notice</strong><br>Issued 3 days prior ETA.</span>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">6. Transshipment Transfer (TS)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Transferred between feeder and mainline vessels.</span>
                 </div>
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">✅</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>Vessel Discharged</strong><br>Unloaded at destination.</span>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">7. Arrival Notice (AN)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Notice issued to importer 3 days before ETA.</span>
                 </div>
-                <div style="background: #FFF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981; display:flex; align-items:center;">
-                  <span style="font-size:1.5rem; margin-right:10px;">✅</span>
-                  <span style="font-size:0.9rem; color:#334155;"><strong>Final Delivery</strong><br>Consignee received cargo.</span>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">8. Vessel Discharge (DSCH)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Container unloaded at destination port.</span>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">9. Import Customs Cleared</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Duties paid and Delivery Order (D/O) issued.</span>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #10B981;">
+                  <strong style="font-size:1rem; color:#047857; display:block; margin-bottom:4px;">10. Final Delivery (DLV)</strong>
+                  <span style="font-size:0.88rem; color:#334155;">Proof of Delivery (POD) signed at warehouse.</span>
                 </div>
               </div>
             </div>
@@ -3558,65 +3744,97 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "claims-and-escalation-process",
           title: "Claims and Escalation Process",
-          summary: "Handling cargo damage, losses, and insurance claims.",
+          summary: "Managing cargo loss/damage, Letter of Protest, and marine insurance claims.",
           image: "images/claims_escalation_flow.png",
           content: `
             <img src="images/claims_escalation_flow.png" alt="Claims and Escalation Process Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>When cargo arrives damaged (water damage, crushed cartons, temperature spikes in reefers), or is completely lost at sea, the consignee must act immediately to protect their legal right to file a claim against the carrier or their marine insurance provider.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Cargo loss and damage represent the most challenging risk events in international freight forwarding. Whether caused by rough ocean seas, container water leaks, temperature spikes in refrigerated units, or physical dropping during crane handling, cargo owners must strictly follow legal claim protocols to recover financial losses.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Without independent Marine Cargo Insurance, ocean carriers limit statutory liability under international treaties such as the Hague-Visby Rules to approximately $2.00 SDR per kilogram (~$2.60 USD per kg) or $666 SDR per package. Air carriers limit liability under the Montreal Convention to 22 SDRs per kilogram (~$29 USD per kg). These statutory limits cover only a fraction of commercial cargo value, rendering comprehensive cargo insurance essential.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              The critical rule during damage discovery is: <strong>Never sign a clean Delivery Receipt</strong>. Receiving managers must clause the trucker's delivery note with specific damage descriptions (such as <em>3 Cartons Crushed and Wet</em>) and issue a formal written <strong>Letter of Protest</strong> to the carrier within 3 business days of delivery.
+            </p>
+
             <div style="margin:30px 0; background:#FFF1F2; border:2px solid #FECACA; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD CLAIMS & ESCALATION PROTOCOL</h4>
+              <h4 style="margin:0 0 20px 0; color:#9F1239; text-align: center; font-size: 1.3rem;">🚨 STEP-BY-STEP CARGO DAMAGE & CLAIM PROTOCOL</h4>
               
-              <div style="display:flex; flex-direction:column; gap:12px;">
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#BE123C; display:block; margin-bottom:5px;">1. Stop & Photograph</strong>
-                  <span style="font-size:0.9rem; color:#9F1239;">If the container doors are opened at the warehouse and damage is visible, <strong>stop unloading immediately</strong>. Take timestamped photographs of the cargo exactly as it sits in the container before moving anything.</span>
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <div style="background:#FFF; padding:18px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; font-size:1.1rem; display:block; margin-bottom:6px;">1. Cease Unloading & Take Photographic Evidence</strong>
+                  <span style="font-size:0.92rem; color:#9F1239; line-height:1.6; display:block;">If damage is visible when opening container doors, stop unloading immediately. Capture high-resolution timestamped photographs showing container numbers, high-security bolt seal numbers, door openings, and specific cargo damage positions.</span>
                 </div>
-                
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#BE123C; display:block; margin-bottom:5px;">2. Note the Delivery Receipt (EIR)</strong>
-                  <span style="font-size:0.9rem; color:#9F1239;">The receiving manager must explicitly mark "Cargo Damaged" or "Subject to Inspection" on the trucker's delivery receipt. <strong>Never sign a clean receipt</strong> if damage is suspected, as it legally absolves the trucker and carrier of liability.</span>
+
+                <div style="background:#FFF; padding:18px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; font-size:1.1rem; display:block; margin-bottom:6px;">2. Clause the Delivery Note (Never Sign Clean!)</strong>
+                  <span style="font-size:0.92rem; color:#9F1239; line-height:1.6; display:block;">The receiving warehouse manager must explicitly write damage details (such as 5 Pallets Water Damaged, Subject to Survey) on the trucker's Proof of Delivery. Signing clean receipts legally waives carrier liability!</span>
                 </div>
-                
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#BE123C; display:block; margin-bottom:5px;">3. Issue Letter of Protest</strong>
-                  <span style="font-size:0.9rem; color:#9F1239;">Draft and email a formal "Letter of Protest" / "Notice of Intent to Claim" to the Shipping Line and Forwarder within 72 hours of delivery.</span>
+
+                <div style="background:#FFF; padding:18px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; font-size:1.1rem; display:block; margin-bottom:6px;">3. Dispatch Formal Letter of Protest (within 72 Hours)</strong>
+                  <span style="font-size:0.92rem; color:#9F1239; line-height:1.6; display:block;">Submit a formal written Notice of Intent to Claim / Letter of Protest to the Shipping Line, Airline, and Freight Forwarder within 3 business days of delivery.</span>
                 </div>
-                
-                <div style="background:#FFF; padding:15px; border-radius:8px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#BE123C; display:block; margin-bottom:5px;">4. Appoint Marine Surveyor</strong>
-                  <span style="font-size:0.9rem; color:#9F1239;">Hire an independent, licensed Marine Surveyor to physically inspect the cargo, assess the cause of damage, and issue an official Damage Report. This report is the primary evidence required by the insurance underwriter to approve a payout.</span>
+
+                <div style="background:#FFF; padding:18px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; font-size:1.1rem; display:block; margin-bottom:6px;">4. Appoint Independent Marine Surveyor & File Claim</strong>
+                  <span style="font-size:0.92rem; color:#9F1239; line-height:1.6; display:block;">Appoint a licensed independent Marine Surveyor to conduct a formal damage inspection and compile an official Survey Report. Submit the claim package (Invoice, Packing List, B/L, Survey Report, Repair Estimate) to the insurance underwriter.</span>
                 </div>
               </div>
+            </div>
+
+            <div style="background:#FDF2F8; border:1px solid #FBCFE8; padding:20px; border-radius:12px; margin-top:20px;">
+              <h5 style="color:#BE185D; margin:0 0 8px 0; font-size:1.05rem;">⚖️ International Carrier Statutory Liability Limits:</h5>
+              <p style="margin:0; font-size:0.92rem; color:#9D174D; line-height:1.6;">Without marine cargo insurance, ocean carriers limit liability under Hague-Visby Rules to $2.00 SDR per kg (~$2.60/kg) or $666 SDR per package. Air carriers under Montreal Convention limit liability to 22 SDRs per kg (~$29/kg). Comprehensive marine insurance is essential for full asset protection.</p>
             </div>
           `
         },
         {
           id: "shipment-milestone-tracking",
           title: "Shipment Milestone Tracking",
-          summary: "Using EDI and track-and-trace links for visibility.",
+          summary: "EDI 315 milestone messages, GPS satellite tracking, and IoT sensor monitoring.",
           image: "images/shipment_tracking_flow.png",
           content: `
             <img src="images/shipment_tracking_flow.png" alt="Shipment Milestone Tracking Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
-            <p>In modern logistics, information visibility is just as important as the physical movement of the cargo. Shippers demand to know exactly where their million-dollar inventories are at all times to plan their manufacturing or retail schedules.</p>
             
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Real-time supply chain visibility has transformed global freight forwarding from reactive status checking into proactive inventory management. Modern cargo owners demand real-time location tracking and predictive arrival times (ETA) to schedule warehouse labor, coordinate distribution networks, and optimize manufacturing lead times.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 16px;">
+              Tracking systems rely on three technology layers. First, Electronic Data Interchange (EDI 315 messages) automatically pushes milestone updates (such as Vessel Arrival, Container Discharge, or Gate-Out) from terminal gate barriers directly into forwarder ERP platforms. Second, Automatic Identification System (AIS) satellite networks track vessel GPS positions across oceans in real time. Third, IoT smart sensors mounted inside containers monitor internal ambient conditions.
+            </p>
+
+            <p style="font-size: 1.05rem; line-height: 1.7; color: #334155; margin-bottom: 24px;">
+              Container identification adheres strictly to the <strong>ISO 6346 International Standard</strong>. Container numbers consist of a 4-letter Owner Code and Equipment Category (such as MSKU for Maersk line containers), followed by a 6-digit serial number and a calculated 1-digit Check Digit (e.g. MSKU1234567).
+            </p>
+
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">\uD83D\uDCCD TRACKING TECHNOLOGIES</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📡 MODERN SUPPLY CHAIN TRACKING TECHNOLOGIES</h4>
               
-              <div style="display:flex; flex-wrap:wrap; gap:15px;">
-                <div style="flex:1; min-width:250px; background:#FFF; border-top:4px solid #0EA5E9; padding:20px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
-                  <strong style="color:#0284C7; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.5rem; margin-right:8px;">💻</span> EDI (Electronic Data Interchange)</strong>
-                  <p style="font-size:0.9rem; color:#0C4A6E; margin:0; line-height:1.5;">The backbone of logistics tech. Terminals, carriers, and forwarders use EDI (specifically EDI 315 messages) to automatically transmit milestone updates system-to-system without human intervention.</p>
+              <div style="display:flex; flex-wrap:wrap; gap:16px;">
+                <div style="flex:1; min-width:250px; background:#FFF; border-top:4px solid #0EA5E9; padding:22px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#0284C7; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.4rem; margin-right:10px;">💻</span> EDI 315 Automated Messages</strong>
+                  <p style="font-size:0.92rem; color:#0C4A6E; margin:0; line-height:1.6;">Automated Electronic Data Interchange. Terminal gate barriers and ocean carriers transmit EDI 315 status codes (such as Vessel Arrival VA, Vessel Discharge VD, and Outgate OA) directly into logistics ERP software.</p>
                 </div>
                 
-                <div style="flex:1; min-width:250px; background:#FFF; border-top:4px solid #0EA5E9; padding:20px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
-                  <strong style="color:#0284C7; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.5rem; margin-right:8px;">📡</span> AIS / GPS Tracking</strong>
-                  <p style="font-size:0.9rem; color:#0C4A6E; margin:0; line-height:1.5;">Vessels broadcast their location via the Automatic Identification System (AIS). Modern track-and-trace portals (like Project44 or FourKites) aggregate this data to show the exact GPS dot of the ship on a live map.</p>
+                <div style="flex:1; min-width:250px; background:#FFF; border-top:4px solid #0EA5E9; padding:22px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#0284C7; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.4rem; margin-right:10px;">📡</span> AIS Satellite Vessel Tracking</strong>
+                  <p style="font-size:0.92rem; color:#0C4A6E; margin:0; line-height:1.6;">Vessels broadcast Automatic Identification System (AIS) radio signals. Visibility platforms combine satellite telemetry with machine learning algorithms to compute accurate Predictive ETAs.</p>
+                </div>
+
+                <div style="flex:1; min-width:250px; background:#FFF; border-top:4px solid #0EA5E9; padding:22px; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#0284C7; display:flex; align-items:center; font-size:1.1rem; margin-bottom:8px;"><span style="font-size:1.4rem; margin-right:10px;">📟</span> IoT Smart Container Sensors</strong>
+                  <p style="font-size:0.92rem; color:#0C4A6E; margin:0; line-height:1.6;">Battery-powered IoT sensors installed inside reefer containers broadcast live GPS positions, internal temperature, relative humidity, door-opening alerts, and shock forces over cellular/satellite networks.</p>
                 </div>
               </div>
               
-              <div style="margin-top: 15px; background: #FFF; padding: 15px; border-radius: 8px; border-left: 4px solid #38BDF8; font-size: 0.9rem; color: #0C4A6E;">
-                <strong>Tracking Queries:</strong> A user simply enters the 11-digit Container Number (e.g., HLXU1234567) or the Master Bill of Lading number into the carrier's portal to pull the latest EDI milestone scan.
+              <div style="margin-top: 18px; background: #FFF; padding: 18px; border-radius: 10px; border-left: 4px solid #38BDF8; font-size: 0.92rem; color: #0C4A6E;">
+                <strong>ISO 6346 Container Number Standard:</strong> Container numbers comprise 4 letters (e.g. MSKU for Owner Code + Equipment Category), 6 numerical digits, and 1 calculated Check Digit (e.g. MSKU1234567).
               </div>
             </div>
           `

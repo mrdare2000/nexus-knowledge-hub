@@ -3070,5 +3070,68 @@ footer {
   }
 }
 
+/* MOBILE BOTTOM BAR STYLING */
+.mobile-bottom-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    border-top: 1.5px solid var(--border-color);
+    z-index: 9999;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 5px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-bottom-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 6px 0;
+  }
+
+  .mobile-bottom-icon {
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-bottom-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: var(--font-title);
+  }
+
+  .mobile-bottom-item.active, .mobile-bottom-item:hover {
+    color: var(--accent-orange);
+  }
+
+  .mobile-bottom-item.active .mobile-bottom-icon {
+    transform: scale(1.15);
+  }
+
+  body {
+    padding-bottom: 70px;
+  }
+}
+
+
 
 

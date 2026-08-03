@@ -127,6 +127,21 @@
             }
           }
         ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Nexus Shipping & CBM Interactive Calculators",
+        "operatingSystem": "All Web Browsers",
+        "applicationCategory": "BusinessApplication",
+        "url": "https://nexusknowledgehub.com/#tools",
+        "description": "Interactive logistics calculators including CBM volumetric calculator, Incoterms responsibility matrix, aircraft cargo hold explorer, and trade document generator.",
+        "author": { "@id": "https://nexusknowledgehub.com/#organization" }
+      },
+      {
+        "@type": "DefinedTermSet",
+        "name": "Global Logistics & Freight Forwarding Terminology",
+        "description": "Comprehensive glossary of Incoterms 2026, Bill of Lading types, customs clearance standards, and container specifications.",
+        "url": "https://nexusknowledgehub.com/#learning"
       }
     ]
   }
@@ -978,6 +993,8 @@
         calculations, and definitions.</p>
     </div>
 
+
+
     <div class="chat-container-layout">
       <!-- Chat Sidebar -->
       <div class="chat-sidebar">
@@ -1162,24 +1179,7 @@
     </div>
   </div>
 
-  <!-- DEDICATED FULLSCREEN IMAGE LIGHTBOX MODAL -->
-  <div class="image-lightbox-overlay" id="image-lightbox-modal" onclick="closeImageLightbox(event)">
-    <div class="image-lightbox-container" onclick="event.stopPropagation()">
-      <div class="image-lightbox-header">
-        <button class="lightbox-btn lightbox-back-btn" onclick="closeImageLightbox()" aria-label="Back to subtopic">
-          &larr; Back
-        </button>
-        <span id="lightbox-image-title" class="lightbox-title">Image View</span>
-        <a id="lightbox-download-btn" href="#" download class="lightbox-btn lightbox-download-btn">
-          📥 Download Image
-        </a>
-      </div>
-      <div class="image-lightbox-body">
-        <img id="lightbox-img" src="" alt="Subtopic Image">
-      </div>
-    </div>
-  </div>
-
+  <!-- DEDICATED USER AUTHENTICATION MODAL -->
   <!-- Loading scripts -->
   <script src="knowledge_base.js?v=2.0"></script>
   <script src="script.js?v=2.0"></script>
@@ -1200,6 +1200,30 @@
       document.getElementById(`panel-${panelName}`).classList.add("active");
     }
   </script>
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-bar" id="mobile-bottom-bar">
+    <a class="mobile-bottom-item active" data-page="home" onclick="switchPage('home')">
+      <span class="mobile-bottom-icon">🏠</span>
+      <span class="mobile-bottom-label">Home</span>
+    </a>
+    <a class="mobile-bottom-item" data-page="news" onclick="switchPage('news')">
+      <span class="mobile-bottom-icon">📰</span>
+      <span class="mobile-bottom-label">News</span>
+    </a>
+    <a class="mobile-bottom-item" data-page="learning" onclick="switchPage('learning')">
+      <span class="mobile-bottom-icon">📚</span>
+      <span class="mobile-bottom-label">Hub</span>
+    </a>
+    <a class="mobile-bottom-item" data-page="tools" onclick="switchPage('tools')">
+      <span class="mobile-bottom-icon">📊</span>
+      <span class="mobile-bottom-label">Tools</span>
+    </a>
+    <a class="mobile-bottom-item" data-page="ai" onclick="switchPage('ai')">
+      <span class="mobile-bottom-icon">✨</span>
+      <span class="mobile-bottom-label">AI</span>
+    </a>
+  </nav>
+
 </body>
 
 </html>

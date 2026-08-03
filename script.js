@@ -142,6 +142,16 @@ function switchPage(pageId) {
       link.classList.remove("active");
     }
   });
+
+  // Update mobile bottom bar active state
+  const mobileItems = document.querySelectorAll(".mobile-bottom-item");
+  mobileItems.forEach(item => {
+    if (item.getAttribute("data-page") === pageId) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
   
   // Update section active state
   const sections = document.querySelectorAll(".page-section");
