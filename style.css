@@ -2734,6 +2734,72 @@ footer {
   font-size: clamp(1.4rem, 6vw, 2.5rem);
 }
 
+/* ==========================================
+   DEDICATED TABLET OPTIMIZATION (769px - 1024px)
+   ========================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  header {
+    width: 92%;
+    left: 4%;
+    right: 4%;
+    padding: 0 24px;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 0.92rem;
+  }
+
+  .page-section {
+    padding: 40px 30px;
+  }
+
+  .hero-title {
+    font-size: 3.2rem;
+  }
+
+  .featured-boards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .tool-panel {
+    padding: 30px 25px;
+  }
+
+  .tools-category-strip {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .incoterms-matrix-container {
+    grid-template-columns: 230px 1fr;
+    gap: 20px;
+  }
+
+  .incoterm-selector-btn {
+    padding: 12px 14px;
+  }
+
+  .incoterm-code {
+    font-size: 1rem;
+  }
+
+  .container-calc-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .doc-generator-card {
+    padding: 30px 25px;
+  }
+
+  .chat-container-layout {
+    grid-template-columns: 1fr;
+    height: 600px;
+  }
+}
+
 @media (max-width: 1024px) {
   .tools-category-strip {
     grid-template-columns: repeat(4, 1fr);
