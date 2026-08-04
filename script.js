@@ -3,6 +3,7 @@
 // and adaptive custom modal styling structures.
 
 document.addEventListener("DOMContentLoaded", () => {
+  initAppLayout();
   initHeroSlider();
   initSPARouting();
   renderLearningHub();
@@ -143,6 +144,16 @@ function switchPage(pageId) {
     }
   });
 
+  // Update sidebar nav link active state
+  const sidebarItems = document.querySelectorAll(".sidebar-nav-item");
+  sidebarItems.forEach(item => {
+    if (item.getAttribute("data-page") === pageId) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
+
   // Update mobile bottom bar active state
   const mobileItems = document.querySelectorAll(".mobile-bottom-item");
   mobileItems.forEach(item => {
@@ -174,18 +185,69 @@ function switchPage(pageId) {
   setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
   setTimeout(initScrollAnimations, 150);
 
-  // Close mobile navigation menu if active
-  const mainNav = document.querySelector("header nav");
-  const mobileBtn = document.getElementById("mobile-menu-btn");
-  if (mainNav) mainNav.classList.remove("active");
-  if (mobileBtn) mobileBtn.classList.remove("active");
+  // Close mobile sidebar drawer if active
+  toggleMobileSidebar(false);
 }
 
+/* ==========================================
+   SIDEBAR NAVIGATION SYSTEM
+   ========================================== */
+function initAppLayout() {
+  // Read saved sidebar collapse state (desktop)
+  const savedCollapsed = localStorage.getItem("nexus_sidebar_collapsed") === "true";
+  if (savedCollapsed) {
+    document.body.classList.add("sidebar-collapsed");
+    updateCollapseBtnUI(true);
+  }
+
+  // Bind keyboard shortcut Ctrl+K / Cmd+K for quick search focus
+  document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      switchPage("learning");
+      setTimeout(() => {
+        const searchInput = document.getElementById("hub-search-input");
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.select();
+        }
+      }, 100);
+    }
+  });
+}
+
+function toggleSidebarCollapse() {
+  const body = document.body;
+  const isCollapsed = body.classList.toggle("sidebar-collapsed");
+  localStorage.setItem("nexus_sidebar_collapsed", isCollapsed);
+  updateCollapseBtnUI(isCollapsed);
+}
+
+function updateCollapseBtnUI(isCollapsed) {
+  const btn = document.getElementById("sidebar-collapse-btn");
+  if (!btn) return;
+  const icon = btn.querySelector(".collapse-icon");
+  const label = btn.querySelector(".control-label");
+  if (icon) icon.textContent = isCollapsed ? "►" : "◄";
+  if (label) label.textContent = isCollapsed ? "Expand" : "Collapse";
+}
+
+function toggleMobileSidebar(forceState) {
+  const body = document.body;
+  if (typeof forceState === "boolean") {
+    body.classList.toggle("sidebar-mobile-open", forceState);
+  } else {
+    body.classList.toggle("sidebar-mobile-open");
+  }
+}
+
+// Make functions globally accessible
+window.initAppLayout = initAppLayout;
+window.toggleSidebarCollapse = toggleSidebarCollapse;
+window.toggleMobileSidebar = toggleMobileSidebar;
+
 window.toggleMobileMenu = function() {
-  const mainNav = document.querySelector("header nav");
-  const mobileBtn = document.getElementById("mobile-menu-btn");
-  if (mainNav) mainNav.classList.toggle("active");
-  if (mobileBtn) mobileBtn.classList.toggle("active");
+  toggleMobileSidebar();
 };
 
 // Global visual panel switch helper
@@ -448,6 +510,10 @@ function closeImageLightbox(e) {
     }, 200);
   }
 }
+
+window.openImageModal = openImageModal;
+window.openLightbox = openImageModal;
+window.closeImageLightbox = closeImageLightbox;
 
 
 

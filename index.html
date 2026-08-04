@@ -152,26 +152,77 @@
 
 <body>
 
-  <!-- Header & Navigation -->
-  <header>
-    <div class="logo-container" onclick="switchPage('home')" style="cursor: pointer;">
-      <img src="images/logo.png" alt="Nexus Cargo Logo" class="logo-header-img"
-        style="height: 38px; width: auto; object-fit: contain;">
+  <!-- SIDEBAR BACKDROP OVERLAY (MOBILE) -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleMobileSidebar(false)"></div>
+
+  <!-- MOBILE HAMBURGER BUTTON (VISIBLE ONLY ON MOBILE/TABLET <992PX) -->
+  <button class="mobile-hamburger-btn" id="mobile-hamburger-btn" onclick="toggleMobileSidebar()" aria-label="Toggle Navigation Sidebar">
+    <span>☰</span>
+  </button>
+
+  <!-- LEFT SIDEBAR NAVIGATION BAR -->
+  <aside class="app-sidebar" id="app-sidebar" aria-label="Main Left Sidebar Navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-brand" onclick="switchPage('home')">
+        <img src="images/logo.png" alt="Nexus Cargo Logo" class="sidebar-logo-img">
+        <span class="sidebar-brand-name">Nexus <span>Knowledge Hub</span></span>
+      </div>
     </div>
 
-    <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
-      <span class="hamburger-icon">☰</span>
-    </button>
-
-    <nav>
-      <a class="nav-link active" data-page="home">Home</a>
-      <a class="nav-link" data-page="news">News Feed</a>
-      <a class="nav-link" data-page="learning">Knowledge Hub</a>
-      <a class="nav-link" data-page="tools">Interactive Tools</a>
-      <a class="nav-link" data-page="ai">Nexus AI</a>
-      <a class="nav-link" data-page="contact">Get In Touch</a>
+    <!-- Sidebar Main Navigation Menu -->
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-section-label">MAIN MENU</div>
+      <a class="sidebar-nav-item active" data-page="home" onclick="switchPage('home')">
+        <span class="sidebar-nav-icon">🏠</span>
+        <span class="sidebar-nav-label">Home</span>
+      </a>
+      <a class="sidebar-nav-item" data-page="news" onclick="switchPage('news')">
+        <span class="sidebar-nav-icon">📰</span>
+        <span class="sidebar-nav-label">News Feed</span>
+        <span class="sidebar-nav-badge">Live</span>
+      </a>
+      <a class="sidebar-nav-item" data-page="learning" onclick="switchPage('learning')">
+        <span class="sidebar-nav-icon">📚</span>
+        <span class="sidebar-nav-label">Knowledge Hub</span>
+      </a>
+      <a class="sidebar-nav-item" data-page="tools" onclick="switchPage('tools')">
+        <span class="sidebar-nav-icon">🛠️</span>
+        <span class="sidebar-nav-label">Interactive Tools</span>
+      </a>
+      <a class="sidebar-nav-item" data-page="ai" onclick="switchPage('ai')">
+        <span class="sidebar-nav-icon">✨</span>
+        <span class="sidebar-nav-label">Nexus AI</span>
+        <span class="sidebar-nav-badge ai-badge">AI</span>
+      </a>
+      <a class="sidebar-nav-item" data-page="contact" onclick="switchPage('contact')">
+        <span class="sidebar-nav-icon">📧</span>
+        <span class="sidebar-nav-label">Get In Touch</span>
+      </a>
     </nav>
-  </header>
+
+    <!-- Sidebar Bottom Controls -->
+    <div class="sidebar-footer">
+      <div class="sidebar-layout-customizer">
+        <button class="sidebar-control-btn collapse-toggle-btn" id="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" title="Collapse Sidebar">
+          <span class="collapse-icon">◄</span>
+          <span class="control-label">Collapse</span>
+        </button>
+      </div>
+
+      <a href="https://www.nexuscargos.com/" target="_blank" rel="noopener noreferrer" class="sidebar-user-badge" title="Visit Nexus Cargo Official Website (nexuscargos.com)">
+        <div class="user-avatar">NC</div>
+        <div class="user-info">
+          <span class="user-name">Nexus Cargo (Pvt) Ltd</span>
+          <span class="user-role">www.nexuscargos.com 🌐</span>
+        </div>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT WRAPPER -->
+  <main class="main-content-wrapper" id="main-content-wrapper">
+
+
 
   <!-- HOME PAGE -->
   <div id="home-page" class="page-section active">
@@ -191,9 +242,9 @@
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-tag">Nexus Cargo (Pvt) Ltd</div>
+        <a href="https://www.nexuscargos.com/" target="_blank" rel="noopener noreferrer" class="hero-tag" title="Visit Nexus Cargo Official Website">Nexus Cargo (Pvt) Ltd ↗</a>
         <h1 class="hero-title">Nexus <span>Knowledge Hub</span></h1>
-        <p class="hero-subtitle">Practical shipping knowledge for freight, trade and logistics teams.</p>
+        <p class="hero-subtitle">Practical shipping knowledge for freight, trade and logistics enthusiasts.</p>
         <div class="hero-actions">
           <button class="btn btn-hero-primary" onclick="switchPage('learning')">Explore the Hub</button>
           <button class="btn btn-hero-ai" onclick="switchPage('ai')">Ask Nexus AI <span
@@ -330,7 +381,7 @@
             <div class="feature-icon">📚</div>
             <h3 class="feature-title">Knowledge Hub</h3>
             <p class="feature-desc">A comprehensive library covering the entire trade, operations, and freight forwarding ecosystem.</p>
-            <button class="btn btn-primary feature-btn" onclick="switchPage('learning')">Browse Knowledge Base &rarr;</button>
+            <button class="btn btn-primary feature-btn" onclick="switchPage('learning')">Knowledge Base &rarr;</button>
           </div>
 
           <!-- Interactive Tools -->
@@ -1218,8 +1269,7 @@
           style="background-color: #ffffff; padding: 8px 16px; border-radius: var(--border-radius-sm); box-shadow: var(--shadow-sm);">
           <img src="images/logo.png" alt="Nexus Cargo Logo" style="height: 35px; width: auto; object-fit: contain;">
         </div>
-        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; font-weight: 500;">Nexus Cargo
-          Intelligence<br>Level 1, Parkland 1, No 33, Park Street,<br>Colombo 02, Sri Lanka</p>
+        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; font-weight: 500;"><strong>Nexus Cargo (Pvt) Ltd</strong><br>Level 1, Parkland 1, No 33, Park Street,<br>Colombo 02, Sri Lanka</p>
       </div>
 
       <div class="footer-links" style="display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 200px;">
@@ -1227,6 +1277,8 @@
           Platform</h4>
         <a onclick="switchPage('home')"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Home</a>
+        <a onclick="switchPage('news')"
+          style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">News Feed</a>
         <a onclick="switchPage('learning')"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Knowledge Hub</a>
         <a onclick="switchPage('tools')"
@@ -1255,6 +1307,8 @@
       &copy; 2026 Nexus Cargo (Pvt) Ltd. All rights reserved. Nexus Knowledge Hub educational portal.
     </div>
   </footer>
+  </main>
+
 
 
   <!-- MODAL DIALOG OVERLAY -->
@@ -1267,6 +1321,24 @@
       </div>
       <div class="modal-body" id="modal-body">
         <!-- Inside content dynamically built -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN IMAGE LIGHTBOX MODAL -->
+  <div class="image-lightbox-overlay" id="image-lightbox-modal" onclick="closeImageLightbox(event)">
+    <div class="image-lightbox-container" onclick="event.stopPropagation()">
+      <div class="image-lightbox-header">
+        <button class="lightbox-btn lightbox-back-btn" onclick="closeImageLightbox(event)">
+          <span>&larr; Back to Hub</span>
+        </button>
+        <span class="lightbox-title" id="lightbox-image-title">Featured Guide</span>
+        <a class="lightbox-btn lightbox-download-btn" id="lightbox-download-btn" href="#" download>
+          <span>📥 Download High-Res</span>
+        </a>
+      </div>
+      <div class="image-lightbox-body">
+        <img id="lightbox-img" src="" alt="Featured Board Image">
       </div>
     </div>
   </div>
