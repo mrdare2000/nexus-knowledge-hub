@@ -1020,15 +1020,585 @@ function initAircraftHotspots() {
 }
 
 /* ==========================================
-   8. TYPES OF LOGISTICS GRID
+   8. 10 KEY LOGISTICS MODELS INTERACTIVE EXPLORER & SIMULATOR
    ========================================== */
+const LOGISTICS_MODELS_DATA = {
+  inbound: {
+    id: "inbound",
+    num: "01",
+    title: "Inbound Logistics",
+    tagline: "Raw Materials Intake & Factory Supply",
+    icon: "📥",
+    badge: "Supply Operations",
+    desc: "Movement, receiving, and storage of incoming parts, raw materials, and components from suppliers to manufacturing plants.",
+    activities: [
+      "Supplier procurement & purchase order tracking",
+      "Bulk raw material sea/truck freight transport",
+      "Factory gate receiving, inspection & quality control",
+      "Warehouse staging & Just-In-Time (JIT) storage"
+    ],
+    activeNodes: ["node-supplier", "node-factory"],
+    speed: { text: "Scheduled / Batch", percent: 65 },
+    cost: { text: "35% of Product Cost", percent: 70 },
+    tech: { text: "ERP & WMS Tracking", percent: 80 },
+    eco: { text: "Optimized Container Load", percent: 55 },
+    scenario: "Transporting 20 FCL containers of raw cotton fabric from India/China to Colombo Port and trucking to Katunayake Free Trade Zone factory.",
+    simSteps: [
+      "Customs inspection & documentation release at Colombo Port.",
+      "Heavy container truck haulage via Colombo Katunayake Expressway.",
+      "Gate entry, unsealing & raw fabric roll inventory logging.",
+      "Staging at factory cutting floor for garment production."
+    ],
+    comparison: {
+      focus: "Supply side (Upstream)",
+      primaryActor: "Raw Material Vendors & Factory",
+      cargoType: "Raw materials, components, bulk parts",
+      keyGoal: "Uninterrupted production flow without stockouts",
+      techNeeded: "ERP, Purchase Order Tracking, WMS"
+    }
+  },
+  outbound: {
+    id: "outbound",
+    num: "02",
+    title: "Outbound Logistics",
+    tagline: "Finished Goods Storage & Global Dispatch",
+    icon: "📤",
+    badge: "Fulfillment",
+    desc: "Storage, order fulfillment, packaging, and shipping of finished commercial products from manufacturing hubs to final buyers.",
+    activities: [
+      "Finished goods warehousing & order pick-pack",
+      "Export documentation (Bill of Lading, Certificate of Origin)",
+      "Ocean FCL/LCL & Air Freight international shipping",
+      "Distribution center transport & Last-Mile delivery"
+    ],
+    activeNodes: ["node-factory", "node-hub", "node-consumer"],
+    speed: { text: "High Priority / Express", percent: 85 },
+    cost: { text: "45% of Total Budget", percent: 85 },
+    tech: { text: "Automated Picking & Freight Track", percent: 90 },
+    eco: { text: "Route & Load Optimization", percent: 60 },
+    scenario: "Exporting 500 pallets of finished rubber tires from Biyagama, Sri Lanka to Hamburg Seaport via ocean container line.",
+    simSteps: [
+      "Palletization & container stuffing at Biyagama factory.",
+      "Export customs clearance & loading onto vessel at SAGT terminal.",
+      "Transshipment voyage across Indian Ocean & Suez Canal.",
+      "Discharge at Hamburg port & transport to European automotive dealers."
+    ],
+    comparison: {
+      focus: "Demand side (Downstream)",
+      primaryActor: "Manufacturers, Ocean Carriers, Retailers",
+      cargoType: "Finished goods, packaged retail items",
+      keyGoal: "On-time delivery & customer satisfaction",
+      techNeeded: "TMS (Transport Management System), GPS Tracking"
+    }
+  },
+  reverse: {
+    id: "reverse",
+    num: "03",
+    title: "Reverse Logistics",
+    tagline: "Returns, Recycling & Circular Trade",
+    icon: "🔄",
+    badge: "Circular Economy",
+    desc: "Managing the backwards flow of returned, damaged, defective, or end-of-life products for repair, refurbishing, recycling, or disposal.",
+    activities: [
+      "Customer returns processing & RMA authorization",
+      "Reverse transport from buyer back to hub",
+      "Testing, sorting, refurbishment & repackaging",
+      "E-waste recycling & hazardous waste disposal"
+    ],
+    activeNodes: ["node-consumer", "node-hub", "node-recycle"],
+    speed: { text: "Moderate (Standard Return)", percent: 50 },
+    cost: { text: "15-20% of Sale Value", percent: 60 },
+    tech: { text: "Barcode Scanning & Returns Portal", percent: 75 },
+    eco: { text: "High (Prevents Landfills)", percent: 95 },
+    scenario: "Returning defective consumer electronics from retail customers across Sri Lanka back to Colombo service center for warranty repair.",
+    simSteps: [
+      "Customer drops off item at courier parcel shop.",
+      "Consolidated return truck transport to Central Colombo Repair Hub.",
+      "Technical inspection: 70% repaired, 30% salvaged for spare parts.",
+      "E-waste materials dispatched to certified recycling facility."
+    ],
+    comparison: {
+      focus: "Backward flow (End-of-life / Return)",
+      primaryActor: "Customers, Return Hubs, Recyclers",
+      cargoType: "Returned goods, defective items, empty pallets",
+      keyGoal: "Value recovery & eco-friendly waste management",
+      techNeeded: "Reverse Logistics Portal, RMA Tracking"
+    }
+  },
+  thirdparty: {
+    id: "thirdparty",
+    num: "04",
+    title: "Third-Party Logistics (3PL)",
+    tagline: "Outsourced Warehousing & Freight Services",
+    icon: "🏢",
+    badge: "Outsourced Operations",
+    desc: "Outsourcing operational logistics activities—such as warehousing, customs clearance, freight forwarding, and fleet trucking—to a specialized partner like Nexus Cargo.",
+    activities: [
+      "Multi-client bonded warehousing & inventory control",
+      "Sea freight & air freight consolidation (LCL)",
+      "Customs house brokerage (CHB) & regulatory clearance",
+      "Container drayage & last-mile fleet dispatch"
+    ],
+    activeNodes: ["node-supplier", "node-hub", "node-consumer"],
+    speed: { text: "High Efficiency & SLA Driven", percent: 80 },
+    cost: { text: "Variable Pay-Per-Use", percent: 65 },
+    tech: { text: "Cloud WMS, EDI & Live Tracking", percent: 85 },
+    eco: { text: "Shared Fleet Capacity", percent: 75 },
+    scenario: "Nexus Cargo managing complete bonded warehousing, customs clearance, and nationwide delivery for an international beverage brand.",
+    simSteps: [
+      "Ocean freight containers received at Nexus Logistics Center.",
+      "Customs duty clearance & barcode inventory staging.",
+      "Order pick & pack executed upon retail store requests.",
+      "Dispatching trucks for same-day delivery to island-wide supermarkets."
+    ],
+    comparison: {
+      focus: "Physical Execution & Operations",
+      primaryActor: "3PL Provider (e.g. Nexus Cargo)",
+      cargoType: "Multi-client general cargo, containers, parcels",
+      keyGoal: "Operational cost reduction & asset optimization",
+      techNeeded: "WMS, TMS, EDI Integrations"
+    }
+  },
+  fourthparty: {
+    id: "fourthparty",
+    num: "05",
+    title: "Fourth-Party Logistics (4PL)",
+    tagline: "End-to-End Supply Chain Lead Orchestrator",
+    icon: "🌐",
+    badge: "Strategic Advisory",
+    desc: "A master supply chain integrator that designs, builds, and manages an enterprise's entire logistics architecture, managing multiple 3PLs and ocean/air carriers.",
+    activities: [
+      "Supply chain network design & route optimization",
+      "Managing multiple 3PL vendors & carrier contracts",
+      "Big data analytics, demand forecasting & control tower",
+      "Control tower visibility across global shipping lanes"
+    ],
+    activeNodes: ["node-supplier", "node-factory", "node-hub", "node-consumer"],
+    speed: { text: "Strategic Real-Time Control", percent: 90 },
+    cost: { text: "Strategic Management Fee", percent: 75 },
+    tech: { text: "AI Control Tower & Unified APIs", percent: 98 },
+    eco: { text: "Global Carbon Minimization", percent: 85 },
+    scenario: "A global retail brand hiring a 4PL lead orchestrator to manage 4 ocean carriers, 3 customs brokers, and 5 regional 3PL warehouses across Asia.",
+    simSteps: [
+      "AI Control tower detects port congestion at Singapore.",
+      "Reroutes 12 ocean shipments dynamically to alternative ports.",
+      "Coordinates 3PL trucks at destination for immediate offloading.",
+      "Provides real-time carbon & cost dashboard to executive board."
+    ],
+    comparison: {
+      focus: "Strategic Network Design & Oversight",
+      primaryActor: "4PL Lead Logistics Partner",
+      cargoType: "Enterprise-wide global supply chain flows",
+      keyGoal: "End-to-end visibility, strategic optimization",
+      techNeeded: "AI Control Tower, Business Intelligence, APIs"
+    }
+  },
+  production: {
+    id: "production",
+    num: "06",
+    title: "Production Logistics",
+    tagline: "Internal Assembly & Factory Material Flow",
+    icon: "⚙️",
+    badge: "Intralogistics",
+    desc: "Managing internal material flows, buffer stocks, and parts delivery within a manufacturing plant to keep assembly lines running smoothly.",
+    activities: [
+      "Just-In-Time (JIT) & Just-In-Sequence (JIS) line feeding",
+      "Automated Guided Vehicle (AGV) internal transit",
+      "Work-In-Progress (WIP) inventory buffer management",
+      "Lean manufacturing & kitting line replenishment"
+    ],
+    activeNodes: ["node-supplier", "node-factory"],
+    speed: { text: "Synchronized to Seconds", percent: 95 },
+    cost: { text: "Factory Automation", percent: 60 },
+    tech: { text: "Robotics, AGVs & IoT Sensors", percent: 92 },
+    eco: { text: "Zero Factory Waste", percent: 70 },
+    scenario: "Automated guided vehicles delivering microchip kits to assembly stations in a high-tech electronics manufacturing facility.",
+    simSteps: [
+      "Sensors detect component bin dropping below 15% capacity.",
+      "Robotic forklift retrieves kitted parts from internal buffer.",
+      "Autonomous vehicle navigates factory floor to station #4.",
+      "Assembly line workers receive microchips without stopping work."
+    ],
+    comparison: {
+      focus: "Inside factory walls (Intralogistics)",
+      primaryActor: "Factory Operations & Automation Robots",
+      cargoType: "Parts kits, sub-assemblies, raw materials",
+      keyGoal: "Zero assembly line downtime, lean inventory",
+      techNeeded: "MES (Manufacturing Execution System), AGVs, RFID"
+    }
+  },
+  distribution: {
+    id: "distribution",
+    num: "07",
+    title: "Distribution Logistics",
+    tagline: "Wholesale & Cross-Dock Hub Delivery",
+    icon: "🏪",
+    badge: "Commercial Dispatch",
+    desc: "Movement of finished goods from regional distribution centers (DCs) and cross-dock facilities to retail stores, supermarkets, and regional stockists.",
+    activities: [
+      "Regional Distribution Center (RDC) hub operations",
+      "Cross-docking (transfer without long storage)",
+      "Multi-stop truck routing to retail networks",
+      "Temperature-controlled cold chain distribution"
+    ],
+    activeNodes: ["node-hub", "node-consumer"],
+    speed: { text: "Daily / Scheduled Express", percent: 85 },
+    cost: { text: "High Transport & Handling", percent: 75 },
+    tech: { text: "Dynamic Route Optimizer & Scanners", percent: 88 },
+    eco: { text: "Consolidated Multi-Stop Loads", percent: 65 },
+    scenario: "Daily cross-dock distribution of fresh dairy & frozen goods from central warehouse to 150 supermarket branches across Western Province.",
+    simSteps: [
+      "Refrigerated trucks dock at distribution center at 4:00 AM.",
+      "Cargo sorted & palletized into store-specific delivery zones.",
+      "Route optimization software generates shortest GPS transit path.",
+      "Deliveries completed & electronic Proof of Delivery (ePOD) signed."
+    ],
+    comparison: {
+      focus: "Hub to Market (Regional B2B)",
+      primaryActor: "Distributors, Wholesalers, Truck Fleets",
+      cargoType: "FMCG, perishable foods, consumer goods",
+      keyGoal: "High product availability & fresh stock rotation",
+      techNeeded: "Routing Software, Cold Chain Telematics, ePOD"
+    }
+  },
+  military: {
+    id: "military",
+    num: "08",
+    title: "Military Logistics",
+    tagline: "Strategic Mobilization & Defense Support",
+    icon: "🪖",
+    badge: "Strategic Defense",
+    desc: "Planning and executing the movement, maintenance, and sustainment of armed forces, equipment, fuel, and supplies during peacetime or active deployment.",
+    activities: [
+      "Heavy military transport aircraft & naval strategic sealift",
+      "Tactical fuel, ammunition & ration supply chain",
+      "Mobile field hospital & equipment maintenance units",
+      "Secure communications & encrypted cargo tracking"
+    ],
+    activeNodes: ["node-factory", "node-hub", "node-consumer"],
+    speed: { text: "Critical Immediate Mobilization", percent: 98 },
+    cost: { text: "High Resilience Infra", percent: 90 },
+    tech: { text: "Encrypted Satellite & Rugged Systems", percent: 95 },
+    eco: { text: "Mission Success Priority", percent: 30 },
+    scenario: "Air-lifting tactical relief vehicles, field medical units, and rations via heavy cargo aircraft to a remote international peacekeeping base.",
+    simSteps: [
+      "Strategic air command authorizes emergency flight plan.",
+      "Heavy military cargo transport loaded with armored vehicles.",
+      "Tactical flight & air-drop or landing at field airstrip.",
+      "Immediate field deployment & supply distribution."
+    ],
+    comparison: {
+      focus: "Defense & Strategic Security",
+      primaryActor: "Armed Forces Logistics Corps & Heavy Transport",
+      cargoType: "Armaments, fuel, rations, medical field gear",
+      keyGoal: "Uncompromised security & mission readiness",
+      techNeeded: "Encrypted Satellite GPS, Heavy Strategic Airlift"
+    }
+  },
+  emergency: {
+    id: "emergency",
+    num: "09",
+    title: "Emergency & Humanitarian",
+    tagline: "Disaster Relief & Rapid Crisis Response",
+    icon: "🚑",
+    badge: "Humanitarian Relief",
+    desc: "Rapid deployment of essential supplies—food, clean water, medical equipment, and shelter—to disaster-stricken or conflict zones under chaotic conditions.",
+    activities: [
+      "Priority charter flights & emergency customs clearance",
+      "Humanitarian aid consolidation & relief drop zones",
+      "Cold-chain vaccine & emergency blood transportation",
+      "NGO & international relief agency coordination"
+    ],
+    activeNodes: ["node-factory", "node-hub", "node-consumer"],
+    speed: { text: "Ultra Fast (< 24 Hours)", percent: 99 },
+    cost: { text: "High Emergency Charter", percent: 85 },
+    tech: { text: "GIS Disaster Mapping & Satellite", percent: 85 },
+    eco: { text: "Life Saving First Priority", percent: 40 },
+    scenario: "Airfreighting 50 tons of emergency medical kits, water purification units, and tents to flood-affected areas in South Asia within 18 hours.",
+    simSteps: [
+      "Emergency cargo flight chartered & priority air corridor granted.",
+      "Cargo offloaded at nearest operational runway.",
+      "Helicopter & 4x4 truck distribution to cut-off rural towns.",
+      "Clean water units operational; medical clinics established."
+    ],
+    comparison: {
+      focus: "Humanitarian Crisis & Life Saving",
+      primaryActor: "UN, Red Cross, Disaster Response Teams",
+      cargoType: "Vaccines, water purification, tents, food",
+      keyGoal: "Speed of response & saving lives",
+      techNeeded: "GIS Disaster Mapping, Satellite Comms, Air Charter"
+    }
+  },
+  green: {
+    id: "green",
+    num: "10",
+    title: "Green & Sustainable Logistics",
+    tagline: "Eco-Friendly Transport & Zero Emission Strategy",
+    icon: "🌿",
+    badge: "Sustainability",
+    desc: "Designing supply chain operations to minimize carbon footprint, greenhouse emissions, noise pollution, and material waste through eco-technologies.",
+    activities: [
+      "Biofuel ocean vessels & Electric Commercial Vehicles (EVs)",
+      "Modal shift (Air to Sea / Road to Rail freight)",
+      "Reusable plastic containers (RPCs) & eco-packaging",
+      "Carbon accounting, offset tracking & green warehousing"
+    ],
+    activeNodes: ["node-supplier", "node-factory", "node-hub", "node-consumer", "node-recycle"],
+    speed: { text: "Optimized Sustainable Pace", percent: 70 },
+    cost: { text: "Long-Term Cost Savings", percent: 70 },
+    tech: { text: "Carbon Analytics & EV Telematics", percent: 92 },
+    eco: { text: "Maximum (Zero Emissions)", percent: 100 },
+    scenario: "Switching export shipments from high-emission air freight to LNG/Biofuel ocean vessels & electric truck last-mile in European cities.",
+    simSteps: [
+      "Carbon footprint audit calculates 80% emission reduction opportunity.",
+      "Cargo loaded onto Bio-LNG powered container ship at Colombo Port.",
+      "Electric heavy-duty trucks handle port-to-warehouse drayage.",
+      "Zero-emission delivery verified & green certification awarded."
+    ],
+    comparison: {
+      focus: "Environmental Sustainability & Net-Zero",
+      primaryActor: "Green Logistics Carriers, Eco Enterprises",
+      cargoType: "Eco-packaged goods, sustainable freight",
+      keyGoal: "Minimizing carbon emissions & environmental impact",
+      techNeeded: "Carbon Footprint Calculators, EV Fleet Telematics"
+    }
+  }
+};
+
+let activeLogisticsModelKey = "inbound";
+let simIntervalTimer = null;
+
 function initLogisticsGrid() {
-  const cards = document.querySelectorAll(".logistic-card");
-  cards.forEach(card => {
-    card.addEventListener("click", () => {
-      card.classList.toggle("active");
-    });
+  renderLogisticsModelNav();
+  populateLogisticsCompareDropdowns();
+  selectLogisticsModel("inbound");
+}
+
+function renderLogisticsModelNav() {
+  const navContainer = document.getElementById("logistics-model-nav");
+  if (!navContainer) return;
+
+  navContainer.innerHTML = Object.keys(LOGISTICS_MODELS_DATA).map(key => {
+    const item = LOGISTICS_MODELS_DATA[key];
+    return `
+      <button class="logistics-nav-pill ${key === activeLogisticsModelKey ? 'active' : ''}" 
+              onclick="selectLogisticsModel('${key}')" id="pill-model-${key}">
+        <span class="pill-icon">${item.icon}</span>
+        <span class="pill-text">${item.num}. ${item.title}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function selectLogisticsModel(key) {
+  const data = LOGISTICS_MODELS_DATA[key];
+  if (!data) return;
+
+  activeLogisticsModelKey = key;
+
+  // Update Pills
+  document.querySelectorAll(".logistics-nav-pill").forEach(p => p.classList.remove("active"));
+  const activePill = document.getElementById(`pill-model-${key}`);
+  if (activePill) {
+    activePill.classList.add("active");
+    activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  // Update Header & Badge
+  document.getElementById("logistics-active-icon").textContent = data.icon;
+  document.getElementById("logistics-active-title").textContent = data.title;
+  document.getElementById("logistics-active-tagline").textContent = data.tagline;
+  document.getElementById("logistics-active-badge").textContent = data.badge;
+
+  // Update Pipeline Nodes Highlight
+  const allNodes = ["node-supplier", "node-factory", "node-hub", "node-consumer", "node-recycle"];
+  allNodes.forEach(nodeId => {
+    const el = document.getElementById(nodeId);
+    if (el) {
+      if (data.activeNodes.includes(nodeId)) {
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    }
   });
+
+  // Update Pipeline Connectors Highlight
+  const connectors = ["conn-1", "conn-2", "conn-3", "conn-4"];
+  connectors.forEach((connId, idx) => {
+    const connEl = document.getElementById(connId);
+    if (connEl) {
+      const nodeA = allNodes[idx];
+      const nodeB = allNodes[idx + 1];
+      if (data.activeNodes.includes(nodeA) && data.activeNodes.includes(nodeB)) {
+        connEl.classList.add("active");
+      } else {
+        connEl.classList.remove("active");
+      }
+    }
+  });
+
+  // Update Description & Activities
+  document.getElementById("logistics-active-desc").textContent = data.desc;
+  const actList = document.getElementById("logistics-active-activities");
+  if (actList) {
+    actList.innerHTML = data.activities.map(act => `<li><span class="act-bullet">✓</span> ${act}</li>`).join('');
+  }
+
+  // Update KPI Meters
+  document.getElementById("kpi-speed-val").textContent = data.speed.text;
+  document.getElementById("kpi-speed-fill").style.width = `${data.speed.percent}%`;
+
+  document.getElementById("kpi-cost-val").textContent = data.cost.text;
+  document.getElementById("kpi-cost-fill").style.width = `${data.cost.percent}%`;
+
+  document.getElementById("kpi-tech-val").textContent = data.tech.text;
+  document.getElementById("kpi-tech-fill").style.width = `${data.tech.percent}%`;
+
+  document.getElementById("kpi-eco-val").textContent = data.eco.text;
+  document.getElementById("kpi-eco-fill").style.width = `${data.eco.percent}%`;
+
+  // Reset Simulation Box
+  document.getElementById("sim-scenario-text").textContent = data.scenario;
+  const simWrapper = document.getElementById("sim-progress-wrapper");
+  if (simWrapper) simWrapper.style.display = "none";
+  const btnRun = document.getElementById("btn-run-sim");
+  if (btnRun) {
+    btnRun.disabled = false;
+    btnRun.innerHTML = `<span class="sim-btn-icon">▶</span> Run Live Simulation`;
+  }
+  if (simIntervalTimer) clearInterval(simIntervalTimer);
+}
+
+function runCurrentLogisticsSimulation() {
+  const data = LOGISTICS_MODELS_DATA[activeLogisticsModelKey];
+  if (!data) return;
+
+  const btnRun = document.getElementById("btn-run-sim");
+  const simWrapper = document.getElementById("sim-progress-wrapper");
+  const progressBar = document.getElementById("sim-progress-bar");
+  const statusText = document.getElementById("sim-status-text");
+
+  if (simIntervalTimer) clearInterval(simIntervalTimer);
+
+  btnRun.disabled = true;
+  btnRun.innerHTML = `<span class="sim-btn-icon">⏳</span> Simulating...`;
+  simWrapper.style.display = "block";
+  progressBar.style.width = "0%";
+
+  let stepIdx = 0;
+  const steps = data.simSteps;
+  const totalSteps = steps.length;
+
+  statusText.textContent = `Step 1: ${steps[0]}`;
+  progressBar.style.width = `${((1) / totalSteps) * 100}%`;
+
+  simIntervalTimer = setInterval(() => {
+    stepIdx++;
+    if (stepIdx < totalSteps) {
+      statusText.textContent = `Step ${stepIdx + 1}: ${steps[stepIdx]}`;
+      progressBar.style.width = `${((stepIdx + 1) / totalSteps) * 100}%`;
+    } else {
+      clearInterval(simIntervalTimer);
+      statusText.textContent = `✅ Simulation Completed: All cargo milestones reached successfully!`;
+      btnRun.disabled = false;
+      btnRun.innerHTML = `<span class="sim-btn-icon">🔄</span> Re-Run Simulation`;
+    }
+  }, 1800);
+}
+
+function setLogisticsView(viewType) {
+  const btnExplorer = document.getElementById("logistics-btn-explorer");
+  const btnCompare = document.getElementById("logistics-btn-compare");
+  const viewExplorer = document.getElementById("logistics-view-explorer");
+  const viewCompare = document.getElementById("logistics-view-compare");
+
+  if (viewType === 'explorer') {
+    btnExplorer.classList.add("active");
+    btnCompare.classList.remove("active");
+    viewExplorer.style.display = "block";
+    viewCompare.style.display = "none";
+  } else {
+    btnCompare.classList.add("active");
+    btnExplorer.classList.remove("active");
+    viewCompare.style.display = "block";
+    viewExplorer.style.display = "none";
+    renderLogisticsComparison();
+  }
+}
+
+function populateLogisticsCompareDropdowns() {
+  const selectA = document.getElementById("compare-model-a");
+  const selectB = document.getElementById("compare-model-b");
+  if (!selectA || !selectB) return;
+
+  const optionsHTML = Object.keys(LOGISTICS_MODELS_DATA).map(key => {
+    const item = LOGISTICS_MODELS_DATA[key];
+    return `<option value="${key}">${item.num}. ${item.title}</option>`;
+  }).join('');
+
+  selectA.innerHTML = optionsHTML;
+  selectB.innerHTML = optionsHTML;
+
+  selectA.value = "thirdparty";
+  selectB.value = "fourthparty";
+}
+
+function renderLogisticsComparison() {
+  const keyA = document.getElementById("compare-model-a").value;
+  const keyB = document.getElementById("compare-model-b").value;
+  const table = document.getElementById("logistics-compare-table");
+  if (!table) return;
+
+  const mA = LOGISTICS_MODELS_DATA[keyA];
+  const mB = LOGISTICS_MODELS_DATA[keyB];
+
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th style="width: 25%;">Feature Comparison</th>
+        <th style="width: 37.5%; text-align: center;">${mA.icon} ${mA.title}</th>
+        <th style="width: 37.5%; text-align: center;">${mB.icon} ${mB.title}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Primary Strategic Focus</strong></td>
+        <td>${mA.comparison.focus}</td>
+        <td>${mB.comparison.focus}</td>
+      </tr>
+      <tr>
+        <td><strong>Primary Operational Actor</strong></td>
+        <td>${mA.comparison.primaryActor}</td>
+        <td>${mB.comparison.primaryActor}</td>
+      </tr>
+      <tr>
+        <td><strong>Cargo & Flow Type</strong></td>
+        <td>${mA.comparison.cargoType}</td>
+        <td>${mB.comparison.cargoType}</td>
+      </tr>
+      <tr>
+        <td><strong>Core Strategic Goal</strong></td>
+        <td>${mA.comparison.keyGoal}</td>
+        <td>${mB.comparison.keyGoal}</td>
+      </tr>
+      <tr>
+        <td><strong>Core Systems Required</strong></td>
+        <td>${mA.comparison.techNeeded}</td>
+        <td>${mB.comparison.techNeeded}</td>
+      </tr>
+      <tr>
+        <td><strong>Speed & Urgency Level</strong></td>
+        <td>${mA.speed.text} (${mA.speed.percent}%)</td>
+        <td>${mB.speed.text} (${mB.speed.percent}%)</td>
+      </tr>
+      <tr>
+        <td><strong>Sustainability & Eco Rating</strong></td>
+        <td>${mA.eco.text} (${mA.eco.percent}%)</td>
+        <td>${mB.eco.text} (${mB.eco.percent}%)</td>
+      </tr>
+    </tbody>
+  `;
 }
 
 /* ==========================================

@@ -639,115 +639,207 @@
       </div>
     </div>
 
-    <!-- Tool Panel 4: 10 Types of Logistics -->
+    <!-- Tool Panel 4: 10 Key Models of Logistics (Interactive Visual Simulator) -->
     <div class="tool-panel" id="panel-logistics">
-      <h3 class="calc-title" style="text-align:center; margin-bottom:30px;">The 10 Key Models of Logistics</h3>
-      <p
-        style="text-align:center; color:var(--text-muted); margin-bottom:35px; max-width:800px; margin-left:auto; margin-right:auto;">
-        Logistics represents the physical movement and buffer storage of cargo throughout the global supply chain. Click
-        on any model below to slide open detailed activities and examples.</p>
-      <div class="logistics-interactive-grid">
-        <div class="logistic-card">
-          <span class="logistic-card-num">01</span>
-          <h4 class="logistic-card-title">Inbound Logistics</h4>
-          <p class="logistic-card-desc">Movement of incoming parts & raw materials from suppliers to factory floor.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Purchasing, raw materials shipping, intake storage.<br>
-            <strong>Example:</strong> Shipping container loads of fabric from Colombo to a garment manufacturer
-            warehouse.
+      <div class="logistics-header-wrapper">
+        <h3 class="calc-title" style="text-align:center; margin-bottom:10px;">The 10 Key Models of Logistics</h3>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:25px; max-width:800px; margin-left:auto; margin-right:auto; font-size: 0.95rem;">
+          Interactive Supply Chain Simulator & Comparison Engine. Select any logistics model to visualize physical cargo movement across global trade nodes, track performance metrics, and simulate real-world logistics scenarios.
+        </p>
+
+        <!-- Mode Toggle Bar -->
+        <div class="logistics-mode-toggle">
+          <button class="logistics-toggle-btn active" id="logistics-btn-explorer" onclick="setLogisticsView('explorer')">
+            <span>🌐</span> Visual Pipeline & Simulator
+          </button>
+          <button class="logistics-toggle-btn" id="logistics-btn-compare" onclick="setLogisticsView('compare')">
+            <span>⚖️</span> Compare Models Side-by-Side
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 1: EXPLORER & SIMULATOR -->
+      <div id="logistics-view-explorer" class="logistics-view-container active">
+        <!-- Scrollable Model Selector Strip -->
+        <div class="logistics-model-nav-container">
+          <div class="logistics-model-nav" id="logistics-model-nav">
+            <!-- Dynamically populated via JS -->
           </div>
         </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">02</span>
-          <h4 class="logistic-card-title">Outbound Logistics</h4>
-          <p class="logistic-card-desc">Movement of completed commercial items from manufacturing to final users.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Finished goods storage, order processing, shipping container freight.<br>
-            <strong>Example:</strong> Exporting finished rubber tires from Colombo port directly to automotive dealers
-            in Hamburg.
+
+        <!-- Interactive Visual Supply Chain Pipeline -->
+        <div class="logistics-pipeline-card">
+          <div class="pipeline-card-header">
+            <div class="pipeline-title-group">
+              <span id="logistics-active-icon" class="pipeline-model-icon">📥</span>
+              <div>
+                <h4 id="logistics-active-title" class="pipeline-model-name">Inbound Logistics</h4>
+                <p id="logistics-active-tagline" class="pipeline-model-tagline">Raw Materials Intake & Factory Supply</p>
+              </div>
+            </div>
+            <span id="logistics-active-badge" class="pipeline-model-badge">Supply Operations</span>
           </div>
-        </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">03</span>
-          <h4 class="logistic-card-title">Reverse Logistics</h4>
-          <p class="logistic-card-desc">Handling returned goods, recycling, and recycling loop management.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Refurbishing, recycle sorting, return cargo logistics.<br>
-            <strong>Example:</strong> Return of defective electronics to a service center in China for warranty
-            replacement.
+
+          <!-- Dynamic Visual Pipeline Nodes (5 Core Supply Nodes) -->
+          <div class="pipeline-nodes-wrapper">
+            <div class="pipeline-node" id="node-supplier">
+              <div class="node-icon">🏭</div>
+              <div class="node-label">Supplier / Farm</div>
+              <div class="node-sub">Raw Intake</div>
+            </div>
+            <div class="pipeline-connector" id="conn-1">
+              <div class="connector-line"></div>
+              <div class="connector-pulse"></div>
+            </div>
+
+            <div class="pipeline-node" id="node-factory">
+              <div class="node-icon">⚙️</div>
+              <div class="node-label">Factory Plant</div>
+              <div class="node-sub">Processing</div>
+            </div>
+            <div class="pipeline-connector" id="conn-2">
+              <div class="connector-line"></div>
+              <div class="connector-pulse"></div>
+            </div>
+
+            <div class="pipeline-node" id="node-hub">
+              <div class="node-icon">🏢</div>
+              <div class="node-label">3PL / 4PL Hub</div>
+              <div class="node-sub">Buffer & Customs</div>
+            </div>
+            <div class="pipeline-connector" id="conn-3">
+              <div class="connector-line"></div>
+              <div class="connector-pulse"></div>
+            </div>
+
+            <div class="pipeline-node" id="node-consumer">
+              <div class="node-icon">🏬</div>
+              <div class="node-label">Market & Client</div>
+              <div class="node-sub">Delivery</div>
+            </div>
+            <div class="pipeline-connector" id="conn-4">
+              <div class="connector-line"></div>
+              <div class="connector-pulse"></div>
+            </div>
+
+            <div class="pipeline-node" id="node-recycle">
+              <div class="node-icon">🔄</div>
+              <div class="node-label">Reverse Loop</div>
+              <div class="node-sub">Recycle & Return</div>
+            </div>
           </div>
-        </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">04</span>
-          <h4 class="logistic-card-title">Third-Party (3PL)</h4>
-          <p class="logistic-card-desc">Outsourcing primary warehousing and trucking services to an expert partner.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Shared warehouses, contracted truck fleets, customs brokerage.<br>
-            <strong>Example:</strong> Nexus Cargo handles warehousing and customs processing for a consumer brands
-            company.
+
+          <!-- Detailed Info & Interactive KPI Grid -->
+          <div class="pipeline-details-grid">
+            <!-- Left Box: Description & Activities -->
+            <div class="pipeline-detail-box">
+              <h5 class="pipeline-box-heading">📋 Key Operational Scope</h5>
+              <p id="logistics-active-desc" class="logistics-detail-text">Movement of incoming parts & raw materials from suppliers to factory floor.</p>
+              
+              <h5 class="pipeline-box-heading" style="margin-top: 20px;">⚡ Key Activities</h5>
+              <ul id="logistics-active-activities" class="logistics-activities-list">
+                <!-- Injected via JS -->
+              </ul>
+            </div>
+
+            <!-- Right Box: Interactive Performance Meter & Simulation -->
+            <div class="pipeline-detail-box">
+              <h5 class="pipeline-box-heading">📊 Model Performance Profile</h5>
+              
+              <div class="kpi-meters-group">
+                <div class="kpi-meter-item">
+                  <div class="kpi-meter-label">
+                    <span>⚡ Speed & Urgency</span>
+                    <strong id="kpi-speed-val">Scheduled / Batch</strong>
+                  </div>
+                  <div class="kpi-meter-bar"><div id="kpi-speed-fill" class="kpi-meter-fill" style="width: 65%;"></div></div>
+                </div>
+
+                <div class="kpi-meter-item">
+                  <div class="kpi-meter-label">
+                    <span>💰 Logistics Cost Weight</span>
+                    <strong id="kpi-cost-val">35% of Product Cost</strong>
+                  </div>
+                  <div class="kpi-meter-bar"><div id="kpi-cost-fill" class="kpi-meter-fill bg-orange" style="width: 70%;"></div></div>
+                </div>
+
+                <div class="kpi-meter-item">
+                  <div class="kpi-meter-label">
+                    <span>💻 Technology Integration</span>
+                    <strong id="kpi-tech-val">ERP & WMS Track</strong>
+                  </div>
+                  <div class="kpi-meter-bar"><div id="kpi-tech-fill" class="kpi-meter-fill bg-blue" style="width: 80%;"></div></div>
+                </div>
+
+                <div class="kpi-meter-item">
+                  <div class="kpi-meter-label">
+                    <span>🌿 Eco / Carbon Focus</span>
+                    <strong id="kpi-eco-val">Moderate</strong>
+                  </div>
+                  <div class="kpi-meter-bar"><div id="kpi-eco-fill" class="kpi-meter-fill bg-green" style="width: 55%;"></div></div>
+                </div>
+              </div>
+
+              <!-- Interactive Simulator Box -->
+              <div class="simulation-box">
+                <div class="sim-header">
+                  <span class="sim-title">🌍 Real-World Trade Scenario</span>
+                  <button id="btn-run-sim" class="btn-run-sim" onclick="runCurrentLogisticsSimulation()">
+                    <span class="sim-btn-icon">▶</span> Run Live Simulation
+                  </button>
+                </div>
+                <div id="sim-scenario-text" class="sim-scenario-desc">
+                  Transporting 20 FCL containers of raw cotton fabric from India/China to Colombo Port and trucking to Katunayake Free Trade Zone factory.
+                </div>
+                <div id="sim-progress-wrapper" class="sim-progress-wrapper" style="display:none;">
+                  <div class="sim-progress-track">
+                    <div id="sim-progress-bar" class="sim-progress-bar"></div>
+                  </div>
+                  <div id="sim-status-text" class="sim-status-text">Click run simulation to start...</div>
+                </div>
+              </div>
+
+            </div>
           </div>
+
         </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">05</span>
-          <h4 class="logistic-card-title">Fourth-Party (4PL)</h4>
-          <p class="logistic-card-desc">An integrator firm that oversees the entire supply chain network strategies.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Software integration, analytics, multi-vendor carrier management.<br>
-            <strong>Example:</strong> A strategic partner managing three separate 3PLs and 5 ocean carriers for a retail
-            giant.
+
+      </div>
+
+      <!-- VIEW 2: COMPARE MODELS SIDE-BY-SIDE -->
+      <div id="logistics-view-compare" class="logistics-view-container" style="display:none;">
+        <div class="logistics-compare-card">
+          <h4 style="color: var(--primary-navy); margin-bottom: 20px; font-size: 1.1rem; text-align: center; font-weight: 700;">
+            ⚖️ Select Any 2 Logistics Models to Compare Features & Strategies
+          </h4>
+
+          <div class="compare-selectors-grid">
+            <div class="compare-select-group">
+              <label style="display:block; font-size:0.85rem; font-weight:700; color:var(--primary-navy); margin-bottom:5px;">Model A:</label>
+              <select id="compare-model-a" class="compare-select-dropdown" onchange="renderLogisticsComparison()">
+                <!-- Options populated via JS -->
+              </select>
+            </div>
+
+            <div class="compare-vs-badge">VS</div>
+
+            <div class="compare-select-group">
+              <label style="display:block; font-size:0.85rem; font-weight:700; color:var(--primary-navy); margin-bottom:5px;">Model B:</label>
+              <select id="compare-model-b" class="compare-select-dropdown" onchange="renderLogisticsComparison()">
+                <!-- Options populated via JS -->
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">06</span>
-          <h4 class="logistic-card-title">Production Logistics</h4>
-          <p class="logistic-card-desc">Managing components supply matching speed inside the production plant.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Just-In-Time (JIT) storage, automated guided vehicles, bin
-            replenishments.<br>
-            <strong>Example:</strong> Scheduling microchips supply lines to match automotive assembly speeds.
-          </div>
-        </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">07</span>
-          <h4 class="logistic-card-title">Distribution Logistics</h4>
-          <p class="logistic-card-desc">Transport systems delivering products from regional distribution points.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Cross-docking operations, parcel dispatch hubs, grocery line
-            distribution.<br>
-            <strong>Example:</strong> Dispatching trucks to deliver daily fresh milk batches to national retail stores.
-          </div>
-        </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">08</span>
-          <h4 class="logistic-card-title">Military Logistics</h4>
-          <p class="logistic-card-desc">Supply lines, armaments, and food logistics for defense forces.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Mobilization schedules, heavy airlift, tactical fuel support.<br>
-            <strong>Example:</strong> Operating heavy military aircraft carriers carrying tactical trucks and food
-            cargo.
-          </div>
-        </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">09</span>
-          <h4 class="logistic-card-title">Emergency Logistics</h4>
-          <p class="logistic-card-desc">Rapid supply chain mobilization in response to crises and natural disasters.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Priority air cargo clearance, medical supply drops, emergency
-            coordination.<br>
-            <strong>Example:</strong> Shipping emergency vaccines and temporary tents to areas affected by a cyclone.
-          </div>
-        </div>
-        <div class="logistic-card">
-          <span class="logistic-card-num">10</span>
-          <h4 class="logistic-card-title">Green Logistics</h4>
-          <p class="logistic-card-desc">Redesigning supply chains to minimize emissions and resource depletion.</p>
-          <div class="logistic-card-detail">
-            <strong>Key Activities:</strong> Route optimization, biofuel shipping, recyclable plastic pallets.<br>
-            <strong>Example:</strong> Switching from air shipping to eco-friendly rail/ocean freight to reduce carbon
-            footprint.
+
+          <!-- Responsive Side-by-Side Table -->
+          <div class="compare-table-wrapper">
+            <table class="compare-table" id="logistics-compare-table">
+              <!-- Rendered via JS -->
+            </table>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- Tool Panel 5: Bilateral Trade Documentation Checklist Generator -->
