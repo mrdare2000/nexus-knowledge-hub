@@ -122,10 +122,10 @@ body.sidebar-mobile-open .sidebar-backdrop {
 }
 
 .sidebar-logo-img {
-  height: 38px;
-  width: auto;
-  max-width: 170px;
+  height: 42px;
+  width: 42px;
   object-fit: contain;
+  border-radius: 10px;
   filter: drop-shadow(0 2px 8px rgba(242, 105, 56, 0.2));
 }
 
@@ -311,16 +311,24 @@ body.sidebar-mobile-open .sidebar-backdrop {
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent-orange), var(--primary-navy));
-  color: #FFF;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-color);
+  box-shadow: 0 2px 6px rgba(10, 37, 64, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 0.8rem;
+  padding: 4px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .user-info {

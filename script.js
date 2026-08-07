@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("load", () => {
   renderLearningHub();
-  initNexusAIChat();
   initScrollAnimations();
 });
 
@@ -1702,6 +1701,8 @@ const SHIPPING_BOT_ANSWERS = {
   help: "Ask me questions like:\n- 'How is volumetric weight calculated?'\n- 'What is the risk split under FOB?'\n- 'Explain LCL consolidation.'\n- 'Tell me about demurrage vs detention.'"
 };
 
+let isNexusAiChatInitialized = false;
+
 function initNexusAIChat() {
   const sendBtn = document.getElementById("chat-send-btn");
   const textInput = document.getElementById("chat-input");
@@ -1709,10 +1710,6 @@ function initNexusAIChat() {
   
   if (!sendBtn || !textInput || !msgArea) return;
   
-  msgArea.innerHTML = "";
-  conversationHistory = [];
-  currentTopicContext = null;
-
   // Auto-restore saved Gemini API Key from localStorage if present
   const apiKeyInput = document.getElementById("api-key-input");
   const saveKeyBtn = document.getElementById("save-api-key-btn");
@@ -1723,6 +1720,14 @@ function initNexusAIChat() {
       apiKeyInput.value = savedKey;
     }
   }
+
+  // Guard against re-binding event listeners multiple times
+  if (isNexusAiChatInitialized) return;
+  isNexusAiChatInitialized = true;
+  
+  msgArea.innerHTML = "";
+  conversationHistory = [];
+  currentTopicContext = null;
   
   if (saveKeyBtn && apiKeyInput) {
     saveKeyBtn.addEventListener("click", () => {
@@ -1762,7 +1767,7 @@ function initNexusAIChat() {
   const presetBtns = document.querySelectorAll(".chat-preset-query");
   presetBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      textInput.value = btn.textContent;
+      textInput.value = btn.textContent.trim();
       handleUserChatMessage();
     });
   });
