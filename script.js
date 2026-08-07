@@ -192,12 +192,10 @@ function switchPage(pageId) {
    SIDEBAR NAVIGATION SYSTEM
    ========================================== */
 function initAppLayout() {
-  // Read saved sidebar collapse state (desktop)
-  const savedCollapsed = localStorage.getItem("nexus_sidebar_collapsed") === "true";
-  if (savedCollapsed) {
-    document.body.classList.add("sidebar-collapsed");
-    updateCollapseBtnUI(true);
-  }
+  // Always default sidebar to expanded (open) state on site entrance
+  localStorage.removeItem("nexus_sidebar_collapsed");
+  document.body.classList.remove("sidebar-collapsed");
+  updateCollapseBtnUI(false);
 
   // Bind keyboard shortcut Ctrl+K / Cmd+K for quick search focus
   document.addEventListener("keydown", (e) => {
