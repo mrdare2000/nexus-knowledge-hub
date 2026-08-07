@@ -229,6 +229,7 @@ function updateCollapseBtnUI(isCollapsed) {
   const label = btn.querySelector(".control-label");
   if (icon) icon.textContent = isCollapsed ? "►" : "◄";
   if (label) label.textContent = isCollapsed ? "Expand" : "Collapse";
+  btn.title = isCollapsed ? "Expand Sidebar" : "Collapse Sidebar";
 }
 
 function toggleMobileSidebar(forceState) {

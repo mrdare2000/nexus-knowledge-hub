@@ -390,7 +390,7 @@ body.sidebar-collapsed .sidebar-user-badge {
 }
 
 body.sidebar-collapsed .collapse-icon {
-  transform: rotate(180deg);
+  transform: none;
 }
 
 /* Mobile Floating Hamburger Button (<992px) */
