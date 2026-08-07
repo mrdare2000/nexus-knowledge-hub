@@ -3291,7 +3291,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <h5 style="color:#B45309; margin:0 0 8px 0; font-size:1.05rem;">💡 Industry Best Practice to Prevent Container Roll-Over:</h5>
               <p style="margin:0; font-size:0.92rem; color:#78350F; line-height:1.6;">Always submit Shipping Instructions and Gate-In the container at least 24 hours prior to the CY Cut-Off. During peak shipping seasons, carriers routinely overbook vessels by 10% to 15%. Containers arriving last at terminal gates are always bumped first to next week's sailing!</p>
             </div>
-          `
+          `,
+          youtube: "https://www.youtube.com/embed/y-KV1nftdBA"
         },
         {
           id: "import-shipment-process-flow",
@@ -3356,7 +3357,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 <li>Detention: Penalties charged when an empty or full container remains outside the port terminal in the importer's possession past allowed free days (usually 5 to 7 days).</li>
               </ul>
             </div>
-          `
+          `,
+          youtube: "https://www.youtube.com/embed/MdneCFlgMpo"
         },
         {
           id: "air-freight-process-flow",
@@ -3423,7 +3425,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 </div>
               </div>
             </div>
-          `
+          `,
+          youtube: "https://www.youtube.com/embed/kOMqzmgSGlk"
         },
         {
           id: "ocean-freight-process-flow",
@@ -3473,7 +3476,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <h5 style="color:#15803D; margin:0 0 8px 0; font-size:1.05rem;">🧩 Understanding Vessel Stowage Planning (Bay-Row-Tier):</h5>
               <p style="margin:0; font-size:0.92rem; color:#166534; line-height:1.6;">Container positions on a vessel are identified by a 6-digit coordinate format: <strong>Bay (Lengthwise position) - Row (Crosswise width position) - Tier (Vertical height stack position)</strong>. Heavy containers occupy lower tiers inside ship holds, while lighter boxes are stacked higher on deck hatches.</p>
             </div>
-          `
+          `,
+          youtube: "https://www.youtube.com/embed/lBwnI1KvPp4"
         },
         {
           id: "documentation-flow",
@@ -3739,7 +3743,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 </div>
               </div>
             </div>
-          `
+          `,
+          youtube: "https://www.youtube.com/embed/zrBrK9BT7zs"
         },
         {
           id: "claims-and-escalation-process",
@@ -3791,7 +3796,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <h5 style="color:#BE185D; margin:0 0 8px 0; font-size:1.05rem;">⚖️ International Carrier Statutory Liability Limits:</h5>
               <p style="margin:0; font-size:0.92rem; color:#9D174D; line-height:1.6;">Without marine cargo insurance, ocean carriers limit liability under Hague-Visby Rules to $2.00 SDR per kg (~$2.60/kg) or $666 SDR per package. Air carriers under Montreal Convention limit liability to 22 SDRs per kg (~$29/kg). Comprehensive marine insurance is essential for full asset protection.</p>
             </div>
-          `
+          `,
+          youtube: "https://www.youtube.com/embed/uTgUP3zfiJo"
         },
         {
           id: "shipment-milestone-tracking",
@@ -3837,7 +3843,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 <strong>ISO 6346 Container Number Standard:</strong> Container numbers comprise 4 letters (e.g. MSKU for Owner Code + Equipment Category), 6 numerical digits, and 1 calculated Check Digit (e.g. MSKU1234567).
               </div>
             </div>
-          `
+          `,
+          youtube: "https://www.youtube.com/embed/SvFLpEicRI8"
         }
       ]
     },
