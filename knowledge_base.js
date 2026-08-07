@@ -35,7 +35,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Import Haulage:</strong> Final delivery of cargo from the destination warehouse directly to the consignee's delivery premises.</li>
             </ol>
           `,
-          youtube: "https://www.youtube.com/embed/vXgTvmCYdw0"
+          youtube: "https://www.youtube.com/embed/K-fRJ7Ns42g"
         },
         {
           id: "ocean-freight-vs-air-freight",
@@ -82,7 +82,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Bulk & Heavy Cargo:</strong> Coal, steel, vehicles, and raw commodities must move via Ocean Freight to maintain cost viability.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/md86IaCB6vg"
+          youtube: "https://www.youtube.com/embed/fnAOIlq_rMI"
         },
         {
           id: "fcl-vs-lcl-shipments",
@@ -105,7 +105,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </ul>
             <p><strong>Cost Break-Even Point:</strong> Once LCL volumes reach about 15 CBM, the CFS handling charges (per CBM fees) make LCL more expensive than renting a full 20ft container (FCL) outright, even if the container is only half full.</p>
           `,
-          youtube: "https://www.youtube.com/embed/G6jWl1oZ-bA"
+          youtube: "https://www.youtube.com/embed/wKBzfQxgisQ"
         },
         {
           id: "export-import-cross-trade",
@@ -125,7 +125,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Switch Bill of Lading Solution:</strong> The forwarder issues a second set of Bills of Lading (Switch B/L) at Country C, replacing the origin shipper information with the intermediary's info before cargo arrives at destination.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/tM1X7H5L108"
+          youtube: "https://www.youtube.com/embed/4LuSSdzK6aM"
         },
         {
           id: "key-shipping-terms-explained",
@@ -153,7 +153,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Freight Collect:</strong> Shipping costs are paid by the consignee at destination.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/0QLL8yjO7j0"
         },
         {
           id: "freight-forwarder-carrier-consignee-shipper",
@@ -171,7 +171,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>4. Consignee</h3>
             <p>The buyer or receiver of the cargo. The consignee is responsible for clearing the import customs at destination, paying import duties/taxes, collection of delivery orders, and arranging destination haulage.</p>
           `,
-          youtube: "https://www.youtube.com/embed/9g3z1wLgWuo"
+          youtube: "https://www.youtube.com/embed/gEv8IyDyXKQ"
         }
       ]
     },
@@ -202,7 +202,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>5. ISO Tank Container</h3>
             <p>A cylindrical steel tank mounted within a standard 20ft container frame. Designed for bulk transport of food-grade liquids, spirits, gases, and dangerous chemicals.</p>
           `,
-          youtube: "https://www.youtube.com/embed/t-6Qx4_4G7k",
+          youtube: "https://www.youtube.com/embed/w0D4F8en_xE",
           linkToWidget: "containers"
         },
         {
@@ -266,7 +266,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </table>
             <p><strong>Note:</strong> While a 40ft container is double the length of a 20ft container, its maximum cargo weight payload is actually slightly <em>lower</em> because the weight of the larger steel container body (Tare Weight) reduces the allowable cargo limit.</p>
           `,
-          youtube: "https://www.youtube.com/embed/z1XoD9p6WlA",
+          youtube: "https://www.youtube.com/embed/uluQ35geS9w",
           linkToWidget: "containers"
         },
         {
@@ -289,7 +289,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Discharge & Import:</strong> At destination port, the container is unloaded. Import customs are cleared, duties paid, and the container is hauled to the consignee's warehouse for final unloading.</li>
             </ol>
           `,
-          youtube: "https://www.youtube.com/embed/z1XoD9p6WlA"
+          youtube: "https://www.youtube.com/embed/gR60hj7oE1Q"
         },
         {
           id: "lcl-shipping-process",
@@ -311,7 +311,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Consignee Release:</strong> Individual consignees collect their respective cargo from the CFS after paying local handling fees.</li>
             </ol>
           `,
-          youtube: "https://www.youtube.com/embed/j1uS1D_P2X8"
+          youtube: "https://www.youtube.com/embed/OON05cfcGK8"
         },
         {
           id: "container-loading-basics",
@@ -332,7 +332,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>4. Packing Order</h3>
             <p>Always place heavy items on the bottom and light items on top. Never stack heavy cargo on top of fragile boxes. Keep liquid drums upright and isolate them from dry, moisture-absorbent goods.</p>
           `,
-          youtube: "https://www.youtube.com/embed/t-6Qx4_4G7k"
+          youtube: "https://www.youtube.com/embed/2JcHMhtH6_s"
         },
         {
           id: "ocean-freight-routing",
@@ -353,7 +353,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>The Hub-and-Spoke System:</h3>
             <p>Mega containerships (carrying 18,000+ TEUs) operate main loop routes, docking only at massive deep-water transshipment hubs (e.g., Singapore, Shanghai, Colombo, Rotterdam). Smaller regional feeder vessels then transport containers from these hubs to smaller local ports (spokes).</p>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/QgEAWfl8YAc"
         },
         {
           id: "transshipment-explained",
@@ -373,7 +373,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </ul>
             <p><strong>Customs Status:</strong> Transshipment cargo remains in a designated international customs zone at the port. It does not require formal import customs clearance in the transit country.</p>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/RqDuIiEDJn8"
         },
         {
           id: "vessel-schedules-transit-times",
@@ -393,7 +393,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>2. Blank Sailing</h3>
             <p>A blank sailing occurs when a carrier cancels a scheduled vessel port call or an entire voyage route. This is used to manage shipping capacity, respond to port labor strikes, adjust for severe delays, or control freight rates during low demand periods.</p>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w"
+          youtube: "https://www.youtube.com/embed/7Bopf2Rf-ac"
         },
         {
           id: "detention-demurrage-storage",
@@ -412,7 +412,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>3. Port Storage (Ground Rent)</h3>
             <p>A fee charged directly by the port terminal authority (not the shipping line) for the space occupied by the container on the ground. It is separate from demurrage fees.</p>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w"
+          youtube: "https://www.youtube.com/embed/YbMR5y0-G3k"
         },
         {
           id: "common-ocean-freight-challenges",
@@ -433,7 +433,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>4. Blank Sailings</h3>
             <p>Frequent cancellation of schedules by shipping lines disrupts supply chain timelines and requires cargo to be re-booked with alternative carriers.</p>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w"
+          youtube: "https://www.youtube.com/embed/eYgTFXeKn1Q"
         }
       ]
     },
@@ -488,7 +488,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </tbody>
             </table>
           `,
-          youtube: "https://www.youtube.com/embed/1Bv1YyL71pE",
+          youtube: "https://www.youtube.com/embed/x9PQgbB4y6M",
           linkToWidget: "aircraft"
         },
         {
@@ -520,7 +520,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </svg>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/1Bv1YyL71pE",
+          youtube: "https://www.youtube.com/embed/NmevaKKuwEg",
           linkToWidget: "aircraft"
         },
         {
@@ -546,7 +546,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/Zr-tm2h0-r0"
         },
         {
           id: "chargeable-weight-explained",
@@ -576,7 +576,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/G6jWl1oZ-bA",
+          youtube: "https://www.youtube.com/embed/rYIl7ndlz40",
           linkToWidget: "containers"
         },
         {
@@ -606,7 +606,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li>Multiply by ratio: <code>0.96 CBM x 166.67 = 160 kg</code>.</li>
             </ol>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w",
+          youtube: "https://www.youtube.com/embed/mcGrhRa9n08",
           linkToWidget: "containers"
         },
         {
@@ -656,7 +656,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </tbody>
             </table>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y",
+          youtube: "https://www.youtube.com/embed/vSl4IomCvrQ",
           linkToWidget: "aircraft"
         },
         {
@@ -673,7 +673,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>3. Deferred Air Freight</h3>
             <p>The lowest priority cargo tier. Cargo routes through transit hubs and is loaded on flights as space becomes available. Economical but slower (5-8 days).</p>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/vXgTvmCYdw0"
         },
         {
           id: "airport-to-airport-vs-door-to-door",
@@ -687,7 +687,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>2. Door-to-Door (D2D)</h3>
             <p>A comprehensive logistics solution. The freight forwarder manages the entire chain of custody: truck collection from the exporter's factory, airport terminal handling, customs brokerage, flight transport, destination clearance, and final delivery to the buyer's warehouse.</p>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w"
+          youtube: "https://www.youtube.com/embed/56rRSPVar8U"
         },
         {
           id: "airline-handling-cut-off-times",
@@ -703,7 +703,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>GHA Handling Steps:</strong> GHA checks security labels $\\rightarrow$ performs scale weight audit $\\rightarrow$ places cargo in ULD queue $\\rightarrow$ loads ULD onto flight trailer.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/PwwG6Gs9TsM"
         },
         {
           id: "dangerous-goods-air-freight",
@@ -726,7 +726,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Class 2: Gases:</strong> Aerosols, compressed cylinders. Cabin pressure drop risks make these highly sensitive.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y",
+          youtube: "https://www.youtube.com/embed/mdw1T7jF_Jg",
           linkToWidget: "dg"
         }
       ]
@@ -766,7 +766,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>CIF (Cost, Insurance and Freight):</strong> Same as CFR, but seller purchases ocean marine insurance (Clause C coverage).</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/5F_3pP3n-9c",
+          youtube: "https://www.youtube.com/embed/GTUTLRXcVuA",
           linkToWidget: "incoterms"
         },
         {
@@ -789,7 +789,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>4. DDP (Delivered Duty Paid) - Maximum Seller Obligation</h3>
             <p>The seller manages the entire process from their origin factory directly to the buyer's destination warehouse. The seller pays for main freight, customs clearance fees, import duties, and local VAT/GST taxes. Ideal for buyers with no import licensing capability.</p>
           `,
-          youtube: "https://www.youtube.com/embed/c0tW52b36Xg",
+          youtube: "https://www.youtube.com/embed/EJXW4mdCA_M",
           linkToWidget: "incoterms"
         },
         {
@@ -915,7 +915,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             <p>Use the <strong>Interactive Incoterms Matrix</strong> on the home screen to test and compare custom cost divisions across all 11 options.</p>
           `,
-          youtube: "https://www.youtube.com/embed/5F_3pP3n-9c",
+          youtube: "https://www.youtube.com/embed/KcL2aHiZ-b8",
           linkToWidget: "incoterms"
         },
         {
@@ -938,7 +938,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>The 'FOB Destination' Pitfall:</h3>
             <p>Domestic buyers often confuse \"FOB Origin\" with \"FOB Destination.\" Under international ICC rules, FOB can ONLY be used for sea transport and means risk transfers when cargo is loaded on board the vessel at the port of origin. For multimodal destination deliveries, <strong>DAP</strong> or <strong>DDP</strong> should be used in the purchase contract.</p>
           `,
-          youtube: "https://www.youtube.com/embed/yQ5uIe-1pE8"
+          youtube: "https://www.youtube.com/embed/1erOqmuKKVw"
         },
         {
           id: "risk-transfer-international-trade",
@@ -966,7 +966,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>DPU:</strong> Unloaded from the arriving vehicle onto destination ground.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/yQ5uIe-1pE8"
+          youtube: "https://www.youtube.com/embed/BFDudPJ8tms"
         },
         {
           id: "common-incoterm-mistakes",
@@ -988,7 +988,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>3. Excluding Destination Local Charges from Quotes</h3>
             <p>Under CFR and CIF, the seller pays for sea carriage. However, port discharge handling charges (DTHC) are billed at the arrival port. If local contracts do not specify who pays terminal fees, the buyer may be hit with massive hidden charges before cargo release, stalling logistics operations.</p>
           `,
-          youtube: "https://www.youtube.com/embed/yQ5uIe-1pE8"
+          youtube: "https://www.youtube.com/embed/cmk6DaZKVVc"
         },
         {
           id: "choosing-the-right-incoterm",
@@ -1013,7 +1013,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Avoid DDP:</strong> Unless you have a mature global presence. DDP places the highest financial, custom compliance, and transport risk on the exporter.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/5F_3pP3n-9c"
+          youtube: "https://www.youtube.com/embed/yijRI9eJPIM"
         }
       ]
     },
@@ -1045,7 +1045,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Common Export Pitfalls:</h3>
             <p>Failure to obtain necessary export licenses (like dual-use goods for tech equipment) or misdeclaring cargo weights can lead to the container being shut out of the vessel, resulting in missed sailings and heavy terminal demurrage charges.</p>
           `,
-          youtube: "https://www.youtube.com/embed/L13x2aM9WpM"
+          youtube: "https://www.youtube.com/embed/6uh5CAsebII"
         },
         {
           id: "import-customs-process",
@@ -1084,7 +1084,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </ol>
             <p><em>Pro Tip:</em> Always pre-clear cargo (submit documents before the vessel arrives) to avoid expensive port storage fees (demurrage) that accrue daily after the free-time period ends.</p>
           `,
-          youtube: "https://www.youtube.com/embed/L13x2aM9WpM"
+          youtube: "https://www.youtube.com/embed/CgrKk5MiTvQ"
         },
         {
           id: "customs-documentation",
@@ -1119,7 +1119,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Health Certificates:</strong> Required by the FDA or local food authorities for food and beverage imports intended for human consumption.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/AACbEKBsbfM"
         },
         {
           id: "hs-codes-explained",
@@ -1148,7 +1148,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Overpaying Duties:</strong> Importers often accept generic HS codes from their suppliers. If a more specific code exists for your exact product that has a lower tariff rate, you are losing money on every shipment. Always consult a licensed customs broker to index your products.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/eS10pXlTszs",
+          youtube: "https://www.youtube.com/embed/RMRoUO4FzpA",
           linkToWidget: "hs"
         },
         {
@@ -1182,7 +1182,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Understanding Tax Exemptions:</h3>
             <p>VAT (Value Added Tax) is often recoverable if the importer is a registered business. However, Import Duties are a sunk cost that directly eats into profit margins, unless you utilize Free Trade Agreements or bonded warehousing.</p>
           `,
-          youtube: "https://www.youtube.com/embed/YI4X2Xj4c68",
+          youtube: "https://www.youtube.com/embed/NjvOJvVXtLE",
           linkToWidget: "hs"
         },
         {
@@ -1209,7 +1209,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <img src="images/srilankan_coo.png" alt="Sri Lankan Certificate of Origin" style="width:100%; max-width:800px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/qujuccDv41U"
         },
         {
           id: "free-trade-agreements",
@@ -1235,7 +1235,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Step 3:</strong> Ensure your supplier can legally provide a <em>Preferential Certificate of Origin</em> stamped by their local government authority.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/eS10pXlTszs"
+          youtube: "https://www.youtube.com/embed/rw0N5AcVsUg"
         },
         {
           id: "customs-holds-and-exams",
@@ -1274,7 +1274,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Avoid Vague Descriptions:</strong> Never declare cargo as "Auto Parts" or "Apparel". Use detailed descriptions like "Steel Brake Pads for Passenger Vehicles" to avoid suspicion.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/L13x2aM9WpM"
+          youtube: "https://www.youtube.com/embed/7yOkH5FoOEU"
         },
         {
           id: "food-tea-agriculture-imports",
@@ -1305,7 +1305,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
 
             <p><strong>Action at Destination:</strong> Upon arrival, quarantine officers will physically inspect agricultural cargo. If live insects or soil are found, the importer will be forced to pay for expensive chemical fumigation at the port, or the entire container will be rejected and sent back to origin.</p>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/C4Ed31djndE"
         },
         {
           id: "country-specific-compliance-guides",
@@ -1357,7 +1357,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <p><strong>Note on Documentation:</strong> It is crucial for shippers to verify the exact document formatting requirements of the destination country. For instance, Middle Eastern countries often require the Commercial Invoice to be physically stamped and attested by the local Chamber of Commerce before shipping.</p>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/AJKq0P8wFIw"
         }
       ]
     },
@@ -1405,7 +1405,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Customs Valuation Risk & BOI Companies</h3>
             <p>Never artificially lower the value of goods on a CI to help the buyer pay less import duty. This is considered <em>valuation fraud</em>. If customs suspects the price is too low, the Valuation Directorate will hold the container and demand proof of bank wire transfers. For BOI (Board of Investment) companies in Sri Lanka, strict audits are in place to ensure export values match BOI declarations.</p>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/pDfNElwM1jI"
         },
         {
           id: "packing-list",
@@ -1431,7 +1431,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.9rem; color:#4C1D95;">Under SOLAS regulations implemented by the Merchant Shipping Secretariat in Sri Lanka, the Verified Gross Mass (VGM) must be declared. The Gross Weight stated on the Packing List MUST exactly match the Gross Weight printed on the Bill of Lading, Commercial Invoice, and the Customs Entry (CusDec). A discrepancy will cause customs to freeze the shipment, and the terminal will not load the container onto the vessel.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0",
+          youtube: "https://www.youtube.com/embed/tn7wXWY1Ivg",
           linkToWidget: "docs"
         },
         {
@@ -1475,7 +1475,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>House B/L (HBL):</strong> Issued by the local Freight Forwarder (NVOCC) to the actual factory/importer.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/5tXJp0T_zT0",
+          youtube: "https://www.youtube.com/embed/OQDH8ogcxJM",
           linkToWidget: "docs"
         },
         {
@@ -1502,7 +1502,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Why is it Non-Negotiable?</h3>
             <p>Because airplanes travel so fast (e.g., a flight from Colombo to Dubai takes only 4.5 hours), there is no time to wait for courier services to mail original paper documents to banks or buyers. Since the AWB is non-negotiable, the airline terminal will release the cargo to the named consignee immediately upon arrival and identification. This aligns perfectly with the rapid, just-in-time nature of air freight exports like fresh tuna or high-fashion garments from Sri Lanka.</p>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y",
+          youtube: "https://www.youtube.com/embed/GqKJv4t_pjQ",
           linkToWidget: "docs"
         },
         {
@@ -1523,7 +1523,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Chamber of Commerce Legalization</h3>
             <p>A non-preferential COO is issued and officially stamped (legalized) by the <strong>Ceylon Chamber of Commerce (CCC)</strong> or the <strong>National Chamber of Exporters (NCE)</strong> in Sri Lanka. They will verify the manufacturer's invoices and factory locations before applying their official embossed seal. Without this seal, destination customs (e.g., in the Middle East) will reject it and charge full duty rates.</p>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/TlKfy6HpnN4"
         },
         {
           id: "phytosanitary-certificate",
@@ -1544,7 +1544,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>The Inspection Process & Rejection Risks</h3>
             <p>An agricultural inspector from the NPQS must physically inspect the cargo (or take samples of the tea/spices), test for mold, soil, or live insects, and only then issue the Phyto. <strong>Critical Risk:</strong> If a container of Ceylon Cinnamon arrives in Europe without this document, customs will immediately quarantine it. The importer will be forced to pay for extremely expensive chemical fumigation at the port, or worse, the entire container will be ordered destroyed!</p>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/DSpW6amsdEY"
         },
         {
           id: "health-certificate",
@@ -1560,7 +1560,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.9rem; color:#78350F;">For Sri Lankan exporters (e.g., exporting processed coconut water or frozen yellowfin tuna), this is issued by the Food Control Administration Unit (FCAU) of the Ministry of Health, or the Department of Fisheries. It certifies that the food was processed in a sanitary facility and complies with international food safety standards (like HACCP or ISO 22000), proving it is fit for human consumption.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/96D5EE_4dPw"
         },
         {
           id: "fumigation-certificate",
@@ -1586,7 +1586,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Why Plastic Pallets Avoid This:</h3>
             <p>Many modern exporters use plastic slip-sheets or plastic pallets instead of wood. Because plastic cannot harbor beetles or termites, ISPM-15 rules do not apply, meaning you can skip the costly fumigation process entirely.</p>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/RCkbXBJxICU"
         },
         {
           id: "insurance-certificate",
@@ -1619,7 +1619,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Most commercial insurance is taken out at <strong>110% of the CIF Value</strong> (Cost + Insurance + Freight). The extra 10% covers the anticipated profit lost if the goods are destroyed.</p>
             <p><strong>Important Note:</strong> A major reason to buy insurance is to protect against <em>General Average</em> declarations. If a ship catches fire, all shippers must mathematically share the cost of the damage. If you don't have insurance, you must pay this massive cash penalty out of pocket before they release your surviving cargo!</p>
           `,
-          youtube: "https://www.youtube.com/embed/yQ5uIe-1pE8"
+          youtube: "https://www.youtube.com/embed/xxk_vmQarVo"
         },
         {
           id: "letter-of-credit-documentation",
@@ -1643,7 +1643,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Consistency across documents:</strong> The weights and piece counts on the B/L, Commercial Invoice, Packing List, and Certificate of Origin must align perfectly.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/5tXJp0T_zT0"
+          youtube: "https://www.youtube.com/embed/OLOvu_K7gYg"
         },
         {
           id: "common-documentation-errors",
@@ -1657,7 +1657,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>The Hidden Cost of Fixing Errors</h3>
             <p>Amending a Bill of Lading after the vessel has sailed typically incurs a "Manifest Amendment Fee" from the carrier (usually $50 - $150). However, the real danger is the time it takes. If an error forces a 4-day customs hold, the resulting port storage fees (demurrage) can easily exceed $1,500 per container.</p>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/PERXMyhvGNU"
         }
       ]
     },
@@ -1695,7 +1695,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <p><strong>The Incoterm Trap:</strong> If you buy goods <em>EXW (Ex-Works)</em>, you pay for blocks 1, 2, and 3. If you buy <em>FOB</em>, the seller pays block 1, and you only pay blocks 2 and 3.</p>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w"
+          youtube: "https://www.youtube.com/embed/xv7qokLPccM"
         },
         {
           id: "ocean-freight-rate-components",
@@ -1758,7 +1758,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>B/L Fee:</strong> The administrative fee the carrier charges to print and release the Bill of Lading.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/jOAiJoPmVNs"
         },
         {
           id: "air-freight-rate-components",
@@ -1797,7 +1797,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Screening Fee:</strong> Charged by the origin terminal operator (e.g., ground handling agents) to physically perform the scan.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/R0QKwQwwLvU"
         },
         {
           id: "fuel-surcharge-explained",
@@ -1824,7 +1824,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w"
+          youtube: "https://www.youtube.com/embed/C1qAp4Ww5_I"
         },
         {
           id: "origin-and-destination-charges",
@@ -1871,7 +1871,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/yQ5uIe-1pE8"
+          youtube: "https://www.youtube.com/embed/5jLBb1Nyr74"
         },
         {
           id: "gri-pss-emergency-surcharges",
@@ -1906,7 +1906,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/G2-Vxcf__Dc"
         },
         {
           id: "spot-rates-vs-contract-rates",
@@ -1938,7 +1938,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w"
+          youtube: "https://www.youtube.com/embed/RlX1xOi4kgI"
         },
         {
           id: "rate-validity-and-space-protection",
@@ -1960,7 +1960,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <p><strong>Space Protection:</strong> During Peak Season, smart forwarders will actually pay "Premium Space Guarantee" surcharges just to ensure the carrier doesn't roll their containers. This is why the absolute <em>cheapest rate</em> almost never equals the <em>best service</em>.</p>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w"
+          youtube: "https://www.youtube.com/embed/CJs_MjsW1Ds"
         },
         {
           id: "how-to-read-a-carrier-quotation",
@@ -1989,7 +1989,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                   </div>
                 </li>
                 <li style="display: flex; gap: 15px; background: #FFF; padding: 15px; border-radius: 8px; border-left: 4px solid #F59E0B;">
-                  <span style="font-size: 1.5rem;">📍</span>
+                  <span style="font-size: 1.5rem;">📜</span>
                   <div>
                     <strong style="color: #78350F; display: block; font-size: 1.05rem;">"Subject To" Clauses</strong>
                     Quotes often state: "Subject to GRI, BAF, and locals at time of shipment". This means the carrier has the legal right to increase the invoice if fuel spikes before sailing.
@@ -2005,7 +2005,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </ul>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w"
+          youtube: "https://www.youtube.com/embed/ICYZIF2UngI"
         },
         {
           id: "margin-and-profitability-basics",
@@ -2045,7 +2045,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <li><strong>Cargo Insurance:</strong> Taking a healthy commission on the insurance premium placed for the cargo.</li>
             </ul>
           `,
-          youtube: "https://www.youtube.com/embed/yQ5uIe-1pE8"
+          youtube: "https://www.youtube.com/embed/fK6aeyEQMGk"
         }
       ]
     },
@@ -2100,7 +2100,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/c0tW52b36Xg",
+          youtube: "https://www.youtube.com/embed/y9tyXL87l1A",
           linkToWidget: "logistics"
         },
         {
@@ -2142,7 +2142,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.9rem; color:#78350F; line-height: 1.6;">Fast-moving consumer goods (FMCG) like daily essentials are "slotted" at the very front of the warehouse on lower racks. Slow-moving goods are stored high up and at the very back. This simple logic saves thousands of hours of forklift driving time annually.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/j1uS1D_P2X8"
+          youtube: "https://www.youtube.com/embed/ZOL3uYZif6o"
         },
         {
           id: "bonded-warehousing",
@@ -2171,7 +2171,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/j1uS1D_P2X8"
+          youtube: "https://www.youtube.com/embed/OdNHBmSYHGE"
         },
         {
           id: "distribution-and-fulfilment",
@@ -2212,7 +2212,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/j1uS1D_P2X8"
+          youtube: "https://www.youtube.com/embed/PWMrsDd36vE"
         },
         {
           id: "cross-docking",
@@ -2261,7 +2261,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/j1uS1D_P2X8"
+          youtube: "https://www.youtube.com/embed/B3H4Tyo1DNk"
         },
         {
           id: "last-mile-delivery",
@@ -2298,7 +2298,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <p>Innovations like AI route-optimization algorithms, Amazon delivery lockers, crowd-sourced delivery (like Uber for packages), and autonomous delivery drones are all intensely focused on driving down the massive costs of this final mile.</p>
           `,
-          youtube: "https://www.youtube.com/embed/c0tW52b36Xg"
+          youtube: "https://www.youtube.com/embed/PAMByz2OmYU"
         },
         {
           id: "inventory-flow",
@@ -2337,7 +2337,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/c0tW52b36Xg"
+          youtube: "https://www.youtube.com/embed/0NOER-Lle-0"
         },
         {
           id: "3pl-and-4pl-logistics",
@@ -2388,7 +2388,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/c0tW52b36Xg"
+          youtube: "https://www.youtube.com/embed/9J2pTNTksno"
         },
         {
           id: "reverse-logistics",
@@ -2426,7 +2426,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <p><strong>The Challenge:</strong> Reverse logistics is highly complex because goods come back in unpredictable conditions (damaged boxes, missing parts, worn clothing), making automated robotic sorting very difficult. It requires heavy human intervention.</p>
           `,
-          youtube: "https://www.youtube.com/embed/c0tW52b36Xg"
+          youtube: "https://www.youtube.com/embed/U0BxGJ5q-HE"
         },
         {
           id: "e-commerce-logistics",
@@ -2446,7 +2446,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </ul>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/VbLowVNpj_8"
         }
       ]
     },
@@ -2486,7 +2486,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <h3>Specialized Handling and Packaging</h3>
             <p>Handling perishables requires highly specialized infrastructure. Warehouses must have distinct temperature zones (e.g., a 2Â°C to 8Â°C room for vaccines, and a -20Â°C room for frozen meats). Furthermore, packaging is crucial. Exporters use heavily insulated styrofoam boxes, layered with specialized gel packs or dry ice, and sealed meticulously to maintain the micro-climate inside the box for up to 72 hours of transit time.</p>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w",
+          youtube: "https://www.youtube.com/embed/NhXwxpGn0Uw",
           linkToWidget: "reefer"
         },
         {
@@ -2533,7 +2533,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.95rem; color:#475569; line-height: 1.6;">How does the buyer know the shipping line didn't unplug the container to save fuel? High-value shipments always contain USB or GPS-enabled temperature data loggers hidden inside the boxes. Upon arrival, the consignee downloads the data to prove the temperature never spiked. If the graph shows a spike, the consignee rejects the cargo and files a massive insurance claim against the carrier.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/4G1L5fBvM0w",
+          youtube: "https://www.youtube.com/embed/iblelo0_7T4",
           linkToWidget: "reefer"
         },
         {
@@ -2577,7 +2577,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/1lXkkTlXZzI"
         },
         {
           id: "oversized-cargo",
@@ -2619,7 +2619,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.95rem; color:#78350F; line-height: 1.6;">If your cargo is too wide and spills over the edge of a Flat Rack, the ocean carrier physically cannot load another container next to yours on the ship. They are losing revenue-generating space. Therefore, the carrier will charge you a heavy penalty for the space you are blocking (Lost Slots). Shipping OOG is exponentially more expensive than shipping standard containers.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/t-6Qx4_4G7k"
+          youtube: "https://www.youtube.com/embed/Y0cLIKNUXDE"
         },
         {
           id: "heavy-lift-cargo",
@@ -2648,7 +2648,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/egcaywU-8I4"
         },
         {
           id: "food-and-beverage-cargo",
@@ -2686,7 +2686,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/Y8Li61swxco"
         },
         {
           id: "tea-and-agricultural-products",
@@ -2720,7 +2720,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/KDROpgRtIXM"
         },
         {
           id: "garments-and-retail-cargo",
@@ -2750,7 +2750,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/K3XyrrcXtp4"
         },
         {
           id: "electronics-and-high-value-cargo",
@@ -2783,7 +2783,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/6-L-U6Z5FHk"
         },
         {
           id: "project-cargo",
@@ -2817,7 +2817,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/dnZCzCgF0Gg"
         }
       ]
     },
@@ -2838,7 +2838,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Sri Lanka to USA trade lane is one of the highest volume and most time-sensitive corridors, heavily dominated by the apparel, textile, and solid tire industries. Fast-fashion brands (like Victoria's Secret, Gap, and Nike) operate on strict seasonal timelines, meaning delays can result in entire collections being rejected by US buyers.</p>
             
             <div style="margin:30px 0; display:flex; flex-direction:column; gap:20px; background:#F8FAFC; border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0; color:#0F172A; text-align:center; font-size: 1.3rem;">📍 OCEAN ROUTING & TRANSIT TIMES (COLOMBO TO USA)</h4>
+              <h4 style="margin:0; color:#0F172A; text-align:center; font-size: 1.3rem;">🌐 OCEAN ROUTING & TRANSIT TIMES (COLOMBO TO USA)</h4>
               
               <div style="display:flex; justify-content:space-between; align-items:center; background:#EFF6FF; border:1px solid #93C5FD; padding:20px; border-radius:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <div>
@@ -2866,7 +2866,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FDA4AF; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">📍 THE ISF 10+2 MANDATE (IMPORTER SECURITY FILING)</h4>
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">🛡️ THE ISF 10+2 MANDATE (IMPORTER SECURITY FILING)</h4>
               <p style="font-size:0.95rem; color:#881337; line-height:1.6; margin:0 0 15px 0;">Post-9/11, U.S. Customs and Border Protection (CBP) enacted strict maritime security laws. The most critical for exporters from Sri Lanka is the <strong>ISF 10+2</strong> rule.</p>
               
               <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#9F1239; line-height:1.7;">
@@ -2876,7 +2876,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </ul>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/tM1X7H5L108"
+          youtube: "https://www.youtube.com/embed/Mi6s4gA-OC4"
         },
         {
           id: "sri-lanka-to-canada",
@@ -2889,7 +2889,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>While the Sri Lanka to Canada routes heavily mirror the US trade lanes (often utilizing the same mother vessels across the Pacific or Atlantic), they are subject to Canada's unique geographic challenges, strict winter port operations, and Canada Border Services Agency (CBSA) regulations.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">📍 CANADIAN GATEWAY ROUTING & RAIL HUBS</h4>
+              <h4 style="margin:0 0 20px 0; color:#0369A1; text-align: center; font-size: 1.3rem;">🗺️ CANADIAN GATEWAY ROUTING & RAIL HUBS</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                 <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #0284C7;">
@@ -2911,7 +2911,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <p><strong>Customs Critical (eManifest):</strong> Similar to the US ISF, Canada requires an Advance Commercial Information (ACI) filing via the eManifest system. Freight forwarders must transmit electronic house bill data to the CBSA 24 hours prior to loading at the port of origin.</p>
           `,
-          youtube: "https://www.youtube.com/embed/tM1X7H5L108"
+          youtube: "https://www.youtube.com/embed/fxvM0iVjM90"
         },
         {
           id: "sri-lanka-to-europe",
@@ -2924,7 +2924,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Asia-to-Europe trade lane is one of the highest volume corridors in the world. Sri Lanka is geographically positioned perfectly along this route. Historically, this lane relies entirely on the Suez Canal to avoid the massive, costly, and time-consuming detour around the Cape of Good Hope (tip of Africa).</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📍 THE EUROPEAN LOGISTICS FRAMEWORK</h4>
+              <h4 style="margin:0 0 20px 0; color:#B45309; text-align: center; font-size: 1.3rem;">🇪🇺 THE EUROPEAN LOGISTICS FRAMEWORK</h4>
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #D97706; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
@@ -2944,7 +2944,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/ILLWb3YD1Zw"
         },
         {
           id: "sri-lanka-to-australia",
@@ -2957,7 +2957,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Sri Lanka to Australia lane primarily feeds into major coastal cities (Sydney, Melbourne, Brisbane, Fremantle/Perth). Because trade volumes from Colombo to Australia don't justify many direct ships, transit times average 18-25 days, usually relying on massive transshipment operations at the Port of Singapore (PSA) or Port Klang (Malaysia).</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border:2px solid #FCA5A5; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">📍 DAFF BIOSECURITY: THE STRICTEST IN THE WORLD</h4>
+              <h4 style="margin:0 0 15px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">🔬 DAFF BIOSECURITY: THE STRICTEST IN THE WORLD</h4>
               <p style="font-size:0.95rem; color:#7F1D1D; line-height:1.6; margin:0 0 20px 0; text-align: center;">Australia (an isolated island continent) enforces ruthless environmental protection laws through the Department of Agriculture, Fisheries and Forestry (DAFF) to prevent invasive pests, weed seeds, and diseases from devastating their unique ecosystem and agricultural industry.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -2978,7 +2978,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/i4dPd7_bHzQ"
         },
         {
           id: "sri-lanka-to-india",
@@ -2991,7 +2991,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The trade lane between Sri Lanka and India is characterized by ultra-short transit times, immense volume, and high-frequency "Feeder" vessel schedules. Because many massive global mother vessels (e.g., from Europe) are too deep to dock at Indian ports, they drop thousands of containers in Colombo, acting as the primary transshipment hub for the entire Indian Subcontinent.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border:2px solid #FDBA74; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#C2410C; text-align: center; font-size: 1.3rem;">📍 THE REGIONAL FEEDER NETWORK</h4>
+              <h4 style="margin:0 0 15px 0; color:#C2410C; text-align: center; font-size: 1.3rem;">⚓ THE REGIONAL FEEDER NETWORK</h4>
               <p style="font-size:0.95rem; color:#9A3412; margin:0 0 20px 0; text-align: center; line-height: 1.6;">Smaller, shallow-draft "Feeder" vessels constantly shuttle back and forth between Colombo and various Indian ports, distributing the cargo dropped off by the global mother vessels.</p>
               
               <div style="display:flex; justify-content:space-around; align-items:stretch; flex-wrap:wrap; gap:15px;">
@@ -3013,7 +3013,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.95rem; color:#475569; line-height:1.6;">A cornerstone of this lane is the <strong>India-Sri Lanka Free Trade Agreement (ISFTA)</strong>. Exporters heavily utilize this agreement by obtaining a Certificate of Origin from the Department of Commerce, allowing their goods to enter India completely duty-free or at significant concessionary rates, giving Sri Lankan goods a massive price advantage in the Indian market.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/tM1X7H5L108"
+          youtube: "https://www.youtube.com/embed/9Xv3b5mQNPc"
         },
         {
           id: "indonesia-to-usa",
@@ -3026,7 +3026,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>Indonesia is an export powerhouse for furniture, footwear, rubber, and electronics heading to the United States. However, due to Indonesia's challenging archipelagic geography and port infrastructure, cargo heavily relies on a complex web of transshipment hubs.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%); border:2px solid #F0ABFC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">📍 THE SOUTHEAST ASIAN TRANSSHIPMENT PIPELINE</h4>
+              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">🌊 THE SOUTHEAST ASIAN TRANSSHIPMENT PIPELINE</h4>
               <p style="font-size:0.95rem; color:#701A75; line-height:1.6; margin:0 0 20px 0; text-align: center;">Very few massive Trans-Pacific vessels call directly at Indonesian ports (like Jakarta or Surabaya) due to draft (water depth) restrictions and port congestion.</p>
               
               <div style="display:flex; flex-direction:column; gap:10px;">
@@ -3056,7 +3056,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/tM1X7H5L108"
+          youtube: "https://www.youtube.com/embed/4m2RLGG-XtI"
         },
         {
           id: "indonesia-to-europe",
@@ -3069,7 +3069,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The Indonesia-to-Europe trade lane primarily exports palm oil, textiles, furniture, and electronics to Northern Europe (Rotterdam, Hamburg, Felixstowe) and Mediterranean ports (Genoa, Barcelona).</p>
             
             <div style="margin:30px 0; background:#F0FDF4; border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#14532D; font-size: 1.3rem; text-align: center;">📍 THE MALACCA STRAIT BOTTLENECK</h4>
+              <h4 style="margin:0 0 15px 0; color:#14532D; font-size: 1.3rem; text-align: center;">⚠️ THE MALACCA STRAIT BOTTLENECK</h4>
               
               <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
                 <div style="flex:1; min-width: 250px;">
@@ -3085,7 +3085,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             
             <p>Like all EU imports, these shipments require strict <strong>ICS2</strong> security filings prior to vessel departure, and must adhere to strict EU deforestation regulations (especially concerning palm oil and timber exports).</p>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/E04BLOCF9U8"
         },
         {
           id: "uae-to-gcc",
@@ -3098,7 +3098,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>While Jebel Ali (Dubai) is a massive ocean transshipment hub, much of the cargo bound for neighboring Middle Eastern countries (Saudi Arabia, Oman, Bahrain, Kuwait) moves via extensive and highly efficient Cross-Border Road Freight networks.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#B45309; text-align: center; font-size: 1.3rem;">📍 GCC TRUCKING CORRIDORS</h4>
+              <h4 style="margin:0 0 15px 0; color:#B45309; text-align: center; font-size: 1.3rem;">🚛 GCC TRUCKING CORRIDORS</h4>
               <p style="margin:0 0 20px 0; font-size:0.95rem; color:#92400E; text-align: center; line-height:1.6;">A standard 18-wheeler (or Curtain-Sider trailer) can reach Riyadh (Saudi Arabia) or Muscat (Oman) from Dubai in under 2-3 days, making it significantly faster and often more cost-effective than ocean feeder vessels.</p>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -3119,7 +3119,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/tM1X7H5L108"
+          youtube: "https://www.youtube.com/embed/9eho3AiK4qk"
         },
         {
           id: "china-to-sri-lanka",
@@ -3132,7 +3132,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>This is the absolute backbone of Sri Lanka's import economy. Almost all raw materials for the massive Sri Lankan apparel sector (fabric rolls, zippers, buttons), as well as consumer electronics, solar panels, and construction materials, flow exclusively through this lane.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border:2px solid #FCA5A5; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">📍 MAJOR CHINESE HUBS TO COLOMBO</h4>
+              <h4 style="margin:0 0 20px 0; color:#991B1B; text-align: center; font-size: 1.3rem;">🏭 MAJOR CHINESE HUBS TO COLOMBO</h4>
               
               <table style="width:100%; border-collapse:collapse; font-size:0.95rem; text-align:left; background:#FFF; border-radius:12px; overflow:hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <tr style="background:#EF4444; color: white;">
@@ -3163,7 +3163,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/zVn-FNhHbbQ"
         },
         {
           id: "india-to-uae",
@@ -3176,7 +3176,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             <p>The India-UAE corridor is one of the fastest, highest volume, and most lucrative trade lanes globally, driven by massive expatriate populations, food security needs, and recent geopolitical free trade agreements.</p>
             
             <div style="margin:30px 0; background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#14532D; text-align: center; font-size: 1.3rem;">📍 THE CEPA ADVANTAGE</h4>
+              <h4 style="margin:0 0 15px 0; color:#14532D; text-align: center; font-size: 1.3rem;">🤝 THE CEPA ADVANTAGE</h4>
               <p style="font-size:0.95rem; color:#166534; line-height:1.6; margin:0 0 20px 0; text-align: center;">The <strong>Comprehensive Economic Partnership Agreement (CEPA)</strong> signed between India and the UAE eliminated customs duties on nearly 80% of goods traded between the two countries.</p>
               
               <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
@@ -3195,7 +3195,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/tM1X7H5L108"
+          youtube: "https://www.youtube.com/embed/Wu0221O_EWI"
         }
       ]
     },
@@ -3226,7 +3226,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </p>
 
             <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">📍 END-TO-END EXPORT STANDARD OPERATING PROCEDURE (SOP)</h4>
+              <h4 style="margin:0 0 20px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">📋 END-TO-END EXPORT STANDARD OPERATING PROCEDURE (SOP)</h4>
               
               <div style="position: relative; padding-left: 40px;">
                 <div style="position: absolute; left: 15px; top: 0; bottom: 0; width: 4px; background: #CBD5E1; border-radius: 2px;"></div>
@@ -3314,7 +3314,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </p>
 
             <div style="margin:30px 0; background: linear-gradient(135deg, #FDF4FF 0%, #F5D0FE 100%); border:2px solid #F0ABFC; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">📍 THE 5-STAGE INBOUND RELEASE SEQUENCE</h4>
+              <h4 style="margin:0 0 15px 0; color:#86198F; font-size: 1.3rem; text-align: center;">🛃 THE 5-STAGE INBOUND RELEASE SEQUENCE</h4>
               
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 20px;">
                 <div style="background: #FFF; padding: 20px; border-radius: 12px; border-top: 4px solid #C026D3; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -3546,7 +3546,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.92rem; color:#1E3A8A; line-height:1.6;">A <strong>Switch Bill of Lading</strong> replaces the original B/L set during 3rd-party cross-trade shipments. It edits shipper details (showing the middle trader as exporter) and buyer details while keeping cargo descriptions identical, protecting commercial trade secrets.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/PK7c9aOb8NQ"
         },
         {
           id: "physical-cargo-flow",
@@ -3614,7 +3614,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </ul>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/Pj8E8XyY11Y"
+          youtube: "https://www.youtube.com/embed/hvlMMI1I4Fk"
         },
         {
           id: "customer-inquiry-to-quotation",
@@ -3662,7 +3662,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w"
+          youtube: "https://www.youtube.com/embed/JkRctLkT3Bo"
         },
         {
           id: "booking-to-final-delivery",
@@ -3894,7 +3894,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/J3gastsTgIg"
         },
         {
           id: "air-freight-glossary",
@@ -3938,7 +3938,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/uG6-R2gUe_Y"
+          youtube: "https://www.youtube.com/embed/40RFiUZZitE"
         },
         {
           id: "ocean-freight-glossary",
@@ -3995,7 +3995,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/5tXJp0T_zT0"
+          youtube: "https://www.youtube.com/embed/nZr0ogTjm3c"
         },
         {
           id: "customs-glossary",
@@ -4032,7 +4032,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/L13x2aM9WpM"
+          youtube: "https://www.youtube.com/embed/O-O_-6I3lDk"
         },
         {
           id: "incoterms-quick-guide",
@@ -4096,7 +4096,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/5F_3pP3n-9c",
+          youtube: "https://www.youtube.com/embed/U-tUVBaRk_Y",
           linkToWidget: "incoterms"
         },
         {
@@ -4152,7 +4152,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/z1XoD9p6WlA",
+          youtube: "https://www.youtube.com/embed/cS93atC3Pd0",
           linkToWidget: "containers"
         },
         {
@@ -4201,7 +4201,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0",
+          youtube: "https://www.youtube.com/embed/pO0oqS3zJNw",
           linkToWidget: "docs"
         },
         {
@@ -4260,7 +4260,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/9w_vVw7o84k"
+          youtube: "https://www.youtube.com/embed/0H0Q0VNLMu4"
         },
         {
           id: "freight-calculation-formulas-ref",
@@ -4302,7 +4302,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/zVpQ52bJp1w",
+          youtube: "https://www.youtube.com/embed/IZQw6ZBQing",
           linkToWidget: "containers"
         },
         {
@@ -4472,7 +4472,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/WJ_p-iN3pC0"
+          youtube: "https://www.youtube.com/embed/9LEanczg-Hw"
         }
       ]
     }
