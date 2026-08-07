@@ -89,21 +89,21 @@ function escapeHTML(str) {
    2. SPA ROUTING & DYNAMIC SEO TITLES & META
    ========================================== */
 const PAGE_SEO_TITLES = {
-  home: "Nexus Knowledge Hub | Freight Forwarding & Logistics Guide | Nexus Cargo (Pvt) Ltd",
+  home: "Nexus Knowledge Hub | Freight Forwarding & Logistics Guide | Nexus Cargos (Pvt) Ltd",
   news: "Global Logistics & Freight Supply Chain News | Nexus Knowledge Hub",
   learning: "Freight Forwarding Operations Library | Nexus Knowledge Hub",
   tools: "Interactive Shipping Tools & CBM Calculators | Nexus Knowledge Hub",
   ai: "Nexus AI Shipping Assistant - Freight Intelligence | Nexus Cargo",
-  contact: "Get in Touch & Booking Inquiries | Nexus Cargo (Pvt) Ltd"
+  contact: "Get in Touch & Booking Inquiries | Nexus Cargos (Pvt) Ltd"
 };
 
 const PAGE_SEO_DESCRIPTIONS = {
-  home: "Master freight forwarding, ocean & air cargo, Incoterms 2026, customs clearance, and supply chain logistics with Nexus Knowledge Hub by Nexus Cargo (Pvt) Ltd Sri Lanka.",
+  home: "Master freight forwarding, ocean & air cargo, Incoterms 2026, customs clearance, and supply chain logistics with Nexus Knowledge Hub by Nexus Cargos (Pvt) Ltd Sri Lanka.",
   news: "Stay updated with real-time global logistics, ocean shipping rates, air freight market updates, and supply chain headlines.",
   learning: "Explore comprehensive guides on ocean freight, air cargo, Incoterms, customs clearance, container specs, and shipping documentation.",
   tools: "Access interactive Incoterms 2026 matrix, CBM container loading calculator, aircraft specs visualizers, and shipping process simulators.",
   ai: "Ask Nexus AI for immediate answers on shipping terms, container specs, Incoterms rules, and freight operations compliance.",
-  contact: "Connect with Nexus Cargo (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support."
+  contact: "Connect with Nexus Cargos (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support."
 };
 
 function initSPARouting() {
