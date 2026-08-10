@@ -50,8 +50,8 @@ body {
    ========================================================================== */
 
 :root {
-  --sidebar-width: 260px;
-  --sidebar-width-collapsed: 72px;
+  --sidebar-width: 220px;
+  --sidebar-width-collapsed: 64px;
   --sidebar-bg: #FFFFFF;
   --sidebar-hover-bg: #F1F5F9;
   --sidebar-active-bg: linear-gradient(135deg, rgba(242, 105, 56, 0.1) 0%, rgba(42, 48, 109, 0.05) 100%);
@@ -100,7 +100,7 @@ body.sidebar-mobile-open .sidebar-backdrop {
 
 /* Sidebar Header & Brand (Vertical Alignment: Logo Top, Title Below) */
 .sidebar-header {
-  padding: 20px 14px 16px 14px;
+  padding: 14px 10px 12px 10px;
   border-bottom: 1px solid var(--sidebar-border);
   display: flex;
   flex-direction: column;
@@ -114,7 +114,7 @@ body.sidebar-mobile-open .sidebar-backdrop {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   user-select: none;
   width: 100%;
@@ -122,16 +122,16 @@ body.sidebar-mobile-open .sidebar-backdrop {
 }
 
 .sidebar-logo-img {
-  height: 42px;
-  width: 42px;
+  height: 36px;
+  width: 36px;
   object-fit: contain;
-  border-radius: 10px;
+  border-radius: 8px;
   filter: drop-shadow(0 2px 8px rgba(242, 105, 56, 0.2));
 }
 
 .sidebar-brand-name {
   font-family: var(--font-title);
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   font-weight: 800;
   color: var(--primary-navy);
   letter-spacing: -0.2px;
@@ -181,32 +181,32 @@ body.sidebar-mobile-open .sidebar-backdrop {
 /* Navigation List */
 .sidebar-nav {
   flex: 1;
-  padding: 10px 12px;
+  padding: 8px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .sidebar-nav-section-label {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: #94A3B8;
   letter-spacing: 1px;
-  padding: 14px 10px 6px 10px;
+  padding: 10px 8px 4px 8px;
   white-space: nowrap;
 }
 
 .sidebar-nav-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 11px 14px;
+  gap: 10px;
+  padding: 8px 10px;
   border-radius: var(--border-radius-sm);
   color: #475569;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -228,11 +228,11 @@ body.sidebar-mobile-open .sidebar-backdrop {
 }
 
 .sidebar-nav-icon {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 24px;
+  min-width: 20px;
 }
 
 .sidebar-nav-label {
@@ -240,8 +240,8 @@ body.sidebar-mobile-open .sidebar-backdrop {
 }
 
 .sidebar-nav-badge {
-  font-size: 0.7rem;
-  padding: 2px 7px;
+  font-size: 0.65rem;
+  padding: 2px 6px;
   border-radius: 20px;
   background: rgba(42, 48, 109, 0.1);
   color: var(--primary-navy);
@@ -255,31 +255,31 @@ body.sidebar-mobile-open .sidebar-backdrop {
 
 /* Sidebar Footer & Customization */
 .sidebar-footer {
-  padding: 16px;
+  padding: 10px;
   border-top: 1px solid var(--sidebar-border);
   background: #FAFAFC;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .sidebar-layout-customizer {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .sidebar-control-btn {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 6px 10px;
   background: var(--bg-white);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-sm);
   color: var(--text-dark);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -293,8 +293,8 @@ body.sidebar-mobile-open .sidebar-backdrop {
 .sidebar-user-badge {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 6px;
+  gap: 8px;
+  padding: 6px 4px;
   border-top: 1px dashed var(--border-color);
   text-decoration: none;
   border-radius: var(--border-radius-sm);
@@ -311,16 +311,16 @@ body.sidebar-mobile-open .sidebar-backdrop {
 }
 
 .user-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
   background: #FFFFFF;
   border: 1.5px solid var(--border-color);
   box-shadow: 0 2px 6px rgba(10, 37, 64, 0.06);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 3px;
   flex-shrink: 0;
   transition: all 0.2s ease;
 }
@@ -338,13 +338,13 @@ body.sidebar-mobile-open .sidebar-backdrop {
 }
 
 .user-name {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--primary-navy);
 }
 
 .user-role {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
 }
 
@@ -441,7 +441,7 @@ body.sidebar-collapsed .main-content-wrapper {
 
   .app-sidebar {
     transform: translateX(-100%);
-    width: 280px !important;
+    width: 240px !important;
   }
 
   body.sidebar-mobile-open .app-sidebar {
