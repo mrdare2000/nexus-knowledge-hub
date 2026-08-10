@@ -94,6 +94,7 @@ const PAGE_SEO_TITLES = {
   learning: "Freight Forwarding Operations Library | Nexus Knowledge Hub",
   tools: "Interactive Shipping Tools & CBM Calculators | Nexus Knowledge Hub",
   ai: "Nexus AI Shipping Assistant - Freight Intelligence | Nexus Cargo",
+  voices: "Nexus Voice | Industry Expert Articles & Supply Chain Podcasts | Nexus Cargos (Pvt) Ltd",
   contact: "Get in Touch & Booking Inquiries | Nexus Cargos (Pvt) Ltd"
 };
 
@@ -103,6 +104,7 @@ const PAGE_SEO_DESCRIPTIONS = {
   learning: "Explore comprehensive guides on ocean freight, air cargo, Incoterms, customs clearance, container specs, and shipping documentation.",
   tools: "Access interactive Incoterms 2026 matrix, CBM container loading calculator, aircraft specs visualizers, and shipping process simulators.",
   ai: "Ask Nexus AI for immediate answers on shipping terms, container specs, Incoterms rules, and freight operations compliance.",
+  voices: "Explore upcoming industry expert insights, guest articles, and logistics podcasts on Nexus Voice by Nexus Cargos (Pvt) Ltd.",
   contact: "Connect with Nexus Cargos (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support."
 };
 

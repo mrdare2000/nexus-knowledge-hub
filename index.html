@@ -194,6 +194,11 @@
         <span class="sidebar-nav-label">Nexus AI</span>
         <span class="sidebar-nav-badge ai-badge">AI</span>
       </a>
+      <a class="sidebar-nav-item" data-page="voices" onclick="switchPage('voices')">
+        <span class="sidebar-nav-icon">🎙️</span>
+        <span class="sidebar-nav-label">Nexus Voice</span>
+        <span class="sidebar-nav-badge soon-badge" style="background: var(--accent-orange); color: white;">SOON</span>
+      </a>
       <a class="sidebar-nav-item" data-page="contact" onclick="switchPage('contact')">
         <span class="sidebar-nav-icon">📧</span>
         <span class="sidebar-nav-label">Get In Touch</span>
@@ -1261,12 +1266,42 @@
     </div>
   </section>
 
+  <!-- NEXUS VOICE PAGE (COMING SOON) -->
+  <section id="voices-page" class="page-section">
+    <div class="section-header">
+      <h2><span style="color: var(--primary-navy);">Nexus</span> <span
+          style="color: var(--accent-orange);">Voice</span></h2>
+      <p>Industry Expert Articles, Thought Leadership & Freight Supply Chain Podcasts.</p>
+    </div>
+
+    <div style="max-width: 800px; margin: 50px auto 60px auto; text-align: center; background: #ffffff; padding: 65px 40px; border-radius: 20px; border: 1.5px solid var(--border-color); box-shadow: var(--shadow-md);">
+      
+      <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: rgba(255, 90, 31, 0.08); border-radius: 20px; margin-bottom: 24px; font-size: 2.5rem; color: var(--accent-orange);">
+        🎙️
+      </div>
+
+      <div>
+        <span style="display: inline-block; background: rgba(255, 90, 31, 0.1); color: var(--accent-orange); font-size: 0.78rem; font-weight: 800; padding: 5px 16px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
+          COMING SOON
+        </span>
+      </div>
+
+      <h3 style="font-family: var(--font-title); font-size: 2.2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 14px; letter-spacing: -0.5px;">
+        Get Ready for Something Special!
+      </h3>
+
+      <p style="font-size: 1.05rem; color: var(--text-muted); max-width: 580px; margin: 0 auto; line-height: 1.7; font-weight: 400;">
+        We are preparing a brand new experience featuring industry expert articles, thought leadership, and freight forwarding podcasts. Stay tuned!
+      </p>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-content"
-      style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; padding: 40px 10%; max-width: 1400px; margin: 0 auto;">
+      style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding: 40px 4%; max-width: 1400px; margin: 0 auto;">
       <div class="footer-logo"
-        style="display: flex; flex-direction: column; align-items: flex-start; gap: 15px; flex: 1; min-width: 250px;">
+        style="display: flex; flex-direction: column; align-items: flex-start; gap: 15px; flex: 1.2; min-width: 200px;">
         <div
           style="background-color: #ffffff; padding: 8px 16px; border-radius: var(--border-radius-sm); box-shadow: var(--shadow-sm);">
           <img src="images/logo.png" alt="Nexus Cargo Logo" style="height: 35px; width: auto; object-fit: contain;">
@@ -1274,7 +1309,7 @@
         <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8); line-height: 1.5; font-weight: 500;"><strong>Nexus Cargos (Pvt) Ltd</strong><br>Level 1, Parkland 1, No 33, Park Street,<br>Colombo 02, Sri Lanka</p>
       </div>
 
-      <div class="footer-links" style="display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 200px;">
+      <div class="footer-links" style="display: flex; flex-direction: column; gap: 10px; flex: 0.8; min-width: 160px;">
         <h4 style="color: var(--accent-orange); font-family: var(--font-title); font-size: 1.1rem; margin-bottom: 5px;">
           Platform</h4>
         <a onclick="switchPage('home')"
@@ -1287,9 +1322,11 @@
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Interactive Tools</a>
         <a onclick="switchPage('ai')"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Nexus AI</a>
+        <a onclick="switchPage('voices')"
+          style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Nexus Voice <span style="font-size: 0.7rem; background: var(--accent-orange); padding: 2px 6px; border-radius: 4px; color: white; font-weight: 700;">SOON</span></a>
       </div>
 
-      <div class="footer-contact" style="display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 250px;">
+      <div class="footer-contact" style="display: flex; flex-direction: column; gap: 10px; flex: 1.2; min-width: 200px;">
         <h4 style="color: var(--accent-orange); font-family: var(--font-title); font-size: 1.1rem; margin-bottom: 5px;">
           Connect With Us</h4>
         <a href="mailto:darshika@nexuscargos.com"
