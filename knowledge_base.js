@@ -2046,6 +2046,61 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </ul>
           `,
           youtube: "https://www.youtube.com/embed/fK6aeyEQMGk"
+        },
+        {
+          id: "fmc-rate-filing",
+          title: "FMC Rate Filing",
+          summary: "US Federal Maritime Commission tariffs, NRAs, NSAs, and OSRA 2022 compliance.",
+          image: "images/fmc_rate_filing.png",
+          content: `
+            <img src="images/fmc_rate_filing.png" alt="fmc-rate-filing infographic" class="kb-infographic" />
+
+            <p>In US ocean freight shipping, the <strong>Federal Maritime Commission (FMC)</strong> strictly regulates all ocean common carriers (VOCCs) and Non-Vessel Operating Common Carriers (NVOCCs) under the Shipping Act of 1984, OSRA 1998, and the <strong>Ocean Shipping Reform Act of 2022 (OSRA 2022)</strong>. All rates, surcharges, and rules applied to US import and export shipments must be filed or published in strict accordance with FMC regulations.</p>
+
+            <div style="margin:30px 0; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); border:2px solid #38BDF8; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif; color:#FFF;">
+              <h4 style="margin:0 0 15px 0; color:#38BDF8; font-size:1.3rem; text-align:center;">🏛️ THE 3 CORE FMC COMPLIANCE PATHWAYS FOR NVOCCs</h4>
+              <p style="font-size:0.95rem; color:#94A3B8; line-height:1.6; margin:0 0 20px 0; text-align:center;">An NVOCC shipping ocean cargo to or from the United States cannot simply quote rates verbally. They must operate under one of three legally binding FMC tariff frameworks:</p>
+              
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px;">
+                <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); padding:20px; border-radius:12px; border-top:4px solid #38BDF8;">
+                  <strong style="color:#38BDF8; font-size:1.1rem; display:block; margin-bottom:8px;">1. Automated Public Tariffs (46 CFR Part 520)</strong>
+                  <p style="font-size:0.88rem; color:#CBD5E1; line-height:1.5; margin:0;">Historically mandatory for all rates. Rates, rules, and surcharges are published in an electronic public tariff system accessible 24/7 to the public. Subject to strict advance notice rules.</p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); padding:20px; border-radius:12px; border-top:4px solid #F59E0B;">
+                  <strong style="color:#F59E0B; font-size:1.1rem; display:block; margin-bottom:8px;">2. NRAs (Negotiated Rate Arrangements - 46 CFR Part 532)</strong>
+                  <p style="font-size:0.88rem; color:#CBD5E1; line-height:1.5; margin:0;">The most common exemption. Allows NVOCCs and shippers to agree on a specific spot rate in writing (e.g., email or quotation) prior to cargo receipt at origin, exempting the rate from public tariff filing.</p>
+                </div>
+
+                <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); padding:20px; border-radius:12px; border-top:4px solid #10B981;">
+                  <strong style="color:#10B981; font-size:1.1rem; display:block; margin-bottom:8px;">3. NSAs (NVOCC Service Arrangements - 46 CFR Part 531)</strong>
+                  <p style="font-size:0.88rem; color:#CBD5E1; line-height:1.5; margin:0;">Written service contracts between an NVOCC and a shipper for committed minimum volume over a defined time period. Confidential terms are filed directly with the FMC.</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin:30px 0; background:#FFFBEB; border:2px solid #FDE68A; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 15px 0; color:#B45309; font-size:1.2rem;">⏱️ THE 30-DAY ADVANCE NOTICE RULE & OTI BONDS</h4>
+              
+              <div style="display:flex; flex-direction:column; gap:15px;">
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#92400E; font-size:1.05rem; display:block; margin-bottom:5px;">Mandatory 30-Day Notice for Rate Increases</strong>
+                  <p style="font-size:0.92rem; color:#78350F; line-height:1.6; margin:0;">Under FMC tariff rules, any change that <em>increases</em> a published ocean freight rate or surcharge (GRI, PSS, BAF) cannot take effect until <strong>30 days AFTER</strong> it is publicly filed. However, rate reductions can take effect immediately upon filing.</p>
+                </div>
+
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#92400E; font-size:1.05rem; display:block; margin-bottom:5px;">Ocean Transportation Intermediary (OTI) Bonds</strong>
+                  <p style="font-size:0.92rem; color:#78350F; line-height:1.6; margin:0;">To legally issue House Bills of Lading on US trade lanes, US-licensed NVOCCs must post a <strong>$75,000 financial bond</strong> (+ $10,000 per branch). Foreign un-licensed NVOCCs operating in US trades must maintain a <strong>$150,000 FMC bond</strong> and file a Form FMC-60 registration.</p>
+                </div>
+
+                <div style="background:#FFF; padding:18px; border-radius:10px; border-left:4px solid #D97706; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#92400E; font-size:1.05rem; display:block; margin-bottom:5px;">OSRA 2022 & Detention & Demurrage Billing Mandates</strong>
+                  <p style="font-size:0.92rem; color:#78350F; line-height:1.6; margin:0;">Enacted under the Ocean Shipping Reform Act of 2022, carriers and NVOCCs issuing Detention or Demurrage invoices must include 13 mandatory data elements (e.g., container availability date, free time dates, specific billing parties). Invoices missing required data are completely void under US federal law.</p>
+                </div>
+              </div>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/fPb_1jIbaOs"
         }
       ]
     },
@@ -2830,7 +2885,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "sri-lanka-to-usa",
           title: "Sri Lanka to USA",
-          summary: "ISF compliance and ports routing.",
+          summary: "ISF 10+2 & AMS compliance, ports routing, and transit times.",
           image: "images/sri_lanka_to_usa.png",
           content: `
             <img src="images/sri_lanka_to_usa.png" alt="sri-lanka-to-usa infographic" class="kb-infographic" />
@@ -2866,13 +2921,13 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
             
             <div style="margin:30px 0; background:#FFF1F2; border: 2px solid #FDA4AF; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
-              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">🛡️ THE ISF 10+2 MANDATE (IMPORTER SECURITY FILING)</h4>
-              <p style="font-size:0.95rem; color:#881337; line-height:1.6; margin:0 0 15px 0;">Post-9/11, U.S. Customs and Border Protection (CBP) enacted strict maritime security laws. The most critical for exporters from Sri Lanka is the <strong>ISF 10+2</strong> rule.</p>
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size: 1.2rem;">🛡️ US CUSTOMS COMPLIANCE: ISF 10+2 & AMS FILINGS</h4>
+              <p style="font-size:0.95rem; color:#881337; line-height:1.6; margin:0 0 15px 0;">Post-9/11, U.S. Customs and Border Protection (CBP) enacted strict security mandates. For exporters from Sri Lanka to the USA, two critical electronic filings are required prior to vessel departure:</p>
               
               <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#9F1239; line-height:1.7;">
-                <li><strong>The 24-Hour Rule:</strong> The electronic ISF data MUST be successfully transmitted and accepted by US Customs at least <strong>24 hours BEFORE</strong> the container is loaded onto the mother vessel at the Port of Colombo.</li>
-                <li><strong>The Consequence:</strong> If a container is loaded without an accepted ISF on file, the US importer will be hit with a mandatory <strong>$5,000 fine per container</strong> upon arrival in the US.</li>
-                <li><strong>Data Elements:</strong> Requires 10 data points from the importer (Manufacturer, Seller, Buyer, Ship-to party, etc.) and 2 from the carrier (Vessel Stow Plan, Container Status Messages).</li>
+                <li style="margin-bottom:10px;"><strong>1. AMS (Automated Manifest System):</strong> Ocean carriers and NVOCCs/Freight Forwarders must transmit full electronic Master & House Bill of Lading cargo manifest data to US CBP at least <strong>24 hours BEFORE</strong> loading at origin.</li>
+                <li style="margin-bottom:10px;"><strong>2. ISF 10+2 (Importer Security Filing):</strong> Transmitted electronically by the US Importer at least <strong>24 hours BEFORE</strong> vessel departure from origin port. Missing or late filing incurs a mandatory <strong>$5,000 fine per container</strong>.</li>
+                <li><strong>Data Elements:</strong> ISF requires 10 data points from the importer (Manufacturer, Seller, Buyer, Ship-to party, etc.) and 2 from the carrier (Vessel Stow Plan, Container Status Messages).</li>
               </ul>
             </div>
           `,
@@ -2881,7 +2936,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "sri-lanka-to-canada",
           title: "Sri Lanka to Canada",
-          summary: "Routing to Montreal and Vancouver gateways.",
+          summary: "ACI eManifest compliance, Montreal and Vancouver gateways.",
           image: "images/sri_lanka_to_canada.png",
           content: `
             <img src="images/sri_lanka_to_canada.png" alt="sri-lanka-to-canada infographic" class="kb-infographic" />
@@ -2909,14 +2964,17 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
             
-            <p><strong>Customs Critical (eManifest):</strong> Similar to the US ISF, Canada requires an Advance Commercial Information (ACI) filing via the eManifest system. Freight forwarders must transmit electronic house bill data to the CBSA 24 hours prior to loading at the port of origin.</p>
+            <div style="margin:25px 0; background:#EFF6FF; border-left:4px solid #2563EB; padding:20px; border-radius:0 12px 12px 0; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#1E40AF; font-size:1.15rem;">🇨🇦 CUSTOMS CRITICAL: ACI eMANIFEST FILING</h4>
+              <p style="margin:0; font-size:0.95rem; color:#1E3A8A; line-height:1.6;">Similar to the <strong>US AMS</strong> filing, Canada requires an <strong>Advance Commercial Information (ACI)</strong> filing via the <strong>eManifest</strong> system. Freight forwarders and carriers must transmit electronic House Bill of Lading (eHBL) and primary manifest data to the Canada Border Services Agency (CBSA) at least <strong>24 hours prior to loading</strong> at the port of origin.</p>
+            </div>
           `,
           youtube: "https://www.youtube.com/embed/fxvM0iVjM90"
         },
         {
           id: "sri-lanka-to-europe",
           title: "Sri Lanka to Europe",
-          summary: "Suez Canal routing and ICS2 customs guidelines.",
+          summary: "Suez Canal routing, ICS2 and ENS Entry Summary Declaration.",
           image: "images/sri_lanka_to_europe.png",
           content: `
             <img src="images/sri_lanka_to_europe.png" alt="sri-lanka-to-europe infographic" class="kb-infographic" />
@@ -2928,8 +2986,8 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               
               <div style="display:flex; flex-direction:column; gap:15px;">
                 <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #D97706; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                  <strong style="color:#92400E; font-size: 1.1rem; display:block; margin-bottom:8px;">ICS2 (Import Control System 2) Compliance</strong>
-                  <p style="font-size:0.95rem; color:#78350F; line-height:1.6; margin:0;">The European Union operates a massive, interconnected security framework. Before any cargo is loaded onto a ship destined for or transiting through the EU, the forwarder must transmit a detailed <strong>ENS (Entry Summary Declaration)</strong>. This allows EU Customs to screen the cargo data for terrorism, weapons, or contraband risks while the ship is still sitting in the Port of Colombo.</p>
+                  <strong style="color:#92400E; font-size: 1.1rem; display:block; margin-bottom:8px;">ICS2 Compliance & ENS (Entry Summary Declaration)</strong>
+                  <p style="font-size:0.95rem; color:#78350F; line-height:1.6; margin:0;">The European Union operates a strict maritime security framework under <strong>ICS2 (Import Control System 2)</strong>. Before any container is loaded onto a ship destined for or transiting through the EU, the freight forwarder or carrier must electronically submit a detailed <strong>ENS (Entry Summary Declaration)</strong>. This allows EU Customs to screen cargo risk while the ship is still sitting in the Port of Colombo.</p>
                 </div>
                 
                 <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #D97706; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
