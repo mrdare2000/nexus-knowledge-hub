@@ -184,23 +184,44 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "types-of-shipping-containers",
           title: "Types of Shipping Containers",
-          summary: "An overview of container equipment types used in sea shipping.",
+          summary: "Detailed ISO container equipment types, dimensions, and cargo applications.",
           image: "images/types_of_shipping_containers_infographic.png",
           content: `
-            <p>Choosing the correct shipping container is vital to protect cargo integrity and minimize deadweight transport costs. Standard container designs are classified under international ISO standards:</p>
+            <p>Choosing the correct shipping container is vital to protect cargo integrity, ensure physical safety at sea, and minimize deadweight transport costs. Standard container designs are classified under international ISO 6346 standards:</p>
 
             <img src="images/types_of_shipping_containers_infographic.png" alt="Types of Shipping Containers Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
 
-            <h3>1. Dry Van / General Purpose (DV/GP)</h3>
-            <p>Standard fully enclosed containers with rigid walls, roof, and end doors. Used for dry general cargo like textiles, packaged consumer products, paper, and dry bulk items.</p>
-            <h3>2. Reefer Container (RF)</h3>
-            <p>Thermally insulated containers equipped with an integrated refrigeration compressor unit powered by the vessel's electrical grid. Designed to transport perishables, food items, chemicals, and pharmaceutical drugs at temperature ranges from -30°C to +30°C.</p>
-            <h3>3. Open Top Container (OT)</h3>
-            <p>Features a removable tarpaulin roof rather than a solid metal ceiling. Ideal for loading oversized cargo (like heavy steel beams, machinery, logs) from above using overhead cranes.</p>
-            <h3>4. Flat Rack Container (FR)</h3>
-            <p>Features collapsible flat bulkheads at both ends and lacks side walls. Designed to transport Out-of-Gauge (OOG) machinery, yachts, boilers, and heavy vehicles that exceed standard container width and height limits.</p>
-            <h3>5. ISO Tank Container</h3>
-            <p>A cylindrical steel tank mounted within a standard 20ft container frame. Designed for bulk transport of food-grade liquids, spirits, gases, and dangerous chemicals.</p>
+            <div style="margin:30px 0; display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:20px; font-family:'Outfit', sans-serif;">
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; border-top:4px solid #1D4ED8; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <strong style="color:#1D4ED8; font-size:1.15rem; display:block; margin-bottom:8px;">1. Dry Van / General Purpose (DV/GP)</strong>
+                <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0;">Standard fully enclosed rigid steel containers (20ft & 40ft). Designed for general dry cargo like garments, electronics, packaged goods, and dry bulk boxes.</p>
+              </div>
+
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; border-top:4px solid #059669; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <strong style="color:#059669; font-size:1.15rem; display:block; margin-bottom:8px;">2. Reefer Container (RF)</strong>
+                <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0;">Insulated units equipped with a refrigeration compressor powered by the vessel grid. Maintains precise temperatures (-30°C to +30°C) for fruits, meats, seafood, and pharmaceuticals.</p>
+              </div>
+
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; border-top:4px solid #EA580C; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <strong style="color:#EA580C; font-size:1.15rem; display:block; margin-bottom:8px;">3. Open Top Container (OT)</strong>
+                <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0;">Equipped with a heavy-duty removable tarpaulin roof instead of a solid steel ceiling. Used for loading tall or heavy machinery, timber, and steel coils from above via overhead cranes.</p>
+              </div>
+
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; border-top:4px solid #DC2626; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <strong style="color:#DC2626; font-size:1.15rem; display:block; margin-bottom:8px;">4. Flat Rack Container (FR)</strong>
+                <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0;">Features collapsible end bulkheads without side walls. Tailored for Out-of-Gauge (OOG) heavy cargo like industrial boilers, yachts, buses, and oversized machinery.</p>
+              </div>
+
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; border-top:4px solid #0284C7; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <strong style="color:#0284C7; font-size:1.15rem; display:block; margin-bottom:8px;">5. ISO Tank Container</strong>
+                <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0;">Cylindrical stainless steel pressure tank enclosed inside a 20ft ISO frame. Used for bulk liquids, food-grade oils, spirits, chemicals, and hazardous gases.</p>
+              </div>
+
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; border-top:4px solid #7C3AED; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <strong style="color:#7C3AED; font-size:1.15rem; display:block; margin-bottom:8px;">6. High Cube Container (HC)</strong>
+                <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0;">Offers an extra 1 foot of internal vertical height (9.5 ft total vs 8.5 ft standard). Increases usable volumetric capacity to ~76.4 CBM, ideal for light, high-volume cargo.</p>
+              </div>
+            </div>
           `,
           youtube: "https://www.youtube.com/embed/w0D4F8en_xE",
           linkToWidget: "containers"
@@ -378,20 +399,64 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "vessel-schedules-transit-times",
           title: "Vessel Schedules and Transit Times",
-          summary: "Understanding cut-offs, transit duration, and blank sailings.",
+          summary: "Understanding vessel opening time, cut-offs, blank sailings, and cargo rollover.",
           image: "images/vessel_schedules_transit_times_infographic.png",
           content: `
-            <p>Shipping lines coordinate port operations on strict schedules, though schedules are subject to maritime delays:</p>
+            <p>Shipping lines coordinate port operations on strict schedules, though schedules are subject to operational and maritime delays:</p>
 
             <img src="images/vessel_schedules_transit_times_infographic.png" alt="Vessel Schedules and Transit Times Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
 
-            <h3>1. Scheduled Deadlines (Cut-offs)</h3>
-            <ul>
-              <li><strong>CY Cut-Off:</strong> The final deadline by which the loaded and sealed container must arrive at the port terminal yard. Late containers are rolled over.</li>
-              <li><strong>SI Cut-Off:</strong> Shipping Instructions Cut-off. The final date by which the shipper must submit cargo descriptions and consignee details to the carrier for Bill of Lading generation.</li>
-            </ul>
-            <h3>2. Blank Sailing</h3>
-            <p>A blank sailing occurs when a carrier cancels a scheduled vessel port call or an entire voyage route. This is used to manage shipping capacity, respond to port labor strikes, adjust for severe delays, or control freight rates during low demand periods.</p>
+            <div style="margin:30px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 15px 0; color:#0F172A; text-align:center; font-size: 1.3rem;">⏱️ THE 6 STAGES OF OCEAN VESSEL TIMELINES</h4>
+              
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div style="background:#FFF; padding:15px; border-radius:10px; border-left:4px solid #3B82F6; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#1D4ED8; font-size:1.05rem; display:block;">1. Vessel Opening Time (ERD / Gate Opening)</strong>
+                  <span style="font-size:0.9rem; color:#475569;">The official date/time when the port container yard opens to receive export containers for a specific vessel voyage (typically 4-5 days prior to ETD). Gating-in before opening is rejected or incurs extra storage.</span>
+                </div>
+
+                <div style="background:#FFF; padding:15px; border-radius:10px; border-left:4px solid #3B82F6; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#1D4ED8; font-size:1.05rem; display:block;">2. SI Cut-Off (Shipping Instructions)</strong>
+                  <span style="font-size:0.9rem; color:#475569;">The final date by which the shipper must transmit full Shipping Instructions, CUSDEC export clearance, and Bill of Lading data to the ocean carrier.</span>
+                </div>
+
+                <div style="background:#FFF; padding:15px; border-radius:10px; border-left:4px solid #3B82F6; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#1D4ED8; font-size:1.05rem; display:block;">3. CY Cut-Off (Container Yard Terminal Gate-In)</strong>
+                  <span style="font-size:0.9rem; color:#475569;">The absolute deadline by which the stuffed and ISO-sealed container must gate-in at the port terminal. Late containers are rolled over to the next vessel.</span>
+                </div>
+
+                <div style="background:#FFF; padding:15px; border-radius:10px; border-left:4px solid #10B981; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#047857; font-size:1.05rem; display:block;">4. ETD (Estimated Time of Departure)</strong>
+                  <span style="font-size:0.9rem; color:#475569;">The scheduled date and time the vessel unmoors and departs the port of loading after loading operations complete.</span>
+                </div>
+
+                <div style="background:#FFF; padding:15px; border-radius:10px; border-left:4px solid #10B981; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#047857; font-size:1.05rem; display:block;">5. Ocean Voyage Transit</strong>
+                  <span style="font-size:0.9rem; color:#475569;">Sea transit duration across the ocean trade lane, influenced by vessel speed, fuel efficiency, weather conditions, and canal transits.</span>
+                </div>
+
+                <div style="background:#FFF; padding:15px; border-radius:10px; border-left:4px solid #10B981; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#047857; font-size:1.05rem; display:block;">6. ETA (Estimated Time of Arrival)</strong>
+                  <span style="font-size:0.9rem; color:#475569;">The projected date and time the vessel arrives, berths, and commences container discharge at the destination port.</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin:30px 0; background:#FFF1F2; border:2px solid #FDA4AF; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 15px 0; color:#9F1239; font-size:1.2rem;">⚠️ CRITICAL DISRUPTIONS: BLANK SAILINGS & ROLLED CARGO</h4>
+              
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:15px;">
+                <div style="background:#FFF; padding:18px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; font-size:1.1rem; display:block; margin-bottom:8px;">Blank Sailings (Voyage Cancellation)</strong>
+                  <p style="font-size:0.9rem; color:#881337; line-height:1.6; margin:0;">Occurs when a carrier cancels a scheduled port call or voyage. Primary drivers include low trade demand, port congestion, vessel maintenance, and severe <strong>weather conditions (flooding, typhoons, heavy winter storms)</strong>.</p>
+                </div>
+
+                <div style="background:#FFF; padding:18px; border-radius:12px; border-left:4px solid #E11D48; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                  <strong style="color:#BE123C; font-size:1.1rem; display:block; margin-bottom:8px;">Rolled Cargo (Cargo Rollover)</strong>
+                  <p style="font-size:0.9rem; color:#881337; line-height:1.6; margin:0;">Occurs when a container is left behind at origin despite meeting all cut-off deadlines. Driven primarily by carrier overbooking, ship weight/capacity limits, and vessel size constraints.</p>
+                </div>
+              </div>
+            </div>
           `,
           youtube: "https://www.youtube.com/embed/7Bopf2Rf-ac"
         },
@@ -417,21 +482,58 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "common-ocean-freight-challenges",
           title: "Common Ocean Freight Challenges",
-          summary: "Congestion, blank sailings, weather delays, and capacity shortages.",
+          summary: "Congestion, blank sailings, vessel delays, weather disruptions, and capacity shortages.",
           image: "images/common_ocean_freight_challenges_infographic.png",
           content: `
-            <p>Ocean freight operations require proactive risk management to counter standard logistics challenges:</p>
+            <p>Ocean freight operations require proactive risk management and strategic planning to counter standard supply chain challenges:</p>
 
             <img src="images/common_ocean_freight_challenges_infographic.png" alt="Common Ocean Freight Challenges Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:25px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
 
-            <h3>1. Port Congestion</h3>
-            <p>High vessel arrivals combined with labor shortages cause vessels to queue outside ports for days. This delays imports and causes truckers to face delays at terminal gates.</p>
-            <h3>2. Container & Equipment Shortage</h3>
-            <p>Imbalances in trade lanes cause empty containers to gather in import hubs (like Europe/USA) while manufacturing origins (like China) face container deficits.</p>
-            <h3>3. Cargo Rollover</h3>
-            <p>Shipping lines often overbook vessel slots. If a vessel reaches capacity, containers are rolled over to the next scheduled sailing, causing delays.</p>
-            <h3>4. Blank Sailings</h3>
-            <p>Frequent cancellation of schedules by shipping lines disrupts supply chain timelines and requires cargo to be re-booked with alternative carriers.</p>
+            <div style="margin:30px 0; background:#F8FAFC; border:1px solid #E2E8F0; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 20px 0; color:#0F172A; font-size:1.25rem; text-align:center; font-weight:700; border-bottom:2px solid #E2E8F0; padding-bottom:12px;">🛡️ THE 5 OCEAN FREIGHT RISKS & MITIGATION STRATEGIES</h4>
+              
+              <div style="display:flex; flex-direction:column; gap:16px;">
+                <div style="background:#FFF; border:1px solid #E2E8F0; padding:20px; border-radius:12px; border-left:5px solid #EF4444; box-shadow:0 2px 5px rgba(0,0,0,0.04);">
+                  <strong style="color:#B91C1C; font-size:1.1rem; display:block; margin-bottom:6px;">1. Port Congestion & Gate Delays</strong>
+                  <p style="font-size:0.92rem; color:#334155; line-height:1.6; margin:0 0 12px 0;">Heavy vessel arrivals combined with terminal labor shortages cause ships to queue outside ports for days, creating long truck queues at gates.</p>
+                  <div style="background:#FEF2F2; border-left:3px solid #EF4444; color:#991B1B; font-weight:600; font-size:0.88rem; padding:10px 14px; border-radius:6px;">
+                    💡 <strong>Mitigation:</strong> Pre-clear export customs, leverage live port status alerts, and utilize off-peak gate appointments.
+                  </div>
+                </div>
+
+                <div style="background:#FFF; border:1px solid #E2E8F0; padding:20px; border-radius:12px; border-left:5px solid #F59E0B; box-shadow:0 2px 5px rgba(0,0,0,0.04);">
+                  <strong style="color:#B45309; font-size:1.1rem; display:block; margin-bottom:6px;">2. Container & Equipment Shortage</strong>
+                  <p style="font-size:0.92rem; color:#334155; line-height:1.6; margin:0 0 12px 0;">Trade imbalances leave empty containers trapped at import hubs (US/EU) while manufacturing origin ports (Asia) face severe container deficits.</p>
+                  <div style="background:#FFFBEB; border-left:3px solid #F59E0B; color:#92400E; font-weight:600; font-size:0.88rem; padding:10px 14px; border-radius:6px;">
+                    💡 <strong>Mitigation:</strong> Forecast container demand 4-6 weeks early, diversify equipment suppliers, or use NOR (Non-Operating Reefer) substitutes.
+                  </div>
+                </div>
+
+                <div style="background:#FFF; border:1px solid #E2E8F0; padding:20px; border-radius:12px; border-left:5px solid #FF5A1F; box-shadow:0 2px 5px rgba(0,0,0,0.04);">
+                  <strong style="color:#C2410C; font-size:1.1rem; display:block; margin-bottom:6px;">3. Overbooking & Cargo Rollover</strong>
+                  <p style="font-size:0.92rem; color:#334155; line-height:1.6; margin:0 0 12px 0;">Carriers overbook ship capacity. Containers meeting cut-offs get rolled over to the next sailing if space runs out.</p>
+                  <div style="background:#FFF7ED; border-left:3px solid #FF5A1F; color:#9A3412; font-weight:600; font-size:0.88rem; padding:10px 14px; border-radius:6px;">
+                    💡 <strong>Mitigation:</strong> Negotiate "No-Roll" clauses, pre-book with multiple carrier alliances, and avoid loading right at CY cut-off.
+                  </div>
+                </div>
+
+                <div style="background:#FFF; border:1px solid #E2E8F0; padding:20px; border-radius:12px; border-left:5px solid #8B5CF6; box-shadow:0 2px 5px rgba(0,0,0,0.04);">
+                  <strong style="color:#6D28D9; font-size:1.1rem; display:block; margin-bottom:6px;">4. Carrier Blank Sailings</strong>
+                  <p style="font-size:0.92rem; color:#334155; line-height:1.6; margin:0 0 12px 0;">Carriers cancel scheduled voyages to balance ocean capacity, disrupting factory shipping schedules.</p>
+                  <div style="background:#F5F3FF; border-left:3px solid #8B5CF6; color:#5B21B6; font-weight:600; font-size:0.88rem; padding:10px 14px; border-radius:6px;">
+                    💡 <strong>Mitigation:</strong> Maintain safety stock buffers, track carrier blank sailing advisories, and plan flexible secondary routing.
+                  </div>
+                </div>
+
+                <div style="background:#FFF; border:1px solid #E2E8F0; padding:20px; border-radius:12px; border-left:5px solid #3B82F6; box-shadow:0 2px 5px rgba(0,0,0,0.04);">
+                  <strong style="color:#1D4ED8; font-size:1.1rem; display:block; margin-bottom:6px;">5. Vessel Delays & Schedule Unreliability</strong>
+                  <p style="font-size:0.92rem; color:#334155; line-height:1.6; margin:0 0 12px 0;">Severe weather (flooding, typhoons, winter blizzards) and canal bottlenecks (Suez/Panama Canal limits) cause vessels to miss ETAs.</p>
+                  <div style="background:#EFF6FF; border-left:3px solid #3B82F6; color:#1E40AF; font-weight:600; font-size:0.88rem; padding:10px 14px; border-radius:6px;">
+                    💡 <strong>Mitigation:</strong> Monitor satellite AIS vessel tracking, diversify port entry points, and buffer delivery lead times.
+                  </div>
+                </div>
+              </div>
+            </div>
           `,
           youtube: "https://www.youtube.com/embed/eYgTFXeKn1Q"
         }
