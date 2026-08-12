@@ -86,7 +86,7 @@ function escapeHTML(str) {
 }
 
 /* ==========================================
-   2. SPA ROUTING & DYNAMIC SEO TITLES & META
+   2. SPA ROUTING & DYNAMIC SEO TITLES & META (HTML5 History API)
    ========================================== */
 const PAGE_SEO_TITLES = {
   home: "Nexus Knowledge Hub | Freight Forwarding & Logistics Guide | Nexus Cargos (Pvt) Ltd",
@@ -108,6 +108,55 @@ const PAGE_SEO_DESCRIPTIONS = {
   contact: "Connect with Nexus Cargos (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support."
 };
 
+const PAGE_SLUGS = {
+  home: "home",
+  news: "news-feed",
+  learning: "knowledge-hub",
+  tools: "interactive-tools",
+  ai: "nexus-ai",
+  voices: "nexus-voice",
+  contact: "contact"
+};
+
+const SLUG_TO_PAGE = {
+  "home": "home",
+  "news": "news",
+  "news-feed": "news",
+  "learning": "learning",
+  "knowledge-hub": "learning",
+  "tools": "tools",
+  "interactive-tools": "tools",
+  "ai": "ai",
+  "nexus-ai": "ai",
+  "voices": "voices",
+  "nexus-voice": "voices",
+  "contact": "contact",
+  "get-in-touch": "contact"
+};
+
+function getPageFromURL() {
+  // Check pathname first (e.g. /interactive-tools or /news-feed)
+  const rawPath = window.location.pathname.replace(/^\/|\/$/g, "");
+  if (rawPath && SLUG_TO_PAGE[rawPath.toLowerCase()]) {
+    return SLUG_TO_PAGE[rawPath.toLowerCase()];
+  }
+
+  // Check hash fallback (e.g. #interactive-tools or #tools)
+  const hash = window.location.hash.replace(/^#\/?/, "");
+  if (hash && SLUG_TO_PAGE[hash.toLowerCase()]) {
+    return SLUG_TO_PAGE[hash.toLowerCase()];
+  }
+
+  // Check query parameter fallback (e.g. ?page=tools)
+  const urlParams = new URLSearchParams(window.location.search);
+  const pageParam = urlParams.get("page");
+  if (pageParam && SLUG_TO_PAGE[pageParam.toLowerCase()]) {
+    return SLUG_TO_PAGE[pageParam.toLowerCase()];
+  }
+
+  return "home";
+}
+
 function initSPARouting() {
   const navLinks = document.querySelectorAll(".nav-link");
   
@@ -121,9 +170,23 @@ function initSPARouting() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  // Listen for browser Back & Forward button navigation
+  window.addEventListener("popstate", (e) => {
+    const pageId = (e.state && e.state.pageId) ? e.state.pageId : getPageFromURL();
+    switchPage(pageId, false);
+  });
+
+  // Automatically activate initial page based on URL on entrance
+  const initialPage = getPageFromURL();
+  switchPage(initialPage, false, true);
 }
 
-function switchPage(pageId) {
+function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
+  if (!PAGE_SEO_TITLES[pageId]) {
+    pageId = "home";
+  }
+
   // Update browser window SEO title and meta description dynamically
   if (PAGE_SEO_TITLES[pageId]) {
     document.title = PAGE_SEO_TITLES[pageId];
@@ -132,6 +195,40 @@ function switchPage(pageId) {
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute("content", PAGE_SEO_DESCRIPTIONS[pageId]);
+    }
+  }
+
+  // Dynamic Canonical & Open Graph URL updates for Search Engines
+  const slug = PAGE_SLUGS[pageId] || "home";
+  const isFileProtocol = window.location.protocol === "file:";
+  const relativePath = pageId === "home" ? "/" : `/${slug}`;
+  const canonicalUrl = `https://nexusknowledgehub.com${relativePath}`;
+
+  const canonicalTag = document.querySelector('link[rel="canonical"]');
+  if (canonicalTag) {
+    canonicalTag.setAttribute("href", canonicalUrl);
+  }
+  const ogUrlTag = document.querySelector('meta[property="og:url"]');
+  if (ogUrlTag) {
+    ogUrlTag.setAttribute("content", canonicalUrl);
+  }
+
+  // Update HTML5 History API URL state safely (handles file:// local testing & live web servers)
+  const historyPath = isFileProtocol ? (pageId === "home" ? window.location.pathname : `#${slug}`) : relativePath;
+
+  if (updateHistory) {
+    try {
+      window.history.pushState({ pageId: pageId }, PAGE_SEO_TITLES[pageId] || "", historyPath);
+    } catch (err) {
+      if (isFileProtocol) {
+        window.location.hash = slug;
+      }
+    }
+  } else if (isInitialLoad && !isFileProtocol && window.location.pathname !== relativePath && pageId !== "home") {
+    try {
+      window.history.replaceState({ pageId: pageId }, PAGE_SEO_TITLES[pageId] || "", relativePath);
+    } catch (err) {
+      // Silent catch for initial load replacement
     }
   }
 
@@ -183,12 +280,17 @@ function switchPage(pageId) {
   }
 
   // Scroll to top after layout has been updated
-  setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
-  setTimeout(initScrollAnimations, 150);
+  if (!isInitialLoad) {
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 0);
+    setTimeout(initScrollAnimations, 150);
+  }
 
   // Close mobile sidebar drawer if active
   toggleMobileSidebar(false);
 }
+
+// Make switchPage available globally for inline onclick handlers
+window.switchPage = switchPage;
 
 /* ==========================================
    SIDEBAR NAVIGATION SYSTEM

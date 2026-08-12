@@ -162,43 +162,43 @@
   <!-- LEFT SIDEBAR NAVIGATION BAR -->
   <aside class="app-sidebar" id="app-sidebar" aria-label="Main Left Sidebar Navigation">
     <div class="sidebar-header">
-      <div class="sidebar-brand" onclick="switchPage('home')">
+      <a class="sidebar-brand" href="#home" onclick="switchPage('home'); return false;" style="text-decoration: none;">
         <img src="favicon.svg" alt="Nexus Knowledge Hub Icon" class="sidebar-logo-img">
         <span class="sidebar-brand-name">Nexus <span>Knowledge Hub</span></span>
-      </div>
+      </a>
     </div>
 
     <!-- Sidebar Main Navigation Menu -->
     <nav class="sidebar-nav">
       <div class="sidebar-nav-section-label">MAIN MENU</div>
-      <a class="sidebar-nav-item active" data-page="home" onclick="switchPage('home')">
+      <a class="sidebar-nav-item active" data-page="home" href="#home" onclick="switchPage('home'); return false;">
         <span class="sidebar-nav-icon">🏠</span>
         <span class="sidebar-nav-label">Home</span>
       </a>
-      <a class="sidebar-nav-item" data-page="news" onclick="switchPage('news')">
+      <a class="sidebar-nav-item" data-page="news" href="#news-feed" onclick="switchPage('news'); return false;">
         <span class="sidebar-nav-icon">📰</span>
         <span class="sidebar-nav-label">News Feed</span>
         <span class="sidebar-nav-badge">Live</span>
       </a>
-      <a class="sidebar-nav-item" data-page="learning" onclick="switchPage('learning')">
+      <a class="sidebar-nav-item" data-page="learning" href="#knowledge-hub" onclick="switchPage('learning'); return false;">
         <span class="sidebar-nav-icon">📚</span>
         <span class="sidebar-nav-label">Knowledge Hub</span>
       </a>
-      <a class="sidebar-nav-item" data-page="tools" onclick="switchPage('tools')">
+      <a class="sidebar-nav-item" data-page="tools" href="#interactive-tools" onclick="switchPage('tools'); return false;">
         <span class="sidebar-nav-icon">🛠️</span>
         <span class="sidebar-nav-label">Interactive Tools</span>
       </a>
-      <a class="sidebar-nav-item" data-page="ai" onclick="switchPage('ai')">
+      <a class="sidebar-nav-item" data-page="ai" href="#nexus-ai" onclick="switchPage('ai'); return false;">
         <span class="sidebar-nav-icon">✨</span>
         <span class="sidebar-nav-label">Nexus AI</span>
         <span class="sidebar-nav-badge ai-badge">AI</span>
       </a>
-      <a class="sidebar-nav-item" data-page="voices" onclick="switchPage('voices')">
+      <a class="sidebar-nav-item" data-page="voices" href="#nexus-voice" onclick="switchPage('voices'); return false;">
         <span class="sidebar-nav-icon">🎙️</span>
         <span class="sidebar-nav-label">Nexus Voice</span>
         <span class="sidebar-nav-badge soon-badge" style="background: var(--accent-orange); color: white;">SOON</span>
       </a>
-      <a class="sidebar-nav-item" data-page="contact" onclick="switchPage('contact')">
+      <a class="sidebar-nav-item" data-page="contact" href="#contact" onclick="switchPage('contact'); return false;">
         <span class="sidebar-nav-icon">📧</span>
         <span class="sidebar-nav-label">Get In Touch</span>
       </a>
@@ -1311,17 +1311,17 @@
       <div class="footer-links" style="display: flex; flex-direction: column; gap: 10px; flex: 0.8; min-width: 160px;">
         <h4 style="color: var(--accent-orange); font-family: var(--font-title); font-size: 1.1rem; margin-bottom: 5px;">
           Platform</h4>
-        <a onclick="switchPage('home')"
+        <a href="#home" onclick="switchPage('home'); return false;"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Home</a>
-        <a onclick="switchPage('news')"
+        <a href="#news-feed" onclick="switchPage('news'); return false;"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">News Feed</a>
-        <a onclick="switchPage('learning')"
+        <a href="#knowledge-hub" onclick="switchPage('learning'); return false;"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Knowledge Hub</a>
-        <a onclick="switchPage('tools')"
+        <a href="#interactive-tools" onclick="switchPage('tools'); return false;"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Interactive Tools</a>
-        <a onclick="switchPage('ai')"
+        <a href="#nexus-ai" onclick="switchPage('ai'); return false;"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Nexus AI</a>
-        <a onclick="switchPage('voices')"
+        <a href="#nexus-voice" onclick="switchPage('voices'); return false;"
           style="cursor: pointer; color: white; opacity: 0.8; transition: opacity 0.2s;">Nexus Voice <span style="font-size: 0.7rem; background: var(--accent-orange); padding: 2px 6px; border-radius: 4px; color: white; font-weight: 700;">SOON</span></a>
       </div>
 
@@ -1334,7 +1334,7 @@
         <a href="https://www.nexuscargos.com" target="_blank" rel="noopener noreferrer"
           style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; opacity: 0.9;"><span
             style="font-size: 1.2rem;">🌐</span> www.nexuscargos.com</a>
-        <a onclick="switchPage('contact')"
+        <a href="#contact" onclick="switchPage('contact'); return false;"
           style="margin-top: 10px; cursor: pointer; display: inline-block; padding: 8px 15px; border: 1px solid var(--accent-orange); color: var(--accent-orange); border-radius: 4px; text-align: center; font-weight: 500; transition: background-color 0.3s;"
           onmouseover="this.style.backgroundColor='rgba(255,90,31,0.1)'"
           onmouseout="this.style.backgroundColor='transparent'">Submit Inquiry</a>
@@ -1404,23 +1404,23 @@
   </script>
   <!-- MOBILE BOTTOM NAVIGATION BAR -->
   <nav class="mobile-bottom-bar" id="mobile-bottom-bar">
-    <a class="mobile-bottom-item active" data-page="home" onclick="switchPage('home')">
+    <a class="mobile-bottom-item active" data-page="home" href="#home" onclick="switchPage('home'); return false;">
       <span class="mobile-bottom-icon">🏠</span>
       <span class="mobile-bottom-label">Home</span>
     </a>
-    <a class="mobile-bottom-item" data-page="news" onclick="switchPage('news')">
+    <a class="mobile-bottom-item" data-page="news" href="#news-feed" onclick="switchPage('news'); return false;">
       <span class="mobile-bottom-icon">📰</span>
       <span class="mobile-bottom-label">News</span>
     </a>
-    <a class="mobile-bottom-item" data-page="learning" onclick="switchPage('learning')">
+    <a class="mobile-bottom-item" data-page="learning" href="#knowledge-hub" onclick="switchPage('learning'); return false;">
       <span class="mobile-bottom-icon">📚</span>
       <span class="mobile-bottom-label">Hub</span>
     </a>
-    <a class="mobile-bottom-item" data-page="tools" onclick="switchPage('tools')">
+    <a class="mobile-bottom-item" data-page="tools" href="#interactive-tools" onclick="switchPage('tools'); return false;">
       <span class="mobile-bottom-icon">📊</span>
       <span class="mobile-bottom-label">Tools</span>
     </a>
-    <a class="mobile-bottom-item" data-page="ai" onclick="switchPage('ai')">
+    <a class="mobile-bottom-item" data-page="ai" href="#nexus-ai" onclick="switchPage('ai'); return false;">
       <span class="mobile-bottom-icon">✨</span>
       <span class="mobile-bottom-label">AI</span>
     </a>
