@@ -88,9 +88,21 @@
         "publisher": { "@id": "https://nexusknowledgehub.com/#organization" },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://nexusknowledgehub.com/#learning?q={search_term_string}",
+          "target": "https://nexusknowledgehub.com/knowledge-hub?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "name": ["Home", "News Feed", "Knowledge Hub", "Interactive Tools", "Nexus AI", "Get In Touch"],
+        "url": [
+          "https://nexusknowledgehub.com/",
+          "https://nexusknowledgehub.com/news-feed",
+          "https://nexusknowledgehub.com/knowledge-hub",
+          "https://nexusknowledgehub.com/interactive-tools",
+          "https://nexusknowledgehub.com/nexus-ai",
+          "https://nexusknowledgehub.com/contact"
+        ]
       },
       {
         "@type": "EducationalOrganization",
@@ -132,7 +144,7 @@
         "name": "Nexus Shipping & CBM Interactive Calculators",
         "operatingSystem": "All Web Browsers",
         "applicationCategory": "BusinessApplication",
-        "url": "https://nexusknowledgehub.com/#tools",
+        "url": "https://nexusknowledgehub.com/interactive-tools",
         "description": "Interactive logistics calculators including CBM volumetric calculator, Incoterms responsibility matrix, aircraft cargo hold explorer, and trade document generator.",
         "author": { "@id": "https://nexusknowledgehub.com/#organization" }
       },
@@ -140,7 +152,7 @@
         "@type": "DefinedTermSet",
         "name": "Global Logistics & Freight Forwarding Terminology",
         "description": "Comprehensive glossary of Incoterms 2026, Bill of Lading types, customs clearance standards, and container specifications.",
-        "url": "https://nexusknowledgehub.com/#learning"
+        "url": "https://nexusknowledgehub.com/knowledge-hub"
       }
     ]
   }
