@@ -6,8 +6,275 @@
 var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
   categories: [
     {
+      id: "logistics-history",
+      title: "1. History of Logistics & Trade",
+      description: "Chronicles of shipping, canals, freight forwarding & digital revolution.",
+      icon: "📜",
+      subtopics: [
+        {
+          id: "ancient-maritime-silk-roads",
+          title: "Ancient Maritime & The Silk Road Chronicles",
+          summary: "An epic journey from Mesopotamian river barges and Phoenician galleys to the Maritime Silk Road.",
+          image: "images/history_ancient_maritime_silk_road.png",
+          content: `
+            <img src="images/history_ancient_maritime_silk_road.png" alt="Ancient Maritime & Silk Road Chronicles Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:20px auto 30px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FCD34D; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#B45309; font-size:1.3rem;">📜 The Dawn of International Trade (3000 BCE - 1400 CE)</h4>
+              <p style="margin:0; color:#78350F; font-size:0.95rem; line-height:1.7;">For thousands of years, the rise and fall of great empires depended on their ability to move goods across vast distances. Long before modern container ships and jet aircraft, brave ancient mariners charted unpredictable seas to exchange silk, spices, timber, and precious metals.</p>
+            </div>
+
+            <h3>1. The Nile & Mesopotamian Waterways (3000 BCE)</h3>
+            <p>The story of logistics begins in the fertile river valleys of Egypt and Mesopotamia. Ancient merchants crafted papyrus reed skiffs and wooden river barges to carry heavy stone blocks for pyramids, wheat, and copper along the Nile, Tigris, and Euphrates rivers. To manage this trade, ancient Egyptian pharaohs established the first recorded customs checkpoints to tax river cargo.</p>
+
+            <h3>2. Phoenicians: The Master Mariners of the Mediterranean (1200 - 300 BCE)</h3>
+            <p>Known as the "Traders of the Purple," the Phoenicians created the world's first true maritime trading empire. Sailing out of ports like Tyre and Sidon (modern Lebanon), they developed revolutionary double-banked rowing galleys and round-hulled wooden merchant ships. They traded rare Tyrian purple dye, cedarwood, and wine across Greece, Carthage, and Rome.</p>
+
+            <h3>3. The Maritime Silk Road & Ancient Ceylon (100 BCE - 1400 CE)</h3>
+            <p>While overland caravans traversed the desert Silk Road, the <strong>Maritime Silk Road</strong> connected Chinese ports (Quanzhou, Guangzhou) through the Malacca Strait to Sri Lanka (Taprobane), India, the Persian Gulf, and Egypt. Sri Lanka served as the central maritime crossroads of the Indian Ocean, where Arab dhows and Chinese treasure junks exchanged cinnamon, gems, pearls, and Chinese porcelain.</p>
+
+            <table class="kb-table">
+              <thead>
+                <tr>
+                  <th>Historical Era</th>
+                  <th>Primary Transport Vessels</th>
+                  <th>Key Trade Commodities</th>
+                  <th>Logistical Innovation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>3000 BCE (Egypt/Sumer)</strong></td>
+                  <td>Papyrus Reed & Cedar Barges</td>
+                  <td>Grain, Papyrus, Gold, Copper</td>
+                  <td>First river ports & customs check posts</td>
+                </tr>
+                <tr>
+                  <td><strong>1200 BCE (Phoenicia)</strong></td>
+                  <td>Wooden Galleys & Keeled Merchantmen</td>
+                  <td>Purple Dyes, Wine, Glass, Timber</td>
+                  <td>Keel construction & celestial navigation</td>
+                </tr>
+                <tr>
+                  <td><strong>200 BCE - 1400 CE</strong></td>
+                  <td>Arab Dhows & Chinese Junks</td>
+                  <td>Silk, Spices, Gems, Porcelain</td>
+                  <td>Magnetic compass & monsoon wind charts</td>
+                </tr>
+              </tbody>
+            </table>
+          `,
+          youtube: "https://www.youtube.com/embed/vfe-eNq-Qyg"
+        },
+        {
+          id: "age-of-sail-to-steam-power",
+          title: "The Age of Sail to Steamships",
+          summary: "How chartered trading empires, tea clippers, and steam engines birthed modern ocean shipping.",
+          image: "images/history_age_of_sail_empires.png",
+          content: `
+            <img src="images/history_age_of_sail_empires.png" alt="Age of Sail to Steamships Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:20px auto 30px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border:2px solid #93C5FD; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#1E40AF; font-size:1.3rem;">⛵ From Wind-Powered Galleons to Coal Steamers</h4>
+              <p style="margin:0; color:#1E3A8A; font-size:0.95rem; line-height:1.7;">Between the 16th and 19th centuries, maritime trade evolved from dangerous exploratory voyages into highly structured global corporate networks, culminating in the industrial revolution.</p>
+            </div>
+
+            <h3>1. The Chartered Mega-Corporations (1500s - 1800s)</h3>
+            <p>During the European Age of Discovery, governments granted monopoly charters to massive trading corporations. The <strong>Dutch East India Company (VOC)</strong> and the <strong>British East India Company</strong> operated armed, three-masted merchant vessels called <em>Indiamen</em>. They built dedicated global supply chains, bonded port warehouses, and established maritime insurance markets like <strong>Lloyd's of London</strong> (founded in 1686 in a London coffee house).</p>
+
+            <h3>2. Clipper Ships: The Great Tea Races (1840s - 1870s)</h3>
+            <p>Speed became paramount in the 19th century. Sleek, narrow wooden sailing ships called <strong>Clipper Ships</strong> (such as the famous <em>Cutty Sark</em>) were engineered for maximum speed. They competed in annual high-stakes "Tea Races" from China to London, sailing thousands of miles to deliver fresh-crop tea leaves before market prices fell.</p>
+
+            <h3>3. The Industrial Steam Engine Revolution (1800s)</h3>
+            <p>The industrial revolution changed shipping forever. Robert Fulton's steamboat (1807) and Isambard Kingdom Brunel's <em>SS Great Western</em> (1837) proved that steam engines could cross oceans independently of unpredictable winds. Iron and steel hulls replaced wood, while screw propellers replaced paddle wheels, allowing cargo liners to carry massive tonnage on fixed, reliable sailing schedules.</p>
+          `,
+          youtube: "https://www.youtube.com/embed/9LEanczg-Hw"
+        },
+        {
+          id: "freight-forwarding-history-evolution",
+          title: "History & Evolution of Freight Forwarding",
+          summary: "From 18th century innkeepers and wagon brokers to Thomas Meadows and modern 3PL/4PL integrators.",
+          image: "images/history_freight_forwarding_evolution.png",
+          content: `
+            <img src="images/history_freight_forwarding_evolution.png" alt="History of Freight Forwarding Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:20px auto 30px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#15803D; font-size:1.3rem;">🏢 The Origin Story of Freight Forwarders</h4>
+              <p style="margin:0; color:#166534; font-size:0.95rem; line-height:1.7;">How did a profession that began with 18th-century innkeepers holding wooden wagon receipts evolve into today's multi-trillion dollar global logistics industry?</p>
+            </div>
+
+            <h3>1. The 18th Century: Innkeepers & Carrier Brokers</h3>
+            <p>Before freight forwarding existed as a formal profession, merchants traveling with horse-drawn wagons relied on roadside innkeepers to hold, store, and forward their goods to the next carrier. These innkeepers acted as early cargo brokers, negotiating freight rates with horse wagoners and river barge captains on behalf of absent merchants.</p>
+
+            <h3>2. Thomas Meadows & The Birth of Modern Forwarding (1836)</h3>
+            <p>In 1836, an Englishman named <strong>Thomas Meadows</strong> founded one of the world's first documented commercial freight forwarding agencies in London. Recognizing that merchants lacked time to deal with complex steamship bookings, customs duties, and railway transfers, Meadows offered a complete service: consolidated freight booking, documentation, and border clearance under one roof.</p>
+
+            <h3>3. The Formation of FIATA (1926)</h3>
+            <p>As international trade surged after WWI, freight forwarders needed standardized international legal rules. On <strong>May 31, 1926</strong>, forwarder associations met in Vienna, Austria, to found <strong>FIATA</strong> (<em>International Federation of Freight Forwarders Associations</em>). FIATA created standardized international Bills of Lading (such as the FBL) that established clear legal liability for multimodal transport operators.</p>
+
+            <h3>4. Evolution: 1PL to 4PL Supply Chain Architects</h3>
+            <table class="kb-table">
+              <thead>
+                <tr>
+                  <th>Logistics Tier</th>
+                  <th>Historical Era</th>
+                  <th>Operational Scope</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1PL (First-Party)</strong></td>
+                  <td>Pre-1800s</td>
+                  <td>Cargo owner handles transport using their own horses, carts, or boats.</td>
+                </tr>
+                <tr>
+                  <td><strong>2PL (Second-Party)</strong></td>
+                  <td>1800s - 1970s</td>
+                  <td>Asset carriers (shipping lines, railways) transport cargo directly for shippers.</td>
+                </tr>
+                <tr>
+                  <td><strong>3PL (Third-Party)</strong></td>
+                  <td>1980s - 2000s</td>
+                  <td>Freight forwarders contract transportation, warehousing, customs clearance, and distribution.</td>
+                </tr>
+                <tr>
+                  <td><strong>4PL (Fourth-Party)</strong></td>
+                  <td>2010s - Present</td>
+                  <td>Non-asset logistics managers oversee the entire end-to-end supply chain ecosystem using digital control towers.</td>
+                </tr>
+              </tbody>
+            </table>
+          `,
+          youtube: "https://www.youtube.com/embed/gEv8IyDyXKQ"
+        },
+        {
+          id: "container-revolution-malcom-mclean",
+          title: "The Container Revolution (1956)",
+          summary: "How Malcom McLean's standardized 20ft box slashed port costs by 97% and birthed globalization.",
+          image: "images/history_container_revolution.png",
+          content: `
+            <img src="images/history_container_revolution.png" alt="The Container Revolution Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:20px auto 30px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border:2px solid #FCA5A5; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#B91C1C; font-size:1.3rem;">📦 The Box That Changed the World</h4>
+              <p style="margin:0; color:#991B1B; font-size:0.95rem; line-height:1.7;">Prior to 1956, loading a cargo ship was slow, manual, and dangerous. A single standardized steel box revolutionized world trade and made modern global e-commerce possible.</p>
+            </div>
+
+            <h3>1. The Nightmare of Breakbulk Dockwork</h3>
+            <p>For centuries, cargo was loaded using <strong>Breakbulk Shipping</strong>. Hundreds of dockworkers (stevedores) individually carried wooden barrels, sacks of coffee, crates, and loose boxes into ship holds. Ships spent up to 50% of their lives tied to docks waiting to be loaded, cargo damage rates exceeded 20%, and theft on piers was rampant.</p>
+
+            <h3>2. Malcom McLean's Moment of Genius (April 26, 1956)</h3>
+            <p>In 1937, a young American truck driver named <strong>Malcom McLean</strong> sat in his truck at the port of Hoboken, waiting hours for dockworkers to unload his cotton bales. He realized: <em>Why unpack the truck at all? Why not just lift the entire truck body onto the ship?</em></p>
+            <p>Nineteen years later, on <strong>April 26, 1956</strong>, McLean's converted oil tanker ship, the <em>SS Ideal-X</em>, set sail from Newark, New Jersey to Houston, Texas, carrying 58 steel containers. It was the world's first modern container voyage.</p>
+
+            <h3>3. ISO Standardization & The 97% Cost Drop</h3>
+            <p>In the late 1960s, international bodies standardized container sizes into 20ft and 40ft units (TEU & FEU). The economic impact was staggering:</p>
+            <table class="kb-table">
+              <thead>
+                <tr>
+                  <th>Performance Metric</th>
+                  <th>1950s Breakbulk Dockwork</th>
+                  <th>Post-1956 Containerized Intermodal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Port Loading Cost</strong></td>
+                  <td>$5.86 per ton</td>
+                  <td><strong>$0.16 per ton</strong> (97.3% cost reduction)</td>
+                </tr>
+                <tr>
+                  <td><strong>Vessel Port Turnaround</strong></td>
+                  <td>7 to 10 days idle in port</td>
+                  <td><strong>10 to 24 hours</strong> turnaround</td>
+                </tr>
+                <tr>
+                  <td><strong>Cargo Theft & Loss</strong></td>
+                  <td>Extremely high (open crates)</td>
+                  <td><strong>Near zero</strong> (locked steel ISO containers)</td>
+                </tr>
+              </tbody>
+            </table>
+          `,
+          youtube: "https://www.youtube.com/embed/wKBzfQxgisQ"
+        },
+        {
+          id: "history-of-canals-suez-panama",
+          title: "History of Canals: Suez & Panama Canals",
+          summary: "How engineered waterways bypassed entire continents and reshaped global maritime routes.",
+          image: "images/history_suez_panama_canals.png",
+          content: `
+            <img src="images/history_suez_panama_canals.png" alt="History of Canals Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:20px auto 30px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%); border:2px solid #D8B4FE; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#6B21A8; font-size:1.3rem;">🌊 Shortcutting the Globe</h4>
+              <p style="margin:0; color:#581C87; font-size:0.95rem; line-height:1.7;">Two artificial engineering marvels fundamentally altered global ocean geography, cutting thousands of nautical miles off international transit lanes.</p>
+            </div>
+
+            <h3>1. The Suez Canal (Opened November 17, 1869)</h3>
+            <p>Conceived by French diplomat Ferdinand de Lesseps across Egypt, the 193 km sea-level Suez Canal connected the Mediterranean Sea directly to the Red Sea. It eliminated the treacherous voyage around the entire African continent (Cape of Good Hope), slashing sailing time between Europe and Asia by 15 to 20 days and saving 8,900 km (4,800 nautical miles).</p>
+
+            <h3>2. The Panama Canal (Opened August 15, 1914)</h3>
+            <p>Constructed across the mountainous Isthmus of Panama, this 82 km lock-based canal connected the Atlantic Ocean to the Pacific Ocean. Ships no longer had to navigate the storm-ravaged waters of Cape Horn at the southern tip of South America, saving over 13,000 km (7,000 nautical miles) between East and West Americas.</p>
+
+            <h3>3. Modern Expansion: The Neopanamax Era (2016)</h3>
+            <p>In June 2016, the Panama Canal completed a $5.25 billion expansion, constructing wider and deeper locks. This allowed massive "Neopanamax" container ships carrying up to 14,000 TEU to transit the canal. Today, over 12% of global trade passes through Suez and 5% through Panama.</p>
+          `,
+          youtube: "https://www.youtube.com/embed/fnAOIlq_rMI"
+        },
+        {
+          id: "evolution-of-air-cargo",
+          title: "Evolution of Air Freight & Express Logistics",
+          summary: "From 1910 early airmail flights and the Berlin Airlift to Boeing 747 freighters and FedEx.",
+          image: "images/history_air_cargo_evolution.png",
+          content: `
+            <img src="images/history_air_cargo_evolution.png" alt="Evolution of Air Freight Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:20px auto 30px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border:2px solid #FDBA74; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#C2410C; font-size:1.3rem;">✈️ Conquering Time & Distance</h4>
+              <p style="margin:0; color:#9A3412; font-size:0.95rem; line-height:1.7;">While ocean shipping handles high-volume bulk commodities, air freight created the high-speed backbone for global electronics, pharmaceuticals, and urgent cargo.</p>
+            </div>
+
+            <h3>1. The Dawn of Air Mail (1910 - 1930s)</h3>
+            <p>On <strong>November 7, 1910</strong>, pilot Philip Parmalee flew a Wright Model B biplane from Dayton to Columbus, Ohio, carrying a bolt of silk fabric (the world's first commercial air cargo flight). During the 1920s, government postal airmail contracts laid the economic foundation for commercial aviation.</p>
+
+            <h3>2. The Berlin Airlift: Proof of Supply Air Bridges (1948 - 1949)</h3>
+            <p>During the Cold War Soviet blockade of West Berlin, Western Allies launched the legendary <strong>Berlin Airlift</strong>. For 15 months, military cargo planes landed every 45 seconds, delivering over 2.3 million tons of food, medicine, and coal, proving that an entire metropolitan population could survive purely on air logistics.</p>
+
+            <h3>3. The Jet Age & FedEx Hub-and-Spoke System (1970s)</h3>
+            <p>The arrival of the wide-body Boeing 747 freighter in 1970 revolutionized air cargo payloads. In 1973, <strong>Fred Smith</strong> launched <strong>Federal Express (FedEx)</strong>, introducing the revolutionary "Hub-and-Spoke" sorting network in Memphis, Tennessee, establishing guaranteed overnight express delivery.</p>
+          `,
+          youtube: "https://www.youtube.com/embed/mdw1T7jF_Jg"
+        },
+        {
+          id: "digital-transformation-telecom-to-ai",
+          title: "Digital Era: Paper B/Ls to ASYCUDA & AI",
+          summary: "From telegraph cables, Telex, and paper documents to ASYCUDA, Blockchain, and AI control towers.",
+          image: "images/history_digital_logistics_ai.png",
+          content: `
+            <img src="images/history_digital_logistics_ai.png" alt="Digital Era in Logistics Infographic" style="width:100%; max-width:850px; border-radius:12px; margin:20px auto 30px auto; display:block; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+
+            <div style="background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%); border:2px solid #5EEAD4; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#0D9488; font-size:1.3rem;">💻 The Digital Revolution in Freight</h4>
+              <p style="margin:0; color:#115E59; font-size:0.95rem; line-height:1.7;">From hand-typed paper Bill of Lading manifests to real-time IoT satellite tracking and AI predictive intelligence.</p>
+            </div>
+
+            <h3>1. Telegraphs & Telex Communications (1880s - 1970s)</h3>
+            <p>Before computer networks, shipping lines communicated vessel departures, container lists, and port arrivals across oceans using undersea telegraph cables and Telex teleprinters.</p>
+
+            <h3>2. Customs Automation & ASYCUDA World (1980s - 2000s)</h3>
+            <p>In the 1980s, Electronic Data Interchange (EDI) replaced paper mail transmissions. UNCTAD launched <strong>ASYCUDA (Automated System for Customs Data)</strong>, modernizing customs clearance across 90+ nations (including Sri Lanka Customs) with automated electronic CUSDEC filings.</p>
+
+            <h3>3. Smart Logistics, IoT & AI Control Towers (2020s)</h3>
+            <p>Today, logistics operates on smart digital infrastructure: Electronic Bills of Lading (eBL), IoT temperature sensors inside reefer containers, automated port gantry cranes, and AI predictive algorithms that forecast container ETAs, optimize fuel efficiency, and automate global quote engines.</p>
+          `,
+          youtube: "https://www.youtube.com/embed/0H0Q0VNLMu4"
+        }
+      ]
+    },
+    {
       id: "shipping-basics",
-      title: "1. Shipping Basics",
+      title: "2. Shipping Basics",
       description: "For beginners and internal team training.",
       icon: "📦",
       subtopics: [
@@ -177,7 +444,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "ocean-freight",
-      title: "2. Ocean Freight",
+      title: "3. Ocean Freight",
       description: "Container shipping rules, terms, and routing.",
       icon: "🚢",
       subtopics: [
@@ -541,7 +808,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "air-freight",
-      title: "3. Air Freight",
+      title: "4. Air Freight",
       description: "Airline terms, chargeable weight, and speed.",
       icon: "✈️",
       subtopics: [
@@ -835,7 +1102,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "trade-incoterms",
-      title: "4. Trade & Incoterms",
+      title: "5. Trade & Incoterms",
       description: "FOB, CIF, EXW, DDP obligations.",
       icon: "🛣️",
       subtopics: [
@@ -1121,7 +1388,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "customs-compliance",
-      title: "5. Customs & Compliance",
+      title: "6. Customs & Compliance",
       description: "Border control and taxation.",
       icon: "📑",
       subtopics: [
@@ -1465,7 +1732,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "documentation",
-      title: "6. Documentation",
+      title: "7. Documentation",
       description: "B/L, Commercial Invoices, Packing Lists.",
       icon: "⚖️",
       subtopics: [
@@ -1765,7 +2032,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "pricing-rates",
-      title: "7. Pricing and Rate Knowledge",
+      title: "8. Pricing and Rate Knowledge",
       description: "For internal commercial and procurement training.",
       icon: "💰",
       subtopics: [
@@ -2208,7 +2475,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "logistics-supply-chain",
-      title: "8. Logistics and Supply Chain",
+      title: "9. Logistics and Supply Chain",
       description: "For broader operational knowledge.",
       icon: "🏭",
       subtopics: [
@@ -2609,7 +2876,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "special-cargo",
-      title: "9. Special Cargo Handling",
+      title: "10. Special Cargo Handling",
       description: "Dangerous goods, heavy lift, and perishables.",
       icon: "\uD83C\uDFD7\uFE0F",
       subtopics: [
@@ -2980,7 +3247,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "trade-lanes",
-      title: "10. Trade Lane Guides",
+      title: "11. Trade Lane Guides",
       description: "Useful for customers and sales teams.",
       icon: "🗺️",
       subtopics: [
@@ -3361,7 +3628,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "process-flows",
-      title: "11. Process Flows and SOPs",
+      title: "12. Process Flows and SOPs",
       description: "Very useful for internal training.",
       icon: "⚙️",
       subtopics: [
@@ -4010,7 +4277,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
     },
     {
       id: "glossary",
-      title: "12. Glossary and Quick Reference",
+      title: "13. Glossary and Quick Reference",
       description: "Best for search and indexing.",
       icon: "📖",
       subtopics: [
