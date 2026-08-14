@@ -30,4 +30,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://nexusknowledgehub.com/sitemap.xml
+Sitemap: https://www.nexusknowledgehub.com/sitemap.xml
