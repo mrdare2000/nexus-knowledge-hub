@@ -210,6 +210,11 @@
         <span class="sidebar-nav-icon">🛠️</span>
         <span class="sidebar-nav-label">Interactive Tools</span>
       </a>
+      <a class="sidebar-nav-item" data-page="quiz" href="#quiz-hub" onclick="switchPage('quiz'); return false;">
+        <span class="sidebar-nav-icon">📝</span>
+        <span class="sidebar-nav-label">Quiz Hub</span>
+        <span class="sidebar-nav-badge" style="background: #10B981; color: white;">Weekly</span>
+      </a>
       <a class="sidebar-nav-item" data-page="ai" href="#nexus-ai" onclick="switchPage('ai'); return false;">
         <span class="sidebar-nav-icon">✨</span>
         <span class="sidebar-nav-label">Nexus AI</span>
@@ -1203,6 +1208,15 @@
     </div>
   </section>
 
+  <!-- ==========================================
+       6. QUIZ HUB PAGE SECTION
+       ========================================== -->
+  <section class="page-section" id="quiz-page">
+    <div class="section-container">
+      <div id="quiz-hub-container"></div>
+    </div>
+  </section>
+
   <!-- NEXUS AI PAGE -->
   <section id="ai-page" class="page-section">
     <div class="section-header" style="margin-bottom: 20px; margin-top: 10px;">
@@ -1492,6 +1506,10 @@
       <span class="mobile-bottom-label">AI</span>
     </a>
   </nav>
+
+  <!-- Quiz Engine Scripts -->
+  <script src="quiz_database.js"></script>
+  <script src="quiz_engine.js"></script>
 
 </body>
 

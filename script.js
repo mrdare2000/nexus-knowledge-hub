@@ -93,6 +93,7 @@ const PAGE_SEO_TITLES = {
   news: "Global Logistics & Freight Supply Chain News | Nexus Knowledge Hub",
   learning: "Freight Forwarding Operations Library | Nexus Knowledge Hub",
   tools: "Interactive Shipping Tools & CBM Calculators | Nexus Knowledge Hub",
+  quiz: "Quiz Hub - Weekly Logistics Assessment & Certification | Nexus Knowledge Hub",
   ai: "Nexus AI Shipping Assistant - Freight Intelligence | Nexus Cargo",
   voices: "Nexus Voice | Industry Expert Articles & Supply Chain Podcasts | Nexus Cargos (Pvt) Ltd",
   contact: "Get in Touch & Booking Inquiries | Nexus Cargos (Pvt) Ltd"
@@ -103,6 +104,7 @@ const PAGE_SEO_DESCRIPTIONS = {
   news: "Stay updated with real-time global logistics, ocean shipping rates, air freight market updates, and supply chain headlines.",
   learning: "Explore comprehensive guides on ocean freight, air cargo, Incoterms, customs clearance, container specs, and shipping documentation.",
   tools: "Access interactive Incoterms 2026 matrix, CBM container loading calculator, aircraft specs visualizers, and shipping process simulators.",
+  quiz: "Test your freight forwarding knowledge with weekly automated quizzes, track competency scores, and download official PDF certificates.",
   ai: "Ask Nexus AI for immediate answers on shipping terms, container specs, Incoterms rules, and freight operations compliance.",
   voices: "Explore upcoming industry expert insights, guest articles, and logistics podcasts on Nexus Voice by Nexus Cargos (Pvt) Ltd.",
   contact: "Connect with Nexus Cargos (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support."
@@ -113,6 +115,7 @@ const PAGE_SLUGS = {
   news: "news-feed",
   learning: "knowledge-hub",
   tools: "interactive-tools",
+  quiz: "quiz-hub",
   ai: "nexus-ai",
   voices: "nexus-voice",
   contact: "contact"
@@ -126,6 +129,9 @@ const SLUG_TO_PAGE = {
   "knowledge-hub": "learning",
   "tools": "tools",
   "interactive-tools": "tools",
+  "quiz": "quiz",
+  "quiz-hub": "quiz",
+  "quizzes": "quiz",
   "ai": "ai",
   "nexus-ai": "ai",
   "voices": "voices",
