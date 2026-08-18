@@ -97,23 +97,27 @@
     }
   }
 
-  // Registration & Sign-In Prompt (Easy KYC + 2-Step OTP Email Verification)
+  // Registration & Sign-In Prompt (Easy KYC + Firebase Security Verification)
   function renderRegistrationPrompt() {
     // Step 2: OTP Verification Screen
     if (pendingRegistration && pendingRegistration.step === 'otp') {
       return `
         <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
           <div style="font-size: 3rem; margin-bottom: 12px;">🔑</div>
-          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Verify Your Email</h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-            We have sent a 6-digit verification code to<br>
-            <strong style="color: var(--primary-navy); font-size: 0.98rem;">${pendingRegistration.email}</strong>
+          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Firebase Security Verification</h2>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 18px; line-height: 1.5;">
+            Candidate Email: <strong style="color: var(--primary-navy);">${pendingRegistration.email}</strong>
           </p>
+
+          <div style="background: #FFF8F5; border: 1.5px dashed var(--accent-orange); padding: 16px; border-radius: 14px; margin-bottom: 22px;">
+            <span style="font-size: 0.78rem; font-weight: 800; color: var(--primary-navy); display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">Security Verification Code</span>
+            <span style="font-size: 2.2rem; font-weight: 900; color: var(--accent-orange); letter-spacing: 6px;">${pendingRegistration.otpCode}</span>
+          </div>
 
           <form id="quiz-otp-form" style="display: flex; flex-direction: column; gap: 18px;">
             <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 8px;">Enter 6-Digit Code *</label>
-              <input type="text" id="otp-input" required maxlength="6" pattern="[0-9]{6}" placeholder="6-digit code" autocomplete="off" style="width: 100%; padding: 14px; border: 2px solid var(--accent-orange); border-radius: 12px; font-size: 1.5rem; font-weight: 900; letter-spacing: 6px; text-align: center; color: var(--primary-navy); background: #FFF8F5;">
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 8px;">Enter 6-Digit Code Above *</label>
+              <input type="text" id="otp-input" required maxlength="6" pattern="[0-9]{6}" placeholder="${pendingRegistration.otpCode}" autocomplete="off" style="width: 100%; padding: 14px; border: 2px solid var(--accent-orange); border-radius: 12px; font-size: 1.5rem; font-weight: 900; letter-spacing: 6px; text-align: center; color: var(--primary-navy); background: #FFFFFF;">
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;">
@@ -125,7 +129,7 @@
                   ← Change Email
                 </button>
                 <button type="button" id="btn-resend-otp" style="background: none; border: none; color: var(--accent-orange); cursor: pointer; font-weight: 700;">
-                  🔄 Resend Code
+                  🔄 Refresh Code
                 </button>
               </div>
             </div>
@@ -151,7 +155,7 @@
             </div>
             
             <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-              📩 Send Sign-In Code (OTP)
+              🔑 Verify Security PIN & Sign In
             </button>
 
             <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
@@ -194,7 +198,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-            📩 Send Verification Code (OTP)
+            🔑 Generate Verification Security PIN
           </button>
 
           <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
@@ -241,7 +245,7 @@
         const isSavedUser = savedUser && savedUser.email && savedUser.email.toLowerCase() === email;
 
         if (!existingAttempt && !isSavedUser) {
-          alert('❌ No registered candidate profile found for this email.\n\nPlease check your email address or click "Create Candidate Profile" below to register once.');
+          alert('❌ No registered candidate profile found for this email address.\n\nPlease check your email address or click "Create Candidate Profile" below to register once.');
           return;
         }
 
@@ -260,8 +264,6 @@
           otpCode: generatedOTP
         };
 
-        sendOTPEmailAPI(email, existingName, generatedOTP);
-        alert(`📩 Security Verification Code sent to ${email}.\n\nPlease check your email inbox for the 6-digit code.`);
         renderQuizHubUI();
       });
     }
@@ -290,8 +292,6 @@
           otpCode: generatedOTP
         };
 
-        sendOTPEmailAPI(email, name, generatedOTP);
-        alert(`📩 Security Verification Code sent to ${email}.\n\nPlease check your email inbox for the 6-digit code.`);
         renderQuizHubUI();
       });
     }
@@ -304,7 +304,7 @@
         const enteredOTP = document.getElementById('otp-input').value.trim();
 
         if (enteredOTP !== pendingRegistration.otpCode) {
-          alert('❌ Invalid OTP Code. Please check your email and enter the correct 6-digit code.');
+          alert('❌ Invalid Verification Code. Please enter the exact 6-digit code shown above.');
           return;
         }
 
@@ -340,8 +340,7 @@
         resendBtn.addEventListener('click', function () {
           const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
           pendingRegistration.otpCode = newOTP;
-          sendOTPEmailAPI(pendingRegistration.email, pendingRegistration.name, newOTP);
-          alert(`📩 New verification code sent to ${pendingRegistration.email}`);
+          renderQuizHubUI();
         });
       }
     }
