@@ -153,7 +153,8 @@
             </div>
             <div>
               <h3 style="margin: 0 0 3px 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.15rem;">${currentUser.name}</h3>
-              <span style="font-size: 0.85rem; color: var(--text-muted);">${currentUser.company} • ${currentUser.role}</span>
+              <span style="font-size: 0.82rem; color: var(--text-muted); display: block;">${currentUser.company} • ${currentUser.role}</span>
+              <span style="font-size: 0.76rem; color: #64748B; font-weight: 500; margin-top: 2px; display: block;">✉️ ${currentUser.email}</span>
             </div>
           </div>
 
