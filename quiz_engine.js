@@ -214,13 +214,21 @@
     if (signinForm) {
       signinForm.addEventListener('submit', async function (e) {
         e.preventDefault();
-        const email = document.getElementById('signin-email').value.trim();
+        const email = document.getElementById('signin-email').value.trim().toLowerCase();
         if (!email) return;
 
-        // Check if candidate exists in history or attempts
-        const existingAttempt = userAttempts.find(a => a.userEmail.toLowerCase() === email.toLowerCase());
-        const existingName = existingAttempt ? existingAttempt.userName : email.split('@')[0];
-        const existingCompany = existingAttempt ? existingAttempt.userCompany : 'Logistics Professional';
+        // Check if candidate exists in candidate attempts or saved user records
+        const existingAttempt = userAttempts.find(a => a.userEmail && a.userEmail.toLowerCase() === email);
+        const savedUser = JSON.parse(localStorage.getItem('nexus_quiz_user') || '{}');
+        const isSavedUser = savedUser && savedUser.email && savedUser.email.toLowerCase() === email;
+
+        if (!existingAttempt && !isSavedUser) {
+          alert('❌ No registered candidate profile found for this email.\n\nPlease check your email address or click "Create Candidate Profile" below to register once.');
+          return;
+        }
+
+        const existingName = existingAttempt ? existingAttempt.userName : (savedUser.name || email.split('@')[0]);
+        const existingCompany = existingAttempt ? existingAttempt.userCompany : (savedUser.company || 'Logistics Professional');
 
         const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -235,7 +243,7 @@
         };
 
         sendOTPEmailAPI(email, existingName, generatedOTP);
-        alert(`📩 Security Verification Code sent to ${email}!\n\n(Note: Your 6-digit OTP Code is ${generatedOTP})`);
+        alert(`📩 Security Verification Code sent to ${email}.\n\nPlease check your email inbox for the 6-digit code.`);
         renderQuizHubUI();
       });
     }
@@ -265,7 +273,7 @@
         };
 
         sendOTPEmailAPI(email, name, generatedOTP);
-        alert(`📩 Security Verification Code sent to ${email}!\n\n(Note: Your 6-digit OTP Code is ${generatedOTP})`);
+        alert(`📩 Security Verification Code sent to ${email}.\n\nPlease check your email inbox for the 6-digit code.`);
         renderQuizHubUI();
       });
     }
