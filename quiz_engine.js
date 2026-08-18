@@ -15,15 +15,11 @@
   let isAttemptingQuiz = false;
   let currentViewingAttempt = null;
 
-  // Calculate Monday Auto-Rotation Week Index
+  // Calculate Active Week Index (Defaults to Latest Active Week)
   function calculateActiveWeekIndex() {
     if (!window.NEXUS_QUIZ_DATABASE || !window.NEXUS_QUIZ_DATABASE.weeks) return 0;
     const weeksPool = window.NEXUS_QUIZ_DATABASE.weeks;
-    const referenceMonday = new Date('2026-01-05T00:00:00Z').getTime();
-    const now = new Date().getTime();
-    const elapsedMs = now - referenceMonday;
-    const elapsedWeeks = Math.floor(elapsedMs / (7 * 24 * 60 * 60 * 1000));
-    return Math.abs(elapsedWeeks) % weeksPool.length;
+    return weeksPool.length - 1; // Always features the latest active week
   }
 
   // Initialize Quiz Hub
