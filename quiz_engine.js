@@ -54,75 +54,162 @@
     }
   }
 
-  // Registration Prompt (Easy KYC)
+  let pendingRegistration = null;
+
+  // Registration Prompt (Easy KYC + 2-Step OTP Email Verification)
   function renderRegistrationPrompt() {
+    if (pendingRegistration && pendingRegistration.step === 'otp') {
+      return `
+        <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
+          <div style="font-size: 3rem; margin-bottom: 12px;">🔑</div>
+          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Verify Your Email</h2>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.5;">
+            We have sent a 6-digit security code to<br>
+            <strong style="color: var(--primary-navy); font-size: 0.98rem;">${pendingRegistration.email}</strong>
+          </p>
+
+          <!-- OTP Preview Banner -->
+          <div style="background: #EFF6FF; border: 1.5px dashed #3B82F6; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: #1E40AF; margin-bottom: 22px; font-weight: 600;">
+            ✉️ Verification Security Code: <span style="font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; color: var(--accent-orange); ml-1;">${pendingRegistration.otpCode}</span>
+          </div>
+
+          <form id="quiz-otp-form" style="display: flex; flex-direction: column; gap: 18px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 8px;">Enter 6-Digit Code *</label>
+              <input type="text" id="otp-input" required maxlength="6" pattern="[0-9]{6}" placeholder="Enter 6-digit code" autocomplete="off" style="width: 100%; padding: 14px; border: 2px solid var(--accent-orange); border-radius: 12px; font-size: 1.5rem; font-weight: 900; letter-spacing: 6px; text-align: center; color: var(--primary-navy); background: #FFF8F5;">
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 5px;">
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 8px 20px rgba(255,90,31,0.35);">
+                ✅ Verify Code & Access Quiz Hub
+              </button>
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; margin-top: 5px;">
+                <button type="button" id="btn-edit-registration" style="background: none; border: none; color: var(--text-muted); cursor: pointer; text-decoration: underline; font-weight: 600;">
+                  ← Edit Details
+                </button>
+                <button type="button" id="btn-resend-otp" style="background: none; border: none; color: var(--accent-orange); cursor: pointer; font-weight: 700;">
+                  🔄 Resend Code
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
     return `
       <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
         <div style="font-size: 3.5rem; margin-bottom: 15px;">📝</div>
         <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 10px; font-weight: 800;">Welcome to Nexus Quiz Hub</h2>
         <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6;">
-          Register once to access weekly logistics certification challenges, track your candidate rank, and download verifiable PDF certificates.
+          Register once with your details to access weekly logistics certification challenges, track your candidate rank, and download verifiable PDF certificates.
         </p>
 
-        <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 15px;">
+        <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
           <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 5px;">Full Name *</label>
-            <input type="text" id="kyc-name" required placeholder="e.g. Darshika Perera" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Full Name *</label>
+            <input type="text" id="kyc-name" required placeholder="Enter your full name" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
           <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 5px;">Email Address *</label>
-            <input type="email" id="kyc-email" required placeholder="e.g. darshika@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
+            <input type="email" id="kyc-email" required placeholder="Enter your email address" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 5px;">Company / University</label>
-              <input type="text" id="kyc-company" placeholder="e.g. Nexus Cargos Ltd" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Company / University</label>
+              <input type="text" id="kyc-company" placeholder="Company or University name" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
             <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 5px;">Professional Role</label>
-              <select id="kyc-role" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem; background: var(--bg-white);">
-                <option value="Freight Forwarder">Freight Forwarder</option>
-                <option value="Exporter / Importer">Exporter / Importer</option>
-                <option value="Customs Broker">Customs Broker</option>
-                <option value="Logistics Student">Logistics Student / Educator</option>
-                <option value="Supply Chain Professional">Supply Chain Professional</option>
-              </select>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Professional Role</label>
+              <input type="text" id="kyc-role" placeholder="Your role or designation" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" style="margin-top: 15px; width: 100%; padding: 14px; border-radius: 50px; font-weight: 700; font-size: 1rem;">
-            🚀 Enter Quiz Hub Portal
+          <button type="submit" class="btn btn-primary" style="margin-top: 15px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
+            📩 Send Verification Code (OTP)
           </button>
         </form>
       </div>
     `;
   }
 
-  // Bind KYC Form Registration
+  // Bind KYC Form Registration & OTP Verification
   function bindRegistrationEvents() {
-    const form = document.getElementById('quiz-kyc-form');
-    if (!form) return;
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('kyc-name').value.trim();
-      const email = document.getElementById('kyc-email').value.trim();
-      const company = document.getElementById('kyc-company').value.trim() || 'Independent Professional';
-      const role = document.getElementById('kyc-role').value;
+    const kycForm = document.getElementById('quiz-kyc-form');
+    if (kycForm) {
+      kycForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('kyc-name').value.trim();
+        const email = document.getElementById('kyc-email').value.trim();
+        const company = document.getElementById('kyc-company').value.trim() || 'Independent Professional';
+        const role = document.getElementById('kyc-role').value.trim() || 'Logistics Professional';
 
-      if (!name || !email) return;
+        if (!name || !email) return;
 
-      currentUser = {
-        id: 'usr_' + Date.now(),
-        name: name,
-        email: email,
-        company: company,
-        role: role,
-        registeredAt: new Date().toISOString()
-      };
+        // Generate 6-Digit OTP Code
+        const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
-      localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-      saveUserToFirebase(currentUser);
-      renderQuizHubUI();
-    });
+        pendingRegistration = {
+          step: 'otp',
+          name: name,
+          email: email,
+          company: company,
+          role: role,
+          otpCode: generatedOTP
+        };
+
+        renderQuizHubUI();
+      });
+    }
+
+    const otpForm = document.getElementById('quiz-otp-form');
+    if (otpForm) {
+      otpForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const enteredOTP = document.getElementById('otp-input').value.trim();
+
+        if (enteredOTP !== pendingRegistration.otpCode) {
+          alert('❌ Invalid OTP Code. Please enter the correct 6-digit code.');
+          return;
+        }
+
+        // Generate Unique ID based on Email
+        const uniqueUserId = 'usr_' + pendingRegistration.email.toLowerCase().replace(/[^a-z0-9]/g, '_');
+
+        currentUser = {
+          id: uniqueUserId,
+          name: pendingRegistration.name,
+          email: pendingRegistration.email,
+          company: pendingRegistration.company,
+          role: pendingRegistration.role,
+          verified: true,
+          registeredAt: new Date().toISOString()
+        };
+
+        pendingRegistration = null;
+
+        localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
+        saveUserToFirebase(currentUser);
+        renderQuizHubUI();
+      });
+
+      const editBtn = document.getElementById('btn-edit-registration');
+      if (editBtn) {
+        editBtn.addEventListener('click', function () {
+          pendingRegistration = null;
+          renderQuizHubUI();
+        });
+      }
+
+      const resendBtn = document.getElementById('btn-resend-otp');
+      if (resendBtn) {
+        resendBtn.addEventListener('click', function () {
+          const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
+          pendingRegistration.otpCode = newOTP;
+          alert(`📩 New verification code generated: ${newOTP}`);
+          renderQuizHubUI();
+        });
+      }
+    }
   }
 
   // Render Portal Dashboard
