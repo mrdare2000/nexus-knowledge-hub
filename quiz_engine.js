@@ -55,37 +55,67 @@
   }
 
   let pendingRegistration = null;
+  let authMode = 'signin'; // 'signin' or 'signup'
 
-  // Registration Prompt (Easy KYC + 2-Step OTP Email Verification)
+  // Send Email OTP Code via API
+  async function sendOTPEmailAPI(email, name, otpCode) {
+    try {
+      await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json',
+          'api-key': 'xkeysib-0a3f89417d918b958c2b7405e3f7384a29a43a0d33e5b31f0f089601d368e7b1-NEXUS'
+        },
+        body: JSON.stringify({
+          sender: { name: "Nexus Knowledge Hub", email: "auth@nexuscargos.com" },
+          to: [{ email: email, name: name || "Candidate" }],
+          subject: `Your Nexus Quiz Hub Verification Code: ${otpCode}`,
+          htmlContent: `
+            <div style="font-family: Arial, sans-serif; padding: 25px; color: #0A2540; max-width: 500px; margin: 0 auto; border: 1.5px solid #CBD5E1; border-radius: 16px;">
+              <h2 style="color: #0A2540; font-size: 22px; margin-bottom: 5px;"><span style="color: #0A2540;">NEXUS</span> <span style="color: #FF5A1F;">KNOWLEDGE HUB</span></h2>
+              <h3 style="color: #1E3A8A; font-size: 16px; margin: 0 0 15px 0;">Security Verification Code</h3>
+              <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">Hello ${name || 'Candidate'},</p>
+              <p style="font-size: 14px; color: #475569;">Your 6-digit verification code to access the Quiz Hub portal is:</p>
+              <div style="font-size: 34px; font-weight: 900; color: #FF5A1F; letter-spacing: 6px; margin: 20px 0; background: #FFF8F5; border: 1px solid #FFD8CC; padding: 15px; text-align: center; border-radius: 12px;">
+                ${otpCode}
+              </div>
+              <p style="font-size: 12px; color: #94A3B8; margin-top: 25px; border-top: 1px solid #E2E8F0; padding-top: 10px;">If you did not request this verification code, please ignore this email. Nexus Cargos (Pvt) Ltd Sri Lanka.</p>
+            </div>
+          `
+        })
+      });
+    } catch (err) {
+      console.warn("OTP Email dispatch API fallback:", err);
+    }
+  }
+
+  // Registration & Sign-In Prompt (Easy KYC + 2-Step OTP Email Verification)
   function renderRegistrationPrompt() {
+    // Step 2: OTP Verification Screen
     if (pendingRegistration && pendingRegistration.step === 'otp') {
       return `
         <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
           <div style="font-size: 3rem; margin-bottom: 12px;">🔑</div>
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Verify Your Email</h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.5;">
-            We have sent a 6-digit security code to<br>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
+            We have sent a 6-digit verification code to<br>
             <strong style="color: var(--primary-navy); font-size: 0.98rem;">${pendingRegistration.email}</strong>
           </p>
-
-          <!-- OTP Preview Banner -->
-          <div style="background: #EFF6FF; border: 1.5px dashed #3B82F6; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: #1E40AF; margin-bottom: 22px; font-weight: 600;">
-            ✉️ Verification Security Code: <span style="font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; color: var(--accent-orange); ml-1;">${pendingRegistration.otpCode}</span>
-          </div>
 
           <form id="quiz-otp-form" style="display: flex; flex-direction: column; gap: 18px;">
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 8px;">Enter 6-Digit Code *</label>
-              <input type="text" id="otp-input" required maxlength="6" pattern="[0-9]{6}" placeholder="Enter 6-digit code" autocomplete="off" style="width: 100%; padding: 14px; border: 2px solid var(--accent-orange); border-radius: 12px; font-size: 1.5rem; font-weight: 900; letter-spacing: 6px; text-align: center; color: var(--primary-navy); background: #FFF8F5;">
+              <input type="text" id="otp-input" required maxlength="6" pattern="[0-9]{6}" placeholder="6-digit code" autocomplete="off" style="width: 100%; padding: 14px; border: 2px solid var(--accent-orange); border-radius: 12px; font-size: 1.5rem; font-weight: 900; letter-spacing: 6px; text-align: center; color: var(--primary-navy); background: #FFF8F5;">
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 5px;">
-              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 8px 20px rgba(255,90,31,0.35);">
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;">
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 8px 20px rgba(255,90,31,0.35);">
                 ✅ Verify Code & Access Quiz Hub
               </button>
               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; margin-top: 5px;">
                 <button type="button" id="btn-edit-registration" style="background: none; border: none; color: var(--text-muted); cursor: pointer; text-decoration: underline; font-weight: 600;">
-                  ← Edit Details
+                  ← Change Email
                 </button>
                 <button type="button" id="btn-resend-otp" style="background: none; border: none; color: var(--accent-orange); cursor: pointer; font-weight: 700;">
                   🔄 Resend Code
@@ -97,12 +127,44 @@
       `;
     }
 
+    // Step 1: Sign In Mode (Existing Users)
+    if (authMode === 'signin') {
+      return `
+        <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
+          <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
+          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Welcome Back</h2>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
+            Enter your registered email address to sign in and access your quiz history and certificates.
+          </p>
+
+          <form id="quiz-signin-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
+              <input type="email" id="signin-email" required placeholder="Enter registered email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
+              📩 Send Sign-In Code (OTP)
+            </button>
+
+            <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
+              New to Quiz Hub? 
+              <button type="button" id="toggle-to-signup" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
+                Create Candidate Profile
+              </button>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    // Step 1: Sign Up Mode (New Candidates)
     return `
       <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
-        <div style="font-size: 3.5rem; margin-bottom: 15px;">💡</div>
-        <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 10px; font-weight: 800;">Welcome to Nexus Quiz Hub</h2>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6;">
-          Register once with your details to access weekly logistics certification challenges, track your candidate rank, and download verifiable PDF certificates.
+        <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
+        <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Create Candidate Profile</h2>
+        <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
+          Register once to access weekly logistics certification challenges, track your candidate rank, and download verifiable PDF certificates.
         </p>
 
         <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
@@ -124,19 +186,75 @@
               <input type="text" id="kyc-role" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" style="margin-top: 15px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
+          <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
             📩 Send Verification Code (OTP)
           </button>
+
+          <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
+            Already registered? 
+            <button type="button" id="toggle-to-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
+              Sign In with Email
+            </button>
+          </div>
         </form>
       </div>
     `;
   }
 
-  // Bind KYC Form Registration & OTP Verification
+  // Bind KYC Form Registration, Sign In & OTP Verification
   function bindRegistrationEvents() {
+    // Mode Toggles
+    const toSignupBtn = document.getElementById('toggle-to-signup');
+    if (toSignupBtn) {
+      toSignupBtn.addEventListener('click', function () {
+        authMode = 'signup';
+        renderQuizHubUI();
+      });
+    }
+
+    const toSigninBtn = document.getElementById('toggle-to-signin');
+    if (toSigninBtn) {
+      toSigninBtn.addEventListener('click', function () {
+        authMode = 'signin';
+        renderQuizHubUI();
+      });
+    }
+
+    // Sign In Form Submit
+    const signinForm = document.getElementById('quiz-signin-form');
+    if (signinForm) {
+      signinForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const email = document.getElementById('signin-email').value.trim();
+        if (!email) return;
+
+        // Check if candidate exists in history or attempts
+        const existingAttempt = userAttempts.find(a => a.userEmail.toLowerCase() === email.toLowerCase());
+        const existingName = existingAttempt ? existingAttempt.userName : email.split('@')[0];
+        const existingCompany = existingAttempt ? existingAttempt.userCompany : 'Logistics Professional';
+
+        const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+        pendingRegistration = {
+          step: 'otp',
+          mode: 'signin',
+          name: existingName,
+          email: email,
+          company: existingCompany,
+          role: 'Logistics Professional',
+          otpCode: generatedOTP
+        };
+
+        sendOTPEmailAPI(email, existingName, generatedOTP);
+        alert(`📩 Verification Code sent to ${email}. Please check your email inbox!`);
+        renderQuizHubUI();
+      });
+    }
+
+    // Sign Up Form Submit
     const kycForm = document.getElementById('quiz-kyc-form');
     if (kycForm) {
-      kycForm.addEventListener('submit', function (e) {
+      kycForm.addEventListener('submit', async function (e) {
         e.preventDefault();
         const name = document.getElementById('kyc-name').value.trim();
         const email = document.getElementById('kyc-email').value.trim();
@@ -145,11 +263,11 @@
 
         if (!name || !email) return;
 
-        // Generate 6-Digit OTP Code
         const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
         pendingRegistration = {
           step: 'otp',
+          mode: 'signup',
           name: name,
           email: email,
           company: company,
@@ -157,10 +275,13 @@
           otpCode: generatedOTP
         };
 
+        sendOTPEmailAPI(email, name, generatedOTP);
+        alert(`📩 Verification Code sent to ${email}. Please check your email inbox!`);
         renderQuizHubUI();
       });
     }
 
+    // OTP Code Verification Form
     const otpForm = document.getElementById('quiz-otp-form');
     if (otpForm) {
       otpForm.addEventListener('submit', function (e) {
@@ -168,11 +289,10 @@
         const enteredOTP = document.getElementById('otp-input').value.trim();
 
         if (enteredOTP !== pendingRegistration.otpCode) {
-          alert('❌ Invalid OTP Code. Please enter the correct 6-digit code.');
+          alert('❌ Invalid OTP Code. Please check your email and enter the correct 6-digit code.');
           return;
         }
 
-        // Generate Unique ID based on Email
         const uniqueUserId = 'usr_' + pendingRegistration.email.toLowerCase().replace(/[^a-z0-9]/g, '_');
 
         currentUser = {
@@ -205,8 +325,8 @@
         resendBtn.addEventListener('click', function () {
           const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
           pendingRegistration.otpCode = newOTP;
-          alert(`📩 New verification code generated: ${newOTP}`);
-          renderQuizHubUI();
+          sendOTPEmailAPI(pendingRegistration.email, pendingRegistration.name, newOTP);
+          alert(`📩 New verification code sent to ${pendingRegistration.email}`);
         });
       }
     }
