@@ -166,11 +166,8 @@
         <!-- Hero Welcome Header -->
         <div style="background: linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%); color: #FFF; border-radius: 24px; padding: 35px; margin-bottom: 35px; box-shadow: 0 15px 35px rgba(10,37,64,0.3); position: relative; overflow: hidden;">
           <div style="position: relative; z-index: 2;">
-            <span style="background: rgba(255,90,31,0.25); border: 1px solid rgba(255,90,31,0.4); color: #FF9E7D; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; letter-spacing: 0.8px; display: inline-block; margin-bottom: 12px;">
-              🎯 Official Logistics Competency Arena
-            </span>
-            <h1 style="font-family: 'Outfit', sans-serif; margin: 0 0 10px 0; font-size: 2.2rem; color: #FFF; font-weight: 800;">
-              Nexus Quiz Hub Portal
+            <h1 style="font-family: 'Outfit', sans-serif; margin: 0 0 10px 0; font-size: 2.4rem; color: #FFF; font-weight: 800;">
+              Quiz <span style="color: #FF5A1F;">Hub</span>
             </h1>
             <p style="color: #94A3B8; font-size: 1.05rem; margin: 0; max-width: 650px; line-height: 1.6;">
               Test your expertise in ocean & air freight, Incoterms 2026, customs clearance, and global trade history. Earn verifiable PDF certificates every week.
