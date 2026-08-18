@@ -1379,41 +1379,60 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-content"
-      style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding: 22px 4%; max-width: 1400px; margin: 0 auto; align-items: center;">
+      style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding: 25px 4%; max-width: 1400px; margin: 0 auto; align-items: flex-start;">
+      
+      <!-- Left Column: Logo & Address -->
       <div class="footer-logo"
-        style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px; flex: 1.2; min-width: 200px;">
+        style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; flex: 1.2; min-width: 220px;">
         <div
-          style="background-color: #ffffff; padding: 6px 12px; border-radius: var(--border-radius-sm); box-shadow: var(--shadow-sm);">
-          <img src="images/logo.png" alt="Nexus Cargo Logo" style="height: 28px; width: auto; object-fit: contain;">
+          style="background-color: #ffffff; padding: 6px 14px; border-radius: var(--border-radius-sm); box-shadow: var(--shadow-sm);">
+          <img src="images/logo.png" alt="Nexus Cargo Logo" style="height: 30px; width: auto; object-fit: contain;">
         </div>
-        <p style="font-size: 0.82rem; color: rgba(255,255,255,0.8); line-height: 1.4; font-weight: 500; margin: 0;"><strong>Nexus Cargos (Pvt) Ltd</strong> • Level 1, Parkland 1, No 33, Park Street, Colombo 02, Sri Lanka</p>
+        <p style="font-size: 0.82rem; color: rgba(255,255,255,0.8); line-height: 1.5; font-weight: 500; margin: 0;">
+          <strong>Nexus Cargos (Pvt) Ltd</strong><br>
+          Level 1, Parkland 1, No 33, Park Street,<br>
+          Colombo 02, Sri Lanka
+        </p>
       </div>
 
-      <div class="footer-links" style="display: flex; flex-direction: row; gap: 15px; flex-wrap: wrap; flex: 1; align-items: center; justify-content: center;">
+      <!-- Middle Column: Platform Links (Stacked Vertically) -->
+      <div class="footer-links" style="display: flex; flex-direction: column; gap: 6px; flex: 0.8; min-width: 160px;">
+        <h4 style="color: var(--accent-orange); font-family: var(--font-title); font-size: 0.95rem; margin: 0 0 6px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+          Platform
+        </h4>
         <a href="#home" onclick="switchPage('home'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.8; font-size: 0.85rem; text-decoration: none;">Home</a>
+          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Home</a>
         <a href="#news-feed" onclick="switchPage('news'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.8; font-size: 0.85rem; text-decoration: none;">News Feed</a>
+          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">News Feed</a>
         <a href="#knowledge-hub" onclick="switchPage('learning'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.8; font-size: 0.85rem; text-decoration: none;">Knowledge Hub</a>
+          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Knowledge Hub</a>
         <a href="#interactive-tools" onclick="switchPage('tools'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.8; font-size: 0.85rem; text-decoration: none;">Interactive Tools</a>
+          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Interactive Tools</a>
+        <a href="#quiz-hub" onclick="switchPage('quiz'); return false;"
+          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Quiz Hub</a>
         <a href="#nexus-ai" onclick="switchPage('ai'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.8; font-size: 0.85rem; text-decoration: none;">Nexus AI</a>
+          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Nexus AI</a>
       </div>
 
-      <div class="footer-contact" style="display: flex; align-items: center; gap: 15px; flex: 1; justify-content: flex-end; flex-wrap: wrap;">
+      <!-- Right Column: Connect With Us (Stacked Vertically) -->
+      <div class="footer-contact" style="display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px;">
+        <h4 style="color: var(--accent-orange); font-family: var(--font-title); font-size: 0.95rem; margin: 0 0 6px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+          Connect With Us
+        </h4>
         <a href="mailto:darshika@nexuscargos.com"
-          style="color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.85rem;"><span
-            style="font-size: 1rem;">📧</span> darshika@nexuscargos.com</a>
+          style="color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.82rem;">
+          <span style="font-size: 0.95rem;">📧</span> darshika@nexuscargos.com
+        </a>
         <a href="https://www.nexuscargos.com" target="_blank" rel="noopener noreferrer"
-          style="color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.85rem;"><span
-            style="font-size: 1rem;">🌐</span> nexuscargos.com</a>
+          style="color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.82rem;">
+          <span style="font-size: 0.95rem;">🌐</span> www.nexuscargos.com
+        </a>
         <a href="#contact" onclick="switchPage('contact'); return false;"
-          style="cursor: pointer; display: inline-block; padding: 6px 14px; border: 1px solid var(--accent-orange); color: var(--accent-orange); border-radius: 20px; text-align: center; font-weight: 600; font-size: 0.8rem; text-decoration: none; transition: background-color 0.3s;"
+          style="margin-top: 6px; cursor: pointer; display: inline-block; padding: 6px 14px; border: 1px solid var(--accent-orange); color: var(--accent-orange); border-radius: 20px; text-align: center; font-weight: 600; font-size: 0.78rem; text-decoration: none; transition: background-color 0.3s;"
           onmouseover="this.style.backgroundColor='rgba(255,90,31,0.15)'"
           onmouseout="this.style.backgroundColor='transparent'">Submit Inquiry</a>
       </div>
+
     </div>
     <div class="footer-bottom"
       style="text-align: center; padding: 10px 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.78rem; color: rgba(255,255,255,0.5);">
