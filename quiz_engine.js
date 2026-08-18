@@ -59,6 +59,24 @@
 
   // Send Email OTP Code via Resend API (100% Real Email Delivery to Inbox)
   async function sendOTPEmailAPI(email, name, otpCode) {
+    const emailPayload = {
+      from: 'onboarding@resend.dev',
+      to: [email],
+      subject: `Your Nexus Quiz Hub Verification Code: ${otpCode}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 30px; color: #0A2540; max-width: 500px; margin: 0 auto; border: 1.5px solid #CBD5E1; border-radius: 16px; background: #FFFFFF;">
+          <h2 style="color: #0A2540; font-size: 24px; margin-bottom: 5px;"><span style="color: #0A2540;">NEXUS</span> <span style="color: #FF5A1F;">KNOWLEDGE HUB</span></h2>
+          <h3 style="color: #1E3A8A; font-size: 16px; margin: 0 0 15px 0;">Security Verification Code</h3>
+          <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">Hello <strong>${name || 'Candidate'}</strong>,</p>
+          <p style="font-size: 14px; color: #475569;">Your 6-digit security code to access the Quiz Hub portal is:</p>
+          <div style="font-size: 36px; font-weight: 900; color: #FF5A1F; letter-spacing: 8px; margin: 20px 0; background: #FFF8F5; border: 1.5px solid #FFD8CC; padding: 16px; text-align: center; border-radius: 12px;">
+            ${otpCode}
+          </div>
+          <p style="font-size: 12px; color: #94A3B8; margin-top: 25px; border-top: 1px solid #E2E8F0; padding-top: 12px;">If you did not request this verification code, please ignore this email.<br>&copy; 2026 Nexus Cargos (Pvt) Ltd Sri Lanka.</p>
+        </div>
+      `
+    };
+
     try {
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -66,28 +84,24 @@
           'Authorization': 'Bearer re_7cthjstC_Ge8tuVXKa4g2uuhfQkoh95Ft',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          from: 'Nexus Knowledge Hub <onboarding@resend.dev>',
-          to: [email],
-          subject: `Your Nexus Quiz Hub Verification Code: ${otpCode}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; padding: 30px; color: #0A2540; max-width: 500px; margin: 0 auto; border: 1.5px solid #CBD5E1; border-radius: 16px; background: #FFFFFF;">
-              <h2 style="color: #0A2540; font-size: 24px; margin-bottom: 5px;"><span style="color: #0A2540;">NEXUS</span> <span style="color: #FF5A1F;">KNOWLEDGE HUB</span></h2>
-              <h3 style="color: #1E3A8A; font-size: 16px; margin: 0 0 15px 0;">Security Verification Code</h3>
-              <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">Hello <strong>${name || 'Candidate'}</strong>,</p>
-              <p style="font-size: 14px; color: #475569;">Your 6-digit security code to access the Quiz Hub portal is:</p>
-              <div style="font-size: 36px; font-weight: 900; color: #FF5A1F; letter-spacing: 8px; margin: 20px 0; background: #FFF8F5; border: 1.5px solid #FFD8CC; padding: 16px; text-align: center; border-radius: 12px;">
-                ${otpCode}
-              </div>
-              <p style="font-size: 12px; color: #94A3B8; margin-top: 25px; border-top: 1px solid #E2E8F0; padding-top: 12px;">If you did not request this verification code, please ignore this email.<br>&copy; 2026 Nexus Cargos (Pvt) Ltd Sri Lanka.</p>
-            </div>
-          `
-        })
+        body: JSON.stringify(emailPayload)
       });
       const data = await res.json();
-      console.log("Resend OTP Email status:", data);
+      console.log("Resend API response:", data);
     } catch (err) {
-      console.warn("Resend OTP Email dispatch error:", err);
+      console.warn("Direct Resend API call blocked, trying proxy:", err);
+      try {
+        await fetch('https://corsproxy.io/?https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer re_7cthjstC_Ge8tuVXKa4g2uuhfQkoh95Ft',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(emailPayload)
+        });
+      } catch (pErr) {
+        console.warn("Proxy Resend API error:", pErr);
+      }
     }
   }
 
