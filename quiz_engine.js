@@ -72,12 +72,15 @@
       time: '15 minutes'
     };
 
+    console.log("Sending OTP via EmailJS to:", email);
+
     try {
       if (window.emailjs) {
-        await window.emailjs.send(serviceID, templateID, templateParams, publicKey);
-        console.log("EmailJS OTP email dispatched successfully to:", email);
+        window.emailjs.init(publicKey);
+        const res = await window.emailjs.send(serviceID, templateID, templateParams, publicKey);
+        console.log("EmailJS Success:", res);
       } else {
-        await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -87,9 +90,10 @@
             template_params: templateParams
           })
         });
+        console.log("EmailJS Direct REST API status:", res.status);
       }
     } catch (err) {
-      console.warn("EmailJS OTP Email dispatch error:", err);
+      console.error("EmailJS dispatch error:", err);
     }
   }
 
