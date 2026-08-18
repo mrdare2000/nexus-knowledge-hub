@@ -1,5 +1,5 @@
 // Nexus Quiz Hub - Interactive Engine & Certification Management
-// Handles Portal Dashboard, Weekly Auto-Rotation, Quiz Execution, Scoring, PDF Certificate Generation & Firebase Owner Admin Sync
+// Handles Portal Dashboard, Weekly Auto-Rotation, Quiz Execution, Scoring, Results View, PDF Certificate Generation & Firebase Owner Admin Sync
 
 (function () {
   'use strict';
@@ -46,7 +46,10 @@
       return;
     }
 
-    if (isAttemptingQuiz) {
+    if (currentViewingAttempt) {
+      container.innerHTML = renderQuizResultsView(currentViewingAttempt);
+      bindResultsViewEvents();
+    } else if (isAttemptingQuiz) {
       container.innerHTML = renderQuizQuestionsForm();
       bindQuizEvents();
     } else {
@@ -264,7 +267,7 @@
                 </div>
 
                 <button class="btn btn-secondary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid var(--border-color);">
-                  ${attempt ? '🔄 Re-take Assessment' : '📝 Attempt Quiz'}
+                  ${attempt ? '🔄 View / Re-take Assessment' : '📝 Attempt Quiz'}
                 </button>
               </div>
             `;
@@ -284,7 +287,7 @@
                 <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Assessment Title</th>
                 <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Score %</th>
                 <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Grade Level</th>
-                <th style="padding: 12px; border-bottom: 2px solid #CBD5E1; text-align: center;">Official Certificate</th>
+                <th style="padding: 12px; border-bottom: 2px solid #CBD5E1; text-align: center;">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -310,9 +313,14 @@
                     ${a.grade}
                   </td>
                   <td style="padding: 14px 12px; border-bottom: 1px solid #E2E8F0; text-align: center;">
-                    <button class="btn btn-primary btn-download-hist-pdf" data-attempt-id="${a.attemptId}" style="padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">
-                      📜 Download PDF
-                    </button>
+                    <div style="display: flex; gap: 8px; justify-content: center;">
+                      <button class="btn btn-secondary btn-view-results" data-attempt-id="${a.attemptId}" style="padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; border: 1px solid var(--border-color);">
+                        📊 View Score
+                      </button>
+                      <button class="btn btn-primary btn-download-hist-pdf" data-attempt-id="${a.attemptId}" style="padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">
+                        📜 PDF Certificate
+                      </button>
+                    </div>
                   </td>
                 </tr>
               `).join('')}
@@ -346,6 +354,7 @@
     if (startActiveBtn) {
       startActiveBtn.addEventListener('click', function () {
         isAttemptingQuiz = true;
+        currentViewingAttempt = null;
         renderQuizHubUI();
       });
     }
@@ -358,6 +367,20 @@
         if (selected) {
           activeQuiz = selected;
           isAttemptingQuiz = true;
+          currentViewingAttempt = null;
+          renderQuizHubUI();
+        }
+      });
+    });
+
+    const viewBtns = document.querySelectorAll('.btn-view-results');
+    viewBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const attId = btn.getAttribute('data-attempt-id');
+        const att = userAttempts.find(a => a.attemptId === attId);
+        if (att) {
+          currentViewingAttempt = att;
+          isAttemptingQuiz = false;
           renderQuizHubUI();
         }
       });
@@ -378,35 +401,24 @@
     }
   }
 
-  // Render Quiz Questions Form
+  // Render Quiz Questions Form (NO STICKY TOP BAR)
   function renderQuizQuestionsForm() {
     let html = `
       <div class="quiz-questions-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
         <!-- Header Navigation Back Button -->
-        <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-          <button id="btn-back-to-dashboard" class="btn btn-secondary" style="padding: 10px 20px; border-radius: 30px; font-weight: 700; font-size: 0.88rem; border: 1.5px solid var(--border-color);">
+        <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-white); padding: 15px 25px; border-radius: 16px; border: 1.5px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <button id="btn-back-to-dashboard" class="btn btn-secondary" style="padding: 8px 18px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; border: 1.5px solid var(--border-color);">
             ← Back to Quiz Dashboard
           </button>
-          <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);">
+          <span style="font-size: 0.9rem; font-weight: 800; color: var(--primary-navy); font-family: 'Outfit', sans-serif;">
             ${activeQuiz.title}
           </span>
         </div>
 
         <form id="quiz-attempt-form" style="display: flex; flex-direction: column; gap: 25px;">
-          <div style="background: var(--bg-white); padding: 20px 25px; border-radius: 16px; border: 1.5px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 80px; z-index: 10; box-shadow: 0 8px 20px rgba(0,0,0,0.06);">
-            <div>
-              <strong style="color: var(--primary-navy); font-size: 0.95rem;">Assessment Progress</strong>
-              <div style="width: 200px; height: 8px; background: #E2E8F0; border-radius: 4px; overflow: hidden; margin-top: 5px;">
-                <div id="quiz-progress-bar" style="width: 0%; height: 100%; background: var(--accent-orange); transition: width 0.3s ease;"></div>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary" style="padding: 10px 25px; border-radius: 50px; font-weight: 700; font-size: 0.9rem;">
-              ✅ Submit & Grade Assessment
-            </button>
-          </div>
-
-          <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2px solid var(--accent-orange); padding-bottom: 8px; margin-top: 10px;">
+          
+          <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 10px; font-size: 1.25rem;">
             SECTION 1: Multiple Choice Questions (10 Marks)
           </h3>
     `;
@@ -414,17 +426,17 @@
     // Render 10 MCQs
     activeQuiz.questions.filter(q => q.type === 'mcq').forEach((q, idx) => {
       html += `
-        <div class="quiz-question-card" style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 16px;">
+        <div class="quiz-question-card" style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span style="font-size: 0.78rem; font-weight: 700; background: #EFF6FF; color: #1E40AF; padding: 4px 10px; border-radius: 6px;">
+            <span style="font-size: 0.78rem; font-weight: 800; background: #EFF6FF; color: #1E40AF; padding: 4px 12px; border-radius: 8px;">
               Q${idx + 1} • ${q.category}
             </span>
-            <span style="font-size: 0.75rem; color: var(--text-muted);">MCQ (1 Mark)</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">MCQ (1 Mark)</span>
           </div>
-          <h4 style="font-size: 1.05rem; color: var(--primary-navy); margin: 0 0 15px 0; line-height: 1.5;">${q.question}</h4>
+          <h4 style="font-size: 1.05rem; color: var(--primary-navy); margin: 0 0 15px 0; line-height: 1.5; font-weight: 700;">${q.question}</h4>
           <div style="display: flex; flex-direction: column; gap: 10px;">
             ${q.options.map((opt, oIdx) => `
-              <label style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.2s ease; background: #FAFAFA;" class="quiz-opt-label">
+              <label style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; border: 1.5px solid var(--border-color); border-radius: 12px; cursor: pointer; transition: all 0.2s ease; background: #FAFAFA;" class="quiz-opt-label">
                 <input type="radio" name="q_${q.id}" value="${oIdx}" class="quiz-radio" style="accent-color: var(--accent-orange);" required>
                 <span style="font-size: 0.92rem; color: var(--primary-navy);">${opt}</span>
               </label>
@@ -435,7 +447,7 @@
     });
 
     html += `
-      <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2px solid var(--accent-orange); padding-bottom: 8px; margin-top: 20px;">
+      <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 20px; font-size: 1.25rem;">
         SECTION 2: Short Answer Technical Assessment (10 Marks)
       </h3>
     `;
@@ -443,23 +455,24 @@
     // Render 10 Short Answer Questions
     activeQuiz.questions.filter(q => q.type === 'short').forEach((q, idx) => {
       html += `
-        <div class="quiz-question-card" style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 16px;">
+        <div class="quiz-question-card" style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span style="font-size: 0.78rem; font-weight: 700; background: #F0FDF4; color: #166534; padding: 4px 10px; border-radius: 6px;">
+            <span style="font-size: 0.78rem; font-weight: 800; background: #F0FDF4; color: #166534; padding: 4px 12px; border-radius: 8px;">
               Q${idx + 11} • ${q.category}
             </span>
-            <span style="font-size: 0.75rem; color: var(--text-muted);">Short Answer (1 Mark)</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Short Answer (1 Mark)</span>
           </div>
-          <h4 style="font-size: 1.05rem; color: var(--primary-navy); margin: 0 0 12px 0; line-height: 1.5;">${q.question}</h4>
-          <input type="text" name="q_${q.id}" required placeholder="Type your answer here..." style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+          <h4 style="font-size: 1.05rem; color: var(--primary-navy); margin: 0 0 12px 0; line-height: 1.5; font-weight: 700;">${q.question}</h4>
+          <input type="text" name="q_${q.id}" required placeholder="Type your answer here..." style="width: 100%; padding: 14px 18px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
         </div>
       `;
     });
 
     html += `
-          <div style="text-align: center; margin-top: 20px;">
-            <button type="submit" class="btn btn-primary" style="padding: 16px 45px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-              🏁 Complete & Generate Official Certificate
+          <!-- SUBMIT BUTTON AT THE VERY BOTTOM OF THE QUIZ -->
+          <div style="text-align: center; margin: 35px 0 20px 0;">
+            <button type="submit" class="btn btn-primary" style="padding: 18px 50px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(255,90,31,0.35);">
+              ✅ Submit & Grade Assessment
             </button>
           </div>
         </form>
@@ -488,7 +501,7 @@
     }
   }
 
-  // Grade Assessment Logic
+  // Grade Assessment Logic & Show Results Screen
   function gradeAssessment(form) {
     const formData = new FormData(form);
     let mcqScore = 0;
@@ -560,7 +573,96 @@
     saveAttemptToFirebase(attemptRecord);
 
     isAttemptingQuiz = false;
+    currentViewingAttempt = attemptRecord;
     renderQuizHubUI();
+  }
+
+  // Render Quiz Results View Screen (With Generate Certificate Button & Explanations)
+  function renderQuizResultsView(attempt) {
+    return `
+      <div class="quiz-results-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
+        
+        <!-- Results Card Header -->
+        <div style="background: linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%); color: #FFF; padding: 35px; border-radius: 24px; text-align: center; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(10,37,64,0.3);">
+          <span style="background: rgba(255,90,31,0.25); border: 1px solid rgba(255,90,31,0.4); color: #FF9E7D; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; letter-spacing: 0.8px; display: inline-block; margin-bottom: 15px;">
+            🎉 Assessment Complete
+          </span>
+          <h2 style="font-family: 'Outfit', sans-serif; color: #FFF; font-size: 1.8rem; margin: 0 0 10px 0;">${attempt.weekTitle}</h2>
+          <p style="color: #94A3B8; font-size: 0.95rem; margin-bottom: 25px;">Candidate: <strong>${attempt.userName}</strong> (${attempt.userCompany})</p>
+
+          <!-- Big Score Circle / Gauge -->
+          <div style="background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 25px; max-width: 320px; margin: 0 auto 25px auto;">
+            <span style="font-size: 0.85rem; color: #CBD5E1; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Your Final Score</span>
+            <div style="font-size: 3.8rem; font-weight: 900; color: #FF5A1F; font-family: 'Outfit', sans-serif; margin: 5px 0;">${attempt.percentage}%</div>
+            <span style="font-size: 1.05rem; font-weight: 800; color: #FFF; background: rgba(255,255,255,0.12); padding: 6px 16px; border-radius: 30px; display: inline-block;">
+              ${attempt.grade}
+            </span>
+          </div>
+
+          <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.9rem; color: #CBD5E1; margin-bottom: 25px;">
+            <span>MCQ Score: <strong>${attempt.mcqScore}/10</strong></span>
+            <span>•</span>
+            <span>Short Answer Score: <strong>${attempt.shortScore}/10</strong></span>
+          </div>
+
+          <!-- GENERATE CERTIFICATE BUTTON & DASHBOARD BUTTON -->
+          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <button id="btn-generate-pdf-cert" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.4);">
+              📜 Generate Certificate (PDF)
+            </button>
+            <button id="btn-results-to-dashboard" class="btn btn-secondary" style="padding: 16px 30px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #FFF;">
+              ← Back to Dashboard
+            </button>
+          </div>
+        </div>
+
+        <!-- Question Explanations & Review Breakdown -->
+        <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.3rem; margin: 0 0 20px 0;">
+          💡 Question Explanations & Detailed Evaluation
+        </h3>
+
+        <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;">
+          ${attempt.detailedResults.map((r, idx) => `
+            <div style="background: var(--bg-white); border: 1.5px solid ${r.isCorrect ? '#10B981' : '#EF4444'}; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-size: 0.8rem; font-weight: 800; color: var(--primary-navy);">Question ${idx + 1}</span>
+                <span style="background: ${r.isCorrect ? '#D1FAE5' : '#FEE2E2'}; color: ${r.isCorrect ? '#065F46' : '#991B1B'}; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;">
+                  ${r.isCorrect ? '✅ Correct (+1 Mark)' : '❌ Incorrect (0 Marks)'}
+                </span>
+              </div>
+              <h4 style="font-size: 0.98rem; color: var(--primary-navy); margin: 0 0 10px 0; font-weight: 700;">${r.question}</h4>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+                Your Answer: <strong style="color: ${r.isCorrect ? '#059669' : '#DC2626'};">${r.userAnswer}</strong>
+              </div>
+              ${!r.isCorrect ? `<div style="font-size: 0.88rem; color: var(--primary-navy); margin-bottom: 8px;">Correct Answer: <strong>${r.correctAnswer}</strong></div>` : ''}
+              <div style="background: #F8FAFC; border-left: 3px solid var(--accent-orange); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #475569; margin-top: 8px;">
+                💡 <strong>Explanation:</strong> ${r.explanation}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+      </div>
+    `;
+  }
+
+  // Bind Results View Events
+  function bindResultsViewEvents() {
+    const certBtn = document.getElementById('btn-generate-pdf-cert');
+    if (certBtn) {
+      certBtn.addEventListener('click', function () {
+        if (currentViewingAttempt) downloadPDFResultSheet(currentViewingAttempt);
+      });
+    }
+
+    const backDashBtn = document.getElementById('btn-results-to-dashboard');
+    if (backDashBtn) {
+      backDashBtn.addEventListener('click', function () {
+        currentViewingAttempt = null;
+        isAttemptingQuiz = false;
+        renderQuizHubUI();
+      });
+    }
   }
 
   // Generate & Download PDF Result Sheet
