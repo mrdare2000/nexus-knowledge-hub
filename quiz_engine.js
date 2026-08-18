@@ -239,9 +239,17 @@
           </div>
 
           <div>
-            <button id="btn-start-active-quiz" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3); white-space: nowrap;">
-              🚀 Attempt Active Quiz
-            </button>
+            ${(function(){
+              const actAtt = myAttempts.find(a => a.weekId === activeQuiz.id);
+              if (actAtt) {
+                return `<button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
+                  📊 View Score & Certificate
+                </button>`;
+              }
+              return `<button id="btn-start-active-quiz" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3); white-space: nowrap;">
+                🚀 Attempt Active Quiz
+              </button>`;
+            })()}
           </div>
         </div>
 
@@ -260,15 +268,21 @@
                     <span style="background: #EFF6FF; color: #1E40AF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">
                       SET #${idx + 1}
                     </span>
-                    ${attempt ? `<span style="background: #F0FDF4; color: #15803D; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">Score: ${attempt.percentage}%</span>` : `<span style="background: #FFFBEB; color: #B45309; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 6px;">Available</span>`}
+                    ${attempt ? `<span style="background: #F0FDF4; color: #15803D; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">Completed: ${attempt.percentage}%</span>` : `<span style="background: #FFFBEB; color: #B45309; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 6px;">Available</span>`}
                   </div>
                   <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.1rem; line-height: 1.4;">${w.title}</h4>
                   <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0 0 20px 0; line-height: 1.5;">${w.description}</p>
                 </div>
 
-                <button class="btn btn-secondary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid var(--border-color);">
-                  ${attempt ? '🔄 View / Re-take Assessment' : '📝 Attempt Quiz'}
-                </button>
+                ${attempt ? `
+                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
+                    📊 View Score & Certificate
+                  </button>
+                ` : `
+                  <button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;">
+                    📝 Attempt Quiz
+                  </button>
+                `}
               </div>
             `;
           }).join('')}
