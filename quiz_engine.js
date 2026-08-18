@@ -418,7 +418,7 @@
         
         <!-- Header Navigation Back Button -->
         <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-white); padding: 15px 25px; border-radius: 16px; border: 1.5px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-          <button id="btn-back-to-dashboard" class="btn btn-secondary" style="padding: 8px 18px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; border: 1.5px solid var(--border-color);">
+          <button id="btn-back-to-dashboard" style="padding: 10px 22px; border-radius: 30px; font-weight: 800; font-size: 0.88rem; border: 1.5px solid var(--primary-navy); color: var(--primary-navy); background: #F8FAFC; cursor: pointer; transition: all 0.2s ease;">
             ← Back to Quiz Dashboard
           </button>
           <span style="font-size: 0.9rem; font-weight: 800; color: var(--primary-navy); font-family: 'Outfit', sans-serif;">
