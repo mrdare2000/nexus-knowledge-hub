@@ -5,8 +5,8 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
   weeks: [
     {
       id: "week-1",
-      title: "Weekly Assessment #1: Logistics History, Shipping Basics & Incoterms 2026",
-      description: "Test your knowledge on trade history, containerization, Incoterms cost divisions, and core shipping terms.",
+      title: "Weekly Quiz 01",
+      description: "20 Questions • 10 MCQ + 10 Short Answer",
       questions: [
         // 10 MCQs
         {
@@ -245,8 +245,8 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
     },
     {
       id: "week-2",
-      title: "Weekly Assessment #2: Air Freight, Customs Clearance & Hazardous Cargo",
-      description: "Deep dive into aviation weight ratios, CUSDEC customs entry, dangerous goods classes & Incoterm risk points.",
+      title: "Weekly Quiz 02",
+      description: "20 Questions • 10 MCQ + 10 Short Answer",
       questions: [
         {
           id: "w2-q1",

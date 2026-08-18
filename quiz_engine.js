@@ -131,7 +131,9 @@
 
   // Render Portal Dashboard
   function renderPortalDashboard() {
-    const myAttempts = userAttempts.filter(a => a.userId === currentUser.id || a.userEmail === currentUser.email);
+    const myAttempts = userAttempts
+      .filter(a => a.userId === currentUser.id || a.userEmail === currentUser.email)
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const totalAttempts = myAttempts.length;
     const avgScore = totalAttempts > 0 ? Math.round(myAttempts.reduce((acc, cur) => acc + cur.percentage, 0) / totalAttempts) : 0;
     const passedAttempts = myAttempts.filter(a => a.percentage >= 50);
@@ -249,24 +251,25 @@
           </div>
         </div>
 
-        <!-- Quiz Categories & Available Assessment Sets -->
+        <!-- Quiz Categories & Available Weekly Quizzes -->
         <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.4rem; margin: 0 0 20px 0;">
-          📚 Available Assessment Sets
+          📚 Available Quizzes
         </h3>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 45px;">
-          ${weeks.map((w, idx) => {
+          ${[...weeks].reverse().map((w, idx) => {
+            const originalSetNum = weeks.indexOf(w) + 1;
             const attempt = myAttempts.find(a => a.weekId === w.id);
             return `
               <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                 <div>
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                     <span style="background: #EFF6FF; color: #1E40AF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">
-                      SET #${idx + 1}
+                      SET #${originalSetNum}
                     </span>
                     ${attempt ? `<span style="background: #F0FDF4; color: #15803D; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">Completed: ${attempt.percentage}%</span>` : `<span style="background: #FFFBEB; color: #B45309; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 6px;">Available</span>`}
                   </div>
-                  <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.1rem; line-height: 1.4;">${w.title}</h4>
+                  <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">${w.title}</h4>
                   <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0 0 20px 0; line-height: 1.5;">${w.description}</p>
                 </div>
 
@@ -294,7 +297,7 @@
             <thead>
               <tr style="background: #F8FAFC; text-align: left;">
                 <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Date</th>
-                <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Assessment Title</th>
+                <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Quiz Title</th>
                 <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Score %</th>
                 <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Grade Level</th>
                 <th style="padding: 12px; border-bottom: 2px solid #CBD5E1; text-align: center;">Actions</th>
@@ -419,7 +422,7 @@
         <!-- Header Navigation Back Button -->
         <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-white); padding: 15px 25px; border-radius: 16px; border: 1.5px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
           <button id="btn-back-to-dashboard" style="padding: 10px 22px; border-radius: 30px; font-weight: 800; font-size: 0.88rem; border: 1.5px solid var(--primary-navy); color: var(--primary-navy); background: #F8FAFC; cursor: pointer; transition: all 0.2s ease;">
-            ← Back to Quiz Dashboard
+            ← Back
           </button>
           <span style="font-size: 0.9rem; font-weight: 800; color: var(--primary-navy); font-family: 'Outfit', sans-serif;">
             ${activeQuiz.title}
@@ -458,7 +461,7 @@
 
     html += `
       <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 20px; font-size: 1.25rem;">
-        SECTION 2: Short Answer Technical Assessment (10 Marks)
+        SECTION 2: Short Answer Questions (10 Marks)
       </h3>
     `;
 
@@ -482,7 +485,7 @@
           <!-- SUBMIT BUTTON AT THE VERY BOTTOM OF THE QUIZ -->
           <div style="text-align: center; margin: 35px 0 20px 0;">
             <button type="submit" class="btn btn-primary" style="padding: 18px 50px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(255,90,31,0.35);">
-              ✅ Submit & Grade Assessment
+              ✅ Submit Quiz
             </button>
           </div>
         </form>
