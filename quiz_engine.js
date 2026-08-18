@@ -148,34 +148,30 @@
       <div class="quiz-portal-dashboard" style="max-width: 1050px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
         <!-- Header Banner & Candidate Profile -->
-        <div style="background: var(--bg-white); padding: 20px 30px; border-radius: 18px; border: 1.5px solid var(--border-color); margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.04); flex-wrap: wrap; gap: 15px;">
-          <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="width: 55px; height: 55px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(255,90,31,0.3);">
+        <div style="background: var(--bg-white); padding: 18px 28px; border-radius: 18px; border: 1.5px solid var(--border-color); margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.04); flex-wrap: wrap; gap: 15px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.4rem; box-shadow: 0 4px 12px rgba(255,90,31,0.3);">
               ${currentUser.name.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h3 style="margin: 0 0 4px 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.2rem;">${currentUser.name}</h3>
+              <h3 style="margin: 0 0 3px 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.15rem;">${currentUser.name}</h3>
               <span style="font-size: 0.85rem; color: var(--text-muted);">${currentUser.company} • ${currentUser.role}</span>
             </div>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <button id="btn-logout" style="background: #FFF; border: 1.5px solid #EF4444; color: #EF4444; padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
-              Sign Out
-            </button>
-          </div>
+          <button id="btn-logout" style="background: #FFF; border: 1.5px solid #EF4444; color: #EF4444; padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+            Sign Out
+          </button>
         </div>
 
-        <!-- Hero Welcome Header -->
-        <div style="background: linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%); color: #FFF; border-radius: 24px; padding: 35px; margin-bottom: 35px; box-shadow: 0 15px 35px rgba(10,37,64,0.3); position: relative; overflow: hidden;">
-          <div style="position: relative; z-index: 2;">
-            <h1 style="font-family: 'Outfit', sans-serif; margin: 0 0 10px 0; font-size: 2.4rem; color: #FFF; font-weight: 800;">
-              Quiz <span style="color: #FF5A1F;">Hub</span>
-            </h1>
-            <p style="color: #94A3B8; font-size: 1.05rem; margin: 0; max-width: 650px; line-height: 1.6;">
-              Test your expertise in ocean & air freight, Incoterms 2026, customs clearance, and global trade history. Earn verifiable PDF certificates every week.
-            </p>
-          </div>
+        <!-- Page Section Header -->
+        <div class="section-header" style="text-align: center; margin-bottom: 35px;">
+          <h2 style="font-size: 2.2rem; margin-bottom: 8px; font-family: 'Outfit', sans-serif;">
+            <span style="color: var(--primary-navy);">Quiz</span> <span style="color: var(--accent-orange);">Hub</span>
+          </h2>
+          <p style="font-size: 0.98rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; line-height: 1.5;">
+            Test your knowledge with weekly logistics challenges, track competency scores, and earn verifiable certificates.
+          </p>
         </div>
 
         <!-- 4 Candidate Stats Metric Cards -->
