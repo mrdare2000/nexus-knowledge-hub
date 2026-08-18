@@ -597,11 +597,8 @@
         
         <!-- Results Card Header -->
         <div style="background: linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%); color: #FFF; padding: 35px; border-radius: 24px; text-align: center; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(10,37,64,0.3);">
-          <span style="background: rgba(255,90,31,0.25); border: 1px solid rgba(255,90,31,0.4); color: #FF9E7D; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; padding: 6px 16px; border-radius: 20px; letter-spacing: 0.8px; display: inline-block; margin-bottom: 15px;">
-            🎉 Assessment Complete
-          </span>
-          <h2 style="font-family: 'Outfit', sans-serif; color: #FFF; font-size: 1.8rem; margin: 0 0 10px 0;">${attempt.weekTitle}</h2>
-          <p style="color: #94A3B8; font-size: 0.95rem; margin-bottom: 25px;">Candidate: <strong>${attempt.userName}</strong> (${attempt.userCompany})</p>
+          <h2 style="font-family: 'Outfit', sans-serif; color: #FFF; font-size: 2rem; margin: 0 0 10px 0;">${attempt.weekTitle}</h2>
+          <p style="color: #94A3B8; font-size: 0.95rem; margin-bottom: 25px;">Candidate: <strong>${attempt.userName}</strong></p>
 
           <!-- Big Score Circle / Gauge -->
           <div style="background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 25px; max-width: 320px; margin: 0 auto 25px auto;">
@@ -624,7 +621,7 @@
               📜 Generate Certificate (PDF)
             </button>
             <button id="btn-results-to-dashboard" class="btn btn-secondary" style="padding: 16px 30px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #FFF;">
-              ← Back to Dashboard
+              ← Back
             </button>
           </div>
         </div>
@@ -700,12 +697,11 @@
       </head>
       <body>
         <div class="cert-border">
-          <div class="logo">NEXUS KNOWLEDGE HUB</div>
-          <div class="subtitle">Official Statement of Logistics Competency</div>
-          <h1>${attempt.weekTitle}</h1>
+          <div class="logo"><span style="color: #0A2540;">NEXUS</span> <span style="color: #FF5A1F;">KNOWLEDGE HUB</span></div>
+          <div class="subtitle">CERTIFICATE OF LOGISTICS COMPETENCY</div>
+          <h1 style="margin-top: 15px;">${attempt.weekTitle}</h1>
           <p style="margin-top: 20px; color: #475569;">This official statement certifies that</p>
-          <div class="name">${attempt.userName}</div>
-          <div class="company">${attempt.userCompany} • ${attempt.userRole}</div>
+          <div class="name" style="margin-bottom: 25px;">${attempt.userName}</div>
           
           <div class="score-box">
             <div style="font-size: 14px; color: #64748B; font-weight: bold;">TOTAL SCORE PERCENTAGE</div>
