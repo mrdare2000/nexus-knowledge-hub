@@ -107,8 +107,8 @@
 
         <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
           <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Full Name *</label>
-            <input type="text" id="kyc-name" required placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Name *</label>
+            <input type="text" id="kyc-name" required placeholder="Darshika Amaranath" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
           <div>
             <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
