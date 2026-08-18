@@ -99,7 +99,7 @@
 
     return `
       <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
-        <div style="font-size: 3.5rem; margin-bottom: 15px;">📝</div>
+        <div style="font-size: 3.5rem; margin-bottom: 15px;">💡</div>
         <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 10px; font-weight: 800;">Welcome to Nexus Quiz Hub</h2>
         <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6;">
           Register once with your details to access weekly logistics certification challenges, track your candidate rank, and download verifiable PDF certificates.
@@ -108,20 +108,20 @@
         <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
           <div>
             <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Full Name *</label>
-            <input type="text" id="kyc-name" required placeholder="Enter your full name" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <input type="text" id="kyc-name" required placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
           <div>
             <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
-            <input type="email" id="kyc-email" required placeholder="Enter your email address" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <input type="email" id="kyc-email" required placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Company / University</label>
-              <input type="text" id="kyc-company" placeholder="Company or University name" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              <input type="text" id="kyc-company" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Professional Role</label>
-              <input type="text" id="kyc-role" placeholder="Your role or designation" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              <input type="text" id="kyc-role" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
           </div>
           <button type="submit" class="btn btn-primary" style="margin-top: 15px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
