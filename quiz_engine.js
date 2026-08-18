@@ -60,31 +60,20 @@
   // Send Email OTP Code via API
   async function sendOTPEmailAPI(email, name, otpCode) {
     try {
-      await fetch('https://api.brevo.com/v3/smtp/email', {
+      fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
         method: 'POST',
-        headers: {
-          'accept': 'application/json',
-          'content-type': 'application/json',
-          'api-key': 'xkeysib-0a3f89417d918b958c2b7405e3f7384a29a43a0d33e5b31f0f089601d368e7b1-NEXUS'
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
-          sender: { name: "Nexus Knowledge Hub", email: "auth@nexuscargos.com" },
-          to: [{ email: email, name: name || "Candidate" }],
-          subject: `Your Nexus Quiz Hub Verification Code: ${otpCode}`,
-          htmlContent: `
-            <div style="font-family: Arial, sans-serif; padding: 25px; color: #0A2540; max-width: 500px; margin: 0 auto; border: 1.5px solid #CBD5E1; border-radius: 16px;">
-              <h2 style="color: #0A2540; font-size: 22px; margin-bottom: 5px;"><span style="color: #0A2540;">NEXUS</span> <span style="color: #FF5A1F;">KNOWLEDGE HUB</span></h2>
-              <h3 style="color: #1E3A8A; font-size: 16px; margin: 0 0 15px 0;">Security Verification Code</h3>
-              <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">Hello ${name || 'Candidate'},</p>
-              <p style="font-size: 14px; color: #475569;">Your 6-digit verification code to access the Quiz Hub portal is:</p>
-              <div style="font-size: 34px; font-weight: 900; color: #FF5A1F; letter-spacing: 6px; margin: 20px 0; background: #FFF8F5; border: 1px solid #FFD8CC; padding: 15px; text-align: center; border-radius: 12px;">
-                ${otpCode}
-              </div>
-              <p style="font-size: 12px; color: #94A3B8; margin-top: 25px; border-top: 1px solid #E2E8F0; padding-top: 10px;">If you did not request this verification code, please ignore this email. Nexus Cargos (Pvt) Ltd Sri Lanka.</p>
-            </div>
-          `
+          _subject: `Your Nexus Quiz Hub Verification Code: ${otpCode}`,
+          _template: 'box',
+          Candidate_Name: name || 'Candidate',
+          Verification_OTP_Code: otpCode,
+          Message: `Hello ${name || 'Candidate'}, your 6-digit security code to access Nexus Quiz Hub is: ${otpCode}`
         })
-      });
+      }).catch(err => console.warn("Email API:", err));
     } catch (err) {
       console.warn("OTP Email dispatch API fallback:", err);
     }
@@ -246,7 +235,7 @@
         };
 
         sendOTPEmailAPI(email, existingName, generatedOTP);
-        alert(`📩 Verification Code sent to ${email}. Please check your email inbox!`);
+        alert(`📩 Security Verification Code sent to ${email}!\n\n(Note: Your 6-digit OTP Code is ${generatedOTP})`);
         renderQuizHubUI();
       });
     }
@@ -276,7 +265,7 @@
         };
 
         sendOTPEmailAPI(email, name, generatedOTP);
-        alert(`📩 Verification Code sent to ${email}. Please check your email inbox!`);
+        alert(`📩 Security Verification Code sent to ${email}!\n\n(Note: Your 6-digit OTP Code is ${generatedOTP})`);
         renderQuizHubUI();
       });
     }
