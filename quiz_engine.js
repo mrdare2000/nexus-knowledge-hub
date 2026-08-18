@@ -57,23 +57,24 @@
   let pendingRegistration = null;
   let authMode = 'signin'; // 'signin' or 'signup'
 
-  // Send Email OTP Code via API
+  // Send Email OTP Code via Platform Master API (Dispatches real email to Candidate Inbox)
   async function sendOTPEmailAPI(email, name, otpCode) {
     try {
-      fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          _subject: `Your Nexus Quiz Hub Verification Code: ${otpCode}`,
-          _template: 'box',
-          Candidate_Name: name || 'Candidate',
-          Verification_OTP_Code: otpCode,
-          Message: `Hello ${name || 'Candidate'}, your 6-digit security code to access Nexus Quiz Hub is: ${otpCode}`
+          access_key: 'e45b4c10-9c2b-4278-a3f2-8924f4640166',
+          email: email,
+          to_email: email,
+          name: name || 'Candidate',
+          subject: `Your Nexus Quiz Hub Verification Code: ${otpCode}`,
+          message: `Hello ${name || 'Candidate'},\n\nYour 6-digit security verification code to access Nexus Quiz Hub is: ${otpCode}\n\nPlease enter this code in the portal to verify your account.\n\nNexus Cargos (Pvt) Ltd Sri Lanka.`
         })
-      }).catch(err => console.warn("Email API:", err));
+      }).catch(err => console.warn("Primary Email API dispatch error:", err));
     } catch (err) {
       console.warn("OTP Email dispatch API fallback:", err);
     }
