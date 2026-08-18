@@ -327,7 +327,7 @@
                   </td>
                   <td style="padding: 14px 12px; border-bottom: 1px solid #E2E8F0; text-align: center;">
                     <div style="display: flex; gap: 8px; justify-content: center;">
-                      <button class="btn btn-secondary btn-view-results" data-attempt-id="${a.attemptId}" style="padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; border: 1px solid var(--border-color);">
+                      <button class="btn-view-results" data-attempt-id="${a.attemptId}" style="padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; border: 1.5px solid var(--primary-navy); color: var(--primary-navy); background: #F8FAFC; cursor: pointer; transition: all 0.2s ease;">
                         📊 View Score
                       </button>
                       <button class="btn btn-primary btn-download-hist-pdf" data-attempt-id="${a.attemptId}" style="padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">
