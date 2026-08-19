@@ -22,12 +22,28 @@
     return weeksPool.length - 1; // Always features the latest active week
   }
 
+  const SYSTEM_SESSION_VERSION = "2026_08_19_v2";
+
   // Initialize Quiz Hub
   function initQuizHub() {
+    // Force reset old local sessions on all devices so everyone registers fresh to Cloud DB
+    const currentVersion = localStorage.getItem('nexus_session_version');
+    if (currentVersion !== SYSTEM_SESSION_VERSION) {
+      localStorage.removeItem('nexus_quiz_user');
+      localStorage.setItem('nexus_session_version', SYSTEM_SESSION_VERSION);
+      currentUser = null;
+    }
+
     activeWeekIndex = calculateActiveWeekIndex();
     if (window.NEXUS_QUIZ_DATABASE && window.NEXUS_QUIZ_DATABASE.weeks) {
       activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[activeWeekIndex];
     }
+
+    // Auto-sync active candidate to Cloud DB on load
+    if (currentUser) {
+      saveUserToCloudDB(currentUser);
+    }
+
     renderQuizHubUI();
   }
 
