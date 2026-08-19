@@ -305,11 +305,6 @@
         renderQuizHubUI();
       });
     }
-        localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-        saveUserToFirebase(currentUser);
-        renderQuizHubUI();
-      });
-    }
   }
 
   // Render Portal Dashboard
