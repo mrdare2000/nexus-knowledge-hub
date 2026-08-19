@@ -60,7 +60,7 @@
   // Send Real Email OTP Code via EmailJS Official SDK (100% Real Delivery to Candidate Inbox)
   async function sendOTPEmailAPI(email, name, otpCode) {
     const serviceID = 'service_otf02mb';
-    const templateID = 'template_p03sjdg';
+    const templateID = 'template_8n64w5m';
     const publicKey = 'XJfGWH4-l8E58M4yr';
 
     const templateParams = {
