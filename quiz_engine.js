@@ -127,7 +127,7 @@
             <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
               New to Quiz Hub? 
               <button type="button" id="toggle-to-signup" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
-                Create Candidate Profile
+                Create a New Profile
               </button>
             </div>
           </form>
@@ -139,7 +139,7 @@
     return `
       <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
         <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
-        <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Create Candidate Profile</h2>
+        <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Create a New Profile</h2>
         <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
           Register once to access weekly logistics certification challenges, track your candidate rank, and download verifiable PDF certificates.
         </p>
@@ -211,7 +211,7 @@
         const isSavedUser = savedUser && savedUser.email && savedUser.email.toLowerCase() === email;
 
         if (!existingAttempt && !isSavedUser) {
-          alert('❌ No candidate profile found for this email address.\n\nThis email is not registered yet. Please click "Create Candidate Profile" below to register once.');
+          alert('❌ No candidate profile found for this email address.\n\nThis email is not registered yet. Please click "Create a New Profile" below to register once.');
           return;
         }
 
@@ -225,6 +225,7 @@
           email: email,
           company: existingCompany,
           role: existingRole,
+          avatar: savedUser.avatar || null,
           verified: true,
           registeredAt: savedUser.registeredAt || new Date().toISOString()
         };
@@ -263,6 +264,7 @@
           email: email,
           company: company,
           role: role,
+          avatar: null,
           verified: true,
           registeredAt: new Date().toISOString()
         };
@@ -291,14 +293,18 @@
 
     const weeks = window.NEXUS_QUIZ_DATABASE.weeks;
 
+    const userAvatarHtml = currentUser.avatar && currentUser.avatar.startsWith('data:') 
+      ? `<img src="${currentUser.avatar}" style="width: 100%; height: 100%; object-fit: cover;">`
+      : `<span style="font-size: 1.4rem;">${currentUser.avatar || currentUser.name.charAt(0).toUpperCase()}</span>`;
+
     return `
       <div class="quiz-portal-dashboard" style="max-width: 1050px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
         <!-- Header Banner & Candidate Profile -->
         <div style="background: var(--bg-white); padding: 18px 28px; border-radius: 18px; border: 1.5px solid var(--border-color); margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.04); flex-wrap: wrap; gap: 15px;">
           <div style="display: flex; align-items: center; gap: 14px;">
-            <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.4rem; box-shadow: 0 4px 12px rgba(255,90,31,0.3);">
-              ${currentUser.name.charAt(0).toUpperCase()}
+            <div style="width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 4px 12px rgba(255,90,31,0.3); overflow: hidden;">
+              ${userAvatarHtml}
             </div>
             <div>
               <h3 style="margin: 0 0 3px 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.15rem;">${currentUser.name}</h3>
@@ -307,9 +313,14 @@
             </div>
           </div>
 
-          <button id="btn-logout" style="background: #FFF; border: 1.5px solid #EF4444; color: #EF4444; padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
-            Sign Out
-          </button>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="btn-edit-profile" style="background: #F1F5F9; border: 1.5px solid #CBD5E1; color: var(--primary-navy); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+              ✏️ Edit Profile
+            </button>
+            <button id="btn-logout" style="background: #FFF; border: 1.5px solid #EF4444; color: #EF4444; padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+              Sign Out
+            </button>
+          </div>
         </div>
 
         <!-- Page Section Header -->
@@ -506,6 +517,13 @@
         currentUser = null;
         localStorage.removeItem('nexus_quiz_user');
         renderQuizHubUI();
+      });
+    }
+
+    const editProfileBtn = document.getElementById('btn-edit-profile');
+    if (editProfileBtn) {
+      editProfileBtn.addEventListener('click', function () {
+        openProfileEditModal();
       });
     }
 
@@ -963,6 +981,128 @@
     document.body.appendChild(a);
     a.click();
     a.remove();
+  }
+
+  // Open Profile Edit Modal with Avatar Selection & Zero-Storage Photo Upload
+  function openProfileEditModal() {
+    const existingModal = document.getElementById('nexus-profile-edit-modal');
+    if (existingModal) existingModal.remove();
+
+    let selectedAvatar = currentUser.avatar || currentUser.name.charAt(0).toUpperCase();
+
+    const modalHtml = `
+      <div id="nexus-profile-edit-modal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 37, 64, 0.65); backdrop-filter: blur(6px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #FFFFFF; border-radius: 20px; max-width: 520px; width: 100%; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.25); position: relative; max-height: 90vh; overflow-y: auto; text-align: left;">
+          <button id="close-profile-modal" style="position: absolute; top: 20px; right: 20px; background: #F1F5F9; border: none; font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #64748B; display: flex; align-items: center; justify-content: center;">✕</button>
+
+          <div style="text-align: center; margin-bottom: 22px;">
+            <div id="modal-avatar-preview" style="width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; margin: 0 auto 12px auto; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 6px 16px rgba(255,90,31,0.3); overflow: hidden; border: 3px solid #FFF;">
+              ${selectedAvatar.startsWith('data:') ? `<img src="${selectedAvatar}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:1.8rem;">${selectedAvatar}</span>`}
+            </div>
+            <h3 style="margin: 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800;">Edit Candidate Profile</h3>
+            <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Update your company details and customize your avatar</p>
+          </div>
+
+          <form id="profile-edit-form" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Full Name *</label>
+              <input type="text" id="edit-name" required value="${currentUser.name}" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Company / University</label>
+                <input type="text" id="edit-company" value="${currentUser.company || ''}" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              </div>
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Professional Role</label>
+                <input type="text" id="edit-role" value="${currentUser.role || ''}" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              </div>
+            </div>
+
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 8px;">Choose Avatar Emoji or Upload Photo</label>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; justify-content: center;">
+                ${['⚓', '✈️', '🚛', '📦', '🏭', '🎓', '🌐', '👔'].map(av => `
+                  <button type="button" class="avatar-option-btn" data-avatar="${av}" style="width: 44px; height: 44px; border-radius: 12px; border: 2px solid ${selectedAvatar === av ? 'var(--accent-orange)' : '#E2E8F0'}; background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">${av}</button>
+                `).join('')}
+              </div>
+
+              <div style="text-align: center;">
+                <label for="custom-avatar-file" style="display: inline-block; background: #F1F5F9; border: 1.5px solid #CBD5E1; padding: 9px 18px; border-radius: 20px; font-weight: 700; font-size: 0.82rem; color: var(--primary-navy); cursor: pointer; transition: all 0.2s;">
+                  📷 Upload Custom Photo
+                </label>
+                <input type="file" id="custom-avatar-file" accept="image/*" style="display: none;">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; padding: 14px; border-radius: 50px; font-weight: 800; font-size: 0.98rem; box-shadow: 0 8px 20px rgba(255,90,31,0.3);">
+              💾 Save Profile Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    // Bind Close Modal
+    document.getElementById('close-profile-modal').addEventListener('click', () => {
+      document.getElementById('nexus-profile-edit-modal').remove();
+    });
+
+    // Bind Preset Avatars Selection
+    document.querySelectorAll('.avatar-option-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedAvatar = btn.getAttribute('data-avatar');
+        document.querySelectorAll('.avatar-option-btn').forEach(b => b.style.borderColor = '#E2E8F0');
+        btn.style.borderColor = 'var(--accent-orange)';
+        document.getElementById('modal-avatar-preview').innerHTML = `<span style="font-size:1.8rem;">${selectedAvatar}</span>`;
+      });
+    });
+
+    // Bind Custom File Upload with Client-Side Canvas Compression (Zero Storage Cost!)
+    document.getElementById('custom-avatar-file').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = 120;
+          canvas.height = 120;
+          ctx.drawImage(img, 0, 0, 120, 120);
+          selectedAvatar = canvas.toDataURL('image/jpeg', 0.85); // Lightweight Base64 String
+          document.getElementById('modal-avatar-preview').innerHTML = `<img src="${selectedAvatar}" style="width:100%; height:100%; object-fit:cover;">`;
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Bind Profile Edit Submit
+    document.getElementById('profile-edit-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const updatedName = document.getElementById('edit-name').value.trim();
+      const updatedCompany = document.getElementById('edit-company').value.trim() || 'Independent Professional';
+      const updatedRole = document.getElementById('edit-role').value.trim() || 'Logistics Professional';
+
+      if (!updatedName) return;
+
+      currentUser.name = updatedName;
+      currentUser.company = updatedCompany;
+      currentUser.role = updatedRole;
+      currentUser.avatar = selectedAvatar;
+
+      localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
+      saveUserToFirebase(currentUser);
+
+      document.getElementById('nexus-profile-edit-modal').remove();
+      renderQuizHubUI();
+    });
   }
 
   // Firebase Fallback Helpers
