@@ -923,7 +923,7 @@
     let usersList = Object.values(registry);
     let attemptsList = [...localAttempts];
 
-    // 2. Real-time Firebase Sync across all devices/candidates
+    // 2. Real-time Firebase & Global Cloud DB Sync across all devices/candidates
     try {
       if (window.firebaseDB) {
         // Sync Users
@@ -935,7 +935,6 @@
               registry[uData.email.toLowerCase()] = uData;
             }
           });
-          usersList = Object.values(registry);
         }
 
         // Sync Attempts
@@ -944,13 +943,62 @@
           const fbAttempts = [];
           attemptsSnap.forEach(doc => fbAttempts.push(doc.data()));
           if (fbAttempts.length > 0) {
-            attemptsList = fbAttempts;
+            const attMap = {};
+            attemptsList.concat(fbAttempts).forEach(a => { if(a.attemptId) attMap[a.attemptId] = a; });
+            attemptsList = Object.values(attMap);
           }
         }
       }
     } catch (err) {
       console.warn("Firebase admin sync fallback:", err);
     }
+
+    // 3. Global REST Cloud Sync (Fetches ALL candidates registered on ANY phone/PC globally)
+    try {
+      const keysResp = await fetch('https://kvdb.io/NEXUS_HUB_V1_PROD_REGISTRY/?prefix=usr_');
+      if (keysResp.ok) {
+        const keysText = await keysResp.text();
+        const userKeys = keysText.trim().split('\n').filter(k => k.trim().startsWith('usr_'));
+        for (const k of userKeys) {
+          try {
+            const uResp = await fetch('https://kvdb.io/NEXUS_HUB_V1_PROD_REGISTRY/' + k.trim());
+            if (uResp.ok) {
+              const uData = await uResp.json();
+              if (uData && uData.email) {
+                registry[uData.email.toLowerCase()] = uData;
+              }
+            }
+          } catch(e){}
+        }
+      }
+
+      const attKeysResp = await fetch('https://kvdb.io/NEXUS_HUB_V1_PROD_REGISTRY/?prefix=att_');
+      if (attKeysResp.ok) {
+        const attKeysText = await attKeysResp.text();
+        const attKeys = attKeysText.trim().split('\n').filter(k => k.trim().startsWith('att_'));
+        const cloudAtts = [];
+        for (const k of attKeys) {
+          try {
+            const aResp = await fetch('https://kvdb.io/NEXUS_HUB_V1_PROD_REGISTRY/' + k.trim());
+            if (aResp.ok) {
+              const aData = await aResp.json();
+              if (aData && aData.attemptId) {
+                cloudAtts.push(aData);
+              }
+            }
+          } catch(e){}
+        }
+        if (cloudAtts.length > 0) {
+          const attMap = {};
+          attemptsList.concat(cloudAtts).forEach(a => { if(a.attemptId) attMap[a.attemptId] = a; });
+          attemptsList = Object.values(attMap);
+        }
+      }
+    } catch (cloudErr) {
+      console.warn("Global Cloud DB sync fallback:", cloudErr);
+    }
+
+    usersList = Object.values(registry);
 
     // Sort users latest first
     usersList.sort((a, b) => new Date(b.registeredAt || 0).getTime() - new Date(a.registeredAt || 0).getTime());
@@ -1241,8 +1289,9 @@
     });
   }
 
-  // Firebase Fallback Helpers
-  function saveUserToFirebase(user) {
+  // Firebase & Global Cloud DB Dispatch Helpers
+  async function saveUserToFirebase(user) {
+    if (!user || !user.email) return;
     try {
       if (window.firebaseDB) {
         window.firebaseDB.collection('users').doc(user.id).set(user);
@@ -1250,15 +1299,38 @@
     } catch (err) {
       console.warn("Firebase sync fallback:", err);
     }
+
+    try {
+      const userKey = 'usr_' + encodeURIComponent(user.email.toLowerCase()).replace(/%/g, '_');
+      await fetch('https://kvdb.io/NEXUS_HUB_V1_PROD_REGISTRY/' + userKey, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      });
+    } catch (err) {
+      console.warn("Global Cloud DB user sync fallback:", err);
+    }
   }
 
-  function saveAttemptToFirebase(attempt) {
+  async function saveAttemptToFirebase(attempt) {
+    if (!attempt || !attempt.attemptId) return;
     try {
       if (window.firebaseDB) {
         window.firebaseDB.collection('attempts').doc(attempt.attemptId).set(attempt);
       }
     } catch (err) {
       console.warn("Firebase attempt sync fallback:", err);
+    }
+
+    try {
+      const attemptKey = 'att_' + attempt.attemptId;
+      await fetch('https://kvdb.io/NEXUS_HUB_V1_PROD_REGISTRY/' + attemptKey, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(attempt)
+      });
+    } catch (err) {
+      console.warn("Global Cloud DB attempt sync fallback:", err);
     }
   }
 
