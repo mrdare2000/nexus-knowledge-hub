@@ -302,22 +302,26 @@
         
         <!-- Header Banner & Candidate Profile -->
         <div style="background: var(--bg-white); padding: 18px 28px; border-radius: 18px; border: 1.5px solid var(--border-color); margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.04); flex-wrap: wrap; gap: 15px;">
-          <div style="display: flex; align-items: center; gap: 14px;">
-            <div style="width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 4px 12px rgba(255,90,31,0.3); overflow: hidden;">
-              ${userAvatarHtml}
+          <div id="btn-edit-profile" style="display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none;" title="Click to Edit Profile">
+            <div style="position: relative;">
+              <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 4px 12px rgba(255,90,31,0.3); overflow: hidden; border: 2px solid #FFF;">
+                ${userAvatarHtml}
+              </div>
+              <div style="position: absolute; bottom: -2px; right: -2px; width: 22px; height: 22px; border-radius: 50%; background: #FF5A1F; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                ✏️
+              </div>
             </div>
             <div>
-              <h3 style="margin: 0 0 3px 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.15rem;">${currentUser.name}</h3>
+              <h3 style="margin: 0 0 3px 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 6px;">
+                ${currentUser.name}
+              </h3>
               <span style="font-size: 0.82rem; color: var(--text-muted); display: block;">${currentUser.company} • ${currentUser.role}</span>
               <span style="font-size: 0.76rem; color: #64748B; font-weight: 500; margin-top: 2px; display: block;">✉️ ${currentUser.email}</span>
             </div>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <button id="btn-edit-profile" style="background: #F1F5F9; border: 1.5px solid #CBD5E1; color: var(--primary-navy); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
-              ✏️ Edit Profile
-            </button>
-            <button id="btn-logout" style="background: #FFF; border: 1.5px solid #EF4444; color: #EF4444; padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+          <div>
+            <button id="btn-logout" style="background: #FFF; border: 1.5px solid #EF4444; color: #EF4444; padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
               Sign Out
             </button>
           </div>
@@ -996,11 +1000,17 @@
           <button id="close-profile-modal" style="position: absolute; top: 20px; right: 20px; background: #F1F5F9; border: none; font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #64748B; display: flex; align-items: center; justify-content: center;">✕</button>
 
           <div style="text-align: center; margin-bottom: 22px;">
-            <div id="modal-avatar-preview" style="width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; margin: 0 auto 12px auto; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 6px 16px rgba(255,90,31,0.3); overflow: hidden; border: 3px solid #FFF;">
-              ${selectedAvatar.startsWith('data:') ? `<img src="${selectedAvatar}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:1.8rem;">${selectedAvatar}</span>`}
+            <div id="modal-avatar-preview" style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 6px 16px rgba(255,90,31,0.3); overflow: hidden; border: 3px solid #FFF; cursor: pointer;" title="Click to Upload New Photo">
+              ${selectedAvatar.startsWith('data:') ? `<img src="${selectedAvatar}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:2rem;">${selectedAvatar}</span>`}
             </div>
-            <h3 style="margin: 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800;">Edit Candidate Profile</h3>
-            <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Update your company details and customize your avatar</p>
+
+            <label for="custom-avatar-file" style="cursor: pointer; background: #FFF8F5; border: 1.5px solid var(--accent-orange); color: var(--accent-orange); padding: 7px 18px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
+              ✏️ Edit Profile Picture
+            </label>
+            <input type="file" id="custom-avatar-file" accept="image/*" style="display: none;">
+
+            <h3 style="margin: 16px 0 0 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800;">Edit Profile</h3>
+            <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Update your personal and professional details</p>
           </div>
 
           <form id="profile-edit-form" style="display: flex; flex-direction: column; gap: 16px;">
@@ -1020,22 +1030,6 @@
               </div>
             </div>
 
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 8px;">Choose Avatar Emoji or Upload Photo</label>
-              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; justify-content: center;">
-                ${['⚓', '✈️', '🚛', '📦', '🏭', '🎓', '🌐', '👔'].map(av => `
-                  <button type="button" class="avatar-option-btn" data-avatar="${av}" style="width: 44px; height: 44px; border-radius: 12px; border: 2px solid ${selectedAvatar === av ? 'var(--accent-orange)' : '#E2E8F0'}; background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">${av}</button>
-                `).join('')}
-              </div>
-
-              <div style="text-align: center;">
-                <label for="custom-avatar-file" style="display: inline-block; background: #F1F5F9; border: 1.5px solid #CBD5E1; padding: 9px 18px; border-radius: 20px; font-weight: 700; font-size: 0.82rem; color: var(--primary-navy); cursor: pointer; transition: all 0.2s;">
-                  📷 Upload Custom Photo
-                </label>
-                <input type="file" id="custom-avatar-file" accept="image/*" style="display: none;">
-              </div>
-            </div>
-
             <button type="submit" class="btn btn-primary" style="margin-top: 10px; padding: 14px; border-radius: 50px; font-weight: 800; font-size: 0.98rem; box-shadow: 0 8px 20px rgba(255,90,31,0.3);">
               💾 Save Profile Changes
             </button>
@@ -1051,14 +1045,9 @@
       document.getElementById('nexus-profile-edit-modal').remove();
     });
 
-    // Bind Preset Avatars Selection
-    document.querySelectorAll('.avatar-option-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        selectedAvatar = btn.getAttribute('data-avatar');
-        document.querySelectorAll('.avatar-option-btn').forEach(b => b.style.borderColor = '#E2E8F0');
-        btn.style.borderColor = 'var(--accent-orange)';
-        document.getElementById('modal-avatar-preview').innerHTML = `<span style="font-size:1.8rem;">${selectedAvatar}</span>`;
-      });
+    // Clicking avatar preview opens file picker directly
+    document.getElementById('modal-avatar-preview').addEventListener('click', () => {
+      document.getElementById('custom-avatar-file').click();
     });
 
     // Bind Custom File Upload with Client-Side Canvas Compression (Zero Storage Cost!)
