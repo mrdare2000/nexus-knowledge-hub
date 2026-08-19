@@ -102,7 +102,7 @@
     }
   }
 
-  // Registration & Sign-In Prompt (Smart Work Email Authentication)
+  // Registration & Sign-In Prompt (Smart Work Email & Password Authentication)
   function renderRegistrationPrompt() {
     // Step 1: Sign In Mode (Existing Candidates)
     if (authMode === 'signin') {
@@ -111,7 +111,7 @@
           <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Welcome Back</h2>
           <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-            Enter your registered email address (Work or Personal) to sign in and access your quiz history and certificates.
+            Enter your registered email address & password to sign in and access your quiz history and certificates.
           </p>
 
           <form id="quiz-signin-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
@@ -119,9 +119,14 @@
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
               <input type="email" id="signin-email" required placeholder="name@company.com or personal email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
+
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Password *</label>
+              <input type="password" id="signin-password" required placeholder="Enter your account password" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            </div>
             
             <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-              🔑 Sign In & Restore Candidate Profile
+              🔑 Sign In & Access Dashboard
             </button>
 
             <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
@@ -149,10 +154,18 @@
             <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Name *</label>
             <input type="text" id="kyc-name" required placeholder="Darshika Amaranath" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
-          <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address * (Work or Personal)</label>
-            <input type="email" id="kyc-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address * (Work or Personal)</label>
+              <input type="email" id="kyc-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            </div>
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Password *</label>
+              <input type="password" id="kyc-password" required placeholder="Choose a password" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            </div>
           </div>
+
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Company / University</label>
@@ -163,6 +176,7 @@
               <input type="text" id="kyc-role" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
           </div>
+
           <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
             🚀 Start Quiz Challenge
           </button>
@@ -170,7 +184,7 @@
           <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
             Already registered? 
             <button type="button" id="toggle-to-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
-              Sign In with Email
+              Sign In with Email & Password
             </button>
           </div>
         </form>
@@ -197,13 +211,14 @@
       });
     }
 
-    // Sign In Form Submit (Existing Candidate Check)
+    // Sign In Form Submit (Existing Candidate Password Check)
     const signinForm = document.getElementById('quiz-signin-form');
     if (signinForm) {
       signinForm.addEventListener('submit', async function (e) {
         e.preventDefault();
         const email = document.getElementById('signin-email').value.trim().toLowerCase();
-        if (!email) return;
+        const password = document.getElementById('signin-password').value.trim();
+        if (!email || !password) return;
 
         const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
         const savedUserInRegistry = registry[email];
@@ -215,15 +230,25 @@
           return;
         }
 
+        // Validate Password if set
+        if (savedUserInRegistry && savedUserInRegistry.password) {
+          if (password !== savedUserInRegistry.password) {
+            alert('❌ Incorrect Password!\n\nPlease check your password and try again.');
+            return;
+          }
+        }
+
         const existingName = savedUserInRegistry ? savedUserInRegistry.name : (existingAttempt ? existingAttempt.userName : (savedUserInSession.name || email.split('@')[0]));
         const existingCompany = savedUserInRegistry ? savedUserInRegistry.company : (existingAttempt ? existingAttempt.userCompany : (savedUserInSession.company || 'Logistics Professional'));
         const existingRole = savedUserInRegistry ? savedUserInRegistry.role : (existingAttempt ? (existingAttempt.userRole || 'Logistics Professional') : (savedUserInSession.role || 'Logistics Professional'));
         const existingAvatar = savedUserInRegistry ? savedUserInRegistry.avatar : (savedUserInSession.avatar || null);
+        const userPassword = savedUserInRegistry ? savedUserInRegistry.password : password;
 
         currentUser = {
           id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
           name: existingName,
           email: email,
+          password: userPassword,
           company: existingCompany,
           role: existingRole,
           avatar: existingAvatar,
@@ -239,24 +264,25 @@
       });
     }
 
-    // Sign Up Form Submit (New Candidate Check)
+    // Sign Up Form Submit (New Candidate Check with Password)
     const kycForm = document.getElementById('quiz-kyc-form');
     if (kycForm) {
       kycForm.addEventListener('submit', async function (e) {
         e.preventDefault();
         const name = document.getElementById('kyc-name').value.trim();
         const email = document.getElementById('kyc-email').value.trim().toLowerCase();
+        const password = document.getElementById('kyc-password').value.trim();
         const company = document.getElementById('kyc-company').value.trim() || 'Independent Professional';
         const role = document.getElementById('kyc-role').value.trim() || 'Logistics Professional';
 
-        if (!name || !email) return;
+        if (!name || !email || !password) return;
 
         const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
         const existingAttempt = userAttempts.find(a => a.userEmail && a.userEmail.toLowerCase() === email);
         const isSavedUser = registry[email] || (userAttempts.some(a => a.userEmail && a.userEmail.toLowerCase() === email));
 
         if (isSavedUser) {
-          alert('⚠️ An account already exists with this email address.\n\nPlease click "Sign In with Email" below to sign in directly.');
+          alert('⚠️ An account already exists with this email address.\n\nPlease click "Sign In with Email & Password" below to sign in directly.');
           return;
         }
 
@@ -264,6 +290,7 @@
           id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
           name: name,
           email: email,
+          password: password,
           company: company,
           role: role,
           avatar: null,
@@ -273,6 +300,11 @@
 
         registry[email] = currentUser;
         localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
+        localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
+        saveUserToFirebase(currentUser);
+        renderQuizHubUI();
+      });
+    }
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
         saveUserToFirebase(currentUser);
         renderQuizHubUI();
@@ -994,6 +1026,7 @@
                   <tr style="background: #0A2540; color: #FFFFFF; text-align: left;">
                     <th style="padding: 12px 16px; font-weight: 700;">Candidate Name</th>
                     <th style="padding: 12px 16px; font-weight: 700;">Email Address</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Account Password</th>
                     <th style="padding: 12px 16px; font-weight: 700;">Company / University</th>
                     <th style="padding: 12px 16px; font-weight: 700;">Role</th>
                     <th style="padding: 12px 16px; font-weight: 700; text-align: center;">Quizzes Taken</th>
@@ -1001,7 +1034,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  ${usersList.length === 0 ? '<tr><td colspan="6" style="text-align:center; padding: 25px; color: #64748B;">No candidates registered yet.</td></tr>' : ''}
+                  ${usersList.length === 0 ? '<tr><td colspan="7" style="text-align:center; padding: 25px; color: #64748B;">No candidates registered yet.</td></tr>' : ''}
                   ${usersList.map((u, i) => {
                     const uAtts = attemptsList.filter(a => (a.userEmail && a.userEmail.toLowerCase() === u.email.toLowerCase()) || a.userId === u.id);
                     const best = uAtts.length > 0 ? Math.max(...uAtts.map(a => a.percentage)) : 0;
@@ -1018,6 +1051,7 @@
                           </div>
                         </td>
                         <td style="padding: 12px 16px;"><a href="mailto:${u.email}" style="color: #FF5A1F; font-weight:600; text-decoration: underline;">${u.email}</a></td>
+                        <td style="padding: 12px 16px;"><span style="font-family: monospace; background: #FFF8F5; color: #FF5A1F; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px dashed #FF8C00;">${u.password || 'N/A'}</span></td>
                         <td style="padding: 12px 16px;">${u.company || 'Independent'}</td>
                         <td style="padding: 12px 16px;">${u.role || 'Professional'}</td>
                         <td style="padding: 12px 16px; text-align: center;"><span style="background:#EFF6FF; color:#1E40AF; padding:3px 10px; border-radius:12px; font-weight:800;">${uAtts.length}</span></td>
@@ -1091,11 +1125,11 @@
       alert("No registered users to export!");
       return;
     }
-    let csv = "Candidate Name,Email Address,Company/University,Professional Role,Registration Date,Quizzes Taken,Best Score %\n";
+    let csv = "Candidate Name,Email Address,Account Password,Company/University,Professional Role,Registration Date,Quizzes Taken,Best Score %\n";
     usersList.forEach(u => {
       const uAtts = attemptsList.filter(a => (a.userEmail && a.userEmail.toLowerCase() === u.email.toLowerCase()) || a.userId === u.id);
       const best = uAtts.length > 0 ? Math.max(...uAtts.map(a => a.percentage)) : 0;
-      csv += `"${(u.name || '').replace(/"/g, '""')}","${(u.email || '').replace(/"/g, '""')}","${(u.company || '').replace(/"/g, '""')}","${(u.role || '').replace(/"/g, '""')}","${u.registeredAt || ''}","${uAtts.length}","${uAtts.length > 0 ? best + '%' : 'None'}"\n`;
+      csv += `"${(u.name || '').replace(/"/g, '""')}","${(u.email || '').replace(/"/g, '""')}","${(u.password || 'N/A').replace(/"/g, '""')}","${(u.company || '').replace(/"/g, '""')}","${(u.role || '').replace(/"/g, '""')}","${u.registeredAt || ''}","${uAtts.length}","${uAtts.length > 0 ? best + '%' : 'None'}"\n`;
     });
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
