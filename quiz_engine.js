@@ -899,56 +899,77 @@
     printWindow.document.close();
   }
 
-  // Open Owner Admin Portal Modal
-  function openOwnerAdminModal() {
+  // Open Owner Admin Portal Modal (Firebase Synced)
+  async function openOwnerAdminModal() {
     const inputPass = prompt("Enter Nexus Owner Passcode:");
     if (inputPass !== ADMIN_PASSCODE) {
-      alert("Invalid Passcode!");
+      alert("❌ Invalid Passcode!");
       return;
     }
 
-    const attempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-    let modalHtml = `
-      <div id="admin-portal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,37,64,0.85); backdrop-filter: blur(8px); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: #FFF; border-radius: 20px; width: 100%; max-width: 950px; max-height: 85vh; overflow-y: auto; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); font-family: 'Inter', sans-serif;">
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px;">
-            <div>
-              <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0;">👑 Owner Admin Portal - User Directory & Scores</h2>
-              <span style="font-size: 0.85rem; color: var(--text-muted);">Total Candidates Registered: ${attempts.length}</span>
-            </div>
-            <button id="btn-close-admin" style="background: #EF4444; color: #FFF; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; cursor: pointer;">
-              Close ✖
-            </button>
-          </div>
+    let attempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
 
-          <div style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
-            <button id="btn-export-csv" class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 18px; border-radius: 30px;">
-              📥 Export All Results to CSV
-            </button>
+    // Real-time Firebase Sync across all devices/candidates
+    try {
+      if (window.firebaseDB) {
+        const snap = await window.firebaseDB.collection('attempts').get();
+        if (snap && !snap.empty) {
+          const fbAttempts = [];
+          snap.forEach(doc => fbAttempts.push(doc.data()));
+          if (fbAttempts.length > 0) {
+            attempts = fbAttempts;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn("Firebase admin sync fallback:", err);
+    }
+
+    // Sort latest first
+    attempts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+    const modalHtml = `
+      <div id="admin-portal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,37,64,0.85); backdrop-filter: blur(8px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #FFF; border-radius: 20px; width: 100%; max-width: 1000px; max-height: 88vh; overflow-y: auto; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); font-family: 'Inter', sans-serif;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0; font-size: 1.5rem; font-weight: 800;">👑 Nexus Owner Portal - Candidate Analytics</h2>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Total Candidates & Attempts Logged: <strong>${attempts.length}</strong></span>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <button id="btn-export-csv" class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 18px; border-radius: 30px; background: #ECFDF5; border: 1.5px solid #10B981; color: #065F46; font-weight: 700;">
+                📥 Export All to Excel/CSV
+              </button>
+              <button id="btn-close-admin" style="background: #EF4444; color: #FFF; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; cursor: pointer;">
+                Close ✖
+              </button>
+            </div>
           </div>
 
           <div style="overflow-x: auto;">
             <table class="kb-table" style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
               <thead>
-                <tr style="background: #F8FAFC;">
+                <tr style="background: #F8FAFC; text-align: left;">
+                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Date & Time</th>
                   <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Candidate Name</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Email</th>
+                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Email Address</th>
                   <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Company / Role</th>
+                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Quiz Challenge</th>
                   <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Score %</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Grade</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Date</th>
+                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Grade Level</th>
                 </tr>
               </thead>
               <tbody>
-                ${attempts.length === 0 ? '<tr><td colspan="6" style="text-align:center; padding: 20px;">No quiz attempts logged yet.</td></tr>' : ''}
+                ${attempts.length === 0 ? '<tr><td colspan="7" style="text-align:center; padding: 30px; color: var(--text-muted);">No candidate attempts logged yet.</td></tr>' : ''}
                 ${attempts.map(a => `
                   <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0; white-space: nowrap;">${new Date(a.timestamp).toLocaleString()}</td>
                     <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;"><strong>${a.userName}</strong></td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${a.userEmail}</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${a.userCompany} (${a.userRole})</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0; font-weight: bold; color: var(--accent-orange);">${a.percentage}%</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${a.grade}</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${new Date(a.timestamp).toLocaleDateString()}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;"><a href="mailto:${a.userEmail}" style="color: var(--accent-orange); text-decoration: underline;">${a.userEmail}</a></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${a.userCompany || 'N/A'} <br><span style="font-size: 0.78rem; color: #64748B;">${a.userRole || ''}</span></td>
+                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${a.quizTitle || 'Weekly Challenge'}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0; font-weight: 900; color: ${a.percentage >= 50 ? '#10B981' : '#EF4444'}; font-size: 1rem;">${a.percentage}%</td>
+                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;"><span style="background: #F1F5F9; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">${a.grade}</span></td>
                   </tr>
                 `).join('')}
               </tbody>
