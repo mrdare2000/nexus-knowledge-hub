@@ -5,7 +5,7 @@
   'use strict';
 
   // Owner Passcode for Admin Dashboard Access
-  const ADMIN_PASSCODE = "nexusowner2026";
+  const ADMIN_PASSCODE = "ownerdarshika2000";
 
   // State Management
   let currentUser = JSON.parse(localStorage.getItem('nexus_quiz_user')) || null;
