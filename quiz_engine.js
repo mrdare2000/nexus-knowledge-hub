@@ -907,17 +907,41 @@
       return;
     }
 
-    let attempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+    // 1. Load Local Users Registry & Attempts
+    const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
+    let localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
 
-    // Real-time Firebase Sync across all devices/candidates
+    // Also include current user if logged in
+    const currentLocal = JSON.parse(localStorage.getItem('nexus_quiz_user') || 'null');
+    if (currentLocal && currentLocal.email) {
+      registry[currentLocal.email.toLowerCase()] = currentLocal;
+    }
+
+    let usersList = Object.values(registry);
+    let attemptsList = [...localAttempts];
+
+    // 2. Real-time Firebase Sync across all devices/candidates
     try {
       if (window.firebaseDB) {
-        const snap = await window.firebaseDB.collection('attempts').get();
-        if (snap && !snap.empty) {
+        // Sync Users
+        const usersSnap = await window.firebaseDB.collection('users').get();
+        if (usersSnap && !usersSnap.empty) {
+          usersSnap.forEach(doc => {
+            const uData = doc.data();
+            if (uData && uData.email) {
+              registry[uData.email.toLowerCase()] = uData;
+            }
+          });
+          usersList = Object.values(registry);
+        }
+
+        // Sync Attempts
+        const attemptsSnap = await window.firebaseDB.collection('attempts').get();
+        if (attemptsSnap && !attemptsSnap.empty) {
           const fbAttempts = [];
-          snap.forEach(doc => fbAttempts.push(doc.data()));
+          attemptsSnap.forEach(doc => fbAttempts.push(doc.data()));
           if (fbAttempts.length > 0) {
-            attempts = fbAttempts;
+            attemptsList = fbAttempts;
           }
         }
       }
@@ -925,70 +949,162 @@
       console.warn("Firebase admin sync fallback:", err);
     }
 
-    // Sort latest first
-    attempts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    // Sort users latest first
+    usersList.sort((a, b) => new Date(b.registeredAt || 0).getTime() - new Date(a.registeredAt || 0).getTime());
+
+    // Sort attempts latest first
+    attemptsList.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
 
     const modalHtml = `
       <div id="admin-portal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,37,64,0.85); backdrop-filter: blur(8px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: #FFF; border-radius: 20px; width: 100%; max-width: 1000px; max-height: 88vh; overflow-y: auto; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); font-family: 'Inter', sans-serif;">
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <div style="background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 1050px; max-height: 88vh; overflow-y: auto; padding: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); font-family: 'Inter', sans-serif; text-align: left;">
+          
+          <!-- Admin Header Bar -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 18px; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
             <div>
-              <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0; font-size: 1.5rem; font-weight: 800;">👑 Nexus Owner Portal - Candidate Analytics</h2>
-              <span style="font-size: 0.85rem; color: var(--text-muted);">Total Candidates & Attempts Logged: <strong>${attempts.length}</strong></span>
+              <h2 style="font-family: 'Outfit', sans-serif; color: #0A2540; margin: 0 0 4px 0; font-size: 1.6rem; font-weight: 800;">👑 Nexus Owner Admin Portal</h2>
+              <div style="display: flex; gap: 15px; font-size: 0.85rem; color: #64748B; font-weight: 600;">
+                <span>👤 Total Registered Candidates: <strong style="color: #FF5A1F; font-size: 0.95rem;">${usersList.length}</strong></span>
+                <span>•</span>
+                <span>📝 Total Quiz Attempts: <strong style="color: #10B981; font-size: 0.95rem;">${attemptsList.length}</strong></span>
+              </div>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-              <button id="btn-export-csv" class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 18px; border-radius: 30px; background: #ECFDF5; border: 1.5px solid #10B981; color: #065F46; font-weight: 700;">
-                📥 Export All to Excel/CSV
+
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+              <button id="btn-export-users-csv" style="background: #FF5A1F; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(255,90,31,0.25);">
+                📥 Export Registered Users
               </button>
-              <button id="btn-close-admin" style="background: #EF4444; color: #FFF; border: none; padding: 8px 18px; border-radius: 20px; font-weight: 700; cursor: pointer;">
+              <button id="btn-export-attempts-csv" style="background: #10B981; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.25);">
+                📊 Export Quiz Scores
+              </button>
+              <button id="btn-close-admin" style="background: #EF4444; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-left: 5px;">
                 Close ✖
               </button>
             </div>
           </div>
 
-          <div style="overflow-x: auto;">
-            <table class="kb-table" style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
-              <thead>
-                <tr style="background: #F8FAFC; text-align: left;">
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Date & Time</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Candidate Name</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Email Address</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Company / Role</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Quiz Challenge</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Score %</th>
-                  <th style="padding: 12px; border-bottom: 2px solid #CBD5E1;">Grade Level</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${attempts.length === 0 ? '<tr><td colspan="7" style="text-align:center; padding: 30px; color: var(--text-muted);">No candidate attempts logged yet.</td></tr>' : ''}
-                ${attempts.map(a => `
-                  <tr>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0; white-space: nowrap;">${new Date(a.timestamp).toLocaleString()}</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;"><strong>${a.userName}</strong></td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;"><a href="mailto:${a.userEmail}" style="color: var(--accent-orange); text-decoration: underline;">${a.userEmail}</a></td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${a.userCompany || 'N/A'} <br><span style="font-size: 0.78rem; color: #64748B;">${a.userRole || ''}</span></td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;">${a.quizTitle || 'Weekly Challenge'}</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0; font-weight: 900; color: ${a.percentage >= 50 ? '#10B981' : '#EF4444'}; font-size: 1rem;">${a.percentage}%</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E2E8F0;"><span style="background: #F1F5F9; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">${a.grade}</span></td>
+          <!-- Section 1: Registered Candidates Directory -->
+          <div style="margin-bottom: 35px;">
+            <h3 style="font-family: 'Outfit', sans-serif; color: #0A2540; font-size: 1.25rem; font-weight: 800; margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px;">
+              👥 Registered Candidate Directory (${usersList.length})
+            </h3>
+            <div style="overflow-x: auto; border: 1.5px solid #CBD5E1; border-radius: 14px; background: #FFF;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; color: #0A2540;">
+                <thead>
+                  <tr style="background: #0A2540; color: #FFFFFF; text-align: left;">
+                    <th style="padding: 12px 16px; font-weight: 700;">Candidate Name</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Email Address</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Company / University</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Role</th>
+                    <th style="padding: 12px 16px; font-weight: 700; text-align: center;">Quizzes Taken</th>
+                    <th style="padding: 12px 16px; font-weight: 700; text-align: center;">Best Score</th>
                   </tr>
-                `).join('')}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  ${usersList.length === 0 ? '<tr><td colspan="6" style="text-align:center; padding: 25px; color: #64748B;">No candidates registered yet.</td></tr>' : ''}
+                  ${usersList.map((u, i) => {
+                    const uAtts = attemptsList.filter(a => (a.userEmail && a.userEmail.toLowerCase() === u.email.toLowerCase()) || a.userId === u.id);
+                    const best = uAtts.length > 0 ? Math.max(...uAtts.map(a => a.percentage)) : 0;
+                    const uAvatar = u.avatar && u.avatar.startsWith('data:') 
+                      ? `<img src="${u.avatar}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">`
+                      : `<span style="width:28px; height:28px; border-radius:50%; background:#FF5A1F; color:#FFF; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:0.8rem;">${(u.name || 'U').charAt(0).toUpperCase()}</span>`;
+
+                    return `
+                      <tr style="border-bottom: 1px solid #E2E8F0; background: ${i % 2 === 0 ? '#FFFFFF' : '#F8FAFC'};">
+                        <td style="padding: 12px 16px;">
+                          <div style="display:flex; align-items:center; gap:10px;">
+                            ${uAvatar}
+                            <strong style="color: #0A2540;">${u.name || 'Anonymous User'}</strong>
+                          </div>
+                        </td>
+                        <td style="padding: 12px 16px;"><a href="mailto:${u.email}" style="color: #FF5A1F; font-weight:600; text-decoration: underline;">${u.email}</a></td>
+                        <td style="padding: 12px 16px;">${u.company || 'Independent'}</td>
+                        <td style="padding: 12px 16px;">${u.role || 'Professional'}</td>
+                        <td style="padding: 12px 16px; text-align: center;"><span style="background:#EFF6FF; color:#1E40AF; padding:3px 10px; border-radius:12px; font-weight:800;">${uAtts.length}</span></td>
+                        <td style="padding: 12px 16px; text-align: center;"><span style="background:${best >= 50 ? '#ECFDF5' : '#FFF1F2'}; color:${best >= 50 ? '#047857' : '#BE123C'}; padding:3px 10px; border-radius:12px; font-weight:800;">${uAtts.length > 0 ? best + '%' : 'None'}</span></td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
           </div>
+
+          <!-- Section 2: Complete Quiz Attempts Log -->
+          <div>
+            <h3 style="font-family: 'Outfit', sans-serif; color: #0A2540; font-size: 1.25rem; font-weight: 800; margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px;">
+              📝 Complete Quiz Attempts Log (${attemptsList.length})
+            </h3>
+            <div style="overflow-x: auto; border: 1.5px solid #CBD5E1; border-radius: 14px; background: #FFF;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; color: #0A2540;">
+                <thead>
+                  <tr style="background: #0A2540; color: #FFFFFF; text-align: left;">
+                    <th style="padding: 12px 16px; font-weight: 700;">Date & Time</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Candidate Name</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Email Address</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Quiz Challenge</th>
+                    <th style="padding: 12px 16px; font-weight: 700; text-align: center;">Score %</th>
+                    <th style="padding: 12px 16px; font-weight: 700;">Grade Level</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${attemptsList.length === 0 ? '<tr><td colspan="6" style="text-align:center; padding: 25px; color: #64748B;">No quiz attempts logged yet.</td></tr>' : ''}
+                  ${attemptsList.map((a, idx) => `
+                    <tr style="border-bottom: 1px solid #E2E8F0; background: ${idx % 2 === 0 ? '#FFFFFF' : '#F8FAFC'};">
+                      <td style="padding: 12px 16px; white-space: nowrap; color: #64748B;">${new Date(a.timestamp || Date.now()).toLocaleString()}</td>
+                      <td style="padding: 12px 16px;"><strong style="color: #0A2540;">${a.userName}</strong></td>
+                      <td style="padding: 12px 16px;"><a href="mailto:${a.userEmail}" style="color: #FF5A1F; font-weight:600; text-decoration: underline;">${a.userEmail}</a></td>
+                      <td style="padding: 12px 16px; font-weight:600;">${a.quizTitle || 'Weekly Challenge'}</td>
+                      <td style="padding: 12px 16px; text-align: center; font-weight: 900; color: ${a.percentage >= 50 ? '#10B981' : '#EF4444'}; font-size: 0.95rem;">${a.percentage}%</td>
+                      <td style="padding: 12px 16px;"><span style="background: #F1F5F9; color: #0A2540; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">${a.grade}</span></td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
       </div>
     `;
 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 
+    // Bind Buttons
     document.getElementById('btn-close-admin').addEventListener('click', function () {
       const modal = document.getElementById('admin-portal-overlay');
       if (modal) modal.remove();
     });
 
-    document.getElementById('btn-export-csv').addEventListener('click', function () {
-      exportAttemptsToCSV(attempts);
+    document.getElementById('btn-export-users-csv').addEventListener('click', function () {
+      exportUsersToCSV(usersList, attemptsList);
     });
+
+    document.getElementById('btn-export-attempts-csv').addEventListener('click', function () {
+      exportAttemptsToCSV(attemptsList);
+    });
+  }
+
+  // Export Registered Users to CSV
+  function exportUsersToCSV(usersList, attemptsList) {
+    if (!usersList || usersList.length === 0) {
+      alert("No registered users to export!");
+      return;
+    }
+    let csv = "Candidate Name,Email Address,Company/University,Professional Role,Registration Date,Quizzes Taken,Best Score %\n";
+    usersList.forEach(u => {
+      const uAtts = attemptsList.filter(a => (a.userEmail && a.userEmail.toLowerCase() === u.email.toLowerCase()) || a.userId === u.id);
+      const best = uAtts.length > 0 ? Math.max(...uAtts.map(a => a.percentage)) : 0;
+      csv += `"${(u.name || '').replace(/"/g, '""')}","${(u.email || '').replace(/"/g, '""')}","${(u.company || '').replace(/"/g, '""')}","${(u.role || '').replace(/"/g, '""')}","${u.registeredAt || ''}","${uAtts.length}","${uAtts.length > 0 ? best + '%' : 'None'}"\n`;
+    });
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('download', `nexus_registered_candidates_${Date.now()}.csv`);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
   }
 
   // Export Results to CSV
