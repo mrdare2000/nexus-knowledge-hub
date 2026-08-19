@@ -205,19 +205,20 @@
         const email = document.getElementById('signin-email').value.trim().toLowerCase();
         if (!email) return;
 
-        // Check if candidate exists in candidate attempts or saved user records
+        const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
+        const savedUserInRegistry = registry[email];
+        const savedUserInSession = JSON.parse(localStorage.getItem('nexus_quiz_user') || '{}');
         const existingAttempt = userAttempts.find(a => a.userEmail && a.userEmail.toLowerCase() === email);
-        const savedUser = JSON.parse(localStorage.getItem('nexus_quiz_user') || '{}');
-        const isSavedUser = savedUser && savedUser.email && savedUser.email.toLowerCase() === email;
 
-        if (!existingAttempt && !isSavedUser) {
+        if (!savedUserInRegistry && !existingAttempt && (!savedUserInSession || savedUserInSession.email !== email)) {
           alert('❌ No candidate profile found for this email address.\n\nThis email is not registered yet. Please click "Create a New Profile" below to register once.');
           return;
         }
 
-        const existingName = existingAttempt ? existingAttempt.userName : (savedUser.name || email.split('@')[0]);
-        const existingCompany = existingAttempt ? existingAttempt.userCompany : (savedUser.company || 'Logistics Professional');
-        const existingRole = existingAttempt ? (existingAttempt.userRole || 'Logistics Professional') : (savedUser.role || 'Logistics Professional');
+        const existingName = savedUserInRegistry ? savedUserInRegistry.name : (existingAttempt ? existingAttempt.userName : (savedUserInSession.name || email.split('@')[0]));
+        const existingCompany = savedUserInRegistry ? savedUserInRegistry.company : (existingAttempt ? existingAttempt.userCompany : (savedUserInSession.company || 'Logistics Professional'));
+        const existingRole = savedUserInRegistry ? savedUserInRegistry.role : (existingAttempt ? (existingAttempt.userRole || 'Logistics Professional') : (savedUserInSession.role || 'Logistics Professional'));
+        const existingAvatar = savedUserInRegistry ? savedUserInRegistry.avatar : (savedUserInSession.avatar || null);
 
         currentUser = {
           id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
@@ -225,11 +226,13 @@
           email: email,
           company: existingCompany,
           role: existingRole,
-          avatar: savedUser.avatar || null,
+          avatar: existingAvatar,
           verified: true,
-          registeredAt: savedUser.registeredAt || new Date().toISOString()
+          registeredAt: savedUserInRegistry ? savedUserInRegistry.registeredAt : new Date().toISOString()
         };
 
+        registry[email] = currentUser;
+        localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
         saveUserToFirebase(currentUser);
         renderQuizHubUI();
@@ -248,12 +251,11 @@
 
         if (!name || !email) return;
 
-        // Check if candidate ALREADY exists in attempts or saved user records
+        const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
         const existingAttempt = userAttempts.find(a => a.userEmail && a.userEmail.toLowerCase() === email);
-        const savedUser = JSON.parse(localStorage.getItem('nexus_quiz_user') || '{}');
-        const isSavedUser = savedUser && savedUser.email && savedUser.email.toLowerCase() === email;
+        const isSavedUser = registry[email] || (userAttempts.some(a => a.userEmail && a.userEmail.toLowerCase() === email));
 
-        if (existingAttempt || isSavedUser) {
+        if (isSavedUser) {
           alert('⚠️ An account already exists with this email address.\n\nPlease click "Sign In with Email" below to sign in directly.');
           return;
         }
@@ -269,6 +271,8 @@
           registeredAt: new Date().toISOString()
         };
 
+        registry[email] = currentUser;
+        localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
         saveUserToFirebase(currentUser);
         renderQuizHubUI();
@@ -1086,6 +1090,9 @@
       currentUser.role = updatedRole;
       currentUser.avatar = selectedAvatar;
 
+      const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
+      registry[currentUser.email.toLowerCase()] = currentUser;
+      localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
       localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
       saveUserToFirebase(currentUser);
 
