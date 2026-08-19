@@ -102,62 +102,26 @@
     }
   }
 
-  // Registration & Sign-In Prompt (Easy KYC + Pure Email OTP Verification)
+  // Registration & Sign-In Prompt (Smart Work Email Authentication)
   function renderRegistrationPrompt() {
-    // Step 2: OTP Verification Screen
-    if (pendingRegistration && pendingRegistration.step === 'otp') {
-      return `
-        <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
-          <div style="font-size: 3rem; margin-bottom: 12px;">📩</div>
-          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Verify Your Email</h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-            We have sent a 6-digit verification code to<br>
-            <strong style="color: var(--primary-navy); font-size: 0.98rem;">${pendingRegistration.email}</strong><br>
-            <span style="font-size: 0.82rem; color: #64748B; display: block; margin-top: 6px;">(Please check your Email Inbox & Spam folder)</span>
-          </p>
-
-          <form id="quiz-otp-form" style="display: flex; flex-direction: column; gap: 18px;">
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 8px;">Enter 6-Digit Code *</label>
-              <input type="text" id="otp-input" required maxlength="6" pattern="[0-9]{6}" placeholder="6-digit code" autocomplete="off" style="width: 100%; padding: 14px; border: 2px solid var(--accent-orange); border-radius: 12px; font-size: 1.5rem; font-weight: 900; letter-spacing: 6px; text-align: center; color: var(--primary-navy); background: #FFF8F5;">
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;">
-              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 8px 20px rgba(255,90,31,0.35);">
-                ✅ Verify Code & Access Quiz Hub
-              </button>
-              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; margin-top: 5px;">
-                <button type="button" id="btn-edit-registration" style="background: none; border: none; color: var(--text-muted); cursor: pointer; text-decoration: underline; font-weight: 600;">
-                  ← Change Email
-                </button>
-                <button type="button" id="btn-resend-otp" style="background: none; border: none; color: var(--accent-orange); cursor: pointer; font-weight: 700;">
-                  🔄 Resend Code
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      `;
-    }
-
-    // Step 1: Sign In Mode (Existing Users)
+    // Step 1: Sign In Mode (Existing Candidates)
     if (authMode === 'signin') {
       return `
         <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
           <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Welcome Back</h2>
           <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-            Enter your registered email address to sign in and access your quiz history and certificates.
+            Enter your registered email address (Work or Personal) to sign in and access your quiz history and certificates.
           </p>
 
           <form id="quiz-signin-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
-              <input type="email" id="signin-email" required placeholder="Enter registered email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              <input type="email" id="signin-email" required placeholder="name@company.com or personal email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
             </div>
             
             <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-              📩 Send Sign-In Code (OTP)
+              🔑 Sign In & Restore Candidate Profile
             </button>
 
             <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
@@ -186,8 +150,8 @@
             <input type="text" id="kyc-name" required placeholder="Darshika Amaranath" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
           <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
-            <input type="email" id="kyc-email" required placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address * (Work or Personal)</label>
+            <input type="email" id="kyc-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <div>
@@ -200,7 +164,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-            📩 Send Verification Code (OTP)
+            🚀 Start Quiz Challenge
           </button>
 
           <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
@@ -214,7 +178,7 @@
     `;
   }
 
-  // Bind KYC Form Registration, Sign In & OTP Verification
+  // Bind KYC Form Registration & Sign In
   function bindRegistrationEvents() {
     // Mode Toggles
     const toSignupBtn = document.getElementById('toggle-to-signup');
@@ -233,7 +197,7 @@
       });
     }
 
-    // Sign In Form Submit
+    // Sign In Form Submit (Existing Candidate Check)
     const signinForm = document.getElementById('quiz-signin-form');
     if (signinForm) {
       signinForm.addEventListener('submit', async function (e) {
@@ -247,107 +211,66 @@
         const isSavedUser = savedUser && savedUser.email && savedUser.email.toLowerCase() === email;
 
         if (!existingAttempt && !isSavedUser) {
-          alert('❌ No registered candidate profile found for this email address.\n\nPlease check your email address or click "Create Candidate Profile" below to register once.');
+          alert('❌ No candidate profile found for this email address.\n\nThis email is not registered yet. Please click "Create Candidate Profile" below to register once.');
           return;
         }
 
         const existingName = existingAttempt ? existingAttempt.userName : (savedUser.name || email.split('@')[0]);
         const existingCompany = existingAttempt ? existingAttempt.userCompany : (savedUser.company || 'Logistics Professional');
+        const existingRole = existingAttempt ? (existingAttempt.userRole || 'Logistics Professional') : (savedUser.role || 'Logistics Professional');
 
-        const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-
-        pendingRegistration = {
-          step: 'otp',
-          mode: 'signin',
+        currentUser = {
+          id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
           name: existingName,
           email: email,
           company: existingCompany,
-          role: 'Logistics Professional',
-          otpCode: generatedOTP
-        };
-
-        sendOTPEmailAPI(email, existingName, generatedOTP);
-        renderQuizHubUI();
-      });
-    }
-
-    // Sign Up Form Submit
-    const kycForm = document.getElementById('quiz-kyc-form');
-    if (kycForm) {
-      kycForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const name = document.getElementById('kyc-name').value.trim();
-        const email = document.getElementById('kyc-email').value.trim();
-        const company = document.getElementById('kyc-company').value.trim() || 'Independent Professional';
-        const role = document.getElementById('kyc-role').value.trim() || 'Logistics Professional';
-
-        if (!name || !email) return;
-
-        const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-
-        pendingRegistration = {
-          step: 'otp',
-          mode: 'signup',
-          name: name,
-          email: email,
-          company: company,
-          role: role,
-          otpCode: generatedOTP
-        };
-
-        sendOTPEmailAPI(email, name, generatedOTP);
-        renderQuizHubUI();
-      });
-    }
-
-    // OTP Code Verification Form
-    const otpForm = document.getElementById('quiz-otp-form');
-    if (otpForm) {
-      otpForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const enteredOTP = document.getElementById('otp-input').value.trim();
-
-        if (enteredOTP !== pendingRegistration.otpCode) {
-          alert('❌ Invalid OTP Code. Please check your email inbox and enter the correct 6-digit code.');
-          return;
-        }
-
-        const uniqueUserId = 'usr_' + pendingRegistration.email.toLowerCase().replace(/[^a-z0-9]/g, '_');
-
-        currentUser = {
-          id: uniqueUserId,
-          name: pendingRegistration.name,
-          email: pendingRegistration.email,
-          company: pendingRegistration.company,
-          role: pendingRegistration.role,
+          role: existingRole,
           verified: true,
-          registeredAt: new Date().toISOString()
+          registeredAt: savedUser.registeredAt || new Date().toISOString()
         };
-
-        pendingRegistration = null;
 
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
         saveUserToFirebase(currentUser);
         renderQuizHubUI();
       });
+    }
 
-      const editBtn = document.getElementById('btn-edit-registration');
-      if (editBtn) {
-        editBtn.addEventListener('click', function () {
-          pendingRegistration = null;
-          renderQuizHubUI();
-        });
-      }
+    // Sign Up Form Submit (New Candidate Check)
+    const kycForm = document.getElementById('quiz-kyc-form');
+    if (kycForm) {
+      kycForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const name = document.getElementById('kyc-name').value.trim();
+        const email = document.getElementById('kyc-email').value.trim().toLowerCase();
+        const company = document.getElementById('kyc-company').value.trim() || 'Independent Professional';
+        const role = document.getElementById('kyc-role').value.trim() || 'Logistics Professional';
 
-      const resendBtn = document.getElementById('btn-resend-otp');
-      if (resendBtn) {
-        resendBtn.addEventListener('click', function () {
-          const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
-          pendingRegistration.otpCode = newOTP;
-          sendOTPEmailAPI(pendingRegistration.email, pendingRegistration.name, newOTP);
-          alert(`📩 New verification code sent to ${pendingRegistration.email}`);
-        });
-      }
+        if (!name || !email) return;
+
+        // Check if candidate ALREADY exists in attempts or saved user records
+        const existingAttempt = userAttempts.find(a => a.userEmail && a.userEmail.toLowerCase() === email);
+        const savedUser = JSON.parse(localStorage.getItem('nexus_quiz_user') || '{}');
+        const isSavedUser = savedUser && savedUser.email && savedUser.email.toLowerCase() === email;
+
+        if (existingAttempt || isSavedUser) {
+          alert('⚠️ An account already exists with this email address.\n\nPlease click "Sign In with Email" below to sign in directly.');
+          return;
+        }
+
+        currentUser = {
+          id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
+          name: name,
+          email: email,
+          company: company,
+          role: role,
+          verified: true,
+          registeredAt: new Date().toISOString()
+        };
+
+        localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
+        saveUserToFirebase(currentUser);
+        renderQuizHubUI();
+      });
     }
   }
 
