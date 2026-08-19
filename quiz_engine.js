@@ -57,7 +57,7 @@
   let pendingRegistration = null;
   let authMode = 'signin'; // 'signin' or 'signup'
 
-  // Send Real Email OTP Code via EmailJS Official SDK (100% Real Delivery to Candidate Inbox)
+  // Send Real Email OTP Code via EmailJS Official API (100% Real Delivery to Candidate Inbox)
   async function sendOTPEmailAPI(email, name, otpCode) {
     const serviceID = 'service_otf02mb';
     const templateID = 'template_8n64w5m';
@@ -74,26 +74,31 @@
 
     console.log("Sending OTP via EmailJS to:", email);
 
+    // 1. Direct EmailJS REST API
+    try {
+      const apiRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: serviceID,
+          template_id: templateID,
+          user_id: publicKey,
+          template_params: templateParams
+        })
+      });
+      console.log("EmailJS REST API status:", apiRes.status);
+    } catch (err) {
+      console.warn("Direct EmailJS REST API error:", err);
+    }
+
+    // 2. EmailJS Browser SDK
     try {
       if (window.emailjs) {
         window.emailjs.init(publicKey);
-        const res = await window.emailjs.send(serviceID, templateID, templateParams, publicKey);
-        console.log("EmailJS Success:", res);
-      } else {
-        const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            service_id: serviceID,
-            template_id: templateID,
-            user_id: publicKey,
-            template_params: templateParams
-          })
-        });
-        console.log("EmailJS Direct REST API status:", res.status);
+        await window.emailjs.send(serviceID, templateID, templateParams, publicKey);
       }
-    } catch (err) {
-      console.error("EmailJS dispatch error:", err);
+    } catch (sdkErr) {
+      console.warn("EmailJS SDK send error:", sdkErr);
     }
   }
 
