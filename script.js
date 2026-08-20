@@ -3337,14 +3337,27 @@ function initAuth() {
 function updateAuthUI(user) {
   const loginBtn = document.getElementById("sidebar-login-btn");
   const userProfile = document.getElementById("sidebar-user-profile");
+  const homeLoginBtn = document.getElementById("home-login-btn");
+  const homeUserProfile = document.getElementById("home-user-profile");
   
   if (user) {
     if (loginBtn) loginBtn.style.display = "none";
+    if (homeLoginBtn) homeLoginBtn.style.display = "none";
+    
+    const initial = (user.displayName ? user.displayName.charAt(0) : "U").toUpperCase();
+    const displayName = user.displayName || "User";
+
+    if (homeUserProfile) {
+      homeUserProfile.style.display = "flex";
+      document.getElementById("home-profile-name").textContent = displayName.split(" ")[0]; // First name only for small space
+      document.getElementById("home-profile-initial").textContent = initial;
+    }
+
     if (userProfile) {
       userProfile.style.display = "flex";
-      document.getElementById("user-profile-name").textContent = user.displayName || "User";
+      document.getElementById("user-profile-name").textContent = displayName;
       document.getElementById("user-profile-email").textContent = user.email || "";
-      document.getElementById("user-profile-initial").textContent = (user.displayName ? user.displayName.charAt(0) : "U").toUpperCase();
+      document.getElementById("user-profile-initial").textContent = initial;
       
       // Fetch custom claims/profile data from Firestore if available
       if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
@@ -3360,6 +3373,8 @@ function updateAuthUI(user) {
   } else {
     if (loginBtn) loginBtn.style.display = "flex";
     if (userProfile) userProfile.style.display = "none";
+    if (homeLoginBtn) homeLoginBtn.style.display = "block";
+    if (homeUserProfile) homeUserProfile.style.display = "none";
   }
 }
 

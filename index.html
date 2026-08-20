@@ -354,6 +354,21 @@
   <div id="home-page" class="page-section active">
     <!-- Hero Slider Container -->
     <section class="hero-container" aria-label="Nexus Cargo Hero Slideshow">
+      
+      <!-- Top Right Auth Button for Home Page -->
+      <div id="home-auth-section" style="position: absolute; top: 20px; right: 30px; z-index: 20; display: flex; gap: 15px; align-items: center;">
+        <button id="home-login-btn" class="btn btn-primary" onclick="openAuthModal()" style="padding: 10px 20px; border-radius: 30px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 90, 31, 0.4);">
+          Login / Sign Up
+        </button>
+        <div id="home-user-profile" style="display: none; align-items: center; gap: 12px; background: rgba(25, 42, 86, 0.85); padding: 6px 15px 6px 6px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+          <div class="user-avatar" style="background: var(--accent-orange); width: 35px; height: 35px;">
+            <span style="color: white; font-weight: bold; font-size: 1rem;" id="home-profile-initial">U</span>
+          </div>
+          <span id="home-profile-name" style="color: white; font-weight: 600; font-size: 0.95rem;">User</span>
+          <button onclick="handleLogout()" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Logout</button>
+        </div>
+      </div>
+
       <div class="hero-slider">
         <div class="slide active" style="background-image: url('images/bg_ocean.png');" role="img"
           aria-label="Cargo Container Ship at Sunrise"></div>

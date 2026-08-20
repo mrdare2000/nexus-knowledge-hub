@@ -85,6 +85,7 @@
   }
 
   function onAuthStateChanged(callback) {
+    if (!isFirebaseReady) initFirebase();
     if (auth) {
       auth.onAuthStateChanged(callback);
     }
