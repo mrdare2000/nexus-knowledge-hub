@@ -888,11 +888,11 @@ nav {
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Core Features Grid (4 Cards Strictly in 1 Single Row on Desktop) */
+/* Core Features Grid (6 Cards in 3x2 Grid on Desktop) */
 .core-features-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 12px !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 auto !important;
@@ -971,7 +971,7 @@ nav {
   text-align: center !important;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1024px) {
   .core-features-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
