@@ -3519,7 +3519,7 @@ async function handleSignIn(e) {
   e.preventDefault();
   hideAuthError();
   toggleAuthSpinner('signin-form', true);
-  showGlobalLoader("Signing In...");
+  showGlobalLoader("Loading...");
   
   const email = document.getElementById('signin-email').value;
   const password = document.getElementById('signin-password').value;
@@ -3553,7 +3553,7 @@ async function handleSignUp(e) {
   }
   
   toggleAuthSpinner('signup-form', true);
-  showGlobalLoader("Creating Account & Profile...");
+  showGlobalLoader("Loading...");
   
   try {
     if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
@@ -3731,7 +3731,7 @@ async function saveUserProfile(e) {
   const btn = document.getElementById("profile-save-btn");
   if (btn) btn.disabled = true;
 
-  showGlobalLoader("Saving Profile to Backend...");
+  showGlobalLoader("Loading...");
 
   try {
     // 1. Update Firebase Auth displayName
