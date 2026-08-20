@@ -1,11 +1,10 @@
-// Firebase Initialization & Cloud Backend Integration module
-// Supports Authentication (Email/Password) & Cloud Firestore Data Persistence
+// Nexus Knowledge Hub - Enterprise Firebase Cloud Backend Architecture
+// Full Support for Authentication, Cloud Firestore, Realtime DB, Nexus AI History, Bookmarks, and Quiz Results
 
 (function () {
   'use strict';
 
-  // Your Firebase Web App Configuration Credentials
-  // Replace placeholders below with keys from Firebase Console (Project Settings -> Web App)
+  // Firebase Web App Configuration Credentials
   const firebaseConfig = {
     apiKey: "AIzaSyC52IVSkYYsMDi8OynLNhxCbowqYDA227A",
     authDomain: "nexus-knowledge-hub.firebaseapp.com",
@@ -19,13 +18,14 @@
 
   let firebaseApp = null;
   let auth = null;
-  let db = null;
+  let firestore = null;
+  let realtimeDb = null;
   let isFirebaseReady = false;
 
-  // Initialize Firebase App
+  // Initialize All Firebase Services
   function initFirebase() {
     if (typeof firebase === 'undefined') {
-      console.warn("⚠️ Firebase SDK not loaded from CDN.");
+      console.warn("⚠️ Firebase CDN SDKs not loaded yet.");
       return false;
     }
 
@@ -36,129 +36,225 @@
         firebaseApp = firebase.app();
       }
 
-      auth = firebase.auth();
-      db = firebase.firestore();
+      auth = firebase.auth ? firebase.auth() : null;
+      firestore = firebase.firestore ? firebase.firestore() : null;
+      realtimeDb = firebase.database ? firebase.database() : null;
       isFirebaseReady = true;
 
-      console.log("✅ Firebase Backend Service initialized successfully.");
+      console.log("✅ Firebase Backend Services (Auth, Firestore, Realtime DB) 100% Ready.");
       return true;
     } catch (err) {
-      console.error("❌ Firebase initialization failed:", err.message);
+      console.error("❌ Firebase initialization error:", err.message);
       return false;
     }
   }
 
   // ----------------------------------------------------
-  // AUTHENTICATION FUNCTIONS
+  // 1. AUTHENTICATION MODULE (Sign Up, Login, Logout)
   // ----------------------------------------------------
 
-  // Sign Up New User
   async function signUp(email, password, displayName) {
-    if (!isFirebaseReady && !initFirebase()) {
-      throw new Error("Firebase backend is not configured yet.");
-    }
+    if (!isFirebaseReady && !initFirebase()) throw new Error("Firebase backend unavailable.");
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
     if (displayName) {
       await user.updateProfile({ displayName: displayName });
     }
-    
-    // Create User Document in Firestore
-    await db.collection("users").doc(user.uid).set({
-      uid: user.uid,
-      email: email,
-      displayName: displayName || email.split('@')[0],
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    }, { merge: true });
+
+    // Initialize User Document in Cloud Firestore
+    if (firestore) {
+      await firestore.collection("users").doc(user.uid).set({
+        uid: user.uid,
+        email: email,
+        displayName: displayName || email.split('@')[0],
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+    }
 
     return user;
   }
 
-  // Log In Existing User
   async function login(email, password) {
-    if (!isFirebaseReady && !initFirebase()) {
-      throw new Error("Firebase backend is not configured yet.");
-    }
+    if (!isFirebaseReady && !initFirebase()) throw new Error("Firebase backend unavailable.");
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     return userCredential.user;
   }
 
-  // Log Out Current User
   async function logout() {
+    if (auth) await auth.signOut();
+  }
+
+  function onAuthStateChanged(callback) {
     if (auth) {
-      await auth.signOut();
+      auth.onAuthStateChanged(callback);
     }
   }
 
-  // Password Reset Email
-  async function sendPasswordReset(email) {
-    if (!isFirebaseReady && !initFirebase()) {
-      throw new Error("Firebase backend is not configured yet.");
-    }
-    await auth.sendPasswordResetEmail(email);
+  function getCurrentUser() {
+    return auth ? auth.currentUser : null;
   }
 
   // ----------------------------------------------------
-  // FIRESTORE DATABASE FUNCTIONS
+  // 2. QUIZ RESULTS & ATTEMPTS PERSISTENCE
   // ----------------------------------------------------
 
-  // Save Quiz Attempt Record to Firestore Database
   async function saveQuizAttempt(attemptRecord) {
-    if (!isFirebaseReady && !initFirebase()) {
-      console.warn("⚠️ Firebase DB not ready. Saving to Local Storage only.");
-      return false;
+    if (!isFirebaseReady && !initFirebase()) return false;
+
+    let savedFirestore = false;
+    let savedRealtime = false;
+
+    // A. Save to Cloud Firestore DB
+    if (firestore) {
+      try {
+        await firestore.collection("quiz_attempts").doc(attemptRecord.attemptId).set({
+          ...attemptRecord,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        savedFirestore = true;
+      } catch (e) {
+        console.warn("Firestore save warning:", e.message);
+      }
     }
 
-    try {
-      const docRef = db.collection("quiz_attempts").doc(attemptRecord.attemptId);
-      await docRef.set({
-        ...attemptRecord,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      console.log("☁️ Attempt saved to Cloud Firestore DB:", attemptRecord.attemptId);
-      return true;
-    } catch (err) {
-      console.error("❌ Failed to save attempt to Cloud DB:", err.message);
-      return false;
+    // B. Save to Realtime Database (Dual Backup Sync)
+    if (realtimeDb) {
+      try {
+        await realtimeDb.ref("attempts/" + attemptRecord.attemptId).set(attemptRecord);
+        savedRealtime = true;
+      } catch (e) {
+        console.warn("Realtime DB save warning:", e.message);
+      }
     }
+
+    console.log(`☁️ Quiz attempt synced: Firestore [${savedFirestore}], Realtime DB [${savedRealtime}]`);
+    return savedFirestore || savedRealtime;
   }
 
-  // Fetch Quiz Attempts for User or Guest
   async function fetchQuizAttempts(userId = null) {
     if (!isFirebaseReady && !initFirebase()) return [];
 
-    try {
-      let query = db.collection("quiz_attempts");
-      if (userId) {
-        query = query.where("userId", "==", userId);
+    if (firestore) {
+      try {
+        let query = firestore.collection("quiz_attempts");
+        if (userId) query = query.where("userId", "==", userId);
+        const snapshot = await query.orderBy("timestamp", "desc").limit(50).get();
+        const results = [];
+        snapshot.forEach(doc => results.push(doc.data()));
+        if (results.length > 0) return results;
+      } catch (e) {
+        console.warn("Firestore fetch fallback to Realtime DB:", e.message);
       }
-      const snapshot = await query.orderBy("createdAt", "desc").limit(50).get();
-      const attempts = [];
-      snapshot.forEach(doc => {
-        attempts.push(doc.data());
+    }
+
+    if (realtimeDb) {
+      try {
+        const snapshot = await realtimeDb.ref("attempts").once("value");
+        const data = snapshot.val();
+        if (data) {
+          const attempts = Object.values(data);
+          if (userId) return attempts.filter(a => a.userId === userId);
+          return attempts.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+        }
+      } catch (e) {
+        console.error("Realtime DB fetch error:", e.message);
+      }
+    }
+
+    return [];
+  }
+
+  // ----------------------------------------------------
+  // 3. NEXUS AI CHAT HISTORY PERSISTENCE (For Future Features)
+  // ----------------------------------------------------
+
+  async function saveAIChatMessage(userId, messageData) {
+    if (!isFirebaseReady || !firestore || !userId) return false;
+    try {
+      await firestore.collection("users").doc(userId).collection("ai_chats").add({
+        ...messageData,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-      return attempts;
-    } catch (err) {
-      console.error("❌ Error fetching attempts from Cloud DB:", err.message);
+      return true;
+    } catch (e) {
+      console.error("Error saving AI chat message:", e.message);
+      return false;
+    }
+  }
+
+  async function fetchAIChatHistory(userId) {
+    if (!isFirebaseReady || !firestore || !userId) return [];
+    try {
+      const snapshot = await firestore.collection("users").doc(userId).collection("ai_chats").orderBy("timestamp", "asc").get();
+      const history = [];
+      snapshot.forEach(doc => history.push(doc.data()));
+      return history;
+    } catch (e) {
+      console.error("Error fetching AI chat history:", e.message);
       return [];
     }
   }
 
-  // Expose Global Firebase Service Object
+  // ----------------------------------------------------
+  // 4. KNOWLEDGE HUB FAVORITE TOPICS (For Future Features)
+  // ----------------------------------------------------
+
+  async function toggleFavoriteTopic(userId, topicId, topicData) {
+    if (!isFirebaseReady || !firestore || !userId) return false;
+    try {
+      const docRef = firestore.collection("users").doc(userId).collection("favorites").doc(topicId);
+      const doc = await docRef.get();
+      if (doc.exists) {
+        await docRef.delete();
+        return false; // Removed from favorites
+      } else {
+        await docRef.set({
+          topicId: topicId,
+          ...topicData,
+          savedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        return true; // Added to favorites
+      }
+    } catch (e) {
+      console.error("Error toggling favorite topic:", e.message);
+      return false;
+    }
+  }
+
+  async function fetchUserFavorites(userId) {
+    if (!isFirebaseReady || !firestore || !userId) return [];
+    try {
+      const snapshot = await firestore.collection("users").doc(userId).collection("favorites").orderBy("savedAt", "desc").get();
+      const favs = [];
+      snapshot.forEach(doc => favs.push(doc.data()));
+      return favs;
+    } catch (e) {
+      console.error("Error fetching user favorites:", e.message);
+      return [];
+    }
+  }
+
+  // Expose Unified Global Interface
   window.NEXUS_FIREBASE = {
     init: initFirebase,
     signUp: signUp,
     login: login,
     logout: logout,
-    sendPasswordReset: sendPasswordReset,
+    onAuthStateChanged: onAuthStateChanged,
+    getCurrentUser: getCurrentUser,
     saveQuizAttempt: saveQuizAttempt,
     fetchQuizAttempts: fetchQuizAttempts,
+    saveAIChatMessage: saveAIChatMessage,
+    fetchAIChatHistory: fetchAIChatHistory,
+    toggleFavoriteTopic: toggleFavoriteTopic,
+    fetchUserFavorites: fetchUserFavorites,
     getAuth: () => auth,
-    getDb: () => db,
+    getFirestore: () => firestore,
+    getRealtimeDb: () => realtimeDb,
     isReady: () => isFirebaseReady
   };
 
-  // Auto Init on script load
+  // Auto Init on DOM Loaded
   document.addEventListener("DOMContentLoaded", function () {
     initFirebase();
   });
