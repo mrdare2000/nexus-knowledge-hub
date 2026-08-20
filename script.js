@@ -3321,10 +3321,19 @@ function generateNewsHTML(articles) {
 }
 
 /* ==========================================
-   AUTHENTICATION LOGIC (PHASE 1)
+   GLOBAL BRANDED LOADING OVERLAY SYSTEM
    ========================================== */
-let currentUser = null;
-let selectedAvatarSymbol = '👤';
+function showGlobalLoader(message = "Loading...") {
+  const loader = document.getElementById("global-loader");
+  const loaderText = document.getElementById("global-loader-text");
+  if (loaderText) loaderText.textContent = message;
+  if (loader) loader.style.display = "flex";
+}
+
+function hideGlobalLoader() {
+  const loader = document.getElementById("global-loader");
+  if (loader) loader.style.display = "none";
+}
 
 function initAuth() {
   if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.onAuthStateChanged) {
@@ -3510,6 +3519,7 @@ async function handleSignIn(e) {
   e.preventDefault();
   hideAuthError();
   toggleAuthSpinner('signin-form', true);
+  showGlobalLoader("Signing In...");
   
   const email = document.getElementById('signin-email').value;
   const password = document.getElementById('signin-password').value;
@@ -3522,6 +3532,7 @@ async function handleSignIn(e) {
     showAuthError(error.message || "Failed to sign in. Please check your credentials.");
   } finally {
     toggleAuthSpinner('signin-form', false);
+    hideGlobalLoader();
   }
 }
 
@@ -3542,6 +3553,7 @@ async function handleSignUp(e) {
   }
   
   toggleAuthSpinner('signup-form', true);
+  showGlobalLoader("Creating Account & Profile...");
   
   try {
     if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
@@ -3552,12 +3564,15 @@ async function handleSignUp(e) {
     await user.updateProfile({ displayName: name });
     
     // Save company and role to Firestore
-    if (window.NEXUS_FIREBASE.db) {
-      await window.NEXUS_FIREBASE.db.collection("users").doc(user.uid).set({
-        company: company,
-        role: role,
+    const db = getFirestoreDb();
+    if (db) {
+      await db.collection("users").doc(user.uid).set({
+        company: company || "Not Set",
+        role: role || "Not Set",
         name: name,
+        displayName: name,
         email: email,
+        avatar: '👤',
         createdAt: new Date()
       }, { merge: true });
     }
@@ -3716,6 +3731,8 @@ async function saveUserProfile(e) {
   const btn = document.getElementById("profile-save-btn");
   if (btn) btn.disabled = true;
 
+  showGlobalLoader("Saving Profile to Backend...");
+
   try {
     // 1. Update Firebase Auth displayName
     await currentUser.updateProfile({ displayName: name });
@@ -3743,7 +3760,7 @@ async function saveUserProfile(e) {
       setTimeout(() => {
         successDiv.style.display = "none";
         toggleProfileEditMode(false);
-      }, 1200);
+      }, 1000);
     } else {
       toggleProfileEditMode(false);
     }
@@ -3756,6 +3773,7 @@ async function saveUserProfile(e) {
     }
   } finally {
     if (btn) btn.disabled = false;
+    hideGlobalLoader();
   }
 }
 
