@@ -285,6 +285,11 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
   if (pageId === "ai") {
     initNexusAIChat();
   }
+  if (pageId === "quiz") {
+    if (window.NEXUS_QUIZ_ENGINE && typeof window.NEXUS_QUIZ_ENGINE.refresh === 'function') {
+      window.NEXUS_QUIZ_ENGINE.refresh();
+    }
+  }
 
   // Scroll to top after layout has been updated
   if (!isInitialLoad) {
@@ -3418,12 +3423,22 @@ function updateAuthUI(user) {
         }
       }).catch(err => console.error("Error fetching user profile:", err));
     }
+    
+    // Refresh Quiz Hub state if active
+    if (window.NEXUS_QUIZ_ENGINE && typeof window.NEXUS_QUIZ_ENGINE.refresh === 'function') {
+      window.NEXUS_QUIZ_ENGINE.refresh();
+    }
   } else {
     // Logged out: Show login buttons, Hide profile badges
     if (loginBtn) loginBtn.style.setProperty("display", "flex", "important");
     if (userProfile) userProfile.style.setProperty("display", "none", "important");
     if (homeLoginBtn) homeLoginBtn.style.setProperty("display", "flex", "important");
     if (homeUserProfile) homeUserProfile.style.setProperty("display", "none", "important");
+
+    // Refresh Quiz Hub state if active
+    if (window.NEXUS_QUIZ_ENGINE && typeof window.NEXUS_QUIZ_ENGINE.refresh === 'function') {
+      window.NEXUS_QUIZ_ENGINE.refresh();
+    }
   }
 }
 

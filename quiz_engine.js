@@ -18,6 +18,14 @@
     return weeksPool.length - 1; // Always features the latest active week
   }
 
+  let fetchedRemoteAttempts = false;
+
+  function getCurrentAuthUser() {
+    if (typeof window.getCurrentUser === 'function') return window.getCurrentUser();
+    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.getCurrentUser === 'function') return window.NEXUS_FIREBASE.getCurrentUser();
+    return null;
+  }
+
   // Initialize Quiz Hub
   function initQuizHub() {
     activeWeekIndex = calculateActiveWeekIndex();
@@ -33,6 +41,25 @@
     const container = document.getElementById('quiz-hub-container');
     if (!container) return;
 
+    const currentUser = getCurrentAuthUser();
+
+    // 1. GATEKEEPER: If user is logged out, show Gatekeeper UI
+    if (!currentUser) {
+      container.innerHTML = renderQuizGatekeeperUI();
+      return;
+    }
+
+    // 2. Fetch remote attempts from Firestore if logged in
+    if (currentUser && !fetchedRemoteAttempts && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.fetchQuizAttempts === 'function') {
+      fetchedRemoteAttempts = true;
+      window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid).then(remoteAttempts => {
+        if (remoteAttempts && remoteAttempts.length > 0) {
+          userAttempts = remoteAttempts;
+          renderQuizHubUI();
+        }
+      }).catch(err => console.error("Error fetching user attempts:", err));
+    }
+
     if (currentViewingAttempt) {
       container.innerHTML = renderQuizResultsView(currentViewingAttempt);
       bindResultsViewEvents();
@@ -40,9 +67,51 @@
       container.innerHTML = renderQuizQuestionsForm();
       bindQuizEvents();
     } else {
-      container.innerHTML = renderPortalDashboard();
+      container.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
       bindDashboardEvents();
     }
+  }
+
+  function renderQuizGatekeeperUI() {
+    return `
+      <div class="quiz-gatekeeper-card" style="max-width: 650px; margin: 40px auto; padding: 45px 30px; text-align: center; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); color: white;">
+        <div style="width: 80px; height: 80px; background: rgba(255, 90, 31, 0.15); border: 2px solid var(--accent-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 2.5rem; box-shadow: 0 0 20px rgba(255, 90, 31, 0.3);">
+          🔒
+        </div>
+        <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; margin-bottom: 12px; color: white;">Quiz Hub & Certifications Locked</h2>
+        <p style="font-size: 1rem; color: #94A3B8; margin-bottom: 28px; line-height: 1.6; max-width: 520px; margin-left: auto; margin-right: auto;">
+          Quiz Hub access is reserved for registered Nexus members. Sign in or create a free account to take weekly freight challenges, track your scores, and earn verifiable certificates synced across all your devices.
+        </p>
+        <button onclick="openAuthModal()" class="btn btn-primary" style="padding: 14px 32px; font-size: 1.05rem; font-weight: 700; border-radius: 12px; box-shadow: 0 10px 25px rgba(255, 90, 31, 0.4); cursor: pointer;">
+          🔑 Sign In / Create Free Account
+        </button>
+      </div>
+    `;
+  }
+
+  function renderCandidateStrip(user) {
+    const avatar = (typeof selectedAvatarSymbol !== 'undefined') ? selectedAvatarSymbol : '👤';
+    const name = user.displayName || user.email.split('@')[0];
+    const email = user.email;
+
+    return `
+      <div class="quiz-candidate-strip" style="background: var(--bg-white); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 14px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(10,37,64,0.04);">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: #FFF7ED; border: 2px solid var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+            ${avatar}
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 1.05rem; color: var(--primary-navy);">${name}</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">${email}</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="background: rgba(16, 185, 129, 0.12); color: #059669; padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+            <span>🟢</span> Logged In Candidate
+          </span>
+        </div>
+      </div>
+    `;
   }
 
   // Render Portal Dashboard
@@ -442,13 +511,16 @@
     else if (percentage >= 75) grade = "Merit / Advanced Practitioner 🥈";
     else if (percentage >= 50) grade = "Pass / Competent Practitioner 🥉";
 
-    const candidateName = prompt("Enter your Name for the Certificate / Result Log:", "Logistics Candidate") || "Logistics Candidate";
+    const currentUser = getCurrentAuthUser();
+    const candidateName = currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "Logistics Candidate";
+    const candidateEmail = currentUser ? currentUser.email : "candidate@nexus.com";
+    const candidateUid = currentUser ? currentUser.uid : "usr_guest";
 
     const attemptRecord = {
       attemptId: 'att_' + Date.now(),
-      userId: 'usr_guest',
+      userId: candidateUid,
       userName: candidateName,
-      userEmail: 'candidate@nexus.com',
+      userEmail: candidateEmail,
       userCompany: 'Logistics Professional',
       userRole: 'Logistics Professional',
       weekId: activeQuiz.id,
@@ -631,7 +703,11 @@
   });
 
   window.NEXUS_QUIZ_ENGINE = {
-    init: initQuizHub
+    init: initQuizHub,
+    refresh: function() {
+      fetchedRemoteAttempts = false;
+      renderQuizHubUI();
+    }
   };
 
 })();

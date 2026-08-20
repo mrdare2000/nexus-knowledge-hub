@@ -138,10 +138,13 @@
     if (firestore) {
       try {
         let query = firestore.collection("quiz_attempts");
-        if (userId) query = query.where("userId", "==", userId);
-        const snapshot = await query.orderBy("timestamp", "desc").limit(50).get();
+        if (userId) {
+          query = query.where("userId", "==", userId);
+        }
+        const snapshot = await query.get();
         const results = [];
         snapshot.forEach(doc => results.push(doc.data()));
+        results.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
         if (results.length > 0) return results;
       } catch (e) {
         console.warn("Firestore fetch fallback to Realtime DB:", e.message);
