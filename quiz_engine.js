@@ -80,24 +80,119 @@
     }
   }
 
-  let authMode = 'signup'; // 'signup' or 'signin'
+  let authMode = 'signup'; // 'signup', 'signin', or 'forgot'
+  let generatedOtp = null;
+  let otpEmail = null;
 
   // Registration & Sign-In Prompt (Centralized Firebase Cloud Authentication)
   function renderRegistrationPrompt() {
-    // Step 1: Sign In Mode (Existing Registered Candidates)
+    // 1. Forgot Password Mode
+    if (authMode === 'forgot') {
+      if (!generatedOtp) {
+        // Step 1: Request OTP Code
+        return `
+          <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
+            <div style="font-size: 3.5rem; margin-bottom: 12px;">🔑</div>
+            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Password Recovery</h2>
+            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
+              Enter your registered candidate email address to receive a 6-digit Security Verification Code (OTP) to reset your password.
+            </p>
+
+            <form id="quiz-forgot-request-form" style="text-align: left; display: flex; flex-direction: column; gap: 18px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Registered Email Address *</label>
+                <input type="email" id="forgot-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+              </div>
+              
+              <button type="submit" id="btn-submit-forgot-request" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
+                📩 Send Verification Code (OTP)
+              </button>
+
+              <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem;">
+                <button type="button" class="btn-goto-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline;">
+                  ⬅️ Back to Sign In
+                </button>
+              </div>
+            </form>
+          </div>
+        `;
+      } else {
+        // Step 2: Enter OTP & New Password
+        return `
+          <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
+            <div style="font-size: 3.5rem; margin-bottom: 12px;">🛡️</div>
+            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Set New Password</h2>
+            
+            <div style="background: #FEF3C7; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 14px; margin-bottom: 20px; text-align: left; font-size: 0.88rem; color: #92400E;">
+              <strong>🔑 Verification Code Dispatched:</strong><br>
+              A 6-digit code has been generated for <strong>${otpEmail}</strong>.<br>
+              Security OTP: <span style="font-family: monospace; font-size: 1.2rem; font-weight: 900; color: #B45309; letter-spacing: 2px;">${generatedOtp}</span>
+            </div>
+
+            <form id="quiz-reset-password-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">6-Digit Verification Code (OTP) *</label>
+                <input type="text" id="reset-otp" required placeholder="Enter 6-digit code" maxlength="6" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; text-align: center;">
+              </div>
+
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">New Account Password *</label>
+                <div style="position: relative;">
+                  <input type="password" id="reset-new-password" required placeholder="Minimum 6 characters" class="quiz-input" style="width: 100%; padding: 12px 42px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+                  <button type="button" class="btn-toggle-pwd" data-target="reset-new-password" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
+                </div>
+              </div>
+
+              <div>
+                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Confirm New Password *</label>
+                <div style="position: relative;">
+                  <input type="password" id="reset-confirm-password" required placeholder="Re-enter new password" class="quiz-input" style="width: 100%; padding: 12px 42px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+                  <button type="button" class="btn-toggle-pwd" data-target="reset-confirm-password" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
+                </div>
+              </div>
+
+              <button type="submit" id="btn-submit-reset" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
+                🔐 Reset Password & Sign In
+              </button>
+
+              <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem;">
+                <button type="button" class="btn-goto-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline;">
+                  ⬅️ Back to Sign In
+                </button>
+              </div>
+            </form>
+          </div>
+        `;
+      }
+    }
+
+    // 2. Sign In Mode
     if (authMode === 'signin') {
       return `
         <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
           <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Welcome Back</h2>
           <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-            Enter your registered email address to sign in and restore your candidate dashboard from Central Cloud DB.
+            Enter your registered candidate email and password to sign in to your dashboard.
           </p>
 
           <form id="quiz-signin-form" style="text-align: left; display: flex; flex-direction: column; gap: 18px;">
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Registered Email Address *</label>
               <input type="email" id="signin-email" required placeholder="name@company.com or personal email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy);">Account Password *</label>
+                <button type="button" id="toggle-to-forgot" style="background: none; border: none; color: var(--accent-orange); font-size: 0.82rem; font-weight: 700; cursor: pointer; text-decoration: underline;">
+                  Forgot Password?
+                </button>
+              </div>
+              <div style="position: relative;">
+                <input type="password" id="signin-password" required placeholder="Enter your password" class="quiz-input" style="width: 100%; padding: 13px 42px 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+                <button type="button" class="btn-toggle-pwd" data-target="signin-password" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
+              </div>
             </div>
             
             <button type="submit" id="btn-submit-signin" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
@@ -115,13 +210,13 @@
       `;
     }
 
-    // Step 1: Sign Up Mode (New Candidate KYC Registration)
+    // 3. Sign Up Mode
     return `
       <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
         <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
         <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Create Candidate Account</h2>
         <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-          Register once to unlock weekly logistics certification challenges, track your candidate rank, and sync with Central Cloud DB.
+          Register once with password security to unlock weekly logistics certification challenges and sync with Central Cloud DB.
         </p>
 
         <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
@@ -133,6 +228,23 @@
           <div>
             <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address * (Work or Personal)</label>
             <input type="email" id="kyc-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Password *</label>
+              <div style="position: relative;">
+                <input type="password" id="kyc-password" required placeholder="Min 6 chars" class="quiz-input" style="width: 100%; padding: 12px 38px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+                <button type="button" class="btn-toggle-pwd" data-target="kyc-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem;">👁️</button>
+              </div>
+            </div>
+            <div>
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Confirm Password *</label>
+              <div style="position: relative;">
+                <input type="password" id="kyc-confirm-password" required placeholder="Re-enter password" class="quiz-input" style="width: 100%; padding: 12px 38px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+                <button type="button" class="btn-toggle-pwd" data-target="kyc-confirm-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem;">👁️</button>
+              </div>
+            </div>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
@@ -152,7 +264,7 @@
 
           <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem; color: var(--text-muted);">
             Already registered? 
-            <button type="button" id="toggle-to-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
+            <button type="button" class="btn-goto-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
               Sign In to Existing Account
             </button>
           </div>
@@ -163,20 +275,127 @@
 
   // Bind KYC Form Registration & Sign In
   function bindRegistrationEvents() {
+    // Password visibility toggles
+    document.querySelectorAll('.btn-toggle-pwd').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (input) {
+          if (input.type === 'password') {
+            input.type = 'text';
+            this.innerText = '🙈';
+          } else {
+            input.type = 'password';
+            this.innerText = '👁️';
+          }
+        }
+      });
+    });
+
     // Mode Toggles
     const toSignupBtn = document.getElementById('toggle-to-signup');
     if (toSignupBtn) {
       toSignupBtn.addEventListener('click', function () {
         authMode = 'signup';
+        generatedOtp = null;
         renderQuizHubUI();
       });
     }
 
-    const toSigninBtn = document.getElementById('toggle-to-signin');
-    if (toSigninBtn) {
-      toSigninBtn.addEventListener('click', function () {
+    document.querySelectorAll('.btn-goto-signin').forEach(btn => {
+      btn.addEventListener('click', function () {
         authMode = 'signin';
+        generatedOtp = null;
         renderQuizHubUI();
+      });
+    });
+
+    const toForgotBtn = document.getElementById('toggle-to-forgot');
+    if (toForgotBtn) {
+      toForgotBtn.addEventListener('click', function () {
+        authMode = 'forgot';
+        generatedOtp = null;
+        renderQuizHubUI();
+      });
+    }
+
+    // Request OTP Form Submit
+    const forgotRequestForm = document.getElementById('quiz-forgot-request-form');
+    if (forgotRequestForm) {
+      forgotRequestForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const email = document.getElementById('forgot-email').value.trim().toLowerCase();
+        if (!email) return;
+
+        const btn = document.getElementById('btn-submit-forgot-request');
+        if (btn) {
+          btn.disabled = true;
+          btn.innerText = "⏳ Looking up Cloud DB...";
+        }
+
+        const cloudUser = await fetchUserFromCloudDB(email);
+        if (!cloudUser) {
+          alert('❌ No candidate account found for this email address.\n\nPlease check your email or create a new candidate account.');
+          if (btn) {
+            btn.disabled = false;
+            btn.innerText = "📩 Send Verification Code (OTP)";
+          }
+          return;
+        }
+
+        // Generate 6-digit OTP code
+        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+        generatedOtp = otpCode;
+        otpEmail = email;
+
+        alert(`🔑 Security Verification Code (OTP) Dispatched!\n\nCandidate Email: ${email}\nYour 6-digit Security OTP Code is: ${otpCode}\n\nPlease enter this code on the next screen to reset your password.`);
+        renderQuizHubUI();
+      });
+    }
+
+    // Reset Password Form Submit
+    const resetForm = document.getElementById('quiz-reset-password-form');
+    if (resetForm) {
+      resetForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const inputOtp = document.getElementById('reset-otp').value.trim();
+        const newPassword = document.getElementById('reset-new-password').value;
+        const confirmPassword = document.getElementById('reset-confirm-password').value;
+
+        if (inputOtp !== generatedOtp) {
+          alert('❌ Invalid Verification Code (OTP)! Please enter the correct 6-digit code shown.');
+          return;
+        }
+
+        if (newPassword.length < 6) {
+          alert('⚠️ Password must be at least 6 characters long.');
+          return;
+        }
+
+        if (newPassword !== confirmPassword) {
+          alert('⚠️ Passwords do not match. Please re-enter.');
+          return;
+        }
+
+        const btn = document.getElementById('btn-submit-reset');
+        if (btn) {
+          btn.disabled = true;
+          btn.innerText = "⏳ Updating Central Cloud DB...";
+        }
+
+        const cloudUser = await fetchUserFromCloudDB(otpEmail);
+        if (cloudUser) {
+          cloudUser.password = newPassword;
+          await saveUserToCloudDB(cloudUser);
+
+          currentUser = cloudUser;
+          localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
+          generatedOtp = null;
+          otpEmail = null;
+
+          alert('✅ Password reset successfully! Redirecting to your Candidate Dashboard...');
+          renderQuizHubUI();
+        }
       });
     }
 
@@ -186,7 +405,8 @@
       signinForm.addEventListener('submit', async function (e) {
         e.preventDefault();
         const email = document.getElementById('signin-email').value.trim().toLowerCase();
-        if (!email) return;
+        const password = document.getElementById('signin-password').value;
+        if (!email || !password) return;
 
         const btn = document.getElementById('btn-submit-signin');
         if (btn) {
@@ -206,9 +426,19 @@
           return;
         }
 
+        // Validate Password if set on account
+        if (cloudUser.password && cloudUser.password !== password) {
+          alert('❌ Incorrect password.\n\nPlease check your password and try again, or click "Forgot Password?" to reset it.');
+          if (btn) {
+            btn.disabled = false;
+            btn.innerText = "🔑 Sign In to Candidate Dashboard";
+          }
+          return;
+        }
+
         currentUser = cloudUser;
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-        saveUserToCloudDB(currentUser);
+        await saveUserToCloudDB(currentUser);
 
         // Sync candidate attempts from Central Cloud DB
         try {
@@ -232,10 +462,22 @@
         e.preventDefault();
         const name = document.getElementById('kyc-name').value.trim();
         const email = document.getElementById('kyc-email').value.trim().toLowerCase();
+        const password = document.getElementById('kyc-password').value;
+        const confirmPassword = document.getElementById('kyc-confirm-password').value;
         const company = document.getElementById('kyc-company').value.trim() || 'Independent Professional';
         const role = document.getElementById('kyc-role').value.trim() || 'Logistics Professional';
 
-        if (!name || !email) return;
+        if (!name || !email || !password) return;
+
+        if (password.length < 6) {
+          alert('⚠️ Password must be at least 6 characters long.');
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          alert('⚠️ Passwords do not match. Please re-enter.');
+          return;
+        }
 
         const btn = document.getElementById('btn-submit-signup');
         if (btn) {
@@ -258,6 +500,7 @@
           id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
           name: name,
           email: email,
+          password: password,
           company: company,
           role: role,
           avatar: null,
@@ -265,11 +508,7 @@
           registeredAt: new Date().toISOString()
         };
 
-        const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
-        registry[email] = currentUser;
-        localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-        
         await saveUserToCloudDB(currentUser);
         renderQuizHubUI();
       });
@@ -903,71 +1142,43 @@
       return;
     }
 
-    // 1. Load Local Users Registry & Attempts
-    const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
-    let localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+    // Direct Live Fetch from Central Firebase Cloud DB (Zero Local Caching)
+    let usersList = [];
+    let attemptsList = [];
 
-    // Also include current user if logged in
-    const currentLocal = JSON.parse(localStorage.getItem('nexus_quiz_user') || 'null');
-    if (currentLocal && currentLocal.email) {
-      registry[currentLocal.email.toLowerCase()] = currentLocal;
-    }
-
-    let usersList = Object.values(registry);
-    let attemptsList = [...localAttempts];
-
-    // 2. Real-time Firebase & Global Cloud DB Sync across all devices/candidates
     try {
+      usersList = await fetchAllUsersFromCloudDB();
+      attemptsList = await fetchAllAttemptsFromCloudDB();
+
+      // Firebase Firestore fallback if available
       if (window.firebaseDB) {
-        // Sync Users
         const usersSnap = await window.firebaseDB.collection('users').get();
         if (usersSnap && !usersSnap.empty) {
+          const uMap = {};
+          usersList.forEach(u => { if (u && u.email) uMap[u.email.toLowerCase()] = u; });
           usersSnap.forEach(doc => {
             const uData = doc.data();
-            if (uData && uData.email) {
-              registry[uData.email.toLowerCase()] = uData;
-            }
+            if (uData && uData.email) uMap[uData.email.toLowerCase()] = uData;
           });
+          usersList = Object.values(uMap);
         }
 
-        // Sync Attempts
         const attemptsSnap = await window.firebaseDB.collection('attempts').get();
         if (attemptsSnap && !attemptsSnap.empty) {
-          const fbAttempts = [];
-          attemptsSnap.forEach(doc => fbAttempts.push(doc.data()));
-          if (fbAttempts.length > 0) {
-            const attMap = {};
-            attemptsList.concat(fbAttempts).forEach(a => { if(a.attemptId) attMap[a.attemptId] = a; });
-            attemptsList = Object.values(attMap);
-          }
+          const aMap = {};
+          attemptsList.forEach(a => { if (a && a.attemptId) aMap[a.attemptId] = a; });
+          attemptsSnap.forEach(doc => {
+            const aData = doc.data();
+            if (aData && aData.attemptId) aMap[aData.attemptId] = aData;
+          });
+          attemptsList = Object.values(aMap);
         }
       }
     } catch (err) {
-      console.warn("Firebase admin sync fallback:", err);
+      console.warn("Owner Admin Cloud DB fetch error:", err);
     }
 
-    // 3. Global Cloud Sync (Fetches ALL candidates registered on ANY phone/PC globally)
-    try {
-      const cloudUsers = await fetchAllUsersFromCloudDB();
-      cloudUsers.forEach(u => {
-        if (u && u.email) {
-          registry[u.email.toLowerCase()] = u;
-        }
-      });
-
-      const cloudAtts = await fetchAllAttemptsFromCloudDB();
-      if (cloudAtts && cloudAtts.length > 0) {
-        const attMap = {};
-        attemptsList.concat(cloudAtts).forEach(a => { if(a.attemptId) attMap[a.attemptId] = a; });
-        attemptsList = Object.values(attMap);
-      }
-    } catch (cloudErr) {
-      console.warn("Global Cloud DB sync fallback:", cloudErr);
-    }
-
-    usersList = Object.values(registry);
-
-    // Sort users latest first
+    // Sort users latest registered first
     usersList.sort((a, b) => new Date(b.registeredAt || 0).getTime() - new Date(a.registeredAt || 0).getTime());
 
     // Sort attempts latest first
@@ -1245,11 +1456,8 @@
       currentUser.role = updatedRole;
       currentUser.avatar = selectedAvatar;
 
-      const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
-      registry[currentUser.email.toLowerCase()] = currentUser;
-      localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
       localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-      saveUserToFirebase(currentUser);
+      saveUserToCloudDB(currentUser);
 
       document.getElementById('nexus-profile-edit-modal').remove();
       renderQuizHubUI();
