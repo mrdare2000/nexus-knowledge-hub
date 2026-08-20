@@ -1823,47 +1823,10 @@ function initNexusAIChat() {
   const msgArea = document.getElementById("chat-msg-area");
   
   if (!sendBtn || !textInput || !msgArea) return;
-  
-  // Auto-restore saved Gemini API Key from localStorage if present
-  const apiKeyInput = document.getElementById("api-key-input");
-  const saveKeyBtn = document.getElementById("save-api-key-btn");
-  
-  if (apiKeyInput) {
-    const savedKey = localStorage.getItem("nexus_gemini_api_key");
-    if (savedKey) {
-      apiKeyInput.value = savedKey;
-    }
-  }
 
   // Guard against re-binding event listeners multiple times
   if (isNexusAiChatInitialized) return;
   isNexusAiChatInitialized = true;
-  
-  msgArea.innerHTML = "";
-  conversationHistory = [];
-  currentTopicContext = null;
-  
-  if (saveKeyBtn && apiKeyInput) {
-    saveKeyBtn.addEventListener("click", () => {
-      const keyVal = apiKeyInput.value.trim();
-      if (keyVal) {
-        localStorage.setItem("nexus_gemini_api_key", keyVal);
-        saveKeyBtn.textContent = "Saved ✓";
-        saveKeyBtn.style.backgroundColor = "#16A34A";
-        setTimeout(() => {
-          saveKeyBtn.textContent = "Save";
-          saveKeyBtn.style.backgroundColor = "var(--accent-orange)";
-        }, 2000);
-      } else {
-        localStorage.removeItem("nexus_gemini_api_key");
-        apiKeyInput.value = "";
-        saveKeyBtn.textContent = "Cleared";
-        setTimeout(() => {
-          saveKeyBtn.textContent = "Save";
-        }, 2000);
-      }
-    });
-  }
   
   appendChatMessage("system", SHIPPING_BOT_ANSWERS.greeting);
   conversationHistory.push({ role: "model", parts: [{ text: SHIPPING_BOT_ANSWERS.greeting }] });
@@ -2052,36 +2015,25 @@ async function handleUserChatMessage() {
   
   setTimeout(async () => {
     try {
-      // 1. Primary Engine: Vercel Serverless (server-side GEMINI_API_KEY)
+      // 1. Primary Engine: Vercel Serverless (platform GEMINI_API_KEY — no user key needed)
       const responseText = await callVercelAPI();
       if (typingMsg) typingMsg.remove();
       appendChatMessage("system", responseText);
       conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
     } catch (err) {
-      console.warn("Vercel API unavailable, trying direct Gemini with user key...", err);
+      console.warn("Vercel API unavailable, trying free AI proxy...", err);
       try {
-        // 2. Secondary Engine: Direct Gemini with user's browser key
-        const userKey = localStorage.getItem("nexus_gemini_api_key");
-        if (!userKey) throw new Error("No user Gemini key configured");
-        const responseText = await callGeminiAPI(userKey);
+        // 2. Secondary Engine: Pollinations Free AI (keyless)
+        const responseText = await callFreeAI();
         if (typingMsg) typingMsg.remove();
         appendChatMessage("system", responseText);
         conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
       } catch (err2) {
-        console.warn("Direct Gemini failed, trying free AI proxy...", err2);
-        try {
-          // 3. Tertiary Engine: Pollinations Free AI
-          const responseText = await callFreeAI();
-          if (typingMsg) typingMsg.remove();
-          appendChatMessage("system", responseText);
-          conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
-        } catch (err3) {
-          // 4. Offline Fallback: Local Knowledge Engine
-          const fallbackMsg = getLocalConversationalResponse(query);
-          if (typingMsg) typingMsg.remove();
-          appendChatMessage("system", fallbackMsg);
-          conversationHistory.push({ role: "model", parts: [{ text: fallbackMsg }] });
-        }
+        // 3. Offline Fallback: Local Knowledge Engine
+        const fallbackMsg = getLocalConversationalResponse(query);
+        if (typingMsg) typingMsg.remove();
+        appendChatMessage("system", fallbackMsg);
+        conversationHistory.push({ role: "model", parts: [{ text: fallbackMsg }] });
       }
     }
   }, 400);
@@ -2295,7 +2247,7 @@ function getLocalConversationalResponse(query) {
       .filter(line => line !== null && line.length > 5)
       .join('\n\n')
       .trim();
-    return `### 🌐 Nexus Freight Intelligence\n\nRegarding **"${query}"**:\n\n${cleanLines}\n\n💡 *For a fully detailed AI-powered answer, enable Nexus AI online.*`;
+    return `### 🌐 Nexus Freight Intelligence\n\nRegarding **"${query}"**:\n\n${cleanLines}\n\n💡 *You are currently in offline mode. Connect to the internet for full AI-powered analysis.*`;
   }
 
   return `### 🌐 Global Freight & Logistics Intelligence\n\nRegarding your query (**"${query}"**):\n\nGlobal freight forwarding encompasses **Air Freight**, **Ocean Freight (FCL/LCL)**, **Inland Trucking**, and **Customs Compliance**:\n\n- **Air Freight**: Fast transit (1-5 days) charged on Volumetric Weight \`(L x W x H in cm / 6000)\` or Gross Weight.\n- **Ocean Freight**: Economical bulk shipping via 20ft/40ft containers or LCL consolidation.\n- **Customs & Compliance**: Requires Commercial Invoice, Packing List, Bill of Lading / Air Waybill, and Harmonized System (HS) Codes.\n\n*Please specify any airport, seaport, trade lane, or calculation details you would like to explore further!*`;
