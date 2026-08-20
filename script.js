@@ -3350,8 +3350,21 @@ function hideGlobalLoader() {
 function initAuth() {
   if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.onAuthStateChanged) {
     window.NEXUS_FIREBASE.onAuthStateChanged((user) => {
-      currentUser = user;
-      updateAuthUI(user);
+      if (user) {
+        // Verify if user account still exists in Firebase Auth backend (handles console deletion)
+        user.reload().then(() => {
+          currentUser = user;
+          updateAuthUI(user);
+        }).catch((err) => {
+          console.warn("User account deleted from Firebase Console:", err);
+          if (window.NEXUS_FIREBASE.logout) window.NEXUS_FIREBASE.logout();
+          currentUser = null;
+          updateAuthUI(null);
+        });
+      } else {
+        currentUser = null;
+        updateAuthUI(null);
+      }
     });
   }
 }
