@@ -266,6 +266,7 @@
       <a class="sidebar-nav-item" data-page="learning" href="#knowledge-hub" onclick="switchPage('learning'); return false;">
         <span class="sidebar-nav-icon">📚</span>
         <span class="sidebar-nav-label">Knowledge Hub</span>
+        <span class="sidebar-nav-badge fav-badge" id="sidebar-fav-badge" style="display: none; background: #FF5A1F; color: white;">⭐</span>
       </a>
       <a class="sidebar-nav-item" data-page="tools" href="#interactive-tools" onclick="switchPage('tools'); return false;">
         <span class="sidebar-nav-icon">🛠️</span>
@@ -299,6 +300,38 @@
           <span class="collapse-icon">◄</span>
           <span class="control-label">Collapse</span>
         </button>
+      </div>
+
+      <!-- Auth Section -->
+      <div id="sidebar-auth-section" class="sidebar-auth-section">
+        <!-- Logged Out State -->
+        <button id="sidebar-login-btn" class="sidebar-user-badge auth-btn" onclick="openAuthModal()" style="background: rgba(255, 90, 31, 0.1); border: 1px solid rgba(255, 90, 31, 0.3);">
+          <div class="user-avatar" style="background: var(--accent-orange);">
+            <span style="color: white; font-weight: bold; font-size: 1.2rem;">?</span>
+          </div>
+          <div class="user-info">
+            <span class="user-name" style="color: var(--accent-orange);">Login / Sign Up</span>
+            <span class="user-role">Save progress & history</span>
+          </div>
+        </button>
+
+        <!-- Logged In State (Hidden by default) -->
+        <div id="sidebar-user-profile" class="sidebar-user-badge auth-btn" style="display: none; flex-direction: column; align-items: flex-start; padding: 15px; cursor: default;">
+          <div style="display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 10px;">
+            <div class="user-avatar" id="user-profile-avatar" style="background: var(--primary-navy-light);">
+              <span style="color: white; font-weight: bold; font-size: 1.2rem;" id="user-profile-initial">U</span>
+            </div>
+            <div class="user-info">
+              <span class="user-name" id="user-profile-name">User Name</span>
+              <span class="user-role" id="user-profile-email">user@example.com</span>
+            </div>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
+            <div id="user-profile-company" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">🏢 Company</div>
+            <div id="user-profile-role" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">💼 Role</div>
+          </div>
+          <button onclick="handleLogout()" class="btn btn-secondary" style="width: 100%; padding: 6px; font-size: 0.85rem; border-radius: 4px;">Logout</button>
+        </div>
       </div>
 
       <a href="https://www.nexuscargos.com/" target="_blank" rel="noopener noreferrer" class="sidebar-user-badge" title="Visit Nexus Cargo Official Website (nexuscargos.com)">
@@ -1552,7 +1585,77 @@
     </div>
   </div>
 
+  </div>
+
   <!-- DEDICATED USER AUTHENTICATION MODAL -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-content auth-modal-content" style="max-width: 450px; padding: 0;">
+      <!-- Close Button -->
+      <button class="close-modal-btn" onclick="closeAuthModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer;">&times;</button>
+      
+      <!-- Tabs -->
+      <div class="auth-tabs" style="display: flex; border-bottom: 1px solid var(--border-color);">
+        <button id="auth-tab-signin" class="auth-tab active" onclick="switchAuthTab('signin')" style="flex: 1; padding: 20px; background: none; border: none; font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; color: var(--primary-navy); cursor: pointer; border-bottom: 3px solid var(--primary-navy);">Sign In</button>
+        <button id="auth-tab-signup" class="auth-tab" onclick="switchAuthTab('signup')" style="flex: 1; padding: 20px; background: none; border: none; font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent;">Create Account</button>
+      </div>
+
+      <div style="padding: 30px;">
+        <!-- Error Message Container -->
+        <div id="auth-error-message" style="display: none; background: #FEF2F2; color: #DC2626; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid #FCA5A5;"></div>
+
+        <!-- Sign In Form -->
+        <form id="signin-form" onsubmit="handleSignIn(event)">
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">Email Address</label>
+            <input type="email" id="signin-email" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 25px;">
+            <label style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">
+              Password
+              <a href="#" onclick="handleForgotPassword(event)" style="font-size: 0.85rem; color: var(--accent-orange); text-decoration: none; font-weight: normal;">Forgot?</a>
+            </label>
+            <input type="password" id="signin-password" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <button type="submit" id="signin-submit-btn" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1.05rem; display: flex; justify-content: center; align-items: center; gap: 10px;">
+            <span>Sign In</span>
+            <div class="auth-spinner" style="display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid white; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+          </button>
+        </form>
+
+        <!-- Sign Up Form (Hidden initially) -->
+        <form id="signup-form" onsubmit="handleSignUp(event)" style="display: none;">
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">Full Name</label>
+            <input type="text" id="signup-name" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">Company / University</label>
+            <input type="text" id="signup-company" required placeholder="e.g. Nexus Cargos or Colombo University" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">Professional Role</label>
+            <input type="text" id="signup-role" required placeholder="e.g. Logistics Executive or Student" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">Email Address</label>
+            <input type="email" id="signup-email" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">Password</label>
+            <input type="password" id="signup-password" required minlength="6" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 25px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-navy); font-size: 0.95rem;">Confirm Password</label>
+            <input type="password" id="signup-password-confirm" required minlength="6" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+          </div>
+          <button type="submit" id="signup-submit-btn" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1.05rem; display: flex; justify-content: center; align-items: center; gap: 10px;">
+            <span>Create Account</span>
+            <div class="auth-spinner" style="display: none; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid white; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- Loading scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="knowledge_base.js?v=2.0"></script>
