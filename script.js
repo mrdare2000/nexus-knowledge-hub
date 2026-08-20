@@ -3393,11 +3393,11 @@ function updateProfileBadgesUI(name, avatar, role, company) {
   if (homeInitialSpan) homeInitialSpan.textContent = initial;
   if (homeNameSpan) homeNameSpan.textContent = firstName;
 
-  // Sidebar Compact Badge (Name ONLY as requested)
+  // Sidebar Compact Badge (First Name ONLY as requested to prevent truncation)
   const sidebarInitialSpan = document.getElementById("user-profile-initial");
   const sidebarNameSpan = document.getElementById("user-profile-name");
   if (sidebarInitialSpan) sidebarInitialSpan.textContent = initial;
-  if (sidebarNameSpan) sidebarNameSpan.textContent = name;
+  if (sidebarNameSpan) sidebarNameSpan.textContent = firstName;
 
   // Profile Modal View Mode Card
   const viewCompany = document.getElementById("view-user-company");
