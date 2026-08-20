@@ -1,14 +1,10 @@
 // Nexus Quiz Hub - Interactive Engine & Certification Management
-// Handles Portal Dashboard, Weekly Auto-Rotation, Quiz Execution, Scoring, Results View, PDF Certificate Generation & Firebase Owner Admin Sync
+// Pure Client-Side Interactive Engine (No Login, No Admin Portal, No External Database)
 
 (function () {
   'use strict';
 
-  // Owner Passcode for Admin Dashboard Access
-  const ADMIN_PASSCODE = "ownerdarshika2000";
-
   // State Management
-  let currentUser = JSON.parse(localStorage.getItem('nexus_quiz_user')) || null;
   let userAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
   let activeWeekIndex = 0;
   let activeQuiz = null;
@@ -22,36 +18,11 @@
     return weeksPool.length - 1; // Always features the latest active week
   }
 
-  const SYSTEM_SESSION_VERSION = "2026_08_20_v3";
-
   // Initialize Quiz Hub
   function initQuizHub() {
-    // Hard reset old local sessions across all devices globally so everyone registers fresh to Firebase Cloud DB
-    const currentVersion = localStorage.getItem('nexus_session_version');
-    if (currentVersion !== SYSTEM_SESSION_VERSION) {
-      localStorage.removeItem('nexus_quiz_user');
-      localStorage.removeItem('nexus_quiz_users_registry');
-      localStorage.removeItem('nexus_quiz_attempts');
-      localStorage.setItem('nexus_session_version', SYSTEM_SESSION_VERSION);
-      currentUser = null;
-      userAttempts = [];
-    }
-
     activeWeekIndex = calculateActiveWeekIndex();
     if (window.NEXUS_QUIZ_DATABASE && window.NEXUS_QUIZ_DATABASE.weeks) {
       activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[activeWeekIndex];
-    }
-
-    // Auto-sync active candidate & attempts to Central Cloud DB on load
-    if (currentUser) {
-      saveUserToCloudDB(currentUser);
-      fetchAllAttemptsFromCloudDB().then(cloudAttempts => {
-        if (cloudAttempts && cloudAttempts.length > 0) {
-          userAttempts = cloudAttempts;
-          localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts));
-          renderQuizHubUI();
-        }
-      }).catch(() => {});
     }
 
     renderQuizHubUI();
@@ -61,12 +32,6 @@
   function renderQuizHubUI() {
     const container = document.getElementById('quiz-hub-container');
     if (!container) return;
-
-    if (!currentUser) {
-      container.innerHTML = renderRegistrationPrompt();
-      bindRegistrationEvents();
-      return;
-    }
 
     if (currentViewingAttempt) {
       container.innerHTML = renderQuizResultsView(currentViewingAttempt);
@@ -80,446 +45,9 @@
     }
   }
 
-  let authMode = 'signup'; // 'signup', 'signin', or 'forgot'
-  let generatedOtp = null;
-  let otpEmail = null;
-
-  // Registration & Sign-In Prompt (Centralized Firebase Cloud Authentication)
-  function renderRegistrationPrompt() {
-    // 1. Forgot Password Mode
-    if (authMode === 'forgot') {
-      if (!generatedOtp) {
-        // Step 1: Request OTP Code
-        return `
-          <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
-            <div style="font-size: 3.5rem; margin-bottom: 12px;">🔑</div>
-            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Password Recovery</h2>
-            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-              Enter your registered candidate email address to receive a 6-digit Security Verification Code (OTP) to reset your password.
-            </p>
-
-            <form id="quiz-forgot-request-form" style="text-align: left; display: flex; flex-direction: column; gap: 18px;">
-              <div>
-                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Registered Email Address *</label>
-                <input type="email" id="forgot-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-              </div>
-              
-              <button type="submit" id="btn-submit-forgot-request" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-                📩 Send Verification Code (OTP)
-              </button>
-
-              <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem;">
-                <button type="button" class="btn-goto-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline;">
-                  ⬅️ Back to Sign In
-                </button>
-              </div>
-            </form>
-          </div>
-        `;
-      } else {
-        // Step 2: Enter OTP & New Password
-        return `
-          <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
-            <div style="font-size: 3.5rem; margin-bottom: 12px;">🛡️</div>
-            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Set New Password</h2>
-            
-            <div style="background: #FEF3C7; border: 1.5px solid #F59E0B; border-radius: 12px; padding: 14px; margin-bottom: 20px; text-align: left; font-size: 0.88rem; color: #92400E;">
-              <strong>🔑 Verification Code Dispatched:</strong><br>
-              A 6-digit code has been generated for <strong>${otpEmail}</strong>.<br>
-              Security OTP: <span style="font-family: monospace; font-size: 1.2rem; font-weight: 900; color: #B45309; letter-spacing: 2px;">${generatedOtp}</span>
-            </div>
-
-            <form id="quiz-reset-password-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
-              <div>
-                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">6-Digit Verification Code (OTP) *</label>
-                <input type="text" id="reset-otp" required placeholder="Enter 6-digit code" maxlength="6" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; text-align: center;">
-              </div>
-
-              <div>
-                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">New Account Password *</label>
-                <div style="position: relative;">
-                  <input type="password" id="reset-new-password" required placeholder="Minimum 6 characters" class="quiz-input" style="width: 100%; padding: 12px 42px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-                  <button type="button" class="btn-toggle-pwd" data-target="reset-new-password" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
-                </div>
-              </div>
-
-              <div>
-                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Confirm New Password *</label>
-                <div style="position: relative;">
-                  <input type="password" id="reset-confirm-password" required placeholder="Re-enter new password" class="quiz-input" style="width: 100%; padding: 12px 42px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-                  <button type="button" class="btn-toggle-pwd" data-target="reset-confirm-password" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
-                </div>
-              </div>
-
-              <button type="submit" id="btn-submit-reset" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-                🔐 Reset Password & Sign In
-              </button>
-
-              <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem;">
-                <button type="button" class="btn-goto-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline;">
-                  ⬅️ Back to Sign In
-                </button>
-              </div>
-            </form>
-          </div>
-        `;
-      }
-    }
-
-    // 2. Sign In Mode
-    if (authMode === 'signin') {
-      return `
-        <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
-          <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
-          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Welcome Back</h2>
-          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-            Enter your registered candidate email and password to sign in to your dashboard.
-          </p>
-
-          <form id="quiz-signin-form" style="text-align: left; display: flex; flex-direction: column; gap: 18px;">
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Registered Email Address *</label>
-              <input type="email" id="signin-email" required placeholder="name@company.com or personal email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-            </div>
-
-            <div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy);">Account Password *</label>
-                <button type="button" id="toggle-to-forgot" style="background: none; border: none; color: var(--accent-orange); font-size: 0.82rem; font-weight: 700; cursor: pointer; text-decoration: underline;">
-                  Forgot Password?
-                </button>
-              </div>
-              <div style="position: relative;">
-                <input type="password" id="signin-password" required placeholder="Enter your password" class="quiz-input" style="width: 100%; padding: 13px 42px 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-                <button type="button" class="btn-toggle-pwd" data-target="signin-password" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
-              </div>
-            </div>
-            
-            <button type="submit" id="btn-submit-signin" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-              🔑 Sign In to Candidate Dashboard
-            </button>
-
-            <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem; color: var(--text-muted);">
-              New Candidate? 
-              <button type="button" id="toggle-to-signup" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
-                Create Candidate Account
-              </button>
-            </div>
-          </form>
-        </div>
-      `;
-    }
-
-    // 3. Sign Up Mode
-    return `
-      <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
-        <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
-        <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Create Candidate Account</h2>
-        <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-          Register once with password security to unlock weekly logistics certification challenges and sync with Central Cloud DB.
-        </p>
-
-        <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
-          <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Full Name *</label>
-            <input type="text" id="kyc-name" required placeholder="Darshika Amaranath" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-          </div>
-
-          <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address * (Work or Personal)</label>
-            <input type="email" id="kyc-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Password *</label>
-              <div style="position: relative;">
-                <input type="password" id="kyc-password" required placeholder="Min 6 chars" class="quiz-input" style="width: 100%; padding: 12px 38px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-                <button type="button" class="btn-toggle-pwd" data-target="kyc-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem;">👁️</button>
-              </div>
-            </div>
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Confirm Password *</label>
-              <div style="position: relative;">
-                <input type="password" id="kyc-confirm-password" required placeholder="Re-enter password" class="quiz-input" style="width: 100%; padding: 12px 38px 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-                <button type="button" class="btn-toggle-pwd" data-target="kyc-confirm-password" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem;">👁️</button>
-              </div>
-            </div>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Company / University</label>
-              <input type="text" id="kyc-company" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-            </div>
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Professional Role</label>
-              <input type="text" id="kyc-role" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-            </div>
-          </div>
-
-          <button type="submit" id="btn-submit-signup" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-            🚀 Create Candidate Account & Start Quiz
-          </button>
-
-          <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem; color: var(--text-muted);">
-            Already registered? 
-            <button type="button" class="btn-goto-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
-              Sign In to Existing Account
-            </button>
-          </div>
-        </form>
-      </div>
-    `;
-  }
-
-  // Bind KYC Form Registration & Sign In
-  function bindRegistrationEvents() {
-    // Password visibility toggles
-    document.querySelectorAll('.btn-toggle-pwd').forEach(btn => {
-      btn.addEventListener('click', function () {
-        const targetId = this.getAttribute('data-target');
-        const input = document.getElementById(targetId);
-        if (input) {
-          if (input.type === 'password') {
-            input.type = 'text';
-            this.innerText = '🙈';
-          } else {
-            input.type = 'password';
-            this.innerText = '👁️';
-          }
-        }
-      });
-    });
-
-    // Mode Toggles
-    const toSignupBtn = document.getElementById('toggle-to-signup');
-    if (toSignupBtn) {
-      toSignupBtn.addEventListener('click', function () {
-        authMode = 'signup';
-        generatedOtp = null;
-        renderQuizHubUI();
-      });
-    }
-
-    document.querySelectorAll('.btn-goto-signin').forEach(btn => {
-      btn.addEventListener('click', function () {
-        authMode = 'signin';
-        generatedOtp = null;
-        renderQuizHubUI();
-      });
-    });
-
-    const toForgotBtn = document.getElementById('toggle-to-forgot');
-    if (toForgotBtn) {
-      toForgotBtn.addEventListener('click', function () {
-        authMode = 'forgot';
-        generatedOtp = null;
-        renderQuizHubUI();
-      });
-    }
-
-    // Request OTP Form Submit
-    const forgotRequestForm = document.getElementById('quiz-forgot-request-form');
-    if (forgotRequestForm) {
-      forgotRequestForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const email = document.getElementById('forgot-email').value.trim().toLowerCase();
-        if (!email) return;
-
-        const btn = document.getElementById('btn-submit-forgot-request');
-        if (btn) {
-          btn.disabled = true;
-          btn.innerText = "⏳ Looking up Cloud DB...";
-        }
-
-        const cloudUser = await fetchUserFromCloudDB(email);
-        if (!cloudUser) {
-          alert('❌ No candidate account found for this email address.\n\nPlease check your email or create a new candidate account.');
-          if (btn) {
-            btn.disabled = false;
-            btn.innerText = "📩 Send Verification Code (OTP)";
-          }
-          return;
-        }
-
-        // Generate 6-digit OTP code
-        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-        generatedOtp = otpCode;
-        otpEmail = email;
-
-        alert(`🔑 Security Verification Code (OTP) Dispatched!\n\nCandidate Email: ${email}\nYour 6-digit Security OTP Code is: ${otpCode}\n\nPlease enter this code on the next screen to reset your password.`);
-        renderQuizHubUI();
-      });
-    }
-
-    // Reset Password Form Submit
-    const resetForm = document.getElementById('quiz-reset-password-form');
-    if (resetForm) {
-      resetForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const inputOtp = document.getElementById('reset-otp').value.trim();
-        const newPassword = document.getElementById('reset-new-password').value;
-        const confirmPassword = document.getElementById('reset-confirm-password').value;
-
-        if (inputOtp !== generatedOtp) {
-          alert('❌ Invalid Verification Code (OTP)! Please enter the correct 6-digit code shown.');
-          return;
-        }
-
-        if (newPassword.length < 6) {
-          alert('⚠️ Password must be at least 6 characters long.');
-          return;
-        }
-
-        if (newPassword !== confirmPassword) {
-          alert('⚠️ Passwords do not match. Please re-enter.');
-          return;
-        }
-
-        const btn = document.getElementById('btn-submit-reset');
-        if (btn) {
-          btn.disabled = true;
-          btn.innerText = "⏳ Updating Central Cloud DB...";
-        }
-
-        const cloudUser = await fetchUserFromCloudDB(otpEmail);
-        if (cloudUser) {
-          cloudUser.password = newPassword;
-          await saveUserToCloudDB(cloudUser);
-
-          currentUser = cloudUser;
-          localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-          generatedOtp = null;
-          otpEmail = null;
-
-          alert('✅ Password reset successfully! Redirecting to your Candidate Dashboard...');
-          renderQuizHubUI();
-        }
-      });
-    }
-
-    // Sign In Form Submit (Reads directly from Central Firebase Cloud DB)
-    const signinForm = document.getElementById('quiz-signin-form');
-    if (signinForm) {
-      signinForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const email = document.getElementById('signin-email').value.trim().toLowerCase();
-        const password = document.getElementById('signin-password').value;
-        if (!email || !password) return;
-
-        const btn = document.getElementById('btn-submit-signin');
-        if (btn) {
-          btn.disabled = true;
-          btn.innerText = "⏳ Authenticating via Cloud DB...";
-        }
-
-        // Live Lookup from Central Firebase Cloud DB
-        const cloudUser = await fetchUserFromCloudDB(email);
-
-        if (!cloudUser) {
-          alert('❌ No candidate account found for this email address.\n\nPlease click "Create Candidate Account" below to register your candidate profile once.');
-          if (btn) {
-            btn.disabled = false;
-            btn.innerText = "🔑 Sign In to Candidate Dashboard";
-          }
-          return;
-        }
-
-        // Validate Password if set on account
-        if (cloudUser.password && cloudUser.password !== password) {
-          alert('❌ Incorrect password.\n\nPlease check your password and try again, or click "Forgot Password?" to reset it.');
-          if (btn) {
-            btn.disabled = false;
-            btn.innerText = "🔑 Sign In to Candidate Dashboard";
-          }
-          return;
-        }
-
-        currentUser = cloudUser;
-        localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-        await saveUserToCloudDB(currentUser);
-
-        // Sync candidate attempts from Central Cloud DB
-        try {
-          const cloudAttempts = await fetchAllAttemptsFromCloudDB();
-          if (cloudAttempts && cloudAttempts.length > 0) {
-            userAttempts = cloudAttempts;
-            localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts));
-          }
-        } catch (err) {
-          console.warn("Attempts sync error:", err);
-        }
-
-        renderQuizHubUI();
-      });
-    }
-
-    // Sign Up Form Submit (Writes directly to Central Firebase Cloud DB)
-    const kycForm = document.getElementById('quiz-kyc-form');
-    if (kycForm) {
-      kycForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const name = document.getElementById('kyc-name').value.trim();
-        const email = document.getElementById('kyc-email').value.trim().toLowerCase();
-        const password = document.getElementById('kyc-password').value;
-        const confirmPassword = document.getElementById('kyc-confirm-password').value;
-        const company = document.getElementById('kyc-company').value.trim() || 'Independent Professional';
-        const role = document.getElementById('kyc-role').value.trim() || 'Logistics Professional';
-
-        if (!name || !email || !password) return;
-
-        if (password.length < 6) {
-          alert('⚠️ Password must be at least 6 characters long.');
-          return;
-        }
-
-        if (password !== confirmPassword) {
-          alert('⚠️ Passwords do not match. Please re-enter.');
-          return;
-        }
-
-        const btn = document.getElementById('btn-submit-signup');
-        if (btn) {
-          btn.disabled = true;
-          btn.innerText = "⏳ Registering to Central Cloud DB...";
-        }
-
-        // Check if candidate already exists in Central Firebase Cloud DB
-        const existingCloudUser = await fetchUserFromCloudDB(email);
-        if (existingCloudUser) {
-          alert('⚠️ An account already exists with this email address in Central Cloud DB.\n\nPlease click "Sign In to Existing Account" below to sign in directly.');
-          if (btn) {
-            btn.disabled = false;
-            btn.innerText = "🚀 Create Candidate Account & Start Quiz";
-          }
-          return;
-        }
-
-        currentUser = {
-          id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
-          name: name,
-          email: email,
-          password: password,
-          company: company,
-          role: role,
-          avatar: null,
-          verified: true,
-          registeredAt: new Date().toISOString()
-        };
-
-        localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-        await saveUserToCloudDB(currentUser);
-        renderQuizHubUI();
-      });
-    }
-  }
-
   // Render Portal Dashboard
   function renderPortalDashboard() {
-    const myAttempts = userAttempts
-      .filter(a => a.userId === currentUser.id || a.userEmail === currentUser.email)
-      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    const myAttempts = userAttempts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const totalAttempts = myAttempts.length;
     const avgScore = totalAttempts > 0 ? Math.round(myAttempts.reduce((acc, cur) => acc + cur.percentage, 0) / totalAttempts) : 0;
     const passedAttempts = myAttempts.filter(a => a.percentage >= 50);
@@ -530,42 +58,11 @@
     else if (bestScore >= 75) rankLabel = "Advanced Practitioner 🥈";
     else if (bestScore >= 50) rankLabel = "Competent Practitioner 🥉";
 
-    const weeks = window.NEXUS_QUIZ_DATABASE.weeks;
-
-    const userAvatarHtml = currentUser.avatar && currentUser.avatar.startsWith('data:') 
-      ? `<img src="${currentUser.avatar}" style="width: 100%; height: 100%; object-fit: cover;">`
-      : `<span style="font-size: 1.4rem;">${currentUser.avatar || currentUser.name.charAt(0).toUpperCase()}</span>`;
+    const weeks = window.NEXUS_QUIZ_DATABASE ? window.NEXUS_QUIZ_DATABASE.weeks : [];
 
     return `
       <div class="quiz-portal-dashboard" style="max-width: 1050px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
-        <!-- Header Banner & Candidate Profile -->
-        <div style="background: var(--bg-white); padding: 18px 28px; border-radius: 18px; border: 1.5px solid var(--border-color); margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.04); flex-wrap: wrap; gap: 15px;">
-          <div id="btn-edit-profile" style="display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none;" title="Click to Edit Profile">
-            <div style="position: relative;">
-              <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 4px 12px rgba(255,90,31,0.3); overflow: hidden; border: 2px solid #FFF;">
-                ${userAvatarHtml}
-              </div>
-              <div style="position: absolute; bottom: -2px; right: -2px; width: 22px; height: 22px; border-radius: 50%; background: #FF5A1F; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-                ✏️
-              </div>
-            </div>
-            <div>
-              <h3 style="margin: 0 0 3px 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 6px;">
-                ${currentUser.name}
-              </h3>
-              <span style="font-size: 0.82rem; color: var(--text-muted); display: block;">${currentUser.company} • ${currentUser.role}</span>
-              <span style="font-size: 0.76rem; color: #64748B; font-weight: 500; margin-top: 2px; display: block;">✉️ ${currentUser.email}</span>
-            </div>
-          </div>
-
-          <div>
-            <button id="btn-logout" style="background: #FFF; border: 1.5px solid #EF4444; color: #EF4444; padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
-              Sign Out
-            </button>
-          </div>
-        </div>
-
         <!-- Page Section Header -->
         <div class="section-header" style="text-align: center; margin-bottom: 35px;">
           <h2 style="font-size: 2.2rem; margin-bottom: 8px; font-family: 'Outfit', sans-serif;">
@@ -576,7 +73,7 @@
           </p>
         </div>
 
-        <!-- 4 Candidate Stats Metric Cards -->
+        <!-- 4 Metric Cards -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px;">
           
           <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
@@ -624,10 +121,10 @@
               🔥 FEATURED WEEKLY CHALLENGE
             </span>
             <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 10px 0; font-size: 1.5rem;">
-              ${activeQuiz.title}
+              ${activeQuiz ? activeQuiz.title : 'Weekly Quiz Challenge'}
             </h2>
             <p style="color: var(--text-muted); font-size: 0.92rem; margin: 0 0 15px 0; line-height: 1.5;">
-              ${activeQuiz.description}
+              ${activeQuiz ? activeQuiz.description : 'Test your logistics knowledge with 20 weekly questions.'}
             </p>
             <div style="display: flex; gap: 15px; font-size: 0.82rem; color: var(--primary-navy); font-weight: 700;">
               <span>📝 20 Assessment Questions</span>
@@ -638,6 +135,7 @@
 
           <div>
             ${(function(){
+              if (!activeQuiz) return '';
               const actAtt = myAttempts.find(a => a.weekId === activeQuiz.id);
               if (actAtt) {
                 return `<button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
@@ -657,7 +155,7 @@
         </h3>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 45px;">
-          ${[...weeks].reverse().map((w, idx) => {
+          ${[...weeks].reverse().map((w) => {
             const originalSetNum = weeks.indexOf(w) + 1;
             const attempt = myAttempts.find(a => a.weekId === w.id);
             return `
@@ -687,7 +185,7 @@
           }).join('')}
         </div>
 
-        <!-- Candidate Quiz History & Downloadable Certificates Table -->
+        <!-- Result History & Downloadable Certificates Table -->
         <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.4rem; margin: 0 0 20px 0;">
           📜 Your Result History & Downloadable Certificates
         </h3>
@@ -741,35 +239,12 @@
           </table>
         </div>
 
-        <!-- Footer Admin Shortcut -->
-        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border-color);">
-          <button id="btn-owner-admin-footer" style="background: transparent; border: none; color: #94A3B8; font-size: 0.78rem; cursor: pointer; text-decoration: underline;">
-            Owner Portal Access (Passcode Protected)
-          </button>
-        </div>
-
       </div>
     `;
   }
 
   // Bind Dashboard Events
   function bindDashboardEvents() {
-    const logoutBtn = document.getElementById('btn-logout');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', function () {
-        currentUser = null;
-        localStorage.removeItem('nexus_quiz_user');
-        renderQuizHubUI();
-      });
-    }
-
-    const editProfileBtn = document.getElementById('btn-edit-profile');
-    if (editProfileBtn) {
-      editProfileBtn.addEventListener('click', function () {
-        openProfileEditModal();
-      });
-    }
-
     const startActiveBtn = document.getElementById('btn-start-active-quiz');
     if (startActiveBtn) {
       startActiveBtn.addEventListener('click', function () {
@@ -814,14 +289,9 @@
         if (att) downloadPDFResultSheet(att);
       });
     });
-
-    const adminFooterBtn = document.getElementById('btn-owner-admin-footer');
-    if (adminFooterBtn) {
-      adminFooterBtn.addEventListener('click', openOwnerAdminModal);
-    }
   }
 
-  // Render Quiz Questions Form (NO STICKY TOP BAR)
+  // Render Quiz Questions Form
   function renderQuizQuestionsForm() {
     let html = `
       <div class="quiz-questions-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
@@ -889,7 +359,6 @@
     });
 
     html += `
-          <!-- SUBMIT BUTTON AT THE VERY BOTTOM OF THE QUIZ -->
           <div style="text-align: center; margin: 35px 0 20px 0;">
             <button type="submit" class="btn btn-primary" style="padding: 18px 50px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(255,90,31,0.35);">
               ✅ Submit Quiz
@@ -921,41 +390,44 @@
     }
   }
 
-  // Grade Assessment Logic & Show Results Screen
+  // Grade Assessment Logic
   function gradeAssessment(form) {
-    const formData = new FormData(form);
     let mcqScore = 0;
     let shortScore = 0;
     const detailedResults = [];
 
-    activeQuiz.questions.forEach(q => {
-      const val = formData.get('q_' + q.id);
-      let isCorrect = false;
-
+    activeQuiz.questions.forEach((q) => {
       if (q.type === 'mcq') {
-        if (parseInt(val, 10) === q.answerIndex) {
-          mcqScore++;
-          isCorrect = true;
-        }
+        const selectedRadio = form.querySelector(`input[name="q_${q.id}"]:checked`);
+        const userChoiceIdx = selectedRadio ? parseInt(selectedRadio.value) : -1;
+        const isCorrect = userChoiceIdx === q.correctAnswer;
+        if (isCorrect) mcqScore++;
+
         detailedResults.push({
           questionId: q.id,
-          type: 'mcq',
           question: q.question,
-          userAnswer: q.options[parseInt(val, 10)] || 'Unanswered',
-          correctAnswer: q.options[q.answerIndex],
+          userAnswer: userChoiceIdx >= 0 ? q.options[userChoiceIdx] : 'No Answer',
+          correctAnswer: q.options[q.correctAnswer],
           isCorrect: isCorrect,
           explanation: q.explanation
         });
-      } else {
-        const userText = (val || '').trim().toLowerCase();
-        isCorrect = q.keywords.some(kw => userText.includes(kw.toLowerCase()));
+      } else if (q.type === 'short') {
+        const inputField = form.querySelector(`input[name="q_${q.id}"]`);
+        const userText = inputField ? inputField.value.trim().toLowerCase() : '';
+        
+        let isCorrect = false;
+        if (q.acceptedKeywords && q.acceptedKeywords.length > 0) {
+          isCorrect = q.acceptedKeywords.some(kw => userText.includes(kw.toLowerCase()));
+        } else if (q.correctAnswer) {
+          isCorrect = userText.includes(q.correctAnswer.toLowerCase());
+        }
         if (isCorrect) shortScore++;
+
         detailedResults.push({
           questionId: q.id,
-          type: 'short',
           question: q.question,
-          userAnswer: val || 'Unanswered',
-          correctAnswer: q.modelAnswer,
+          userAnswer: userText || 'No Answer',
+          correctAnswer: q.acceptedKeywords ? q.acceptedKeywords.join(' / ') : q.correctAnswer,
           isCorrect: isCorrect,
           explanation: q.explanation
         });
@@ -970,13 +442,15 @@
     else if (percentage >= 75) grade = "Merit / Advanced Practitioner 🥈";
     else if (percentage >= 50) grade = "Pass / Competent Practitioner 🥉";
 
+    const candidateName = prompt("Enter your Name for the Certificate / Result Log:", "Logistics Candidate") || "Logistics Candidate";
+
     const attemptRecord = {
       attemptId: 'att_' + Date.now(),
-      userId: currentUser.id,
-      userName: currentUser.name,
-      userEmail: currentUser.email,
-      userCompany: currentUser.company,
-      userRole: currentUser.role,
+      userId: 'usr_guest',
+      userName: candidateName,
+      userEmail: 'candidate@nexus.com',
+      userCompany: 'Logistics Professional',
+      userRole: 'Logistics Professional',
       weekId: activeQuiz.id,
       weekTitle: activeQuiz.title,
       mcqScore: mcqScore,
@@ -990,14 +464,13 @@
 
     userAttempts.unshift(attemptRecord);
     localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts));
-    saveAttemptToFirebase(attemptRecord);
 
     isAttemptingQuiz = false;
     currentViewingAttempt = attemptRecord;
     renderQuizHubUI();
   }
 
-  // Render Quiz Results View Screen (With Generate Certificate Button & Explanations)
+  // Render Quiz Results View Screen
   function renderQuizResultsView(attempt) {
     return `
       <div class="quiz-results-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
@@ -1007,7 +480,7 @@
           <h2 style="font-family: 'Outfit', sans-serif; color: #FFF; font-size: 2rem; margin: 0 0 10px 0;">${attempt.weekTitle}</h2>
           <p style="color: #94A3B8; font-size: 0.95rem; margin-bottom: 25px;">Candidate: <strong>${attempt.userName}</strong></p>
 
-          <!-- Big Score Circle / Gauge -->
+          <!-- Big Score Circle -->
           <div style="background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 25px; max-width: 320px; margin: 0 auto 25px auto;">
             <span style="font-size: 0.85rem; color: #CBD5E1; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Your Final Score</span>
             <div style="font-size: 3.8rem; font-weight: 900; color: #FF5A1F; font-family: 'Outfit', sans-serif; margin: 5px 0;">${attempt.percentage}%</div>
@@ -1022,7 +495,6 @@
             <span>Short Answer Score: <strong>${attempt.shortScore}/10</strong></span>
           </div>
 
-          <!-- GENERATE CERTIFICATE BUTTON & DASHBOARD BUTTON -->
           <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <button id="btn-generate-pdf-cert" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.4);">
               📜 Generate Certificate (PDF)
@@ -1033,7 +505,6 @@
           </div>
         </div>
 
-        <!-- Question Explanations & Review Breakdown -->
         <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.3rem; margin: 0 0 20px 0;">
           💡 Question Explanations & Detailed Evaluation
         </h3>
@@ -1058,503 +529,95 @@
             </div>
           `).join('')}
         </div>
-
       </div>
     `;
   }
 
   // Bind Results View Events
   function bindResultsViewEvents() {
-    const certBtn = document.getElementById('btn-generate-pdf-cert');
-    if (certBtn) {
-      certBtn.addEventListener('click', function () {
-        if (currentViewingAttempt) downloadPDFResultSheet(currentViewingAttempt);
+    const backBtn = document.getElementById('btn-results-to-dashboard');
+    if (backBtn) {
+      backBtn.addEventListener('click', function () {
+        currentViewingAttempt = null;
+        renderQuizHubUI();
       });
     }
 
-    const backDashBtn = document.getElementById('btn-results-to-dashboard');
-    if (backDashBtn) {
-      backDashBtn.addEventListener('click', function () {
-        currentViewingAttempt = null;
-        isAttemptingQuiz = false;
-        renderQuizHubUI();
+    const certBtn = document.getElementById('btn-generate-pdf-cert');
+    if (certBtn) {
+      certBtn.addEventListener('click', function () {
+        if (currentViewingAttempt) {
+          downloadPDFResultSheet(currentViewingAttempt);
+        }
       });
     }
   }
 
-  // Generate & Download PDF Result Sheet
+  // Download PDF Result Sheet / Certificate
   function downloadPDFResultSheet(attempt) {
     const printWindow = window.open('', '_blank');
-    const htmlContent = `
+    if (!printWindow) {
+      alert("⚠️ Pop-up blocked! Please allow pop-ups to print/download your Statement of Result.");
+      return;
+    }
+
+    const certHtml = `
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Nexus Competency Certificate - ${attempt.userName}</title>
+        <title>Nexus Certificate - ${attempt.userName}</title>
         <style>
-          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px; color: #0f172a; }
-          .cert-border { border: 10px solid #0A2540; padding: 35px; border-radius: 15px; text-align: center; }
-          .logo { font-size: 26px; font-weight: bold; color: #FF5A1F; margin-bottom: 20px; }
-          h1 { color: #0A2540; font-size: 26px; margin-bottom: 5px; }
-          .subtitle { font-size: 14px; color: #64748B; text-transform: uppercase; letter-spacing: 2px; }
-          .name { font-size: 32px; color: #FF5A1F; margin: 25px 0 10px 0; font-weight: bold; text-decoration: underline; }
-          .company { font-size: 16px; color: #334155; margin-bottom: 30px; }
-          .score-box { background: #f8fafc; border: 2px solid #cbd5e1; padding: 20px; border-radius: 10px; display: inline-block; margin-bottom: 30px; min-width: 300px; }
-          .footer { font-size: 12px; color: #94a3b8; margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 15px; }
+          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&family=Inter:wght@400;600;700&display=swap');
+          body { font-family: 'Inter', sans-serif; margin: 0; padding: 40px; background: #FFF; color: #0A2540; }
+          .cert-border { border: 12px double #0A2540; padding: 40px; text-align: center; position: relative; }
+          .cert-header { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 900; color: #0A2540; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+          .cert-subtitle { font-size: 1rem; color: #FF5A1F; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; }
+          .cert-name { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; color: #FF5A1F; border-bottom: 2px solid #E2E8F0; display: inline-block; padding-bottom: 5px; margin: 20px 0; }
+          .cert-body { font-size: 1.1rem; line-height: 1.8; color: #475569; max-width: 700px; margin: 0 auto 30px auto; }
+          .cert-score { font-size: 1.8rem; font-weight: 900; color: #10B981; margin: 15px 0; }
+          .cert-footer { display: flex; justify-content: space-between; margin-top: 50px; font-size: 0.85rem; color: #64748B; border-top: 1px solid #E2E8F0; padding-top: 20px; }
+          @media print { body { padding: 0; } .cert-border { border: 8px double #0A2540; } }
         </style>
       </head>
       <body>
         <div class="cert-border">
-          <div class="logo"><span style="color: #0A2540;">NEXUS</span> <span style="color: #FF5A1F;">KNOWLEDGE HUB</span></div>
-          <div class="subtitle">CERTIFICATE OF LOGISTICS COMPETENCY</div>
-          <h1 style="margin-top: 15px;">${attempt.weekTitle}</h1>
-          <p style="margin-top: 20px; color: #475569;">This official statement certifies that</p>
-          <div class="name" style="margin-bottom: 25px;">${attempt.userName}</div>
+          <div style="font-size: 3rem; margin-bottom: 10px;">🎓</div>
+          <div class="cert-header">Nexus Knowledge Hub</div>
+          <div class="cert-subtitle">Certificate of Competency & Performance Statement</div>
           
-          <div class="score-box">
-            <div style="font-size: 14px; color: #64748B; font-weight: bold;">TOTAL SCORE PERCENTAGE</div>
-            <div style="font-size: 42px; font-weight: bold; color: #FF5A1F; margin: 5px 0;">${attempt.percentage}%</div>
-            <div style="font-size: 16px; font-weight: bold; color: #0A2540;">${attempt.grade}</div>
+          <p style="font-size: 1rem; color: #64748B; margin-bottom: 0;">This official statement certifies that</p>
+          <div class="cert-name">${attempt.userName}</div>
+          
+          <div class="cert-body">
+            has successfully completed the weekly professional competency challenge on<br>
+            <strong style="color: #0A2540;">${attempt.weekTitle}</strong><br>
+            demonstrating domain knowledge across international logistics, supply chain operations, and compliance standards.
           </div>
 
-          <p style="font-size: 13px; color: #475569; max-width: 500px; margin: 0 auto 20px auto;">
-            Performance: Multiple Choice Questions: ${attempt.mcqScore}/10 | Technical Short Answer: ${attempt.shortScore}/10
-          </p>
+          <div class="cert-score">
+            Achieved Score: ${attempt.percentage}% (${attempt.grade})
+          </div>
 
-          <div class="footer">
-            Verification ID: ${attempt.attemptId} | Issued on: ${new Date(attempt.timestamp).toLocaleDateString()} | Nexus Cargo (Pvt) Ltd Sri Lanka
+          <div class="cert-footer">
+            <div>
+              <strong>Verification ID:</strong> ${attempt.attemptId}<br>
+              <strong>Date Issued:</strong> ${new Date(attempt.timestamp).toLocaleDateString()}
+            </div>
+            <div style="text-align: right;">
+              <strong>Nexus Certification Authority</strong><br>
+              Global Supply Chain Excellence Portal
+            </div>
           </div>
         </div>
         <script>
-          window.onload = function() { window.print(); };
+          window.onload = function() { window.print(); }
         </script>
       </body>
       </html>
     `;
-    printWindow.document.write(htmlContent);
+
+    printWindow.document.write(certHtml);
     printWindow.document.close();
-  }
-
-  // Open Owner Admin Portal Modal (Firebase Synced)
-  async function openOwnerAdminModal() {
-    const inputPass = prompt("Enter Nexus Owner Passcode:");
-    if (inputPass !== ADMIN_PASSCODE) {
-      alert("❌ Invalid Passcode!");
-      return;
-    }
-
-    // Direct Live Fetch from Central Firebase Cloud DB (Zero Local Caching)
-    let usersList = [];
-    let attemptsList = [];
-
-    try {
-      usersList = await fetchAllUsersFromCloudDB();
-      attemptsList = await fetchAllAttemptsFromCloudDB();
-
-      // Firebase Firestore fallback if available
-      if (window.firebaseDB) {
-        const usersSnap = await window.firebaseDB.collection('users').get();
-        if (usersSnap && !usersSnap.empty) {
-          const uMap = {};
-          usersList.forEach(u => { if (u && u.email) uMap[u.email.toLowerCase()] = u; });
-          usersSnap.forEach(doc => {
-            const uData = doc.data();
-            if (uData && uData.email) uMap[uData.email.toLowerCase()] = uData;
-          });
-          usersList = Object.values(uMap);
-        }
-
-        const attemptsSnap = await window.firebaseDB.collection('attempts').get();
-        if (attemptsSnap && !attemptsSnap.empty) {
-          const aMap = {};
-          attemptsList.forEach(a => { if (a && a.attemptId) aMap[a.attemptId] = a; });
-          attemptsSnap.forEach(doc => {
-            const aData = doc.data();
-            if (aData && aData.attemptId) aMap[aData.attemptId] = aData;
-          });
-          attemptsList = Object.values(aMap);
-        }
-      }
-    } catch (err) {
-      console.warn("Owner Admin Cloud DB fetch error:", err);
-    }
-
-    // Sort users latest registered first
-    usersList.sort((a, b) => new Date(b.registeredAt || 0).getTime() - new Date(a.registeredAt || 0).getTime());
-
-    // Sort attempts latest first
-    attemptsList.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
-
-    const modalHtml = `
-      <div id="admin-portal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,37,64,0.85); backdrop-filter: blur(8px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: #FFFFFF; border-radius: 20px; width: 100%; max-width: 1050px; max-height: 88vh; overflow-y: auto; padding: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); font-family: 'Inter', sans-serif; text-align: left;">
-          
-          <!-- Admin Header Bar -->
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 18px; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
-            <div>
-              <h2 style="font-family: 'Outfit', sans-serif; color: #0A2540; margin: 0 0 4px 0; font-size: 1.6rem; font-weight: 800;">👑 Nexus Owner Admin Portal</h2>
-              <div style="display: flex; gap: 15px; font-size: 0.85rem; color: #64748B; font-weight: 600;">
-                <span>👤 Total Registered Candidates: <strong style="color: #FF5A1F; font-size: 0.95rem;">${usersList.length}</strong></span>
-                <span>•</span>
-                <span>📝 Total Quiz Attempts: <strong style="color: #10B981; font-size: 0.95rem;">${attemptsList.length}</strong></span>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-              <button id="btn-export-users-csv" style="background: #FF5A1F; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(255,90,31,0.25);">
-                📥 Export Registered Users
-              </button>
-              <button id="btn-export-attempts-csv" style="background: #10B981; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.25);">
-                📊 Export Quiz Scores
-              </button>
-              <button id="btn-close-admin" style="background: #EF4444; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 800; font-size: 0.85rem; cursor: pointer; margin-left: 5px;">
-                Close ✖
-              </button>
-            </div>
-          </div>
-
-          <!-- Section 1: Registered Candidates Directory -->
-          <div style="margin-bottom: 35px;">
-            <h3 style="font-family: 'Outfit', sans-serif; color: #0A2540; font-size: 1.25rem; font-weight: 800; margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px;">
-              👥 Registered Candidate Directory (${usersList.length})
-            </h3>
-            <div style="overflow-x: auto; border: 1.5px solid #CBD5E1; border-radius: 14px; background: #FFF;">
-              <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; color: #0A2540;">
-                <thead>
-                  <tr style="background: #0A2540; color: #FFFFFF; text-align: left;">
-                    <th style="padding: 12px 16px; font-weight: 700;">Candidate Name</th>
-                    <th style="padding: 12px 16px; font-weight: 700;">Email Address</th>
-                    <th style="padding: 12px 16px; font-weight: 700;">Company / University</th>
-                    <th style="padding: 12px 16px; font-weight: 700;">Role</th>
-                    <th style="padding: 12px 16px; font-weight: 700; text-align: center;">Quizzes Taken</th>
-                    <th style="padding: 12px 16px; font-weight: 700; text-align: center;">Best Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${usersList.length === 0 ? '<tr><td colspan="6" style="text-align:center; padding: 25px; color: #64748B;">No candidates registered yet.</td></tr>' : ''}
-                  ${usersList.map((u, i) => {
-                    const uAtts = attemptsList.filter(a => (a.userEmail && a.userEmail.toLowerCase() === u.email.toLowerCase()) || a.userId === u.id);
-                    const best = uAtts.length > 0 ? Math.max(...uAtts.map(a => a.percentage)) : 0;
-                    const uAvatar = u.avatar && u.avatar.startsWith('data:') 
-                      ? `<img src="${u.avatar}" style="width:28px; height:28px; border-radius:50%; object-fit:cover;">`
-                      : `<span style="width:28px; height:28px; border-radius:50%; background:#FF5A1F; color:#FFF; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:0.8rem;">${(u.name || 'U').charAt(0).toUpperCase()}</span>`;
-
-                    return `
-                      <tr style="border-bottom: 1px solid #E2E8F0; background: ${i % 2 === 0 ? '#FFFFFF' : '#F8FAFC'};">
-                        <td style="padding: 12px 16px;">
-                          <div style="display:flex; align-items:center; gap:10px;">
-                            ${uAvatar}
-                            <strong style="color: #0A2540;">${u.name || 'Anonymous User'}</strong>
-                          </div>
-                        </td>
-                        <td style="padding: 12px 16px;"><a href="mailto:${u.email}" style="color: #FF5A1F; font-weight:600; text-decoration: underline;">${u.email}</a></td>
-                        <td style="padding: 12px 16px;">${u.company || 'Independent'}</td>
-                        <td style="padding: 12px 16px;">${u.role || 'Professional'}</td>
-                        <td style="padding: 12px 16px; text-align: center;"><span style="background:#EFF6FF; color:#1E40AF; padding:3px 10px; border-radius:12px; font-weight:800;">${uAtts.length}</span></td>
-                        <td style="padding: 12px 16px; text-align: center;"><span style="background:${best >= 50 ? '#ECFDF5' : '#FFF1F2'}; color:${best >= 50 ? '#047857' : '#BE123C'}; padding:3px 10px; border-radius:12px; font-weight:800;">${uAtts.length > 0 ? best + '%' : 'None'}</span></td>
-                      </tr>
-                    `;
-                  }).join('')}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Section 2: Complete Quiz Attempts Log -->
-          <div>
-            <h3 style="font-family: 'Outfit', sans-serif; color: #0A2540; font-size: 1.25rem; font-weight: 800; margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px;">
-              📝 Complete Quiz Attempts Log (${attemptsList.length})
-            </h3>
-            <div style="overflow-x: auto; border: 1.5px solid #CBD5E1; border-radius: 14px; background: #FFF;">
-              <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; color: #0A2540;">
-                <thead>
-                  <tr style="background: #0A2540; color: #FFFFFF; text-align: left;">
-                    <th style="padding: 12px 16px; font-weight: 700;">Date & Time</th>
-                    <th style="padding: 12px 16px; font-weight: 700;">Candidate Name</th>
-                    <th style="padding: 12px 16px; font-weight: 700;">Email Address</th>
-                    <th style="padding: 12px 16px; font-weight: 700;">Quiz Challenge</th>
-                    <th style="padding: 12px 16px; font-weight: 700; text-align: center;">Score %</th>
-                    <th style="padding: 12px 16px; font-weight: 700;">Grade Level</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${attemptsList.length === 0 ? '<tr><td colspan="6" style="text-align:center; padding: 25px; color: #64748B;">No quiz attempts logged yet.</td></tr>' : ''}
-                  ${attemptsList.map((a, idx) => `
-                    <tr style="border-bottom: 1px solid #E2E8F0; background: ${idx % 2 === 0 ? '#FFFFFF' : '#F8FAFC'};">
-                      <td style="padding: 12px 16px; white-space: nowrap; color: #64748B;">${new Date(a.timestamp || Date.now()).toLocaleString()}</td>
-                      <td style="padding: 12px 16px;"><strong style="color: #0A2540;">${a.userName}</strong></td>
-                      <td style="padding: 12px 16px;"><a href="mailto:${a.userEmail}" style="color: #FF5A1F; font-weight:600; text-decoration: underline;">${a.userEmail}</a></td>
-                      <td style="padding: 12px 16px; font-weight:600;">${a.quizTitle || 'Weekly Challenge'}</td>
-                      <td style="padding: 12px 16px; text-align: center; font-weight: 900; color: ${a.percentage >= 50 ? '#10B981' : '#EF4444'}; font-size: 0.95rem;">${a.percentage}%</td>
-                      <td style="padding: 12px 16px;"><span style="background: #F1F5F9; color: #0A2540; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">${a.grade}</span></td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-
-    // Bind Buttons
-    document.getElementById('btn-close-admin').addEventListener('click', function () {
-      const modal = document.getElementById('admin-portal-overlay');
-      if (modal) modal.remove();
-    });
-
-    document.getElementById('btn-export-users-csv').addEventListener('click', function () {
-      exportUsersToCSV(usersList, attemptsList);
-    });
-
-    document.getElementById('btn-export-attempts-csv').addEventListener('click', function () {
-      exportAttemptsToCSV(attemptsList);
-    });
-  }
-
-  // Export Registered Users to CSV
-  function exportUsersToCSV(usersList, attemptsList) {
-    if (!usersList || usersList.length === 0) {
-      alert("No registered users to export!");
-      return;
-    }
-    let csv = "Candidate Name,Email Address,Company/University,Professional Role,Registration Date,Quizzes Taken,Best Score %\n";
-    usersList.forEach(u => {
-      const uAtts = attemptsList.filter(a => (a.userEmail && a.userEmail.toLowerCase() === u.email.toLowerCase()) || a.userId === u.id);
-      const best = uAtts.length > 0 ? Math.max(...uAtts.map(a => a.percentage)) : 0;
-      csv += `"${(u.name || '').replace(/"/g, '""')}","${(u.email || '').replace(/"/g, '""')}","${(u.company || '').replace(/"/g, '""')}","${(u.role || '').replace(/"/g, '""')}","${u.registeredAt || ''}","${uAtts.length}","${uAtts.length > 0 ? best + '%' : 'None'}"\n`;
-    });
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.setAttribute('href', url);
-    a.setAttribute('download', `nexus_registered_candidates_${Date.now()}.csv`);
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-
-  // Export Results to CSV
-  function exportAttemptsToCSV(attempts) {
-    if (!attempts || attempts.length === 0) {
-      alert("No data available to export.");
-      return;
-    }
-    let csv = "Candidate Name,Email,Company,Role,Week Challenge,Score MCQ,Score Short,Total Score,Percentage,Grade,Timestamp\n";
-    attempts.forEach(a => {
-      csv += `"${a.userName}","${a.userEmail}","${a.userCompany}","${a.userRole}","${a.weekTitle}",${a.mcqScore},${a.shortScore},${a.totalScore},"${a.percentage}%","${a.grade}","${a.timestamp}"\n`;
-    });
-
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.setAttribute('href', url);
-    a.setAttribute('download', `nexus_quiz_candidates_${Date.now()}.csv`);
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-
-  // Open Profile Edit Modal with Avatar Selection & Zero-Storage Photo Upload
-  function openProfileEditModal() {
-    const existingModal = document.getElementById('nexus-profile-edit-modal');
-    if (existingModal) existingModal.remove();
-
-    let selectedAvatar = currentUser.avatar || currentUser.name.charAt(0).toUpperCase();
-
-    const modalHtml = `
-      <div id="nexus-profile-edit-modal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10, 37, 64, 0.65); backdrop-filter: blur(6px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: #FFFFFF; border-radius: 20px; max-width: 520px; width: 100%; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.25); position: relative; max-height: 90vh; overflow-y: auto; text-align: left;">
-          <button id="close-profile-modal" style="position: absolute; top: 20px; right: 20px; background: #F1F5F9; border: none; font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: #64748B; display: flex; align-items: center; justify-content: center;">✕</button>
-
-          <div style="text-align: center; margin-bottom: 22px;">
-            <div id="modal-avatar-preview" style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #FF5A1F 0%, #FF8C00 100%); color: #FFF; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 6px 16px rgba(255,90,31,0.3); overflow: hidden; border: 3px solid #FFF; cursor: pointer;" title="Click to Upload New Photo">
-              ${selectedAvatar.startsWith('data:') ? `<img src="${selectedAvatar}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:2rem;">${selectedAvatar}</span>`}
-            </div>
-
-            <label for="custom-avatar-file" style="cursor: pointer; background: #FFF8F5; border: 1.5px solid var(--accent-orange); color: var(--accent-orange); padding: 7px 18px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
-              ✏️ Edit Profile Picture
-            </label>
-            <input type="file" id="custom-avatar-file" accept="image/*" style="display: none;">
-
-            <h3 style="margin: 16px 0 0 0; color: var(--primary-navy); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800;">Edit Profile</h3>
-            <p style="margin: 4px 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Update your personal and professional details</p>
-          </div>
-
-          <form id="profile-edit-form" style="display: flex; flex-direction: column; gap: 16px;">
-            <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Full Name *</label>
-              <input type="text" id="edit-name" required value="${currentUser.name}" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-              <div>
-                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Company / University</label>
-                <input type="text" id="edit-company" value="${currentUser.company || ''}" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
-              </div>
-              <div>
-                <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Professional Role</label>
-                <input type="text" id="edit-role" value="${currentUser.role || ''}" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px; padding: 14px; border-radius: 50px; font-weight: 800; font-size: 0.98rem; box-shadow: 0 8px 20px rgba(255,90,31,0.3);">
-              💾 Save Profile Changes
-            </button>
-          </form>
-        </div>
-      </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-
-    // Bind Close Modal
-    document.getElementById('close-profile-modal').addEventListener('click', () => {
-      document.getElementById('nexus-profile-edit-modal').remove();
-    });
-
-    // Clicking avatar preview opens file picker directly
-    document.getElementById('modal-avatar-preview').addEventListener('click', () => {
-      document.getElementById('custom-avatar-file').click();
-    });
-
-    // Bind Custom File Upload with Client-Side Canvas Compression (Zero Storage Cost!)
-    document.getElementById('custom-avatar-file').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = 120;
-          canvas.height = 120;
-          ctx.drawImage(img, 0, 0, 120, 120);
-          selectedAvatar = canvas.toDataURL('image/jpeg', 0.85); // Lightweight Base64 String
-          document.getElementById('modal-avatar-preview').innerHTML = `<img src="${selectedAvatar}" style="width:100%; height:100%; object-fit:cover;">`;
-        };
-        img.src = evt.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-
-    // Bind Profile Edit Submit
-    document.getElementById('profile-edit-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const updatedName = document.getElementById('edit-name').value.trim();
-      const updatedCompany = document.getElementById('edit-company').value.trim() || 'Independent Professional';
-      const updatedRole = document.getElementById('edit-role').value.trim() || 'Logistics Professional';
-
-      if (!updatedName) return;
-
-      currentUser.name = updatedName;
-      currentUser.company = updatedCompany;
-      currentUser.role = updatedRole;
-      currentUser.avatar = selectedAvatar;
-
-      localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-      saveUserToCloudDB(currentUser);
-
-      document.getElementById('nexus-profile-edit-modal').remove();
-      renderQuizHubUI();
-    });
-  }
-
-  // Universal Cloud Database API (Real-time Cross-Device Storage Engine)
-  const CLOUD_DB_BASE = "https://nexus-knowledge-hub-default-rtdb.firebaseio.com";
-
-  async function saveUserToCloudDB(user) {
-    if (!user || !user.email) return;
-    const userKey = encodeURIComponent(user.email.toLowerCase()).replace(/\./g, '_dot_');
-    try {
-      await fetch(`${CLOUD_DB_BASE}/candidates/${userKey}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-      });
-    } catch (e) {
-      console.warn("Cloud DB save user error:", e);
-    }
-  }
-
-  async function fetchUserFromCloudDB(email) {
-    if (!email) return null;
-    const userKey = encodeURIComponent(email.toLowerCase()).replace(/\./g, '_dot_');
-    try {
-      const resp = await fetch(`${CLOUD_DB_BASE}/candidates/${userKey}.json`);
-      if (resp.ok) {
-        const data = await resp.json();
-        if (data && data.email) return data;
-      }
-    } catch (e) {
-      console.warn("Cloud DB fetch user error:", e);
-    }
-    return null;
-  }
-
-  async function fetchAllUsersFromCloudDB() {
-    try {
-      const resp = await fetch(`${CLOUD_DB_BASE}/candidates.json`);
-      if (resp.ok) {
-        const data = await resp.json();
-        if (data) {
-          return Object.values(data).filter(u => u && u.email);
-        }
-      }
-    } catch (e) {
-      console.warn("Cloud DB fetch all users error:", e);
-    }
-    return [];
-  }
-
-  async function saveAttemptToCloudDB(attempt) {
-    if (!attempt || !attempt.attemptId) return;
-    try {
-      await fetch(`${CLOUD_DB_BASE}/attempts/${attempt.attemptId}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(attempt)
-      });
-    } catch (e) {
-      console.warn("Cloud DB save attempt error:", e);
-    }
-  }
-
-  async function fetchAllAttemptsFromCloudDB() {
-    try {
-      const resp = await fetch(`${CLOUD_DB_BASE}/attempts.json`);
-      if (resp.ok) {
-        const data = await resp.json();
-        if (data) {
-          return Object.values(data).filter(a => a && a.attemptId);
-        }
-      }
-    } catch (e) {
-      console.warn("Cloud DB fetch all attempts error:", e);
-    }
-    return [];
-  }
-
-  async function saveUserToFirebase(user) {
-    saveUserToCloudDB(user);
-    try {
-      if (window.firebaseDB) {
-        window.firebaseDB.collection('users').doc(user.id).set(user);
-      }
-    } catch (err) {}
-  }
-
-  async function saveAttemptToFirebase(attempt) {
-    saveAttemptToCloudDB(attempt);
-    try {
-      if (window.firebaseDB) {
-        window.firebaseDB.collection('attempts').doc(attempt.attemptId).set(attempt);
-      }
-    } catch (err) {}
   }
 
   // Event Listeners on DOM Loaded
@@ -1563,8 +626,7 @@
   });
 
   window.NEXUS_QUIZ_ENGINE = {
-    init: initQuizHub,
-    openAdmin: openOwnerAdminModal
+    init: initQuizHub
   };
 
 })();
