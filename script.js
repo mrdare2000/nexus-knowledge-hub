@@ -2283,14 +2283,19 @@ function getLocalConversationalResponse(query) {
   // Dynamic fallback: Search Knowledge Base context
   const kbContext = getRelevantKnowledgeContext(query);
   if (kbContext) {
-    // Extract clean content — strip raw Topic/Summary/Content tags for conversational output
+    // Strip prefix labels, keep actual content text for clean conversational output
     const cleanLines = kbContext
       .split('\n')
-      .filter(line => !line.startsWith('[Topic:') && !line.startsWith('Summary:') && !line.startsWith('Content:'))
-      .filter(line => line.trim().length > 10)
+      .map(line => {
+        if (line.startsWith('[Topic:')) return null;
+        if (line.startsWith('Summary: ')) return line.slice(9).trim();
+        if (line.startsWith('Content: ')) return line.slice(9).trim();
+        return line.trim() || null;
+      })
+      .filter(line => line !== null && line.length > 5)
       .join('\n\n')
       .trim();
-    return `### 🌐 Nexus Freight Intelligence\n\nRegarding **"${query}"**:\n\n${cleanLines || kbContext.substring(0, 600)}\n\n💡 *For a fully detailed AI-powered answer, connect to Nexus AI online or enter your Gemini API key above.*`;
+    return `### 🌐 Nexus Freight Intelligence\n\nRegarding **"${query}"**:\n\n${cleanLines}\n\n💡 *For a fully detailed AI-powered answer, enable Nexus AI online.*`;
   }
 
   return `### 🌐 Global Freight & Logistics Intelligence\n\nRegarding your query (**"${query}"**):\n\nGlobal freight forwarding encompasses **Air Freight**, **Ocean Freight (FCL/LCL)**, **Inland Trucking**, and **Customs Compliance**:\n\n- **Air Freight**: Fast transit (1-5 days) charged on Volumetric Weight \`(L x W x H in cm / 6000)\` or Gross Weight.\n- **Ocean Freight**: Economical bulk shipping via 20ft/40ft containers or LCL consolidation.\n- **Customs & Compliance**: Requires Commercial Invoice, Packing List, Bill of Lading / Air Waybill, and Harmonized System (HS) Codes.\n\n*Please specify any airport, seaport, trade lane, or calculation details you would like to explore further!*`;
