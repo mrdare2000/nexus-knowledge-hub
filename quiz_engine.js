@@ -22,16 +22,19 @@
     return weeksPool.length - 1; // Always features the latest active week
   }
 
-  const SYSTEM_SESSION_VERSION = "2026_08_19_v2";
+  const SYSTEM_SESSION_VERSION = "2026_08_20_v3";
 
   // Initialize Quiz Hub
   function initQuizHub() {
-    // Force reset old local sessions on all devices so everyone registers fresh to Cloud DB
+    // Hard reset old local sessions across all devices globally so everyone registers fresh to Firebase Cloud DB
     const currentVersion = localStorage.getItem('nexus_session_version');
     if (currentVersion !== SYSTEM_SESSION_VERSION) {
       localStorage.removeItem('nexus_quiz_user');
+      localStorage.removeItem('nexus_quiz_users_registry');
+      localStorage.removeItem('nexus_quiz_attempts');
       localStorage.setItem('nexus_session_version', SYSTEM_SESSION_VERSION);
       currentUser = null;
+      userAttempts = [];
     }
 
     activeWeekIndex = calculateActiveWeekIndex();
@@ -39,9 +42,16 @@
       activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[activeWeekIndex];
     }
 
-    // Auto-sync active candidate to Cloud DB on load
+    // Auto-sync active candidate & attempts to Central Cloud DB on load
     if (currentUser) {
       saveUserToCloudDB(currentUser);
+      fetchAllAttemptsFromCloudDB().then(cloudAttempts => {
+        if (cloudAttempts && cloudAttempts.length > 0) {
+          userAttempts = cloudAttempts;
+          localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts));
+          renderQuizHubUI();
+        }
+      }).catch(() => {});
     }
 
     renderQuizHubUI();
@@ -70,80 +80,34 @@
     }
   }
 
-  let pendingRegistration = null;
-  let authMode = 'signin'; // 'signin' or 'signup'
+  let authMode = 'signup'; // 'signup' or 'signin'
 
-  // Send Real Email OTP Code via EmailJS Official API (100% Real Delivery to Candidate Inbox)
-  async function sendOTPEmailAPI(email, name, otpCode) {
-    const serviceID = 'service_otf02mb';
-    const templateID = 'template_8n64w5m';
-    const publicKey = 'XJfGWH4-l8E58M4yr';
-
-    const templateParams = {
-      email: email,
-      to_email: email,
-      to_name: name || 'Candidate',
-      passcode: otpCode,
-      otp_code: otpCode,
-      time: '15 minutes'
-    };
-
-    console.log("Sending OTP via EmailJS to:", email);
-
-    // 1. Direct EmailJS REST API
-    try {
-      const apiRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          service_id: serviceID,
-          template_id: templateID,
-          user_id: publicKey,
-          template_params: templateParams
-        })
-      });
-      console.log("EmailJS REST API status:", apiRes.status);
-    } catch (err) {
-      console.warn("Direct EmailJS REST API error:", err);
-    }
-
-    // 2. EmailJS Browser SDK
-    try {
-      if (window.emailjs) {
-        window.emailjs.init(publicKey);
-        await window.emailjs.send(serviceID, templateID, templateParams, publicKey);
-      }
-    } catch (sdkErr) {
-      console.warn("EmailJS SDK send error:", sdkErr);
-    }
-  }
-
-  // Registration & Sign-In Prompt (Smart Work Email Authentication)
+  // Registration & Sign-In Prompt (Centralized Firebase Cloud Authentication)
   function renderRegistrationPrompt() {
-    // Step 1: Sign In Mode (Existing Candidates)
+    // Step 1: Sign In Mode (Existing Registered Candidates)
     if (authMode === 'signin') {
       return `
-        <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
+        <div class="quiz-kyc-card card-glass" style="max-width: 520px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
           <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Welcome Back</h2>
           <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-            Enter your registered email address (Work or Personal) to sign in and access your quiz history and certificates.
+            Enter your registered email address to sign in and restore your candidate dashboard from Central Cloud DB.
           </p>
 
-          <form id="quiz-signin-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
+          <form id="quiz-signin-form" style="text-align: left; display: flex; flex-direction: column; gap: 18px;">
             <div>
-              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address *</label>
-              <input type="email" id="signin-email" required placeholder="name@company.com or personal email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Registered Email Address *</label>
+              <input type="email" id="signin-email" required placeholder="name@company.com or personal email" class="quiz-input" style="width: 100%; padding: 13px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
             </div>
             
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-              🔑 Sign In & Access Dashboard
+            <button type="submit" id="btn-submit-signin" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
+              🔑 Sign In to Candidate Dashboard
             </button>
 
-            <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
-              New to Quiz Hub? 
+            <div style="text-align: center; margin-top: 15px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem; color: var(--text-muted);">
+              New Candidate? 
               <button type="button" id="toggle-to-signup" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
-                Create a New Profile
+                Create Candidate Account
               </button>
             </div>
           </form>
@@ -151,45 +115,45 @@
       `;
     }
 
-    // Step 1: Sign Up Mode (New Candidates)
+    // Step 1: Sign Up Mode (New Candidate KYC Registration)
     return `
-      <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 35px; border-radius: 20px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15);">
+      <div class="quiz-kyc-card card-glass" style="max-width: 600px; margin: 40px auto; padding: 38px; border-radius: 24px; text-align: center; box-shadow: 0 20px 45px rgba(10,37,64,0.15);">
         <div style="font-size: 3.5rem; margin-bottom: 12px;">💡</div>
-        <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Create a New Profile</h2>
+        <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin-bottom: 8px; font-weight: 800;">Create Candidate Account</h2>
         <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 25px; line-height: 1.5;">
-          Register once to access weekly logistics certification challenges, track your candidate rank, and download verifiable PDF certificates.
+          Register once to unlock weekly logistics certification challenges, track your candidate rank, and sync with Central Cloud DB.
         </p>
 
         <form id="quiz-kyc-form" style="text-align: left; display: flex; flex-direction: column; gap: 16px;">
           <div>
-            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Name *</label>
-            <input type="text" id="kyc-name" required placeholder="Darshika Amaranath" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Full Name *</label>
+            <input type="text" id="kyc-name" required placeholder="Darshika Amaranath" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
           </div>
 
           <div>
             <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Email Address * (Work or Personal)</label>
-            <input type="email" id="kyc-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+            <input type="email" id="kyc-email" required placeholder="name@company.com" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Company / University</label>
-              <input type="text" id="kyc-company" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              <input type="text" id="kyc-company" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
             </div>
             <div>
               <label style="font-weight: 700; font-size: 0.85rem; color: var(--primary-navy); display: block; margin-bottom: 6px;">Professional Role</label>
-              <input type="text" id="kyc-role" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.95rem;">
+              <input type="text" id="kyc-role" placeholder="" class="quiz-input" style="width: 100%; padding: 12px 16px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
-            🚀 Start Quiz Challenge
+          <button type="submit" id="btn-submit-signup" class="btn btn-primary" style="margin-top: 10px; width: 100%; padding: 15px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3);">
+            🚀 Create Candidate Account & Start Quiz
           </button>
 
-          <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 15px; font-size: 0.88rem; color: var(--text-muted);">
+          <div style="text-align: center; margin-top: 12px; border-top: 1px solid #E2E8F0; padding-top: 16px; font-size: 0.88rem; color: var(--text-muted);">
             Already registered? 
             <button type="button" id="toggle-to-signin" style="background: none; border: none; color: var(--accent-orange); font-weight: 800; cursor: pointer; text-decoration: underline; margin-left: 5px;">
-              Sign In with Email
+              Sign In to Existing Account
             </button>
           </div>
         </form>
@@ -216,7 +180,7 @@
       });
     }
 
-    // Sign In Form Submit (Existing Candidate Check with Cloud DB Lookup)
+    // Sign In Form Submit (Reads directly from Central Firebase Cloud DB)
     const signinForm = document.getElementById('quiz-signin-form');
     if (signinForm) {
       signinForm.addEventListener('submit', async function (e) {
@@ -224,50 +188,44 @@
         const email = document.getElementById('signin-email').value.trim().toLowerCase();
         if (!email) return;
 
-        const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
-        let savedUserInRegistry = registry[email];
-        const savedUserInSession = JSON.parse(localStorage.getItem('nexus_quiz_user') || '{}');
-        const existingAttempt = userAttempts.find(a => a.userEmail && a.userEmail.toLowerCase() === email);
-
-        // Fetch from Global Cloud DB if not found locally
-        if (!savedUserInRegistry) {
-          const cloudUser = await fetchUserFromCloudDB(email);
-          if (cloudUser) {
-            savedUserInRegistry = cloudUser;
-            registry[email] = cloudUser;
-          }
+        const btn = document.getElementById('btn-submit-signin');
+        if (btn) {
+          btn.disabled = true;
+          btn.innerText = "⏳ Authenticating via Cloud DB...";
         }
 
-        if (!savedUserInRegistry && !existingAttempt && (!savedUserInSession || savedUserInSession.email !== email)) {
-          alert('❌ No candidate profile found for this email address.\n\nThis email is not registered yet. Please click "Create a New Profile" below to register once.');
+        // Live Lookup from Central Firebase Cloud DB
+        const cloudUser = await fetchUserFromCloudDB(email);
+
+        if (!cloudUser) {
+          alert('❌ No candidate account found for this email address.\n\nPlease click "Create Candidate Account" below to register your candidate profile once.');
+          if (btn) {
+            btn.disabled = false;
+            btn.innerText = "🔑 Sign In to Candidate Dashboard";
+          }
           return;
         }
 
-        const existingName = savedUserInRegistry ? savedUserInRegistry.name : (existingAttempt ? existingAttempt.userName : (savedUserInSession.name || email.split('@')[0]));
-        const existingCompany = savedUserInRegistry ? savedUserInRegistry.company : (existingAttempt ? existingAttempt.userCompany : (savedUserInSession.company || 'Logistics Professional'));
-        const existingRole = savedUserInRegistry ? savedUserInRegistry.role : (existingAttempt ? (existingAttempt.userRole || 'Logistics Professional') : (savedUserInSession.role || 'Logistics Professional'));
-        const existingAvatar = savedUserInRegistry ? savedUserInRegistry.avatar : (savedUserInSession.avatar || null);
-
-        currentUser = {
-          id: 'usr_' + email.replace(/[^a-z0-9]/g, '_'),
-          name: existingName,
-          email: email,
-          company: existingCompany,
-          role: existingRole,
-          avatar: existingAvatar,
-          verified: true,
-          registeredAt: savedUserInRegistry ? savedUserInRegistry.registeredAt : new Date().toISOString()
-        };
-
-        registry[email] = currentUser;
-        localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
+        currentUser = cloudUser;
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-        saveUserToFirebase(currentUser);
+        saveUserToCloudDB(currentUser);
+
+        // Sync candidate attempts from Central Cloud DB
+        try {
+          const cloudAttempts = await fetchAllAttemptsFromCloudDB();
+          if (cloudAttempts && cloudAttempts.length > 0) {
+            userAttempts = cloudAttempts;
+            localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts));
+          }
+        } catch (err) {
+          console.warn("Attempts sync error:", err);
+        }
+
         renderQuizHubUI();
       });
     }
 
-    // Sign Up Form Submit (New Candidate Check with Cloud DB Lookup)
+    // Sign Up Form Submit (Writes directly to Central Firebase Cloud DB)
     const kycForm = document.getElementById('quiz-kyc-form');
     if (kycForm) {
       kycForm.addEventListener('submit', async function (e) {
@@ -279,17 +237,20 @@
 
         if (!name || !email) return;
 
-        const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
-        const existingAttempt = userAttempts.find(a => a.userEmail && a.userEmail.toLowerCase() === email);
-        let isSavedUser = registry[email] || (userAttempts.some(a => a.userEmail && a.userEmail.toLowerCase() === email));
-
-        if (!isSavedUser) {
-          const cloudUser = await fetchUserFromCloudDB(email);
-          if (cloudUser) isSavedUser = true;
+        const btn = document.getElementById('btn-submit-signup');
+        if (btn) {
+          btn.disabled = true;
+          btn.innerText = "⏳ Registering to Central Cloud DB...";
         }
 
-        if (isSavedUser) {
-          alert('⚠️ An account already exists with this email address.\n\nPlease click "Sign In with Email" below to sign in directly.');
+        // Check if candidate already exists in Central Firebase Cloud DB
+        const existingCloudUser = await fetchUserFromCloudDB(email);
+        if (existingCloudUser) {
+          alert('⚠️ An account already exists with this email address in Central Cloud DB.\n\nPlease click "Sign In to Existing Account" below to sign in directly.');
+          if (btn) {
+            btn.disabled = false;
+            btn.innerText = "🚀 Create Candidate Account & Start Quiz";
+          }
           return;
         }
 
@@ -304,10 +265,12 @@
           registeredAt: new Date().toISOString()
         };
 
+        const registry = JSON.parse(localStorage.getItem('nexus_quiz_users_registry') || '{}');
         registry[email] = currentUser;
         localStorage.setItem('nexus_quiz_users_registry', JSON.stringify(registry));
         localStorage.setItem('nexus_quiz_user', JSON.stringify(currentUser));
-        saveUserToFirebase(currentUser);
+        
+        await saveUserToCloudDB(currentUser);
         renderQuizHubUI();
       });
     }
