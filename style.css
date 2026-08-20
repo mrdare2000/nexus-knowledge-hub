@@ -4209,8 +4209,10 @@ footer {
 }
 
 .glass-auth-btn {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
   gap: 8px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
@@ -4222,9 +4224,19 @@ footer {
   font-family: var(--font-main);
   font-weight: 600;
   font-size: 0.95rem;
+  line-height: 1;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.glass-auth-btn svg {
+  display: block;
+}
+
+.glass-auth-btn span {
+  display: block;
+  margin-top: 1px;
 }
 
 .glass-auth-btn:hover {
