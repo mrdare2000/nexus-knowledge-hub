@@ -3511,6 +3511,18 @@ function hideAuthError() {
   }
 }
 
+function togglePasswordVisibility(inputId, btnElement) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === "password") {
+    input.type = "text";
+    if (btnElement) btnElement.textContent = "🙈";
+  } else {
+    input.type = "password";
+    if (btnElement) btnElement.textContent = "👁️";
+  }
+}
+
 function toggleAuthSpinner(formId, show) {
   const form = document.getElementById(formId);
   if (!form) return;
@@ -3588,7 +3600,7 @@ async function handleSignUp(e) {
   const confirm = document.getElementById('signup-password-confirm').value;
   
   if (password !== confirm) {
-    showAuthError("Passwords do not match");
+    showAuthError("⚠️ Password confirmation does not match. Please re-enter your password.");
     return;
   }
   
@@ -3597,15 +3609,12 @@ async function handleSignUp(e) {
   
   try {
     if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
-    const userCredential = await window.NEXUS_FIREBASE.signUp(email, password);
-    const user = userCredential.user;
-    
-    // Update profile with name
-    await user.updateProfile({ displayName: name });
+    // signUp returns the user object directly from firebase_config.js
+    const user = await window.NEXUS_FIREBASE.signUp(email, password, name);
     
     // Save company and role to Firestore
     const db = getFirestoreDb();
-    if (db) {
+    if (db && user) {
       await db.collection("users").doc(user.uid).set({
         company: company || "Not Set",
         role: role || "Not Set",
@@ -3617,8 +3626,8 @@ async function handleSignUp(e) {
       }, { merge: true });
     }
     
-    // Trigger UI update manually since updateProfile doesn't trigger onAuthStateChanged immediately
-    updateAuthUI(user);
+    // Trigger UI update
+    if (user) updateAuthUI(user);
     closeAuthModal();
   } catch (error) {
     console.error("Sign up error:", error);
