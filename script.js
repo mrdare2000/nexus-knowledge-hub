@@ -1789,6 +1789,11 @@ Core Teaching Persona & Response Directives:
 6. **Multi-lingual Mastery**: Respond in the language used by the user. If the user asks in Sinhala or Singlish, provide fluent, easy-to-understand explanations in Sinhala/English mix or clear Sinhala with technical terms in English.
 7. **Pro-Tips**: Conclude responses with a practical "💡 Logistics Pro-Tip" or "⚠️ Compliance Warning".
 
+CRITICAL RESPONSE RULE:
+- NEVER output raw database records, topic tags like "[Topic: X -> Subtopic: Y]", "Summary:", or "Content:" prefixes.
+- When knowledge base context is provided, synthesize it into a natural, expert, conversational answer as if you already know this information.
+- Always respond as a knowledgeable expert speaking directly to the user — not as a data retrieval system.
+
 Boundaries:
 - Focus exclusively on logistics, freight forwarding, customs clearance, Incoterms, supply chain, and global trade.
 - Maintain a polite, highly professional, encouraging, and academic tone.`;
@@ -2047,25 +2052,36 @@ async function handleUserChatMessage() {
   
   setTimeout(async () => {
     try {
-      // 1. Primary Engine: Embedded Google Gemini AI
-      const responseText = await callGeminiAPI();
+      // 1. Primary Engine: Vercel Serverless (server-side GEMINI_API_KEY)
+      const responseText = await callVercelAPI();
       if (typingMsg) typingMsg.remove();
       appendChatMessage("system", responseText);
       conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
     } catch (err) {
-      console.warn("Gemini API Error, trying serverless backup AI...", err);
+      console.warn("Vercel API unavailable, trying direct Gemini with user key...", err);
       try {
-        // 2. Secondary Engine: Keyless Serverless AI
-        const responseText = await callFreeAI();
+        // 2. Secondary Engine: Direct Gemini with user's browser key
+        const userKey = localStorage.getItem("nexus_gemini_api_key");
+        if (!userKey) throw new Error("No user Gemini key configured");
+        const responseText = await callGeminiAPI(userKey);
         if (typingMsg) typingMsg.remove();
         appendChatMessage("system", responseText);
         conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
       } catch (err2) {
-        // 3. Fallback Engine: Standalone Freight Intelligence
-        const fallbackMsg = getLocalConversationalResponse(query);
-        if (typingMsg) typingMsg.remove();
-        appendChatMessage("system", fallbackMsg);
-        conversationHistory.push({ role: "model", parts: [{ text: fallbackMsg }] });
+        console.warn("Direct Gemini failed, trying free AI proxy...", err2);
+        try {
+          // 3. Tertiary Engine: Pollinations Free AI
+          const responseText = await callFreeAI();
+          if (typingMsg) typingMsg.remove();
+          appendChatMessage("system", responseText);
+          conversationHistory.push({ role: "model", parts: [{ text: responseText }] });
+        } catch (err3) {
+          // 4. Offline Fallback: Local Knowledge Engine
+          const fallbackMsg = getLocalConversationalResponse(query);
+          if (typingMsg) typingMsg.remove();
+          appendChatMessage("system", fallbackMsg);
+          conversationHistory.push({ role: "model", parts: [{ text: fallbackMsg }] });
+        }
       }
     }
   }, 400);
@@ -2264,10 +2280,17 @@ function getLocalConversationalResponse(query) {
 
 
 
-  // Dynamic fallback: Search Knowledge Base context or generate rich global logistics answer
+  // Dynamic fallback: Search Knowledge Base context
   const kbContext = getRelevantKnowledgeContext(query);
   if (kbContext) {
-    return `### 🌐 Global Logistics & Knowledge Insights\n\nHere is detailed information regarding your inquiry (**"${query}"**):\n\n${kbContext}\n\n💡 *Need more specific calculations or international trade lane details? Ask Nexus AI anytime!*`;
+    // Extract clean content — strip raw Topic/Summary/Content tags for conversational output
+    const cleanLines = kbContext
+      .split('\n')
+      .filter(line => !line.startsWith('[Topic:') && !line.startsWith('Summary:') && !line.startsWith('Content:'))
+      .filter(line => line.trim().length > 10)
+      .join('\n\n')
+      .trim();
+    return `### 🌐 Nexus Freight Intelligence\n\nRegarding **"${query}"**:\n\n${cleanLines || kbContext.substring(0, 600)}\n\n💡 *For a fully detailed AI-powered answer, connect to Nexus AI online or enter your Gemini API key above.*`;
   }
 
   return `### 🌐 Global Freight & Logistics Intelligence\n\nRegarding your query (**"${query}"**):\n\nGlobal freight forwarding encompasses **Air Freight**, **Ocean Freight (FCL/LCL)**, **Inland Trucking**, and **Customs Compliance**:\n\n- **Air Freight**: Fast transit (1-5 days) charged on Volumetric Weight \`(L x W x H in cm / 6000)\` or Gross Weight.\n- **Ocean Freight**: Economical bulk shipping via 20ft/40ft containers or LCL consolidation.\n- **Customs & Compliance**: Requires Commercial Invoice, Packing List, Bill of Lading / Air Waybill, and Harmonized System (HS) Codes.\n\n*Please specify any airport, seaport, trade lane, or calculation details you would like to explore further!*`;
@@ -2320,11 +2343,53 @@ function getRelevantKnowledgeContext(userQuery) {
   return topMatches.map(m => `[Topic: ${m.category} -> Subtopic: ${m.title}]\nSummary: ${m.summary}\nContent: ${m.snippet}...`).join("\n\n");
 }
 
-// System API Key
-const getSystemApiKey = () => "AQ.Ab8RN6ITG-xV90y7H6cFpLNDX5vWMPKANL4LcMUyDegmOYvoXg";
+// Vercel Serverless AI Call — Primary AI Engine (uses server-side GEMINI_API_KEY env var)
+async function callVercelAPI() {
+  let cleanHistory = [];
+  let lastRole = null;
+  let latestUserQuery = "";
+
+  conversationHistory.forEach(msg => {
+    const text = msg.parts[0].text;
+    if (text.includes("... reasoning") || text.includes("... thinking") || text === "") return;
+    let role = msg.role === "system" ? "model" : msg.role;
+    if (msg.role === "user") latestUserQuery = text;
+    if (lastRole === role) {
+      cleanHistory[cleanHistory.length - 1].parts[0].text += "\n" + text;
+    } else {
+      cleanHistory.push({ role, parts: [{ text }] });
+      lastRole = role;
+    }
+  });
+
+  if (cleanHistory.length > 0 && cleanHistory[0].role === "model") cleanHistory = cleanHistory.slice(1);
+  if (cleanHistory.length === 0) cleanHistory.push({ role: "user", parts: [{ text: "Hello" }] });
+
+  const ragContext = getRelevantKnowledgeContext(latestUserQuery);
+  let systemPromptText = NEXUS_AI_SYSTEM_PROMPT;
+  if (ragContext) {
+    systemPromptText += `\n\n[RELEVANT KNOWLEDGE BASE CONTEXT]:\n${ragContext}\n\nUse this context to ground your answer accurately. DO NOT output the raw context — synthesize it into a natural expert response.`;
+  }
+
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ history: cleanHistory, systemPrompt: systemPromptText })
+  });
+
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `Vercel API HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  if (!data.text || data.text.trim() === "") throw new Error("Empty response from Vercel API");
+  return data.text;
+}
 
 async function callGeminiAPI(customKey) {
-  const activeKey = customKey || getSystemApiKey();
+  const activeKey = customKey;
+  if (!activeKey) throw new Error("No Gemini API key provided");
   let cleanHistory = [];
   let lastRole = null;
   let latestUserQuery = "";
