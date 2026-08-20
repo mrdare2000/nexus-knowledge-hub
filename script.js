@@ -3541,7 +3541,35 @@ async function handleSignIn(e) {
     await window.NEXUS_FIREBASE.login(email, password);
     closeAuthModal();
   } catch (error) {
-    showAuthError(error.message || "Failed to sign in. Please check your credentials.");
+    console.error("Sign in error:", error);
+    const code = error.code || "";
+    
+    if (code === "auth/user-not-found" || code === "auth/invalid-email") {
+      showAuthError("❌ No account found with this email. Please click 'Create Account' tab to sign up first.");
+    } else if (code === "auth/wrong-password") {
+      showAuthError("❌ Incorrect password. An account exists for this email — please check your password or click 'Forgot?'.");
+    } else if (code === "auth/invalid-credential") {
+      // Intelligently check if the email actually exists in Firebase Auth
+      try {
+        const auth = (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.getAuth) ? window.NEXUS_FIREBASE.getAuth() : (typeof firebase !== 'undefined' ? firebase.auth() : null);
+        if (auth && auth.fetchSignInMethodsForEmail) {
+          const methods = await auth.fetchSignInMethodsForEmail(email);
+          if (methods && methods.length > 0) {
+            showAuthError("❌ Incorrect password. An account exists for this email — please check your password or click 'Forgot?'.");
+          } else {
+            showAuthError("❌ No account found with this email. Please click 'Create Account' tab to sign up first.");
+          }
+        } else {
+          showAuthError("❌ Invalid email or password. Please check your credentials or create an account.");
+        }
+      } catch (checkErr) {
+        showAuthError("❌ No account found or invalid password. Please check your credentials or click 'Create Account'.");
+      }
+    } else if (code === "auth/too-many-requests") {
+      showAuthError("⚠️ Too many failed attempts. Access temporarily locked. Please try again later or reset password.");
+    } else {
+      showAuthError("❌ Sign in failed. Please check your email and password.");
+    }
   } finally {
     toggleAuthSpinner('signin-form', false);
     hideGlobalLoader();
@@ -3593,7 +3621,17 @@ async function handleSignUp(e) {
     updateAuthUI(user);
     closeAuthModal();
   } catch (error) {
-    showAuthError(error.message || "Failed to create account.");
+    console.error("Sign up error:", error);
+    const code = error.code || "";
+    if (code === "auth/email-already-in-use") {
+      showAuthError("⚠️ An account already exists with this email address! Please click 'Sign In' tab to log in.");
+    } else if (code === "auth/weak-password") {
+      showAuthError("⚠️ Password is too weak. Please use at least 6 characters.");
+    } else if (code === "auth/invalid-email") {
+      showAuthError("⚠️ Invalid email format. Please enter a valid email address.");
+    } else {
+      showAuthError(error.message || "Failed to create account.");
+    }
   } finally {
     toggleAuthSpinner('signup-form', false);
     hideGlobalLoader();
