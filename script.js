@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
   fetchLogisticsNews();
   initScrollAnimations();
+  initAuth();
 });
 
 window.addEventListener("load", () => {
@@ -3319,4 +3320,228 @@ function generateNewsHTML(articles) {
   return html;
 }
 
+/* ==========================================
+   AUTHENTICATION LOGIC (PHASE 1)
+   ========================================== */
+let currentUser = null;
+
+function initAuth() {
+  if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.onAuthStateChanged) {
+    window.NEXUS_FIREBASE.onAuthStateChanged((user) => {
+      currentUser = user;
+      updateAuthUI(user);
+    });
+  }
+}
+
+function updateAuthUI(user) {
+  const loginBtn = document.getElementById("sidebar-login-btn");
+  const userProfile = document.getElementById("sidebar-user-profile");
+  
+  if (user) {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (userProfile) {
+      userProfile.style.display = "flex";
+      document.getElementById("user-profile-name").textContent = user.displayName || "User";
+      document.getElementById("user-profile-email").textContent = user.email || "";
+      document.getElementById("user-profile-initial").textContent = (user.displayName ? user.displayName.charAt(0) : "U").toUpperCase();
+      
+      // Fetch custom claims/profile data from Firestore if available
+      if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
+        window.NEXUS_FIREBASE.db.collection("users").doc(user.uid).get().then(doc => {
+          if (doc.exists) {
+            const data = doc.data();
+            document.getElementById("user-profile-company").textContent = `🏢 ${data.company || "Company Not Set"}`;
+            document.getElementById("user-profile-role").textContent = `💼 ${data.role || "Role Not Set"}`;
+          }
+        }).catch(err => console.error("Error fetching user profile:", err));
+      }
+    }
+  } else {
+    if (loginBtn) loginBtn.style.display = "flex";
+    if (userProfile) userProfile.style.display = "none";
+  }
+}
+
+function openAuthModal() {
+  const modal = document.getElementById("auth-modal");
+  if (modal) {
+    modal.classList.add("active");
+    switchAuthTab('signin');
+  }
+}
+
+function closeAuthModal() {
+  const modal = document.getElementById("auth-modal");
+  if (modal) modal.classList.remove("active");
+  
+  // Clear forms and errors
+  document.getElementById("signin-form").reset();
+  document.getElementById("signup-form").reset();
+  hideAuthError();
+}
+
+function switchAuthTab(tab) {
+  hideAuthError();
+  const signinBtn = document.getElementById("auth-tab-signin");
+  const signupBtn = document.getElementById("auth-tab-signup");
+  const signinForm = document.getElementById("signin-form");
+  const signupForm = document.getElementById("signup-form");
+  
+  if (tab === 'signin') {
+    signinBtn.classList.add("active");
+    signinBtn.style.borderBottom = "3px solid var(--primary-navy)";
+    signinBtn.style.color = "var(--primary-navy)";
+    
+    signupBtn.classList.remove("active");
+    signupBtn.style.borderBottom = "3px solid transparent";
+    signupBtn.style.color = "var(--text-muted)";
+    
+    signinForm.style.display = "block";
+    signupForm.style.display = "none";
+  } else {
+    signupBtn.classList.add("active");
+    signupBtn.style.borderBottom = "3px solid var(--primary-navy)";
+    signupBtn.style.color = "var(--primary-navy)";
+    
+    signinBtn.classList.remove("active");
+    signinBtn.style.borderBottom = "3px solid transparent";
+    signinBtn.style.color = "var(--text-muted)";
+    
+    signupForm.style.display = "block";
+    signinForm.style.display = "none";
+  }
+}
+
+function showAuthError(message) {
+  const errDiv = document.getElementById("auth-error-message");
+  if (errDiv) {
+    errDiv.textContent = message;
+    errDiv.style.display = "block";
+  }
+}
+
+function hideAuthError() {
+  const errDiv = document.getElementById("auth-error-message");
+  if (errDiv) {
+    errDiv.style.display = "none";
+    // Reset styles in case it was a success message
+    errDiv.style.color = "#DC2626";
+    errDiv.style.backgroundColor = "#FEF2F2";
+    errDiv.style.borderColor = "#FCA5A5";
+  }
+}
+
+function toggleAuthSpinner(formId, show) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  const btn = form.querySelector('button[type="submit"]');
+  if (!btn) return;
+  const spinner = btn.querySelector('.auth-spinner');
+  
+  if (show) {
+    btn.disabled = true;
+    if (spinner) spinner.style.display = "block";
+  } else {
+    btn.disabled = false;
+    if (spinner) spinner.style.display = "none";
+  }
+}
+
+async function handleSignIn(e) {
+  e.preventDefault();
+  hideAuthError();
+  toggleAuthSpinner('signin-form', true);
+  
+  const email = document.getElementById('signin-email').value;
+  const password = document.getElementById('signin-password').value;
+  
+  try {
+    if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
+    await window.NEXUS_FIREBASE.login(email, password);
+    closeAuthModal();
+  } catch (error) {
+    showAuthError(error.message || "Failed to sign in. Please check your credentials.");
+  } finally {
+    toggleAuthSpinner('signin-form', false);
+  }
+}
+
+async function handleSignUp(e) {
+  e.preventDefault();
+  hideAuthError();
+  
+  const name = document.getElementById('signup-name').value;
+  const company = document.getElementById('signup-company').value;
+  const role = document.getElementById('signup-role').value;
+  const email = document.getElementById('signup-email').value;
+  const password = document.getElementById('signup-password').value;
+  const confirm = document.getElementById('signup-password-confirm').value;
+  
+  if (password !== confirm) {
+    showAuthError("Passwords do not match");
+    return;
+  }
+  
+  toggleAuthSpinner('signup-form', true);
+  
+  try {
+    if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
+    const userCredential = await window.NEXUS_FIREBASE.signUp(email, password);
+    const user = userCredential.user;
+    
+    // Update profile with name
+    await user.updateProfile({ displayName: name });
+    
+    // Save company and role to Firestore
+    if (window.NEXUS_FIREBASE.db) {
+      await window.NEXUS_FIREBASE.db.collection("users").doc(user.uid).set({
+        company: company,
+        role: role,
+        name: name,
+        email: email,
+        createdAt: new Date()
+      }, { merge: true });
+    }
+    
+    // Trigger UI update manually since updateProfile doesn't trigger onAuthStateChanged immediately
+    updateAuthUI(user);
+    closeAuthModal();
+  } catch (error) {
+    showAuthError(error.message || "Failed to create account.");
+  } finally {
+    toggleAuthSpinner('signup-form', false);
+  }
+}
+
+async function handleLogout() {
+  try {
+    if (window.NEXUS_FIREBASE) {
+      await window.NEXUS_FIREBASE.logout();
+    }
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+}
+
+async function handleForgotPassword(e) {
+  e.preventDefault();
+  const email = document.getElementById('signin-email').value;
+  if (!email) {
+    showAuthError("Please enter your email address first.");
+    return;
+  }
+  
+  try {
+    if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.auth) {
+      await window.NEXUS_FIREBASE.auth.sendPasswordResetEmail(email);
+      showAuthError("Password reset email sent! Please check your inbox.");
+      document.getElementById("auth-error-message").style.color = "#059669";
+      document.getElementById("auth-error-message").style.backgroundColor = "#D1FAE5";
+      document.getElementById("auth-error-message").style.borderColor = "#6EE7B7";
+    }
+  } catch (error) {
+    showAuthError(error.message || "Failed to send reset email.");
+  }
+}
 
