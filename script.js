@@ -3589,11 +3589,21 @@ async function handleSignUp(e) {
 
 async function handleLogout() {
   try {
+    showGlobalLoader("Loading...");
+    closeProfileModal();
+    closeAuthModal();
+
     if (window.NEXUS_FIREBASE) {
       await window.NEXUS_FIREBASE.logout();
     }
+
+    // Switch to Home Page and scroll to top
+    if (typeof switchPage === 'function') switchPage('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (error) {
     console.error("Logout failed:", error);
+  } finally {
+    hideGlobalLoader();
   }
 }
 
