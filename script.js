@@ -3323,14 +3323,26 @@ function generateNewsHTML(articles) {
 /* ==========================================
    GLOBAL BRANDED LOADING OVERLAY SYSTEM
    ========================================== */
+let globalLoaderTimeout = null;
+
 function showGlobalLoader(message = "Loading...") {
   const loader = document.getElementById("global-loader");
   const loaderText = document.getElementById("global-loader-text");
   if (loaderText) loaderText.textContent = message;
   if (loader) loader.style.display = "flex";
+
+  // Safety fallback: auto-hide after 8 seconds so screen never hangs indefinitely
+  if (globalLoaderTimeout) clearTimeout(globalLoaderTimeout);
+  globalLoaderTimeout = setTimeout(() => {
+    hideGlobalLoader();
+  }, 8000);
 }
 
 function hideGlobalLoader() {
+  if (globalLoaderTimeout) {
+    clearTimeout(globalLoaderTimeout);
+    globalLoaderTimeout = null;
+  }
   const loader = document.getElementById("global-loader");
   if (loader) loader.style.display = "none";
 }
@@ -3584,6 +3596,7 @@ async function handleSignUp(e) {
     showAuthError(error.message || "Failed to create account.");
   } finally {
     toggleAuthSpinner('signup-form', false);
+    hideGlobalLoader();
   }
 }
 
