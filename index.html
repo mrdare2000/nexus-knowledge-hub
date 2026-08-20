@@ -314,23 +314,16 @@
           </div>
         </button>
 
-        <!-- Logged In State (Hidden by default) -->
-        <div id="sidebar-user-profile" class="sidebar-user-badge auth-btn" style="display: none; flex-direction: column; align-items: flex-start; padding: 15px; cursor: default;">
-          <div style="display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 10px;">
-            <div class="user-avatar" id="user-profile-avatar" style="background: var(--primary-navy-light);">
-              <span style="color: white; font-weight: bold; font-size: 1.2rem;" id="user-profile-initial">U</span>
-            </div>
-            <div class="user-info">
-              <span class="user-name" id="user-profile-name">User Name</span>
-              <span class="user-role" id="user-profile-email">user@example.com</span>
-            </div>
+        <!-- Logged In State (Compact Badge, Clicking opens Profile Modal) -->
+        <button id="sidebar-user-profile" class="sidebar-user-badge auth-btn" onclick="openProfileModal()" style="display: none; width: 100%; text-align: left; background: rgba(25, 42, 86, 0.05); border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s;">
+          <div class="user-avatar" id="user-profile-avatar" style="background: var(--accent-orange); flex-shrink: 0;">
+            <span style="color: white; font-weight: bold; font-size: 1.1rem;" id="user-profile-initial">U</span>
           </div>
-          <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">
-            <div id="user-profile-company" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">🏢 Company</div>
-            <div id="user-profile-role" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">💼 Role</div>
+          <div class="user-info" style="overflow: hidden;">
+            <span class="user-name" id="user-profile-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; font-weight: 700; color: var(--primary-navy);">User Name</span>
+            <span class="user-role" id="user-profile-role-display" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; font-size: 0.8rem; color: var(--text-muted);">View Profile ⚙️</span>
           </div>
-          <button onclick="handleLogout()" class="btn btn-secondary" style="width: 100%; padding: 6px; font-size: 0.85rem; border-radius: 4px;">Logout</button>
-        </div>
+        </button>
       </div>
 
       <a href="https://www.nexuscargos.com/" target="_blank" rel="noopener noreferrer" class="sidebar-user-badge" title="Visit Nexus Cargo Official Website (nexuscargos.com)">
@@ -363,16 +356,14 @@
           <span>Login / Sign Up</span>
         </button>
 
-        <!-- Logged In State -->
-        <div id="home-user-profile" class="glass-user-profile" style="display: none;">
-          <div class="glass-avatar">
+        <!-- Logged In State (Clicking opens Profile Modal) -->
+        <button id="home-user-profile" class="glass-user-profile" onclick="openProfileModal()" style="display: none; cursor: pointer; border: none;">
+          <div class="glass-avatar" id="home-avatar-container">
             <span id="home-profile-initial">U</span>
           </div>
           <span id="home-profile-name" class="glass-user-name">User</span>
-          <button onclick="handleLogout()" class="glass-logout-btn" title="Logout">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-          </button>
-        </div>
+          <span style="font-size: 0.8rem; opacity: 0.7; margin-left: 4px;">⚙️</span>
+        </button>
       </div>
 
       <div class="hero-slider">
@@ -1724,6 +1715,77 @@
       <span class="mobile-bottom-label">AI</span>
     </a>
   </nav>
+
+  <!-- DEDICATED USER PROFILE & ACCOUNT MANAGEMENT MODAL -->
+  <div id="profile-modal" class="modal-overlay">
+    <div class="modal-content profile-modal-content" style="max-width: 480px; padding: 0; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+      <!-- Header -->
+      <div style="background: linear-gradient(135deg, var(--primary-navy), #1E293B); padding: 25px 30px; color: white; position: relative;">
+        <button class="close-modal-btn" onclick="closeProfileModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; color: rgba(255,255,255,0.7); cursor: pointer;">&times;</button>
+        
+        <div style="display: flex; align-items: center; gap: 20px;">
+          <div id="modal-profile-avatar-large" style="width: 65px; height: 65px; border-radius: 50%; background: var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.2); flex-shrink: 0;">
+            <span id="modal-avatar-display">👤</span>
+          </div>
+          <div style="overflow: hidden;">
+            <h2 id="modal-user-name-display" style="margin: 0; font-size: 1.3rem; font-family: var(--font-title); font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">User Name</h2>
+            <p id="modal-user-email-display" style="margin: 4px 0 0 0; font-size: 0.85rem; color: rgba(255,255,255,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">user@example.com</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body Form -->
+      <div style="padding: 25px 30px;">
+        <div id="profile-success-message" style="display: none; background: #D1FAE5; color: #065F46; padding: 10px 14px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid #A7F3D0;">
+          ✅ Profile updated & saved to backend!
+        </div>
+        <div id="profile-error-message" style="display: none; background: #FEF2F2; color: #DC2626; padding: 10px 14px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid #FCA5A5;"></div>
+
+        <!-- Avatar Selection -->
+        <div style="margin-bottom: 22px;">
+          <label style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--primary-navy); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">Choose Avatar Icon</label>
+          <div class="avatar-grid" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button type="button" class="avatar-option active" data-avatar="👤" onclick="selectAvatar('👤', this)" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--accent-orange); background: #FFF7ED; font-size: 1.4rem; cursor: pointer; transition: all 0.2s;">👤</button>
+            <button type="button" class="avatar-option" data-avatar="👨‍💼" onclick="selectAvatar('👨‍💼', this)" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.4rem; cursor: pointer; transition: all 0.2s;">👨‍💼</button>
+            <button type="button" class="avatar-option" data-avatar="👩‍💼" onclick="selectAvatar('👩‍💼', this)" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.4rem; cursor: pointer; transition: all 0.2s;">👩‍💼</button>
+            <button type="button" class="avatar-option" data-avatar="🎓" onclick="selectAvatar('🎓', this)" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.4rem; cursor: pointer; transition: all 0.2s;">🎓</button>
+            <button type="button" class="avatar-option" data-avatar="👷" onclick="selectAvatar('👷', this)" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.4rem; cursor: pointer; transition: all 0.2s;">👷</button>
+            <button type="button" class="avatar-option" data-avatar="👨‍🏫" onclick="selectAvatar('👨‍🏫', this)" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.4rem; cursor: pointer; transition: all 0.2s;">👨‍🏫</button>
+            <button type="button" class="avatar-option" data-avatar="⚡" onclick="selectAvatar('⚡', this)" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.4rem; cursor: pointer; transition: all 0.2s;">⚡</button>
+          </div>
+        </div>
+
+        <!-- Form Fields -->
+        <form id="profile-edit-form" onsubmit="saveUserProfile(event)">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="display: block; margin-bottom: 6px; font-weight: 600; color: var(--primary-navy); font-size: 0.9rem;">Name</label>
+            <input type="text" id="profile-input-name" required style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 0.95rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="display: block; margin-bottom: 6px; font-weight: 600; color: var(--primary-navy); font-size: 0.9rem;">Company / University</label>
+            <input type="text" id="profile-input-company" placeholder="e.g. Nexus Cargos or University of Moratuwa" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 0.95rem;">
+          </div>
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 6px; font-weight: 600; color: var(--primary-navy); font-size: 0.9rem;">Professional Role</label>
+            <input type="text" id="profile-input-role" placeholder="e.g. Logistics Executive or Student" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 0.95rem;">
+          </div>
+
+          <button type="submit" id="profile-save-btn" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-bottom: 15px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+            <span>💾 Save Profile Changes</span>
+          </button>
+        </form>
+
+        <div style="display: flex; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 18px; margin-top: 10px;">
+          <button onclick="handleLogout()" class="btn btn-secondary" style="flex: 1; padding: 10px; font-size: 0.88rem; background: #FEF2F2; color: #DC2626; border: 1px solid #FCA5A5; font-weight: 600;">
+            🚪 Logout
+          </button>
+          <button onclick="handleSwitchAccount()" class="btn btn-secondary" style="flex: 1; padding: 10px; font-size: 0.88rem; border: 1px solid var(--border-color); font-weight: 600;">
+            🔄 Switch Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Firebase Backend Cloud SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>

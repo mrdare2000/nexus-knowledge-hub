@@ -3324,6 +3324,7 @@ function generateNewsHTML(articles) {
    AUTHENTICATION LOGIC (PHASE 1)
    ========================================== */
 let currentUser = null;
+let selectedAvatarSymbol = '👤';
 
 function initAuth() {
   if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.onAuthStateChanged) {
@@ -3341,41 +3342,65 @@ function updateAuthUI(user) {
   const homeUserProfile = document.getElementById("home-user-profile");
   
   if (user) {
+    // Hide Logged-Out buttons
     if (loginBtn) loginBtn.style.display = "none";
     if (homeLoginBtn) homeLoginBtn.style.display = "none";
     
-    const initial = (user.displayName ? user.displayName.charAt(0) : "U").toUpperCase();
-    const displayName = user.displayName || "User";
+    // Show Logged-In Profile Badges
+    if (userProfile) userProfile.style.display = "flex";
+    if (homeUserProfile) homeUserProfile.style.display = "flex";
 
-    if (homeUserProfile) {
-      homeUserProfile.style.display = "flex";
-      document.getElementById("home-profile-name").textContent = displayName.split(" ")[0]; // First name only for small space
-      document.getElementById("home-profile-initial").textContent = initial;
-    }
+    // Default fallback values
+    let displayName = user.displayName || user.email.split('@')[0];
+    let userAvatar = '👤';
+    let userRole = 'Logistics Member';
+    let userCompany = 'Logistics Industry';
 
-    if (userProfile) {
-      userProfile.style.display = "flex";
-      document.getElementById("user-profile-name").textContent = displayName;
-      document.getElementById("user-profile-email").textContent = user.email || "";
-      document.getElementById("user-profile-initial").textContent = initial;
-      
-      // Fetch custom claims/profile data from Firestore if available
-      if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
-        window.NEXUS_FIREBASE.db.collection("users").doc(user.uid).get().then(doc => {
-          if (doc.exists) {
-            const data = doc.data();
-            document.getElementById("user-profile-company").textContent = `🏢 ${data.company || "Company Not Set"}`;
-            document.getElementById("user-profile-role").textContent = `💼 ${data.role || "Role Not Set"}`;
-          }
-        }).catch(err => console.error("Error fetching user profile:", err));
-      }
+    // Populate initial default UI state right away
+    updateProfileBadgesUI(displayName, userAvatar, userRole);
+
+    // Fetch full live profile data from Firestore
+    if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
+      window.NEXUS_FIREBASE.db.collection("users").doc(user.uid).get().then(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          displayName = data.name || data.displayName || displayName;
+          userAvatar = data.avatar || '👤';
+          userRole = data.role || userRole;
+          userCompany = data.company || userCompany;
+          selectedAvatarSymbol = userAvatar;
+          
+          updateProfileBadgesUI(displayName, userAvatar, userRole);
+        }
+      }).catch(err => console.error("Error fetching user profile:", err));
     }
   } else {
+    // Logged out: Show login buttons, Hide profile badges
     if (loginBtn) loginBtn.style.display = "flex";
     if (userProfile) userProfile.style.display = "none";
-    if (homeLoginBtn) homeLoginBtn.style.display = "block";
+    if (homeLoginBtn) homeLoginBtn.style.display = "flex";
     if (homeUserProfile) homeUserProfile.style.display = "none";
   }
+}
+
+function updateProfileBadgesUI(name, avatar, role) {
+  const initial = avatar !== '👤' ? avatar : (name ? name.charAt(0) : "U").toUpperCase();
+  const firstName = name.split(" ")[0];
+
+  // Top-Right Hero Badge
+  const homeInitialSpan = document.getElementById("home-profile-initial");
+  const homeNameSpan = document.getElementById("home-profile-name");
+  if (homeInitialSpan) homeInitialSpan.textContent = initial;
+  if (homeNameSpan) homeNameSpan.textContent = firstName;
+
+  // Sidebar Compact Badge
+  const sidebarInitialSpan = document.getElementById("user-profile-initial");
+  const sidebarNameSpan = document.getElementById("user-profile-name");
+  const sidebarRoleSpan = document.getElementById("user-profile-role-display");
+  
+  if (sidebarInitialSpan) sidebarInitialSpan.textContent = initial;
+  if (sidebarNameSpan) sidebarNameSpan.textContent = name;
+  if (sidebarRoleSpan) sidebarRoleSpan.textContent = role || "View Profile ⚙️";
 }
 
 function openAuthModal() {
@@ -3558,5 +3583,143 @@ async function handleForgotPassword(e) {
   } catch (error) {
     showAuthError(error.message || "Failed to send reset email.");
   }
+}
+
+/* ==========================================
+   PROFILE & ACCOUNT MODAL MANAGEMENT
+   ========================================== */
+function openProfileModal() {
+  if (!currentUser) {
+    openAuthModal();
+    return;
+  }
+
+  const modal = document.getElementById("profile-modal");
+  if (!modal) return;
+
+  // Pre-fill header
+  const displayName = currentUser.displayName || currentUser.email.split('@')[0];
+  document.getElementById("modal-user-name-display").textContent = displayName;
+  document.getElementById("modal-user-email-display").textContent = currentUser.email;
+  document.getElementById("profile-input-name").value = displayName;
+
+  // Pre-fill form fields from Firestore
+  if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
+    window.NEXUS_FIREBASE.db.collection("users").doc(currentUser.uid).get().then(doc => {
+      if (doc.exists) {
+        const data = doc.data();
+        document.getElementById("profile-input-name").value = data.name || displayName;
+        document.getElementById("profile-input-company").value = data.company || "";
+        document.getElementById("profile-input-role").value = data.role || "";
+        
+        if (data.avatar) {
+          selectedAvatarSymbol = data.avatar;
+          document.getElementById("modal-avatar-display").textContent = data.avatar;
+          // highlight avatar option
+          document.querySelectorAll(".avatar-option").forEach(btn => {
+            if (btn.dataset.avatar === data.avatar) {
+              btn.classList.add("active");
+              btn.style.borderColor = "var(--accent-orange)";
+              btn.style.background = "#FFF7ED";
+            } else {
+              btn.classList.remove("active");
+              btn.style.borderColor = "var(--border-color)";
+              btn.style.background = "#F8FAFC";
+            }
+          });
+        }
+      }
+    });
+  }
+
+  modal.classList.add("active");
+}
+
+function closeProfileModal() {
+  const modal = document.getElementById("profile-modal");
+  if (modal) modal.classList.remove("active");
+  
+  const msg = document.getElementById("profile-success-message");
+  const err = document.getElementById("profile-error-message");
+  if (msg) msg.style.display = "none";
+  if (err) err.style.display = "none";
+}
+
+function selectAvatar(avatar, element) {
+  selectedAvatarSymbol = avatar;
+  document.getElementById("modal-avatar-display").textContent = avatar;
+  
+  document.querySelectorAll(".avatar-option").forEach(btn => {
+    btn.classList.remove("active");
+    btn.style.borderColor = "var(--border-color)";
+    btn.style.background = "#F8FAFC";
+  });
+
+  if (element) {
+    element.classList.add("active");
+    element.style.borderColor = "var(--accent-orange)";
+    element.style.background = "#FFF7ED";
+  }
+}
+
+async function saveUserProfile(e) {
+  e.preventDefault();
+  if (!currentUser) return;
+
+  const name = document.getElementById("profile-input-name").value;
+  const company = document.getElementById("profile-input-company").value;
+  const role = document.getElementById("profile-input-role").value;
+
+  const btn = document.getElementById("profile-save-btn");
+  if (btn) btn.disabled = true;
+
+  try {
+    // 1. Update Firebase Auth displayName
+    await currentUser.updateProfile({ displayName: name });
+
+    // 2. Update Firestore user document
+    if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
+      await window.NEXUS_FIREBASE.db.collection("users").doc(currentUser.uid).set({
+        name: name,
+        displayName: name,
+        company: company,
+        role: role,
+        avatar: selectedAvatarSymbol,
+        updatedAt: new Date()
+      }, { merge: true });
+    }
+
+    // 3. Update local UI
+    updateAuthUI(currentUser);
+
+    // Show success alert
+    const successDiv = document.getElementById("profile-success-message");
+    if (successDiv) {
+      successDiv.style.display = "block";
+      setTimeout(() => {
+        successDiv.style.display = "none";
+        closeProfileModal();
+      }, 1500);
+    } else {
+      closeProfileModal();
+    }
+  } catch (err) {
+    console.error("Error saving profile:", err);
+    const errDiv = document.getElementById("profile-error-message");
+    if (errDiv) {
+      errDiv.textContent = err.message || "Failed to update profile.";
+      errDiv.style.display = "block";
+    }
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+async function handleSwitchAccount() {
+  closeProfileModal();
+  await handleLogout();
+  setTimeout(() => {
+    openAuthModal();
+  }, 400);
 }
 

@@ -4300,3 +4300,8 @@ footer {
   border-color: rgba(255, 59, 48, 1);
   transform: rotate(90deg);
 }
+
+.avatar-option:hover {
+  transform: scale(1.1);
+  border-color: var(--accent-orange) !important;
+}
