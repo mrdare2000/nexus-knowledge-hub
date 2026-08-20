@@ -3342,22 +3342,22 @@ function updateAuthUI(user) {
   const homeUserProfile = document.getElementById("home-user-profile");
   
   if (user) {
-    // Hide Logged-Out buttons
-    if (loginBtn) loginBtn.style.display = "none";
-    if (homeLoginBtn) homeLoginBtn.style.display = "none";
+    // Hide Logged-Out buttons cleanly
+    if (loginBtn) loginBtn.style.setProperty("display", "none", "important");
+    if (homeLoginBtn) homeLoginBtn.style.setProperty("display", "none", "important");
     
     // Show Logged-In Profile Badges
-    if (userProfile) userProfile.style.display = "flex";
-    if (homeUserProfile) homeUserProfile.style.display = "flex";
+    if (userProfile) userProfile.style.setProperty("display", "flex", "important");
+    if (homeUserProfile) homeUserProfile.style.setProperty("display", "flex", "important");
 
     // Default fallback values
     let displayName = user.displayName || user.email.split('@')[0];
     let userAvatar = '👤';
-    let userRole = 'Logistics Member';
-    let userCompany = 'Logistics Industry';
+    let userRole = 'Not Set';
+    let userCompany = 'Not Set';
 
     // Populate initial default UI state right away
-    updateProfileBadgesUI(displayName, userAvatar, userRole);
+    updateProfileBadgesUI(displayName, userAvatar, userRole, userCompany);
 
     // Fetch full live profile data from Firestore
     if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
@@ -3366,24 +3366,24 @@ function updateAuthUI(user) {
           const data = doc.data();
           displayName = data.name || data.displayName || displayName;
           userAvatar = data.avatar || '👤';
-          userRole = data.role || userRole;
-          userCompany = data.company || userCompany;
+          userRole = data.role || 'Not Set';
+          userCompany = data.company || 'Not Set';
           selectedAvatarSymbol = userAvatar;
           
-          updateProfileBadgesUI(displayName, userAvatar, userRole);
+          updateProfileBadgesUI(displayName, userAvatar, userRole, userCompany);
         }
       }).catch(err => console.error("Error fetching user profile:", err));
     }
   } else {
     // Logged out: Show login buttons, Hide profile badges
-    if (loginBtn) loginBtn.style.display = "flex";
-    if (userProfile) userProfile.style.display = "none";
-    if (homeLoginBtn) homeLoginBtn.style.display = "flex";
-    if (homeUserProfile) homeUserProfile.style.display = "none";
+    if (loginBtn) loginBtn.style.setProperty("display", "flex", "important");
+    if (userProfile) userProfile.style.setProperty("display", "none", "important");
+    if (homeLoginBtn) homeLoginBtn.style.setProperty("display", "flex", "important");
+    if (homeUserProfile) homeUserProfile.style.setProperty("display", "none", "important");
   }
 }
 
-function updateProfileBadgesUI(name, avatar, role) {
+function updateProfileBadgesUI(name, avatar, role, company) {
   const initial = avatar !== '👤' ? avatar : (name ? name.charAt(0) : "U").toUpperCase();
   const firstName = name.split(" ")[0];
 
@@ -3393,14 +3393,22 @@ function updateProfileBadgesUI(name, avatar, role) {
   if (homeInitialSpan) homeInitialSpan.textContent = initial;
   if (homeNameSpan) homeNameSpan.textContent = firstName;
 
-  // Sidebar Compact Badge
+  // Sidebar Compact Badge (Name ONLY as requested)
   const sidebarInitialSpan = document.getElementById("user-profile-initial");
   const sidebarNameSpan = document.getElementById("user-profile-name");
-  const sidebarRoleSpan = document.getElementById("user-profile-role-display");
-  
   if (sidebarInitialSpan) sidebarInitialSpan.textContent = initial;
   if (sidebarNameSpan) sidebarNameSpan.textContent = name;
-  if (sidebarRoleSpan) sidebarRoleSpan.textContent = role || "View Profile ⚙️";
+
+  // Profile Modal View Mode Card
+  const viewCompany = document.getElementById("view-user-company");
+  const viewRole = document.getElementById("view-user-role");
+  const modalName = document.getElementById("modal-user-name-display");
+  const modalAvatar = document.getElementById("modal-avatar-display");
+
+  if (viewCompany) viewCompany.textContent = company || "Not Set";
+  if (viewRole) viewRole.textContent = role || "Not Set";
+  if (modalName) modalName.textContent = name;
+  if (modalAvatar) modalAvatar.textContent = avatar || '👤';
 }
 
 function openAuthModal() {
@@ -3588,6 +3596,19 @@ async function handleForgotPassword(e) {
 /* ==========================================
    PROFILE & ACCOUNT MODAL MANAGEMENT
    ========================================== */
+function toggleProfileEditMode(isEdit) {
+  const viewSection = document.getElementById("profile-view-section");
+  const editSection = document.getElementById("profile-edit-section");
+  
+  if (isEdit) {
+    if (viewSection) viewSection.style.display = "none";
+    if (editSection) editSection.style.display = "block";
+  } else {
+    if (viewSection) viewSection.style.display = "block";
+    if (editSection) editSection.style.display = "none";
+  }
+}
+
 function openProfileModal() {
   if (!currentUser) {
     openAuthModal();
@@ -3597,37 +3618,48 @@ function openProfileModal() {
   const modal = document.getElementById("profile-modal");
   if (!modal) return;
 
+  // Always start in Read-Only View mode
+  toggleProfileEditMode(false);
+
   // Pre-fill header
   const displayName = currentUser.displayName || currentUser.email.split('@')[0];
   document.getElementById("modal-user-name-display").textContent = displayName;
   document.getElementById("modal-user-email-display").textContent = currentUser.email;
   document.getElementById("profile-input-name").value = displayName;
 
-  // Pre-fill form fields from Firestore
+  // Pre-fill form fields and view card from Firestore
   if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
     window.NEXUS_FIREBASE.db.collection("users").doc(currentUser.uid).get().then(doc => {
       if (doc.exists) {
         const data = doc.data();
-        document.getElementById("profile-input-name").value = data.name || displayName;
-        document.getElementById("profile-input-company").value = data.company || "";
-        document.getElementById("profile-input-role").value = data.role || "";
+        const realName = data.name || data.displayName || displayName;
+        const realCompany = data.company || "Not Set";
+        const realRole = data.role || "Not Set";
+        const realAvatar = data.avatar || "👤";
+
+        document.getElementById("profile-input-name").value = realName;
+        document.getElementById("profile-input-company").value = realCompany !== "Not Set" ? realCompany : "";
+        document.getElementById("profile-input-role").value = realRole !== "Not Set" ? realRole : "";
         
-        if (data.avatar) {
-          selectedAvatarSymbol = data.avatar;
-          document.getElementById("modal-avatar-display").textContent = data.avatar;
-          // highlight avatar option
-          document.querySelectorAll(".avatar-option").forEach(btn => {
-            if (btn.dataset.avatar === data.avatar) {
-              btn.classList.add("active");
-              btn.style.borderColor = "var(--accent-orange)";
-              btn.style.background = "#FFF7ED";
-            } else {
-              btn.classList.remove("active");
-              btn.style.borderColor = "var(--border-color)";
-              btn.style.background = "#F8FAFC";
-            }
-          });
-        }
+        document.getElementById("view-user-company").textContent = realCompany;
+        document.getElementById("view-user-role").textContent = realRole;
+        document.getElementById("modal-user-name-display").textContent = realName;
+        
+        selectedAvatarSymbol = realAvatar;
+        document.getElementById("modal-avatar-display").textContent = realAvatar;
+
+        // Highlight selected avatar option
+        document.querySelectorAll(".avatar-option").forEach(btn => {
+          if (btn.dataset.avatar === realAvatar) {
+            btn.classList.add("active");
+            btn.style.borderColor = "var(--accent-orange)";
+            btn.style.background = "#FFF7ED";
+          } else {
+            btn.classList.remove("active");
+            btn.style.borderColor = "var(--border-color)";
+            btn.style.background = "#F8FAFC";
+          }
+        });
       }
     });
   }
@@ -3682,26 +3714,26 @@ async function saveUserProfile(e) {
       await window.NEXUS_FIREBASE.db.collection("users").doc(currentUser.uid).set({
         name: name,
         displayName: name,
-        company: company,
-        role: role,
+        company: company || "Not Set",
+        role: role || "Not Set",
         avatar: selectedAvatarSymbol,
         updatedAt: new Date()
       }, { merge: true });
     }
 
-    // 3. Update local UI
-    updateAuthUI(currentUser);
+    // 3. Update local UI badges immediately
+    updateProfileBadgesUI(name, selectedAvatarSymbol, role, company);
 
-    // Show success alert
+    // Show success alert and return to View mode
     const successDiv = document.getElementById("profile-success-message");
     if (successDiv) {
       successDiv.style.display = "block";
       setTimeout(() => {
         successDiv.style.display = "none";
-        closeProfileModal();
-      }, 1500);
+        toggleProfileEditMode(false);
+      }, 1200);
     } else {
-      closeProfileModal();
+      toggleProfileEditMode(false);
     }
   } catch (err) {
     console.error("Error saving profile:", err);
