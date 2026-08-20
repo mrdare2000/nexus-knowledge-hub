@@ -252,6 +252,9 @@
     getAuth: () => auth,
     getFirestore: () => firestore,
     getRealtimeDb: () => realtimeDb,
+    get db() { if (!isFirebaseReady) initFirebase(); return firestore; },
+    get firestore() { if (!isFirebaseReady) initFirebase(); return firestore; },
+    get auth() { if (!isFirebaseReady) initFirebase(); return auth; },
     isReady: () => isFirebaseReady
   };
 

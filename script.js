@@ -3335,6 +3335,15 @@ function initAuth() {
   }
 }
 
+function getFirestoreDb() {
+  if (window.NEXUS_FIREBASE) {
+    if (window.NEXUS_FIREBASE.db) return window.NEXUS_FIREBASE.db;
+    if (typeof window.NEXUS_FIREBASE.getFirestore === 'function') return window.NEXUS_FIREBASE.getFirestore();
+  }
+  if (typeof firebase !== 'undefined' && firebase.firestore) return firebase.firestore();
+  return null;
+}
+
 function updateAuthUI(user) {
   const loginBtn = document.getElementById("sidebar-login-btn");
   const userProfile = document.getElementById("sidebar-user-profile");
@@ -3360,8 +3369,9 @@ function updateAuthUI(user) {
     updateProfileBadgesUI(displayName, userAvatar, userRole, userCompany);
 
     // Fetch full live profile data from Firestore
-    if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
-      window.NEXUS_FIREBASE.db.collection("users").doc(user.uid).get().then(doc => {
+    const db = getFirestoreDb();
+    if (db) {
+      db.collection("users").doc(user.uid).get().then(doc => {
         if (doc.exists) {
           const data = doc.data();
           displayName = data.name || data.displayName || displayName;
@@ -3628,8 +3638,9 @@ function openProfileModal() {
   document.getElementById("profile-input-name").value = displayName;
 
   // Pre-fill form fields and view card from Firestore
-  if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
-    window.NEXUS_FIREBASE.db.collection("users").doc(currentUser.uid).get().then(doc => {
+  const db = getFirestoreDb();
+  if (db) {
+    db.collection("users").doc(currentUser.uid).get().then(doc => {
       if (doc.exists) {
         const data = doc.data();
         const realName = data.name || data.displayName || displayName;
@@ -3710,8 +3721,9 @@ async function saveUserProfile(e) {
     await currentUser.updateProfile({ displayName: name });
 
     // 2. Update Firestore user document
-    if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.db) {
-      await window.NEXUS_FIREBASE.db.collection("users").doc(currentUser.uid).set({
+    const db = getFirestoreDb();
+    if (db) {
+      await db.collection("users").doc(currentUser.uid).set({
         name: name,
         displayName: name,
         company: company || "Not Set",
