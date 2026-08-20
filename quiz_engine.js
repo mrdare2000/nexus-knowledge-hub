@@ -465,6 +465,11 @@
     userAttempts.unshift(attemptRecord);
     localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts));
 
+    // Save Cloud Backup via Firebase Backend Service
+    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
+      window.NEXUS_FIREBASE.saveQuizAttempt(attemptRecord);
+    }
+
     isAttemptingQuiz = false;
     currentViewingAttempt = attemptRecord;
     renderQuizHubUI();
