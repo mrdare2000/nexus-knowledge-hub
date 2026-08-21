@@ -3714,18 +3714,17 @@ async function handleSignUp(e) {
     // signUp returns the user object directly from firebase_config.js
     const user = await window.NEXUS_FIREBASE.signUp(email, password, name);
     
-    // Save company and role to Firestore
-    const db = getFirestoreDb();
-    if (db && user) {
-      await db.collection("users").doc(user.uid).set({
+    // Save profile details to both Firestore & Realtime DB
+    if (user && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveUserProfileData === 'function') {
+      await window.NEXUS_FIREBASE.saveUserProfileData(user.uid, {
         company: company || "Not Set",
         role: role || "Not Set",
         name: name,
         displayName: name,
         email: email,
         avatar: '👤',
-        createdAt: new Date()
-      }, { merge: true });
+        createdAt: new Date().toISOString()
+      });
     }
     
     // Trigger UI update
@@ -3909,17 +3908,15 @@ async function saveUserProfile(e) {
     // 1. Update Firebase Auth displayName
     await currentUser.updateProfile({ displayName: name });
 
-    // 2. Update Firestore user document
-    const db = getFirestoreDb();
-    if (db) {
-      await db.collection("users").doc(currentUser.uid).set({
+    // 2. Update both Firestore & Realtime DB user document
+    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveUserProfileData === 'function') {
+      await window.NEXUS_FIREBASE.saveUserProfileData(currentUser.uid, {
         name: name,
         displayName: name,
         company: company || "Not Set",
         role: role || "Not Set",
-        avatar: selectedAvatarSymbol,
-        updatedAt: new Date()
-      }, { merge: true });
+        avatar: selectedAvatarSymbol
+      });
     }
 
     // 3. Update local UI badges immediately

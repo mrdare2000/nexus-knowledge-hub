@@ -213,14 +213,14 @@
             ${filtered.length === 0 ? `
               <tr><td colspan="9" class="admin-empty-row">No users found matching your search.</td></tr>
             ` : filtered.map((u, i) => {
-              const userAttempts = allAttempts.filter(a => a.userId === u.id);
-              const isExpanded = expandedRowId === u.id;
-              const name = u.displayName || u.name || u.email?.split('@')[0] || 'Unknown';
-              const avatar = u.avatar || '👤';
-              const role = u.role || '—';
-              const company = u.company || '—';
-              const joined = formatDate(u.createdAt);
-              return `
+      const userAttempts = allAttempts.filter(a => a.userId === u.id);
+      const isExpanded = expandedRowId === u.id;
+      const name = u.displayName || u.name || u.email?.split('@')[0] || 'Unknown';
+      const avatar = u.avatar || '👤';
+      const role = u.role || '—';
+      const company = u.company || '—';
+      const joined = formatDate(u.createdAt);
+      return `
                 <tr class="admin-user-row ${isExpanded ? 'expanded' : ''}" data-uid="${u.id}">
                   <td>${i + 1}</td>
                   <td><span class="admin-avatar-cell">${avatar}</span></td>
@@ -241,7 +241,7 @@
                 </tr>
                 ${isExpanded ? renderUserQuizHistory(u.id, userAttempts) : ''}
               `;
-            }).join('')}
+    }).join('')}
           </tbody>
         </table>
       </div>
@@ -357,7 +357,7 @@
 
       <div id="admin-quiz-content">
         ${quizSubView === 'user-wise' ? renderUserWiseView() :
-          quizSubView === 'quiz-wise' ? renderQuizWiseView() :
+        quizSubView === 'quiz-wise' ? renderQuizWiseView() :
           renderAllAttemptsView()}
       </div>
 
@@ -403,10 +403,10 @@
     return `
       <div class="admin-accordion-list">
         ${entries.map(([uid, { user, attempts }]) => {
-          const avg = Math.round(attempts.reduce((s, a) => s + (a.percentage || 0), 0) / attempts.length);
-          const best = Math.max(...attempts.map(a => a.percentage || 0));
-          const isOpen = expandedRowId === 'uw-' + uid;
-          return `
+      const avg = Math.round(attempts.reduce((s, a) => s + (a.percentage || 0), 0) / attempts.length);
+      const best = Math.max(...attempts.map(a => a.percentage || 0));
+      const isOpen = expandedRowId === 'uw-' + uid;
+      return `
             <div class="admin-accordion-item ${isOpen ? 'open' : ''}">
               <div class="admin-accordion-header" onclick="window.NEXUS_ADMIN.toggleUserExpand('uw-${uid}')">
                 <div class="admin-acc-left">
@@ -445,7 +445,7 @@
               ` : ''}
             </div>
           `;
-        }).join('')}
+    }).join('')}
       </div>
     `;
   }
@@ -466,11 +466,11 @@
     return `
       <div class="admin-accordion-list">
         ${entries.map(([title, attempts]) => {
-          const avg = Math.round(attempts.reduce((s, a) => s + (a.percentage || 0), 0) / attempts.length);
-          const passRate = Math.round(attempts.filter(a => (a.percentage || 0) >= 50).length / attempts.length * 100);
-          const best = Math.max(...attempts.map(a => a.percentage || 0));
-          const isOpen = expandedRowId === 'qw-' + title;
-          return `
+      const avg = Math.round(attempts.reduce((s, a) => s + (a.percentage || 0), 0) / attempts.length);
+      const passRate = Math.round(attempts.filter(a => (a.percentage || 0) >= 50).length / attempts.length * 100);
+      const best = Math.max(...attempts.map(a => a.percentage || 0));
+      const isOpen = expandedRowId === 'qw-' + title;
+      return `
             <div class="admin-accordion-item ${isOpen ? 'open' : ''}">
               <div class="admin-accordion-header" onclick="window.NEXUS_ADMIN.toggleUserExpand('qw-${escapeAttr(title)}')">
                 <div class="admin-acc-left">
@@ -509,7 +509,7 @@
               ` : ''}
             </div>
           `;
-        }).join('')}
+    }).join('')}
       </div>
     `;
   }
