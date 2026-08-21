@@ -3443,6 +3443,7 @@ function updateAuthUI(user) {
 }
 
 function updateProfileBadgesUI(name, avatar, role, company) {
+  window.currentUserProfileData = { name, avatar, role, company };
   const initial = avatar !== '👤' ? avatar : (name ? name.charAt(0) : "U").toUpperCase();
   const firstName = name.split(" ")[0];
 

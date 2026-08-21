@@ -92,7 +92,19 @@
   function renderCandidateStrip(user) {
     const avatar = (typeof selectedAvatarSymbol !== 'undefined') ? selectedAvatarSymbol : '👤';
     const name = user.displayName || user.email.split('@')[0];
-    const email = user.email;
+    
+    let subtext = user.email;
+    if (window.currentUserProfileData) {
+      const role = window.currentUserProfileData.role;
+      const company = window.currentUserProfileData.company;
+      if (role && role !== "Not Set" && company && company !== "Not Set") {
+        subtext = `${role} • ${company}`;
+      } else if (role && role !== "Not Set") {
+        subtext = role;
+      } else if (company && company !== "Not Set") {
+        subtext = company;
+      }
+    }
 
     return `
       <div class="quiz-candidate-strip" onclick="openProfileModal()" title="Click to Edit Profile Info" style="background: var(--bg-white); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 14px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(10,37,64,0.04); cursor: pointer; transition: all 0.2s ease;">
@@ -105,7 +117,7 @@
               ${name}
               <span style="font-size: 0.78rem; color: var(--accent-orange); font-weight: 600; background: #FFF7ED; border: 1px solid rgba(255, 90, 31, 0.3); padding: 2px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;">✏️ Edit Profile</span>
             </div>
-            <div style="font-size: 0.82rem; color: var(--text-muted);">${email}</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin-top: 2px;">${subtext}</div>
           </div>
         </div>
       </div>
