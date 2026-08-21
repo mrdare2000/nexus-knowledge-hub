@@ -285,38 +285,28 @@
 
     const usersMap = {};
 
-    // Source A: Cloud Firestore
-    if (firestore) {
-      try {
-        const snapshot = await firestore.collection("users").get();
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const uid = doc.id || d.uid || d.id;
-          usersMap[uid] = { id: uid, uid: uid, ...d };
-        });
-      } catch (e) {
-        console.warn("Admin: Firestore fetch users warning:", e.message);
-      }
-    }
+    const fsPromise = firestore ? firestore.collection("users").get().then(snapshot => {
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        const uid = doc.id || d.uid || d.id;
+        usersMap[uid] = { id: uid, uid: uid, ...d };
+      });
+    }).catch(e => console.warn("Admin: Firestore fetch users warning:", e.message)) : Promise.resolve();
 
-    // Source B: Realtime Database
-    if (realtimeDb) {
-      try {
-        const snapshot = await realtimeDb.ref("users").once("value");
-        const val = snapshot.val();
-        if (val) {
-          Object.keys(val).forEach(key => {
-            const item = val[key];
-            const uid = item.uid || item.id || key;
-            if (!usersMap[uid]) {
-              usersMap[uid] = { id: uid, uid: uid, ...item };
-            }
-          });
-        }
-      } catch (e) {
-        console.warn("Admin: Realtime DB fetch users warning:", e.message);
+    const rtPromise = realtimeDb ? realtimeDb.ref("users").once("value").then(snapshot => {
+      const val = snapshot.val();
+      if (val) {
+        Object.keys(val).forEach(key => {
+          const item = val[key];
+          const uid = item.uid || item.id || key;
+          if (!usersMap[uid]) {
+            usersMap[uid] = { id: uid, uid: uid, ...item };
+          }
+        });
       }
-    }
+    }).catch(e => console.warn("Admin: Realtime DB fetch users warning:", e.message)) : Promise.resolve();
+
+    await Promise.allSettled([fsPromise, rtPromise]);
 
     const users = Object.values(usersMap);
     users.sort((a, b) => {
@@ -333,51 +323,37 @@
 
     const attemptsMap = {};
 
-    // Source A: Cloud Firestore
-    if (firestore) {
-      try {
-        const snapshot = await firestore.collection("quiz_attempts").get();
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const id = d.attemptId || doc.id;
-          attemptsMap[id] = { id: id, attemptId: id, ...d };
-        });
-      } catch (e) {
-        console.warn("Admin: Firestore fetch attempts warning:", e.message);
-      }
-    }
-
-    // Source B: Realtime Database
-    if (realtimeDb) {
-      try {
-        const snapshot = await realtimeDb.ref("attempts").once("value");
-        const val = snapshot.val();
-        if (val) {
-          Object.keys(val).forEach(key => {
-            const item = val[key];
-            const id = item.attemptId || key;
-            if (!attemptsMap[id]) {
-              attemptsMap[id] = { id: id, attemptId: id, ...item };
-            }
-          });
-        }
-      } catch (e) {
-        console.warn("Admin: Realtime DB fetch attempts warning:", e.message);
-      }
-    }
-
-    // Source C: LocalStorage Backup (Sync if local device has attempts not yet pushed)
+    // Source C: LocalStorage Backup (Immediate inclusion)
     try {
       const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
       localAttempts.forEach(item => {
         const id = item.attemptId;
-        if (id && !attemptsMap[id]) {
-          attemptsMap[id] = item;
-          // Auto-sync missing local attempt to Cloud DB
-          saveQuizAttempt(item);
-        }
+        if (id) attemptsMap[id] = item;
       });
     } catch (e) {}
+
+    const fsPromise = firestore ? firestore.collection("quiz_attempts").get().then(snapshot => {
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        const id = d.attemptId || doc.id;
+        attemptsMap[id] = { id: id, attemptId: id, ...d };
+      });
+    }).catch(e => console.warn("Admin: Firestore fetch attempts warning:", e.message)) : Promise.resolve();
+
+    const rtPromise = realtimeDb ? realtimeDb.ref("attempts").once("value").then(snapshot => {
+      const val = snapshot.val();
+      if (val) {
+        Object.keys(val).forEach(key => {
+          const item = val[key];
+          const id = item.attemptId || key;
+          if (!attemptsMap[id]) {
+            attemptsMap[id] = { id: id, attemptId: id, ...item };
+          }
+        });
+      }
+    }).catch(e => console.warn("Admin: Realtime DB fetch attempts warning:", e.message)) : Promise.resolve();
+
+    await Promise.allSettled([fsPromise, rtPromise]);
 
     const attempts = Object.values(attemptsMap);
     attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());

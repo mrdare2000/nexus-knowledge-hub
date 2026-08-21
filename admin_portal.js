@@ -44,7 +44,7 @@
     await loadAllData();
   }
 
-  function fetchWithTimeout(promiseFn, ms = 3500) {
+  function fetchWithTimeout(promiseFn, ms = 10000) {
     return new Promise((resolve) => {
       let settled = false;
       const timer = setTimeout(() => {
@@ -87,8 +87,8 @@
     try {
       if (window.NEXUS_FIREBASE) {
         const [users, attempts] = await Promise.all([
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 3500),
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 3500)
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 10000),
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 10000)
         ]);
         allUsers = users || [];
         allAttempts = attempts || [];
