@@ -95,20 +95,18 @@
     const email = user.email;
 
     return `
-      <div class="quiz-candidate-strip" style="background: var(--bg-white); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 14px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(10,37,64,0.04);">
+      <div class="quiz-candidate-strip" onclick="openProfileModal()" title="Click to Edit Profile Info" style="background: var(--bg-white); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 14px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(10,37,64,0.04); cursor: pointer; transition: all 0.2s ease;">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <div style="width: 44px; height: 44px; border-radius: 50%; background: #FFF7ED; border: 2px solid var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: #FFF7ED; border: 2px solid var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: 0 2px 8px rgba(255, 90, 31, 0.25); flex-shrink: 0;">
             ${avatar}
           </div>
           <div>
-            <div style="font-weight: 800; font-size: 1.05rem; color: var(--primary-navy);">${name}</div>
+            <div style="font-weight: 800; font-size: 1.05rem; color: var(--primary-navy); display: flex; align-items: center; gap: 8px;">
+              ${name}
+              <span style="font-size: 0.78rem; color: var(--accent-orange); font-weight: 600; background: #FFF7ED; border: 1px solid rgba(255, 90, 31, 0.3); padding: 2px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;">✏️ Edit Profile</span>
+            </div>
             <div style="font-size: 0.82rem; color: var(--text-muted);">${email}</div>
           </div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <span style="background: rgba(16, 185, 129, 0.12); color: #059669; padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 6px;">
-            <span>🟢</span> Logged In Candidate
-          </span>
         </div>
       </div>
     `;
