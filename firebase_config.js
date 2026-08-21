@@ -326,11 +326,6 @@
     }
   }
 
-    const attempts = Object.values(attemptsMap);
-    attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
-    return attempts;
-  }
-
   async function deleteUserData(uid) {
     if (!isFirebaseReady && !initFirebase()) return false;
     if (!uid) return false;
