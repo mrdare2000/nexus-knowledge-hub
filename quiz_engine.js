@@ -530,17 +530,20 @@
     else if (percentage >= 50) grade = "Pass / Competent Practitioner 🥉";
 
     const currentUser = getCurrentAuthUser();
-    const candidateName = currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "Logistics Candidate";
+    const profile = window.currentUserProfileData || {};
+    const candidateName = profile.name || (currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "Logistics Candidate");
     const candidateEmail = currentUser ? currentUser.email : "candidate@nexus.com";
     const candidateUid = currentUser ? currentUser.uid : "usr_guest";
+    const candidateRole = (profile.role && profile.role !== 'Not Set') ? profile.role : '';
+    const candidateCompany = (profile.company && profile.company !== 'Not Set') ? profile.company : '';
 
     const attemptRecord = {
       attemptId: 'att_' + Date.now(),
       userId: candidateUid,
       userName: candidateName,
       userEmail: candidateEmail,
-      userCompany: 'Logistics Professional',
-      userRole: 'Logistics Professional',
+      userCompany: candidateCompany || 'Not Set',
+      userRole: candidateRole || 'Not Set',
       weekId: activeQuiz.id,
       weekTitle: activeQuiz.title,
       mcqScore: mcqScore,
@@ -567,13 +570,18 @@
 
   // Render Quiz Results View Screen
   function renderQuizResultsView(attempt) {
+    const subtext = [attempt.userRole, attempt.userCompany].filter(val => val && val !== 'Not Set').join(' • ');
+
     return `
       <div class="quiz-results-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
         <!-- Results Card Header -->
         <div style="background: linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%); color: #FFF; padding: 35px; border-radius: 24px; text-align: center; margin-bottom: 30px; box-shadow: 0 15px 35px rgba(10,37,64,0.3);">
-          <h2 style="font-family: 'Outfit', sans-serif; color: #FFF; font-size: 2rem; margin: 0 0 10px 0;">${attempt.weekTitle}</h2>
-          <p style="color: #94A3B8; font-size: 0.95rem; margin-bottom: 25px;">Candidate: <strong>${attempt.userName}</strong></p>
+          <h2 style="font-family: 'Outfit', sans-serif; color: #FFF; font-size: 2rem; margin: 0 0 8px 0;">${attempt.weekTitle}</h2>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #FFF; margin: 6px 0 3px 0;">${attempt.userName}</div>
+          <div style="font-size: 0.88rem; color: #94A3B8; margin-bottom: 24px; font-weight: 500;">
+            ${subtext || 'Logistics Candidate'}
+          </div>
 
           <!-- Big Score Circle -->
           <div style="background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 25px; max-width: 320px; margin: 0 auto 25px auto;">
