@@ -479,14 +479,19 @@
       if (q.type === 'mcq') {
         const selectedRadio = form.querySelector(`input[name="q_${q.id}"]:checked`);
         const userChoiceIdx = selectedRadio ? parseInt(selectedRadio.value) : -1;
-        const isCorrect = userChoiceIdx === q.correctAnswer;
+        const correctIdx = (typeof q.answerIndex !== 'undefined') ? q.answerIndex : q.correctAnswer;
+        const isCorrect = (userChoiceIdx === correctIdx);
         if (isCorrect) mcqScore++;
+
+        const correctAnsText = (q.options && typeof correctIdx === 'number' && q.options[correctIdx]) 
+          ? q.options[correctIdx] 
+          : (q.correctAnswer || 'N/A');
 
         detailedResults.push({
           questionId: q.id,
           question: q.question,
           userAnswer: userChoiceIdx >= 0 ? q.options[userChoiceIdx] : 'No Answer',
-          correctAnswer: q.options[q.correctAnswer],
+          correctAnswer: correctAnsText,
           isCorrect: isCorrect,
           explanation: q.explanation
         });
@@ -494,11 +499,14 @@
         const inputField = form.querySelector(`input[name="q_${q.id}"]`);
         const userText = inputField ? inputField.value.trim().toLowerCase() : '';
         
+        const validKeywords = q.keywords || q.acceptedKeywords || [];
+        const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
+
         let isCorrect = false;
-        if (q.acceptedKeywords && q.acceptedKeywords.length > 0) {
-          isCorrect = q.acceptedKeywords.some(kw => userText.includes(kw.toLowerCase()));
-        } else if (q.correctAnswer) {
-          isCorrect = userText.includes(q.correctAnswer.toLowerCase());
+        if (validKeywords.length > 0) {
+          isCorrect = validKeywords.some(kw => userText.includes(kw.toLowerCase()));
+        } else if (modelAns) {
+          isCorrect = userText.includes(modelAns.toLowerCase());
         }
         if (isCorrect) shortScore++;
 
@@ -506,7 +514,7 @@
           questionId: q.id,
           question: q.question,
           userAnswer: userText || 'No Answer',
-          correctAnswer: q.acceptedKeywords ? q.acceptedKeywords.join(' / ') : q.correctAnswer,
+          correctAnswer: modelAns,
           isCorrect: isCorrect,
           explanation: q.explanation
         });
