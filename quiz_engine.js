@@ -5,7 +5,7 @@
   'use strict';
 
   // State Management
-  let userAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+  let userAttempts = [];
   let activeWeekIndex = 0;
   let activeQuiz = null;
   let isAttemptingQuiz = false;
@@ -37,7 +37,7 @@
   }
 
   // Render Core UI Shell
-  function renderQuizHubUI() {
+  async function renderQuizHubUI() {
     const container = document.getElementById('quiz-hub-container');
     if (!container) return;
 
@@ -52,15 +52,37 @@
     // Auto-regrade any previous 0% attempts caused by earlier schema mismatch
     regradePreviousZeroAttempts(userAttempts);
 
-    // 2. Fetch remote attempts from Firestore if logged in
-    if (currentUser && !fetchedRemoteAttempts && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.fetchQuizAttempts === 'function') {
-      fetchedRemoteAttempts = true;
-      window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid).then(remoteAttempts => {
-        if (remoteAttempts && remoteAttempts.length > 0) {
-          userAttempts = regradePreviousZeroAttempts(remoteAttempts);
-          renderQuizHubUI();
+    // 2. Fetch remote attempts from Firestore if logged in (Backend is primary source)
+    if (currentUser && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.fetchQuizAttempts === 'function') {
+      if (!fetchedRemoteAttempts) {
+        fetchedRemoteAttempts = true;
+        try {
+          const remoteAttempts = await window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid);
+          if (remoteAttempts && remoteAttempts.length > 0) {
+            userAttempts = regradePreviousZeroAttempts(remoteAttempts);
+            // Update localStorage cache with backend data
+            try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
+          } else {
+            // Backend has no data — try localStorage cache as fallback for offline scenarios
+            try {
+              const cached = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+              if (cached.length > 0) {
+                userAttempts = regradePreviousZeroAttempts(cached);
+              }
+            } catch(e) {}
+          }
+        } catch(err) {
+          console.error("Error fetching user attempts from backend:", err);
+          // Fallback to localStorage cache on network error
+          try {
+            const cached = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+            if (cached.length > 0) userAttempts = cached;
+          } catch(e) {}
         }
-      }).catch(err => console.error("Error fetching user attempts:", err));
+      }
+    } else if (!currentUser) {
+      // Not logged in — clear attempts
+      userAttempts = [];
     }
 
     if (currentViewingAttempt) {
@@ -556,7 +578,7 @@
   }
 
   // Grade Assessment Logic
-  function gradeAssessment(form) {
+  async function gradeAssessment(form) {
     let mcqScore = 0;
     let shortScore = 0;
     const detailedResults = [];
@@ -642,11 +664,23 @@
     };
 
     userAttempts.unshift(attemptRecord);
-    localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts));
 
-    // Save Cloud Backup via Firebase Backend Service
+    // PRIMARY: Save to Cloud Firebase Backend (must succeed)
+    let backendSaved = false;
     if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
-      window.NEXUS_FIREBASE.saveQuizAttempt(attemptRecord);
+      try {
+        backendSaved = await window.NEXUS_FIREBASE.saveQuizAttempt(attemptRecord);
+        console.log('☁️ Quiz attempt saved to Cloud Backend:', backendSaved);
+      } catch (err) {
+        console.error('❌ Failed to save quiz attempt to backend:', err);
+      }
+    }
+
+    // SECONDARY: Cache to localStorage as backup
+    try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
+
+    if (!backendSaved) {
+      console.warn('⚠️ Quiz attempt saved to local cache only. Backend sync pending.');
     }
 
     isAttemptingQuiz = false;

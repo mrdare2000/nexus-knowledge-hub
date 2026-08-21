@@ -304,33 +304,7 @@
 
     const usersMap = {};
 
-    // Source 1: LocalStorage Backup (Immediate inclusion)
-    try {
-      const localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
-      localUsers.forEach(item => {
-        const uid = item.uid || item.id;
-        if (uid) usersMap[uid] = item;
-      });
-    } catch (e) {}
-
-    // Source 2: Current Auth Session User
-    if (auth && auth.currentUser) {
-      const cu = auth.currentUser;
-      if (!usersMap[cu.uid]) {
-        usersMap[cu.uid] = {
-          uid: cu.uid,
-          id: cu.uid,
-          email: cu.email,
-          displayName: cu.displayName || cu.email.split('@')[0],
-          name: cu.displayName || cu.email.split('@')[0],
-          role: 'Logistics Student',
-          company: 'University of Moratuwa',
-          avatar: '🎓',
-          createdAt: new Date().toISOString()
-        };
-      }
-    }
-
+    // Source 1: Cloud Firestore (Primary)
     const fsPromise = firestore ? firestore.collection("users").get().then(snapshot => {
       snapshot.forEach(doc => {
         const d = doc.data();
@@ -339,6 +313,7 @@
       });
     }).catch(e => console.warn("Admin: Firestore fetch users warning:", e.message)) : Promise.resolve();
 
+    // Source 2: Realtime DB (Secondary backup)
     const rtPromise = realtimeDb ? realtimeDb.ref("users").once("value").then(snapshot => {
       const val = snapshot.val();
       if (val) {
@@ -361,6 +336,7 @@
       return dateB.getTime() - dateA.getTime();
     });
 
+    console.log(`☁️ Admin: Fetched ${users.length} users from Cloud Backend.`);
     return users;
   }
 
@@ -369,15 +345,7 @@
 
     const attemptsMap = {};
 
-    // Source C: LocalStorage Backup (Immediate inclusion)
-    try {
-      const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-      localAttempts.forEach(item => {
-        const id = item.attemptId;
-        if (id) attemptsMap[id] = item;
-      });
-    } catch (e) {}
-
+    // Source 1: Cloud Firestore (Primary)
     const fsPromise = firestore ? firestore.collection("quiz_attempts").get().then(snapshot => {
       snapshot.forEach(doc => {
         const d = doc.data();
@@ -386,6 +354,7 @@
       });
     }).catch(e => console.warn("Admin: Firestore fetch attempts warning:", e.message)) : Promise.resolve();
 
+    // Source 2: Realtime DB (Secondary backup)
     const rtPromise = realtimeDb ? realtimeDb.ref("attempts").once("value").then(snapshot => {
       const val = snapshot.val();
       if (val) {
@@ -403,6 +372,7 @@
 
     const attempts = Object.values(attemptsMap);
     attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
+    console.log(`☁️ Admin: Fetched ${attempts.length} quiz attempts from Cloud Backend.`);
     return attempts;
   }
 
@@ -452,14 +422,7 @@
         catch (rtErr) { console.warn("Realtime DB cleanup skipped:", rtErr.message); }
       }
 
-      // Also remove from local storage
-      try {
-        let localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-        localAttempts = localAttempts.filter(a => a.attemptId !== attemptId);
-        localStorage.setItem('nexus_quiz_attempts', JSON.stringify(localAttempts));
-      } catch(e) {}
-
-      console.log(`✅ Admin: Deleted quiz attempt ${attemptId}.`);
+      console.log(`✅ Admin: Deleted quiz attempt ${attemptId} from Cloud Backend.`);
       return true;
     } catch (e) {
       console.error("Admin: Error deleting quiz attempt:", e.message);

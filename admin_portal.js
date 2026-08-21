@@ -81,34 +81,41 @@
   }
 
   async function loadAllData() {
-    // 1. Immediate Synchronous Load from Local Storage Backups
-    try {
-      const localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
-      const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-      if (localUsers.length > 0) allUsers = localUsers;
-      if (localAttempts.length > 0) allAttempts = localAttempts;
-    } catch(e) {}
-
-    // Render initial content area immediately
-    isLoading = false;
+    // Show loading spinner while fetching from Cloud Backend
+    isLoading = true;
     renderContentArea();
 
-    // 2. Asynchronously fetch and merge Cloud Firestore & Realtime DB records
+    // Fetch ONLY from Cloud Firebase Backend — NO localStorage
     try {
       if (window.NEXUS_FIREBASE) {
         const [users, attempts] = await Promise.all([
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 8000),
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 8000)
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 12000),
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 12000)
         ]);
-        if (users && users.length > 0) allUsers = users;
-        if (attempts && attempts.length > 0) allAttempts = attempts;
+        allUsers = (users && users.length > 0) ? users : [];
+        allAttempts = (attempts && attempts.length > 0) ? attempts : [];
+        console.log(`🛡️ Admin Portal: Loaded ${allUsers.length} users, ${allAttempts.length} attempts from Cloud Backend.`);
+      } else {
+        console.warn("Admin Portal: NEXUS_FIREBASE not available.");
+        allUsers = [];
+        allAttempts = [];
       }
     } catch (err) {
       console.error("Admin Portal Data Load Error:", err);
+      allUsers = [];
+      allAttempts = [];
     } finally {
       isLoading = false;
       renderContentArea();
     }
+  }
+
+  function clearAllCaches() {
+    try {
+      localStorage.removeItem('nexus_registered_users');
+      localStorage.removeItem('nexus_quiz_attempts');
+      console.log('🧹 All localStorage caches cleared.');
+    } catch(e) {}
   }
 
   function renderAdminShell() {
@@ -789,9 +796,12 @@
   window.NEXUS_ADMIN = {
     init: initAdminPortal,
     refreshData: async function () {
-      showAdminToast('🔄 Refreshing data...');
+      showAdminToast('🔄 Clearing caches & refreshing from Cloud Backend...');
+      clearAllCaches();
       await loadAllData();
+      showAdminToast('✅ Data refreshed from Cloud Backend.');
     },
+    clearCaches: clearAllCaches,
     exit: function () {
       adminAuthenticated = false;
       allUsers = [];
