@@ -275,124 +275,56 @@
     }
   }
 
-  // Helper timeout wrapper to prevent infinite hanging promises
-  function withTimeout(promise, ms = 3500, fallback = null) {
-    return Promise.race([
-      promise,
-      new Promise(resolve => setTimeout(() => resolve(fallback), ms))
-    ]);
-  }
-
   // ----------------------------------------------------
-  // 5. ADMIN PORTAL — DATA ACCESS FUNCTIONS
+  // 5. ADMIN PORTAL — DATA ACCESS FUNCTIONS (100% Pure Cloud Backend)
   // ----------------------------------------------------
 
   async function fetchAllUsers() {
     if (!isFirebaseReady && !initFirebase()) return [];
-    
-    const usersMap = {};
+    if (!firestore) return [];
 
-    // 1. Try Cloud Firestore (max 3.5s timeout)
-    if (firestore) {
-      try {
-        const snapshot = await withTimeout(firestore.collection("users").get(), 3500, null);
-        if (snapshot && snapshot.forEach) {
-          snapshot.forEach(doc => {
-            const d = doc.data();
-            const uid = doc.id || d.uid || d.id;
-            usersMap[uid] = { id: uid, uid: uid, ...d };
-          });
-        }
-      } catch (e) {
-        console.warn("Admin: Firestore fetchAllUsers warning:", e.message);
-      }
+    try {
+      const snapshot = await firestore.collection("users").get();
+      const users = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        const uid = doc.id || d.uid || d.id;
+        users.push({ id: uid, uid: uid, ...d });
+      });
+
+      users.sort((a, b) => {
+        const dateA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt)) : new Date(0);
+        const dateB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate() : new Date(b.createdAt)) : new Date(0);
+        return dateB.getTime() - dateA.getTime();
+      });
+
+      return users;
+    } catch (e) {
+      console.error("Admin Portal: Error fetching users from Cloud Firestore:", e);
+      return [];
     }
-
-    // 2. Try Realtime Database (max 3.5s timeout)
-    if (realtimeDb) {
-      try {
-        const snapshot = await withTimeout(realtimeDb.ref("users").once("value"), 3500, null);
-        if (snapshot && typeof snapshot.val === 'function') {
-          const val = snapshot.val();
-          if (val) {
-            Object.keys(val).forEach(key => {
-              if (!usersMap[key]) {
-                usersMap[key] = { id: key, uid: key, ...val[key] };
-              } else {
-                usersMap[key] = { ...val[key], ...usersMap[key] };
-              }
-            });
-          }
-        }
-      } catch (e) {
-        console.warn("Admin: Realtime DB fetchAllUsers warning:", e.message);
-      }
-    }
-
-    const users = Object.values(usersMap);
-    users.sort((a, b) => {
-      const dateA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt)) : new Date(0);
-      const dateB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate() : new Date(b.createdAt)) : new Date(0);
-      return dateB.getTime() - dateA.getTime();
-    });
-
-    return users;
   }
 
   async function fetchAllQuizAttempts() {
     if (!isFirebaseReady && !initFirebase()) return [];
+    if (!firestore) return [];
 
-    const attemptsMap = {};
-
-    // 1. Try Cloud Firestore (max 3.5s timeout)
-    if (firestore) {
-      try {
-        const snapshot = await withTimeout(firestore.collection("quiz_attempts").get(), 3500, null);
-        if (snapshot && snapshot.forEach) {
-          snapshot.forEach(doc => {
-            const d = doc.data();
-            const id = d.attemptId || doc.id;
-            attemptsMap[id] = { id: id, attemptId: id, ...d };
-          });
-        }
-      } catch (e) {
-        console.warn("Admin: Firestore fetchAllQuizAttempts warning:", e.message);
-      }
-    }
-
-    // 2. Try Realtime Database (max 3.5s timeout)
-    if (realtimeDb) {
-      try {
-        const snapshot = await withTimeout(realtimeDb.ref("attempts").once("value"), 3500, null);
-        if (snapshot && typeof snapshot.val === 'function') {
-          const val = snapshot.val();
-          if (val) {
-            Object.keys(val).forEach(key => {
-              const item = val[key];
-              const id = item.attemptId || key;
-              if (!attemptsMap[id]) {
-                attemptsMap[id] = { id: id, attemptId: id, ...item };
-              }
-            });
-          }
-        }
-      } catch (e) {
-        console.warn("Admin: Realtime DB fetchAllQuizAttempts warning:", e.message);
-      }
-    }
-
-    // 3. Try LocalStorage backup
     try {
-      const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-      localAttempts.forEach(item => {
-        const id = item.attemptId;
-        if (id && !attemptsMap[id]) {
-          attemptsMap[id] = { id: id, attemptId: id, ...item };
-        }
+      const snapshot = await firestore.collection("quiz_attempts").get();
+      const attempts = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        const id = d.attemptId || doc.id;
+        attempts.push({ id: id, attemptId: id, ...d });
       });
+
+      attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
+      return attempts;
     } catch (e) {
-      console.warn("Admin: LocalStorage attempt parsing warning:", e.message);
+      console.error("Admin Portal: Error fetching quiz attempts from Cloud Firestore:", e);
+      return [];
     }
+  }
 
     const attempts = Object.values(attemptsMap);
     attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
