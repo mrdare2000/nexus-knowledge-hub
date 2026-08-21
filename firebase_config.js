@@ -57,8 +57,9 @@
     if (!isFirebaseReady && !initFirebase()) throw new Error("Firebase backend unavailable.");
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
+    
     if (displayName) {
-      await user.updateProfile({ displayName: displayName });
+      user.updateProfile({ displayName: displayName }).catch(e => console.warn(e.message));
     }
 
     const userData = {
@@ -73,27 +74,21 @@
       createdAt: new Date().toISOString()
     };
 
-    // Save to Cloud Firestore
-    if (firestore) {
-      try {
-        await firestore.collection("users").doc(user.uid).set(userData, { merge: true });
-      } catch (e) { console.warn("Firestore user save warning:", e.message); }
-    }
-
-    // Save to Realtime Database
-    if (realtimeDb) {
-      try {
-        await realtimeDb.ref("users/" + user.uid).set(userData);
-      } catch (e) { console.warn("Realtime DB user save warning:", e.message); }
-    }
-
-    // Save to LocalStorage Backup
+    // Save to LocalStorage Backup synchronously
     try {
       let localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
       localUsers = localUsers.filter(u => u.uid !== user.uid);
       localUsers.push(userData);
       localStorage.setItem('nexus_registered_users', JSON.stringify(localUsers));
     } catch(e) {}
+
+    // Save to Cloud Firestore & Realtime DB asynchronously in background
+    if (firestore) {
+      firestore.collection("users").doc(user.uid).set(userData, { merge: true }).catch(e => console.warn("Firestore user save warning:", e.message));
+    }
+    if (realtimeDb) {
+      realtimeDb.ref("users/" + user.uid).set(userData).catch(e => console.warn("Realtime DB user save warning:", e.message));
+    }
 
     return user;
   }

@@ -81,17 +81,27 @@
   }
 
   async function loadAllData() {
-    isLoading = true;
+    // 1. Immediate Synchronous Load from Local Storage Backups
+    try {
+      const localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
+      const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+      if (localUsers.length > 0) allUsers = localUsers;
+      if (localAttempts.length > 0) allAttempts = localAttempts;
+    } catch(e) {}
+
+    // Render initial content area immediately
+    isLoading = false;
     renderContentArea();
 
+    // 2. Asynchronously fetch and merge Cloud Firestore & Realtime DB records
     try {
       if (window.NEXUS_FIREBASE) {
         const [users, attempts] = await Promise.all([
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 10000),
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 10000)
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 8000),
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 8000)
         ]);
-        allUsers = users || [];
-        allAttempts = attempts || [];
+        if (users && users.length > 0) allUsers = users;
+        if (attempts && attempts.length > 0) allAttempts = attempts;
       }
     } catch (err) {
       console.error("Admin Portal Data Load Error:", err);
