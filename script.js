@@ -3644,45 +3644,40 @@ function toggleAuthSpinner(formId, show) {
 async function handleSignIn(e) {
   e.preventDefault();
   hideAuthError();
+  
+  const emailInput = document.getElementById('signin-email');
+  const passwordInput = document.getElementById('signin-password');
+  if (!emailInput || !passwordInput) return;
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    showAuthError("⚠️ Please enter both your email address and password.");
+    return;
+  }
+
   toggleAuthSpinner('signin-form', true);
   showGlobalLoader("Loading...");
   
-  const email = document.getElementById('signin-email').value;
-  const password = document.getElementById('signin-password').value;
-  
   try {
-    if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
+    if (!window.NEXUS_FIREBASE) throw new Error("Firebase backend unavailable");
     await window.NEXUS_FIREBASE.login(email, password);
     closeAuthModal();
   } catch (error) {
     console.error("Sign in error:", error);
     const code = error.code || "";
     
-    if (code === "auth/user-not-found" || code === "auth/invalid-email") {
+    if (code === "auth/user-not-found") {
       showAuthError("❌ No account found with this email. Please click 'Create Account' tab to sign up first.");
-    } else if (code === "auth/wrong-password") {
-      showAuthError("❌ Incorrect password. An account exists for this email — please check your password or click 'Forgot?'.");
-    } else if (code === "auth/invalid-credential") {
-      // Intelligently check if the email actually exists in Firebase Auth
-      try {
-        const auth = (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.getAuth) ? window.NEXUS_FIREBASE.getAuth() : (typeof firebase !== 'undefined' ? firebase.auth() : null);
-        if (auth && auth.fetchSignInMethodsForEmail) {
-          const methods = await auth.fetchSignInMethodsForEmail(email);
-          if (methods && methods.length > 0) {
-            showAuthError("❌ Incorrect password. An account exists for this email — please check your password or click 'Forgot?'.");
-          } else {
-            showAuthError("❌ No account found with this email. Please click 'Create Account' tab to sign up first.");
-          }
-        } else {
-          showAuthError("❌ Invalid email or password. Please check your credentials or create an account.");
-        }
-      } catch (checkErr) {
-        showAuthError("❌ No account found or invalid password. Please check your credentials or click 'Create Account'.");
-      }
+    } else if (code === "auth/wrong-password" || code === "auth/invalid-credential") {
+      showAuthError("❌ Incorrect password or credentials. Please check your password or click 'Forgot?'.");
+    } else if (code === "auth/invalid-email") {
+      showAuthError("❌ Invalid email format. Please enter a valid email address.");
     } else if (code === "auth/too-many-requests") {
-      showAuthError("⚠️ Too many failed attempts. Access temporarily locked. Please try again later or reset password.");
+      showAuthError("⚠️ Access temporarily locked due to multiple failed attempts. Please try again in a few minutes or click 'Forgot?'.");
     } else {
-      showAuthError("❌ Sign in failed. Please check your email and password.");
+      showAuthError(error.message || "❌ Sign in failed. Please check your credentials.");
     }
   } finally {
     toggleAuthSpinner('signin-form', false);
