@@ -4,6 +4,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   initAppLayout();
+  initSidebarTooltips();
   initHeroSlider();
   initSPARouting();
   renderLearningHub();
@@ -407,6 +408,67 @@ function toggleSidebarCollapse() {
   const isCollapsed = body.classList.toggle("sidebar-collapsed");
   localStorage.setItem("nexus_sidebar_collapsed", isCollapsed);
   updateCollapseBtnUI(isCollapsed);
+}
+
+function initSidebarTooltips() {
+  let tooltipEl = document.getElementById("sidebar-fixed-tooltip");
+  if (!tooltipEl) {
+    tooltipEl = document.createElement("div");
+    tooltipEl.id = "sidebar-fixed-tooltip";
+    tooltipEl.style.cssText = `
+      position: fixed;
+      display: none;
+      background: #0A2540;
+      color: #FFFFFF;
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      padding: 6px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      box-shadow: 0 8px 25px rgba(10, 37, 64, 0.4);
+      pointer-events: none;
+      z-index: 99999;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      opacity: 0;
+      transform: translateY(-50%) translateX(-4px);
+    `;
+    document.body.appendChild(tooltipEl);
+  }
+
+  const items = document.querySelectorAll(".sidebar-nav-item, #sidebar-collapse-btn");
+  items.forEach(item => {
+    item.addEventListener("mouseenter", () => {
+      if (!document.body.classList.contains("sidebar-collapsed")) return;
+      const text = item.getAttribute("data-tooltip") || item.title || item.querySelector(".sidebar-nav-label")?.textContent;
+      if (!text) return;
+
+      tooltipEl.textContent = text.trim();
+      tooltipEl.style.display = "block";
+
+      const rect = item.getBoundingClientRect();
+      const top = rect.top + rect.height / 2;
+      const left = rect.right + 12;
+
+      tooltipEl.style.top = `${top}px`;
+      tooltipEl.style.left = `${left}px`;
+      
+      requestAnimationFrame(() => {
+        tooltipEl.style.opacity = "1";
+        tooltipEl.style.transform = "translateY(-50%) translateX(0)";
+      });
+    });
+
+    item.addEventListener("mouseleave", () => {
+      tooltipEl.style.opacity = "0";
+      tooltipEl.style.transform = "translateY(-50%) translateX(-4px)";
+      setTimeout(() => {
+        if (tooltipEl.style.opacity === "0") {
+          tooltipEl.style.display = "none";
+        }
+      }, 150);
+    });
+  });
 }
 
 function updateCollapseBtnUI(isCollapsed) {
