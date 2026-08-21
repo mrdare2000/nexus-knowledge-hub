@@ -48,17 +48,42 @@
     isLoading = true;
     renderContentArea();
 
-    if (window.NEXUS_FIREBASE) {
-      const [users, attempts] = await Promise.all([
-        window.NEXUS_FIREBASE.fetchAllUsers(),
-        window.NEXUS_FIREBASE.fetchAllQuizAttempts()
-      ]);
-      allUsers = users || [];
-      allAttempts = attempts || [];
-    }
+    try {
+      if (window.NEXUS_FIREBASE) {
+        const timeoutGuard = new Promise(resolve => setTimeout(() => resolve([]), 4000));
 
-    isLoading = false;
-    renderContentArea();
+        const usersPromise = Promise.race([window.NEXUS_FIREBASE.fetchAllUsers(), timeoutGuard]);
+        const attemptsPromise = Promise.race([window.NEXUS_FIREBASE.fetchAllQuizAttempts(), timeoutGuard]);
+
+        const [users, attempts] = await Promise.all([usersPromise, attemptsPromise]);
+        allUsers = users || [];
+        allAttempts = attempts || [];
+
+        // Auto-synthesize missing users from attempts data
+        const existingUserIds = new Set(allUsers.map(u => u.id || u.uid));
+        allAttempts.forEach(a => {
+          if (a.userId && !existingUserIds.has(a.userId)) {
+            existingUserIds.add(a.userId);
+            allUsers.push({
+              id: a.userId,
+              uid: a.userId,
+              displayName: a.userName || (a.userEmail ? a.userEmail.split('@')[0] : 'Logistics Candidate'),
+              name: a.userName || (a.userEmail ? a.userEmail.split('@')[0] : 'Logistics Candidate'),
+              email: a.userEmail || '—',
+              role: a.userRole || 'Not Set',
+              company: a.userCompany || 'Not Set',
+              avatar: '👤',
+              createdAt: a.timestamp || new Date().toISOString()
+            });
+          }
+        });
+      }
+    } catch (err) {
+      console.error("Admin portal load error:", err);
+    } finally {
+      isLoading = false;
+      renderContentArea();
+    }
   }
 
   function renderAdminShell() {

@@ -275,6 +275,14 @@
     }
   }
 
+  // Helper timeout wrapper to prevent infinite hanging promises
+  function withTimeout(promise, ms = 3500, fallback = null) {
+    return Promise.race([
+      promise,
+      new Promise(resolve => setTimeout(() => resolve(fallback), ms))
+    ]);
+  }
+
   // ----------------------------------------------------
   // 5. ADMIN PORTAL — DATA ACCESS FUNCTIONS
   // ----------------------------------------------------
@@ -284,33 +292,37 @@
     
     const usersMap = {};
 
-    // 1. Try Cloud Firestore
+    // 1. Try Cloud Firestore (max 3.5s timeout)
     if (firestore) {
       try {
-        const snapshot = await firestore.collection("users").get();
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const uid = doc.id || d.uid || d.id;
-          usersMap[uid] = { id: uid, uid: uid, ...d };
-        });
+        const snapshot = await withTimeout(firestore.collection("users").get(), 3500, null);
+        if (snapshot && snapshot.forEach) {
+          snapshot.forEach(doc => {
+            const d = doc.data();
+            const uid = doc.id || d.uid || d.id;
+            usersMap[uid] = { id: uid, uid: uid, ...d };
+          });
+        }
       } catch (e) {
         console.warn("Admin: Firestore fetchAllUsers warning:", e.message);
       }
     }
 
-    // 2. Try Realtime Database (Dual Backup Sync)
+    // 2. Try Realtime Database (max 3.5s timeout)
     if (realtimeDb) {
       try {
-        const snapshot = await realtimeDb.ref("users").once("value");
-        const val = snapshot.val();
-        if (val) {
-          Object.keys(val).forEach(key => {
-            if (!usersMap[key]) {
-              usersMap[key] = { id: key, uid: key, ...val[key] };
-            } else {
-              usersMap[key] = { ...val[key], ...usersMap[key] };
-            }
-          });
+        const snapshot = await withTimeout(realtimeDb.ref("users").once("value"), 3500, null);
+        if (snapshot && typeof snapshot.val === 'function') {
+          const val = snapshot.val();
+          if (val) {
+            Object.keys(val).forEach(key => {
+              if (!usersMap[key]) {
+                usersMap[key] = { id: key, uid: key, ...val[key] };
+              } else {
+                usersMap[key] = { ...val[key], ...usersMap[key] };
+              }
+            });
+          }
         }
       } catch (e) {
         console.warn("Admin: Realtime DB fetchAllUsers warning:", e.message);
@@ -332,33 +344,37 @@
 
     const attemptsMap = {};
 
-    // 1. Try Cloud Firestore
+    // 1. Try Cloud Firestore (max 3.5s timeout)
     if (firestore) {
       try {
-        const snapshot = await firestore.collection("quiz_attempts").get();
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const id = d.attemptId || doc.id;
-          attemptsMap[id] = { id: id, attemptId: id, ...d };
-        });
+        const snapshot = await withTimeout(firestore.collection("quiz_attempts").get(), 3500, null);
+        if (snapshot && snapshot.forEach) {
+          snapshot.forEach(doc => {
+            const d = doc.data();
+            const id = d.attemptId || doc.id;
+            attemptsMap[id] = { id: id, attemptId: id, ...d };
+          });
+        }
       } catch (e) {
         console.warn("Admin: Firestore fetchAllQuizAttempts warning:", e.message);
       }
     }
 
-    // 2. Try Realtime Database (Dual Backup Sync)
+    // 2. Try Realtime Database (max 3.5s timeout)
     if (realtimeDb) {
       try {
-        const snapshot = await realtimeDb.ref("attempts").once("value");
-        const val = snapshot.val();
-        if (val) {
-          Object.keys(val).forEach(key => {
-            const item = val[key];
-            const id = item.attemptId || key;
-            if (!attemptsMap[id]) {
-              attemptsMap[id] = { id: id, attemptId: id, ...item };
-            }
-          });
+        const snapshot = await withTimeout(realtimeDb.ref("attempts").once("value"), 3500, null);
+        if (snapshot && typeof snapshot.val === 'function') {
+          const val = snapshot.val();
+          if (val) {
+            Object.keys(val).forEach(key => {
+              const item = val[key];
+              const id = item.attemptId || key;
+              if (!attemptsMap[id]) {
+                attemptsMap[id] = { id: id, attemptId: id, ...item };
+              }
+            });
+          }
         }
       } catch (e) {
         console.warn("Admin: Realtime DB fetchAllQuizAttempts warning:", e.message);
