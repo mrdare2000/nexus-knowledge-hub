@@ -223,17 +223,14 @@
             </div>
           </div>
 
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <div>
             ${(function(){
               if (!activeQuiz) return '';
               const actAtt = myAttempts.find(a => a.weekId === activeQuiz.id);
               if (actAtt) {
                 return `
-                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 14px 24px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
-                    📊 View Score (${actAtt.percentage}%)
-                  </button>
-                  <button class="btn btn-primary btn-select-quiz" data-week-id="${activeQuiz.id}" style="padding: 14px 24px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; background: var(--accent-orange); color: white; white-space: nowrap;">
-                    🔄 Retake Quiz
+                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
+                    📊 View Score & Certificate
                   </button>
                 `;
               }
@@ -267,14 +264,9 @@
                 </div>
 
                 ${attempt ? `
-                  <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="flex: 1; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
-                      📊 View Score
-                    </button>
-                    <button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="padding: 10px 16px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: var(--accent-orange); color: white;">
-                      🔄 Retake
-                    </button>
-                  </div>
+                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
+                    📊 View Score & Certificate
+                  </button>
                 ` : `
                   <button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;">
                     📝 Attempt Quiz
@@ -619,14 +611,11 @@
             <span>Short Answer Score: <strong>${attempt.shortScore}/10</strong></span>
           </div>
 
-          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <button id="btn-generate-pdf-cert" class="btn btn-primary" style="padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; box-shadow: 0 10px 25px rgba(255,90,31,0.4);">
+          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <button id="btn-generate-pdf-cert" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.4);">
               📜 Generate Certificate (PDF)
             </button>
-            <button class="btn btn-primary btn-select-quiz" data-week-id="${attempt.weekId}" style="padding: 14px 24px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; background: var(--accent-orange); color: white; cursor: pointer;">
-              🔄 Re-attempt Quiz
-            </button>
-            <button id="btn-results-to-dashboard" class="btn btn-secondary" style="padding: 14px 24px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #FFF;">
+            <button id="btn-results-to-dashboard" class="btn btn-secondary" style="padding: 16px 30px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #FFF;">
               ← Back
             </button>
           </div>

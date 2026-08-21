@@ -76,7 +76,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
             "5,000 cm³/kg",
             "6,000 cm³/kg"
           ],
-          answerIndex: 4,
+          answerIndex: 3,
           explanation: "IATA standard air cargo volumetric weight formula is (Length x Width x Height in cm) / 6000 = Volumetric Weight in kg."
         },
         {
