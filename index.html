@@ -254,40 +254,40 @@
     <!-- Sidebar Main Navigation Menu -->
     <nav class="sidebar-nav">
       <div class="sidebar-nav-section-label">MAIN MENU</div>
-      <a class="sidebar-nav-item active" data-page="home" href="#home" onclick="switchPage('home'); return false;">
+      <a class="sidebar-nav-item active" data-page="home" data-tooltip="Home" href="#home" onclick="switchPage('home'); return false;">
         <span class="sidebar-nav-icon">🏠</span>
         <span class="sidebar-nav-label">Home</span>
       </a>
-      <a class="sidebar-nav-item" data-page="news" href="#news-feed" onclick="switchPage('news'); return false;">
+      <a class="sidebar-nav-item" data-page="news" data-tooltip="News Feed" href="#news-feed" onclick="switchPage('news'); return false;">
         <span class="sidebar-nav-icon">📰</span>
         <span class="sidebar-nav-label">News Feed</span>
         <span class="sidebar-nav-badge">Live</span>
       </a>
-      <a class="sidebar-nav-item" data-page="learning" href="#knowledge-hub" onclick="switchPage('learning'); return false;">
+      <a class="sidebar-nav-item" data-page="learning" data-tooltip="Knowledge Hub" href="#knowledge-hub" onclick="switchPage('learning'); return false;">
         <span class="sidebar-nav-icon">📚</span>
         <span class="sidebar-nav-label">Knowledge Hub</span>
         <span class="sidebar-nav-badge fav-badge" id="sidebar-fav-badge" style="display: none; background: #FF5A1F; color: white;">⭐</span>
       </a>
-      <a class="sidebar-nav-item" data-page="tools" href="#interactive-tools" onclick="switchPage('tools'); return false;">
+      <a class="sidebar-nav-item" data-page="tools" data-tooltip="Interactive Tools" href="#interactive-tools" onclick="switchPage('tools'); return false;">
         <span class="sidebar-nav-icon">🛠️</span>
         <span class="sidebar-nav-label">Interactive Tools</span>
       </a>
-      <a class="sidebar-nav-item" data-page="quiz" href="#quiz-hub" onclick="switchPage('quiz'); return false;">
+      <a class="sidebar-nav-item" data-page="quiz" data-tooltip="Quiz Hub" href="#quiz-hub" onclick="switchPage('quiz'); return false;">
         <span class="sidebar-nav-icon">💡</span>
         <span class="sidebar-nav-label">Quiz Hub</span>
         <span class="sidebar-nav-badge" style="background: #10B981; color: white;">Weekly</span>
       </a>
-      <a class="sidebar-nav-item" data-page="ai" href="#nexus-ai" onclick="switchPage('ai'); return false;">
+      <a class="sidebar-nav-item" data-page="ai" data-tooltip="Nexus AI" href="#nexus-ai" onclick="switchPage('ai'); return false;">
         <span class="sidebar-nav-icon">✨</span>
         <span class="sidebar-nav-label">Nexus AI</span>
         <span class="sidebar-nav-badge ai-badge">AI</span>
       </a>
-      <a class="sidebar-nav-item" data-page="voices" href="#nexus-voice" onclick="switchPage('voices'); return false;">
+      <a class="sidebar-nav-item" data-page="voices" data-tooltip="Nexus Voice" href="#nexus-voice" onclick="switchPage('voices'); return false;">
         <span class="sidebar-nav-icon">🎙️</span>
         <span class="sidebar-nav-label">Nexus Voice</span>
         <span class="sidebar-nav-badge soon-badge" style="background: var(--accent-orange); color: white;">SOON</span>
       </a>
-      <a class="sidebar-nav-item" data-page="contact" href="#contact" onclick="switchPage('contact'); return false;">
+      <a class="sidebar-nav-item" data-page="contact" data-tooltip="Get In Touch" href="#contact" onclick="switchPage('contact'); return false;">
         <span class="sidebar-nav-icon">📧</span>
         <span class="sidebar-nav-label">Get In Touch</span>
       </a>
@@ -1852,7 +1852,7 @@
 
   <!-- Quiz Engine Scripts -->
   <script src="quiz_database.js?v=20260821_v12"></script>
-  <script src="quiz_engine.js?v=20260821_v18"></script>
+  <script src="quiz_engine.js?v=20260821_v19"></script>
 
   <!-- Admin Portal Engine -->
   <script src="admin_portal.js?v=20260821_v9"></script>

@@ -183,7 +183,7 @@
     }
 
     return `
-      <div class="quiz-candidate-strip" onclick="openProfileModal()" title="Click to Edit Profile Info" style="background: var(--bg-white); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 14px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(10,37,64,0.04); cursor: pointer; transition: all 0.2s ease;">
+      <div class="quiz-candidate-strip" style="background: var(--bg-white); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 14px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(10,37,64,0.04);">
         <div style="display: flex; align-items: center; gap: 14px;">
           <div style="width: 44px; height: 44px; border-radius: 50%; background: #FFF7ED; border: 2px solid var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: 0 2px 8px rgba(255, 90, 31, 0.25); flex-shrink: 0;">
             ${avatar}
@@ -191,13 +191,14 @@
           <div>
             <div style="font-weight: 800; font-size: 1.05rem; color: var(--primary-navy); display: flex; align-items: center; gap: 8px;">
               ${name}
-              <span style="font-size: 0.78rem; color: var(--accent-orange); font-weight: 600; background: #FFF7ED; border: 1px solid rgba(255, 90, 31, 0.3); padding: 2px 8px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;">✏️ Edit Profile</span>
             </div>
             <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin-top: 2px;">${subtext}</div>
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
-          <button class="btn btn-secondary" style="padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 700;">Edit Profile</button>
+          <button type="button" onclick="openProfileModal()" class="btn btn-secondary" style="padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; border: 1px solid var(--accent-orange); color: var(--accent-orange); background: #FFF7ED; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+            ✏️ Edit Profile
+          </button>
         </div>
       </div>
     `;

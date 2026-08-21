@@ -3463,10 +3463,13 @@ function updateAuthUI(user) {
   const homeUserProfile = document.getElementById("home-user-profile");
   
   if (user) {
+    // Automatically close auth modal window when user is logged in
+    closeAuthModal();
+
     // Hide Logged-Out buttons cleanly
     if (loginBtn) loginBtn.style.setProperty("display", "none", "important");
     if (homeLoginBtn) homeLoginBtn.style.setProperty("display", "none", "important");
-    
+
     // Show Logged-In Profile Badges
     if (userProfile) userProfile.style.setProperty("display", "flex", "important");
     if (homeUserProfile) homeUserProfile.style.setProperty("display", "flex", "important");
@@ -3555,6 +3558,7 @@ function updateProfileBadgesUI(name, avatar, role, company) {
 function openAuthModal() {
   const modal = document.getElementById("auth-modal");
   if (modal) {
+    modal.style.setProperty("display", "flex", "important");
     modal.classList.add("active");
     switchAuthTab('signin');
   }
@@ -3562,11 +3566,16 @@ function openAuthModal() {
 
 function closeAuthModal() {
   const modal = document.getElementById("auth-modal");
-  if (modal) modal.classList.remove("active");
+  if (modal) {
+    modal.classList.remove("active");
+    modal.style.setProperty("display", "none", "important");
+  }
   
   // Clear forms and errors
-  document.getElementById("signin-form").reset();
-  document.getElementById("signup-form").reset();
+  const signinForm = document.getElementById("signin-form");
+  const signupForm = document.getElementById("signup-form");
+  if (signinForm) signinForm.reset();
+  if (signupForm) signupForm.reset();
   hideAuthError();
 }
 
