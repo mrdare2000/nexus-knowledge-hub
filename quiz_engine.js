@@ -49,12 +49,15 @@
       return;
     }
 
+    // Auto-regrade any previous 0% attempts caused by earlier schema mismatch
+    regradePreviousZeroAttempts(userAttempts);
+
     // 2. Fetch remote attempts from Firestore if logged in
     if (currentUser && !fetchedRemoteAttempts && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.fetchQuizAttempts === 'function') {
       fetchedRemoteAttempts = true;
       window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid).then(remoteAttempts => {
         if (remoteAttempts && remoteAttempts.length > 0) {
-          userAttempts = remoteAttempts;
+          userAttempts = regradePreviousZeroAttempts(remoteAttempts);
           renderQuizHubUI();
         }
       }).catch(err => console.error("Error fetching user attempts:", err));
@@ -70,6 +73,71 @@
       container.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
       bindDashboardEvents();
     }
+  }
+
+  function regradePreviousZeroAttempts(attempts) {
+    if (!attempts || !Array.isArray(attempts) || typeof NEXUS_QUIZ_DATABASE === 'undefined') return attempts;
+    let modified = false;
+
+    attempts.forEach(a => {
+      if ((a.percentage === 0 || a.mcqScore === 0) && a.detailedResults && a.detailedResults.length > 0) {
+        const week = NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === a.weekId);
+        if (!week) return;
+
+        let mcqScore = 0;
+        let shortScore = 0;
+
+        a.detailedResults.forEach(r => {
+          const q = week.questions.find(item => item.id === r.questionId || item.question === r.question);
+          if (!q) return;
+
+          if (q.type === 'mcq') {
+            const correctIdx = (typeof q.answerIndex !== 'undefined') ? q.answerIndex : q.correctAnswer;
+            const correctText = q.options[correctIdx];
+            if (r.userAnswer === correctText || (typeof r.userChoiceIdx !== 'undefined' && r.userChoiceIdx === correctIdx)) {
+              r.isCorrect = true;
+              mcqScore++;
+            }
+            r.correctAnswer = correctText;
+          } else if (q.type === 'short') {
+            const validKeywords = q.keywords || q.acceptedKeywords || [];
+            const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
+            if (validKeywords.length > 0) {
+              if (validKeywords.some(kw => (r.userAnswer || '').toLowerCase().includes(kw.toLowerCase()))) {
+                r.isCorrect = true;
+                shortScore++;
+              }
+            }
+            r.correctAnswer = modelAns;
+          }
+        });
+
+        const totalScore = mcqScore + shortScore;
+        const percentage = Math.round((totalScore / 20) * 100);
+
+        if (percentage > 0) {
+          a.mcqScore = mcqScore;
+          a.shortScore = shortScore;
+          a.totalScore = totalScore;
+          a.percentage = percentage;
+          if (percentage >= 90) a.grade = "Distinction / Freight Master 🏆";
+          else if (percentage >= 75) a.grade = "Merit / Senior Specialist 🥈";
+          else if (percentage >= 50) a.grade = "Pass / Competent Practitioner 🥉";
+          else a.grade = "Re-attempt Recommended";
+          modified = true;
+
+          // Push updated score to Cloud Firestore & Realtime DB
+          if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
+            window.NEXUS_FIREBASE.saveQuizAttempt(a);
+          }
+        }
+      }
+    });
+
+    if (modified) {
+      localStorage.setItem('nexus_quiz_attempts', JSON.stringify(attempts));
+    }
+    return attempts;
   }
 
   function renderQuizGatekeeperUI() {
@@ -120,83 +188,26 @@
             <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin-top: 2px;">${subtext}</div>
           </div>
         </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button class="btn btn-secondary" style="padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 700;">Edit Profile</button>
+        </div>
       </div>
     `;
   }
 
   // Render Portal Dashboard
   function renderPortalDashboard() {
-    const myAttempts = userAttempts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-    const totalAttempts = myAttempts.length;
-    const avgScore = totalAttempts > 0 ? Math.round(myAttempts.reduce((acc, cur) => acc + cur.percentage, 0) / totalAttempts) : 0;
-    const passedAttempts = myAttempts.filter(a => a.percentage >= 50);
-    const bestScore = totalAttempts > 0 ? Math.max(...myAttempts.map(a => a.percentage)) : 0;
-
-    let rankLabel = "New Learner";
-    if (bestScore >= 90) rankLabel = "Freight Master 🏆";
-    else if (bestScore >= 75) rankLabel = "Advanced Practitioner 🥈";
-    else if (bestScore >= 50) rankLabel = "Competent Practitioner 🥉";
-
-    const weeks = window.NEXUS_QUIZ_DATABASE ? window.NEXUS_QUIZ_DATABASE.weeks : [];
+    const weeks = NEXUS_QUIZ_DATABASE.weeks;
+    const activeQuiz = weeks[weeks.length - 1];
+    const myAttempts = userAttempts;
 
     return `
-      <div class="quiz-portal-dashboard" style="max-width: 1050px; margin: 0 auto; font-family: 'Inter', sans-serif;">
+      <div class="quiz-hub-dashboard" style="max-width: 1000px; margin: 0 auto;">
         
-        <!-- Page Section Header -->
-        <div class="section-header" style="text-align: center; margin-bottom: 35px;">
-          <h2 style="font-size: 2.2rem; margin-bottom: 8px; font-family: 'Outfit', sans-serif;">
-            <span style="color: var(--primary-navy);">Quiz</span> <span style="color: var(--accent-orange);">Hub</span>
-          </h2>
-          <p style="font-size: 0.98rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; line-height: 1.5;">
-            Test your knowledge with weekly logistics challenges, track competency scores, and earn verifiable certificates.
-          </p>
-        </div>
-
-        <!-- 4 Metric Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px;">
-          
-          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Total Quizzes</span>
-              <span style="font-size: 1.6rem;">🏆</span>
-            </div>
-            <div style="font-size: 2rem; font-weight: 900; color: var(--primary-navy); font-family: 'Outfit', sans-serif;">${totalAttempts}</div>
-            <span style="font-size: 0.78rem; color: var(--text-muted);">Completed attempts</span>
-          </div>
-
-          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Average Score</span>
-              <span style="font-size: 1.6rem;">📊</span>
-            </div>
-            <div style="font-size: 2rem; font-weight: 900; color: var(--accent-orange); font-family: 'Outfit', sans-serif;">${avgScore}%</div>
-            <span style="font-size: 0.78rem; color: var(--text-muted);">Overall accuracy</span>
-          </div>
-
-          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Certificates</span>
-              <span style="font-size: 1.6rem;">📜</span>
-            </div>
-            <div style="font-size: 2rem; font-weight: 900; color: #10B981; font-family: 'Outfit', sans-serif;">${passedAttempts.length}</div>
-            <span style="font-size: 0.78rem; color: var(--text-muted);">Earned Statements</span>
-          </div>
-
-          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Rank Level</span>
-              <span style="font-size: 1.6rem;">🥇</span>
-            </div>
-            <div style="font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); font-family: 'Outfit', sans-serif; margin-top: 5px;">${rankLabel}</div>
-            <span style="font-size: 0.78rem; color: var(--text-muted);">Based on highest score</span>
-          </div>
-
-        </div>
-
-        <!-- Featured Active Weekly Challenge Card -->
-        <div style="background: linear-gradient(135deg, #FFF 0%, #FFF7ED 100%); border: 2px solid var(--accent-orange); padding: 30px; border-radius: 20px; margin-bottom: 40px; box-shadow: 0 10px 25px rgba(255,90,31,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-          <div style="flex: 1; min-width: 280px;">
-            <span style="background: var(--accent-orange); color: #FFF; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; padding: 4px 12px; border-radius: 12px; letter-spacing: 0.5px; display: inline-block; margin-bottom: 10px;">
+        <!-- Active Featured Weekly Challenge Card -->
+        <div style="background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2px solid var(--accent-orange); border-radius: 24px; padding: 30px; margin-bottom: 35px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; box-shadow: 0 10px 30px rgba(255,90,31,0.12);">
+          <div>
+            <span style="background: var(--accent-orange); color: white; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; margin-bottom: 10px;">
               🔥 FEATURED WEEKLY CHALLENGE
             </span>
             <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 10px 0; font-size: 1.5rem;">
@@ -212,14 +223,19 @@
             </div>
           </div>
 
-          <div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             ${(function(){
               if (!activeQuiz) return '';
               const actAtt = myAttempts.find(a => a.weekId === activeQuiz.id);
               if (actAtt) {
-                return `<button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
-                  📊 View Score & Certificate
-                </button>`;
+                return `
+                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 14px 24px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
+                    📊 View Score (${actAtt.percentage}%)
+                  </button>
+                  <button class="btn btn-primary btn-select-quiz" data-week-id="${activeQuiz.id}" style="padding: 14px 24px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; background: var(--accent-orange); color: white; white-space: nowrap;">
+                    🔄 Retake Quiz
+                  </button>
+                `;
               }
               return `<button id="btn-start-active-quiz" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3); white-space: nowrap;">
                 🚀 Attempt Active Quiz
@@ -251,9 +267,14 @@
                 </div>
 
                 ${attempt ? `
-                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
-                    📊 View Score & Certificate
-                  </button>
+                  <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="flex: 1; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
+                      📊 View Score
+                    </button>
+                    <button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="padding: 10px 16px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; background: var(--accent-orange); color: white;">
+                      🔄 Retake
+                    </button>
+                  </div>
                 ` : `
                   <button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;">
                     📝 Attempt Quiz
@@ -598,11 +619,14 @@
             <span>Short Answer Score: <strong>${attempt.shortScore}/10</strong></span>
           </div>
 
-          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <button id="btn-generate-pdf-cert" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.4);">
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <button id="btn-generate-pdf-cert" class="btn btn-primary" style="padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; box-shadow: 0 10px 25px rgba(255,90,31,0.4);">
               📜 Generate Certificate (PDF)
             </button>
-            <button id="btn-results-to-dashboard" class="btn btn-secondary" style="padding: 16px 30px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #FFF;">
+            <button class="btn btn-primary btn-select-quiz" data-week-id="${attempt.weekId}" style="padding: 14px 24px; border-radius: 50px; font-weight: 800; font-size: 0.95rem; background: var(--accent-orange); color: white; cursor: pointer;">
+              🔄 Re-attempt Quiz
+            </button>
+            <button id="btn-results-to-dashboard" class="btn btn-secondary" style="padding: 14px 24px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; border: 1.5px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: #FFF;">
               ← Back
             </button>
           </div>
