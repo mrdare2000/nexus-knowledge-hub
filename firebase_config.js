@@ -238,6 +238,95 @@
     }
   }
 
+  // ----------------------------------------------------
+  // 5. ADMIN PORTAL — DATA ACCESS FUNCTIONS
+  // ----------------------------------------------------
+
+  async function fetchAllUsers() {
+    if (!isFirebaseReady && !initFirebase()) return [];
+    if (!firestore) return [];
+    try {
+      const snapshot = await firestore.collection("users").get();
+      const users = [];
+      snapshot.forEach(doc => users.push({ id: doc.id, ...doc.data() }));
+      users.sort((a, b) => {
+        const dateA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt)) : new Date(0);
+        const dateB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate() : new Date(b.createdAt)) : new Date(0);
+        return dateB.getTime() - dateA.getTime();
+      });
+      return users;
+    } catch (e) {
+      console.error("Admin: Error fetching all users:", e.message);
+      return [];
+    }
+  }
+
+  async function fetchAllQuizAttempts() {
+    if (!isFirebaseReady && !initFirebase()) return [];
+    if (!firestore) return [];
+    try {
+      const snapshot = await firestore.collection("quiz_attempts").get();
+      const attempts = [];
+      snapshot.forEach(doc => attempts.push({ id: doc.id, ...doc.data() }));
+      attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
+      return attempts;
+    } catch (e) {
+      console.error("Admin: Error fetching all quiz attempts:", e.message);
+      return [];
+    }
+  }
+
+  async function deleteUserData(uid) {
+    if (!isFirebaseReady && !initFirebase()) return false;
+    if (!firestore || !uid) return false;
+    try {
+      // Delete user document from Firestore
+      await firestore.collection("users").doc(uid).delete();
+
+      // Delete all quiz attempts for this user
+      const attemptsSnap = await firestore.collection("quiz_attempts").where("userId", "==", uid).get();
+      const batch = firestore.batch();
+      attemptsSnap.forEach(doc => batch.delete(doc.ref));
+      if (!attemptsSnap.empty) await batch.commit();
+
+      // Delete from Realtime DB if exists
+      if (realtimeDb) {
+        try {
+          const rtSnap = await realtimeDb.ref("attempts").orderByChild("userId").equalTo(uid).once("value");
+          const updates = {};
+          rtSnap.forEach(child => { updates[child.key] = null; });
+          if (Object.keys(updates).length > 0) await realtimeDb.ref("attempts").update(updates);
+        } catch (rtErr) { console.warn("Realtime DB cleanup skipped:", rtErr.message); }
+      }
+
+      console.log(`✅ Admin: Deleted user ${uid} and all associated data.`);
+      return true;
+    } catch (e) {
+      console.error("Admin: Error deleting user data:", e.message);
+      return false;
+    }
+  }
+
+  async function deleteQuizAttempt(attemptId) {
+    if (!isFirebaseReady && !initFirebase()) return false;
+    if (!firestore || !attemptId) return false;
+    try {
+      await firestore.collection("quiz_attempts").doc(attemptId).delete();
+
+      // Also remove from Realtime DB
+      if (realtimeDb) {
+        try { await realtimeDb.ref("attempts/" + attemptId).remove(); }
+        catch (rtErr) { console.warn("Realtime DB cleanup skipped:", rtErr.message); }
+      }
+
+      console.log(`✅ Admin: Deleted quiz attempt ${attemptId}.`);
+      return true;
+    } catch (e) {
+      console.error("Admin: Error deleting quiz attempt:", e.message);
+      return false;
+    }
+  }
+
   // Expose Unified Global Interface
   window.NEXUS_FIREBASE = {
     init: initFirebase,
@@ -252,6 +341,11 @@
     fetchAIChatHistory: fetchAIChatHistory,
     toggleFavoriteTopic: toggleFavoriteTopic,
     fetchUserFavorites: fetchUserFavorites,
+    // Admin Portal Functions
+    fetchAllUsers: fetchAllUsers,
+    fetchAllQuizAttempts: fetchAllQuizAttempts,
+    deleteUserData: deleteUserData,
+    deleteQuizAttempt: deleteQuizAttempt,
     getAuth: () => auth,
     getFirestore: () => firestore,
     getRealtimeDb: () => realtimeDb,

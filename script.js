@@ -97,7 +97,8 @@ const PAGE_SEO_TITLES = {
   quiz: "Quiz Hub - Weekly Logistics Assessment & Certification | Nexus Knowledge Hub",
   ai: "Nexus AI Shipping Assistant - Freight Intelligence | Nexus Cargo",
   voices: "Nexus Voice | Industry Expert Articles & Supply Chain Podcasts | Nexus Cargos (Pvt) Ltd",
-  contact: "Get in Touch & Booking Inquiries | Nexus Cargos (Pvt) Ltd"
+  contact: "Get in Touch & Booking Inquiries | Nexus Cargos (Pvt) Ltd",
+  admin: "Admin Portal | Nexus Knowledge Hub"
 };
 
 const PAGE_SEO_DESCRIPTIONS = {
@@ -108,7 +109,8 @@ const PAGE_SEO_DESCRIPTIONS = {
   quiz: "Test your freight forwarding knowledge with weekly automated quizzes, track competency scores, and download official PDF certificates.",
   ai: "Ask Nexus AI for immediate answers on shipping terms, container specs, Incoterms rules, and freight operations compliance.",
   voices: "Explore upcoming industry expert insights, guest articles, and logistics podcasts on Nexus Voice by Nexus Cargos (Pvt) Ltd.",
-  contact: "Connect with Nexus Cargos (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support."
+  contact: "Connect with Nexus Cargos (Pvt) Ltd operations team in Colombo, Sri Lanka for freight forwarding inquiries and logistics support.",
+  admin: "Admin portal for managing users, quiz analytics, and platform data."
 };
 
 const PAGE_SLUGS = {
@@ -119,7 +121,8 @@ const PAGE_SLUGS = {
   quiz: "quiz-hub",
   ai: "nexus-ai",
   voices: "nexus-voice",
-  contact: "contact"
+  contact: "contact",
+  admin: "admin-portal"
 };
 
 const SLUG_TO_PAGE = {
@@ -138,7 +141,9 @@ const SLUG_TO_PAGE = {
   "voices": "voices",
   "nexus-voice": "voices",
   "contact": "contact",
-  "get-in-touch": "contact"
+  "get-in-touch": "contact",
+  "admin": "admin",
+  "admin-portal": "admin"
 };
 
 function getPageFromURL() {
@@ -290,6 +295,14 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
       window.NEXUS_QUIZ_ENGINE.refresh();
     }
   }
+  if (pageId === "admin") {
+    // Block direct URL access without authentication
+    if (!window.NEXUS_ADMIN || !window.NEXUS_ADMIN.isAuthenticated()) {
+      switchPage('home');
+      return;
+    }
+    window.NEXUS_ADMIN.init();
+  }
 
   // Scroll to top after layout has been updated
   if (!isInitialLoad) {
@@ -303,6 +316,66 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
 
 // Make switchPage available globally for inline onclick handlers
 window.switchPage = switchPage;
+
+// ==========================================
+// ADMIN GATE — Password Protected Access
+// ==========================================
+const ADMIN_PASSWORD_HASH = 'a0f3a7b2c8d1e9f4b6c0d5e2a7f1b3c8d4e0f6a9b2c5d8e1f3a6b9c2d5e8f1';
+
+function openAdminGate() {
+  const modal = document.getElementById('admin-gate-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+    const pwInput = document.getElementById('admin-gate-password');
+    if (pwInput) { pwInput.value = ''; pwInput.focus(); }
+    const errEl = document.getElementById('admin-gate-error');
+    if (errEl) errEl.style.display = 'none';
+  }
+}
+window.openAdminGate = openAdminGate;
+
+function closeAdminGate() {
+  const modal = document.getElementById('admin-gate-modal');
+  if (modal) modal.style.display = 'none';
+}
+window.closeAdminGate = closeAdminGate;
+
+async function verifyAdminPassword(e) {
+  if (e) e.preventDefault();
+  const pwInput = document.getElementById('admin-gate-password');
+  const errEl = document.getElementById('admin-gate-error');
+  if (!pwInput) return;
+
+  const password = pwInput.value.trim();
+  if (!password) {
+    if (errEl) { errEl.textContent = '⚠️ Please enter the admin password.'; errEl.style.display = 'block'; }
+    return;
+  }
+
+  // Direct password comparison (hardcoded admin credential)
+  if (password === 'ownerdarshika2000') {
+    closeAdminGate();
+    if (window.NEXUS_ADMIN) {
+      window.NEXUS_ADMIN.authenticate();
+      switchPage('admin');
+    }
+  } else {
+    if (errEl) {
+      errEl.textContent = '❌ Access denied. Invalid admin password.';
+      errEl.style.display = 'block';
+    }
+    // Shake animation
+    const modalContent = document.querySelector('#admin-gate-modal > div');
+    if (modalContent) {
+      modalContent.style.animation = 'none';
+      void modalContent.offsetWidth;
+      modalContent.style.animation = 'adminShake 0.4s ease';
+    }
+    pwInput.value = '';
+    pwInput.focus();
+  }
+}
+window.verifyAdminPassword = verifyAdminPassword;
 
 /* ==========================================
    SIDEBAR NAVIGATION SYSTEM
