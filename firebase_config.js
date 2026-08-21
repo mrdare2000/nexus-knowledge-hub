@@ -53,7 +53,7 @@
   // 1. AUTHENTICATION MODULE (Sign Up, Login, Logout)
   // ----------------------------------------------------
 
-  async function signUp(email, password, displayName) {
+  async function signUp(email, password, displayName, company = 'Not Set', role = 'Not Set') {
     if (!isFirebaseReady && !initFirebase()) throw new Error("Firebase backend unavailable.");
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
@@ -67,8 +67,8 @@
       email: email,
       displayName: displayName || email.split('@')[0],
       name: displayName || email.split('@')[0],
-      role: 'Not Set',
-      company: 'Not Set',
+      role: role || 'Not Set',
+      company: company || 'Not Set',
       avatar: '👤',
       createdAt: new Date().toISOString()
     };
@@ -167,10 +167,13 @@
     let savedFirestore = false;
     let savedRealtime = false;
 
-    // A. Save to Cloud Firestore DB
+    // A. Save to Cloud Firestore DB (Root Collection & User Subcollection)
     if (firestore) {
       try {
         await firestore.collection("quiz_attempts").doc(payload.attemptId).set(payload, { merge: true });
+        if (payload.userId) {
+          await firestore.collection("users").doc(payload.userId).collection("quiz_attempts").doc(payload.attemptId).set(payload, { merge: true });
+        }
         savedFirestore = true;
       } catch (e) {
         console.warn("Firestore save warning:", e.message);

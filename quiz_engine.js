@@ -205,7 +205,10 @@
 
   // Render Portal Dashboard
   function renderPortalDashboard() {
-    const myAttempts = userAttempts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    const currentUser = getCurrentAuthUser();
+    const myAttempts = userAttempts
+      .filter(a => currentUser && (a.userId === currentUser.uid || a.userEmail === currentUser.email))
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     const totalAttempts = myAttempts.length;
     const avgScore = totalAttempts > 0 ? Math.round(myAttempts.reduce((acc, cur) => acc + (cur.percentage || 0), 0) / totalAttempts) : 0;
     const passedAttempts = myAttempts.filter(a => (a.percentage || 0) >= 50);

@@ -3542,6 +3542,14 @@ function updateProfileBadgesUI(name, avatar, role, company) {
   if (viewRole) viewRole.textContent = role || "Not Set";
   if (modalName) modalName.textContent = name;
   if (modalAvatar) modalAvatar.textContent = avatar || '👤';
+
+  // Profile Modal Edit Form Inputs
+  const inputName = document.getElementById("profile-input-name");
+  const inputCompany = document.getElementById("profile-input-company");
+  const inputRole = document.getElementById("profile-input-role");
+  if (inputName) inputName.value = name || "";
+  if (inputCompany) inputCompany.value = company && company !== "Not Set" ? company : "";
+  if (inputRole) inputRole.value = role && role !== "Not Set" ? role : "";
 }
 
 function openAuthModal() {
@@ -3706,10 +3714,10 @@ async function handleSignUp(e) {
   
   try {
     if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
-    // signUp returns the user object directly from firebase_config.js
-    const user = await window.NEXUS_FIREBASE.signUp(email, password, name);
+    // signUp returns the user object directly from firebase_config.js with company and role
+    const user = await window.NEXUS_FIREBASE.signUp(email, password, name, company || "Not Set", role || "Not Set");
     
-    // Save profile details to both Firestore & Realtime DB
+    // Save profile details to both Firestore & Realtime DB & LocalStorage
     if (user && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveUserProfileData === 'function') {
       await window.NEXUS_FIREBASE.saveUserProfileData(user.uid, {
         company: company || "Not Set",
@@ -3722,9 +3730,11 @@ async function handleSignUp(e) {
       });
     }
     
-    // Trigger UI update
+    // Trigger UI update, close modal, and redirect to home page
     if (user) updateAuthUI(user);
     closeAuthModal();
+    if (typeof switchPage === 'function') switchPage('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (error) {
     console.error("Sign up error:", error);
     const code = error.code || "";
@@ -3890,20 +3900,20 @@ async function saveUserProfile(e) {
   e.preventDefault();
   if (!currentUser) return;
 
-  const name = document.getElementById("profile-input-name").value;
-  const company = document.getElementById("profile-input-company").value;
-  const role = document.getElementById("profile-input-role").value;
+  const name = document.getElementById("profile-input-name").value.trim();
+  const company = document.getElementById("profile-input-company").value.trim();
+  const role = document.getElementById("profile-input-role").value.trim();
 
   const btn = document.getElementById("profile-save-btn");
   if (btn) btn.disabled = true;
 
-  showGlobalLoader("Loading...");
+  showGlobalLoader("Saving Profile...");
 
   try {
     // 1. Update Firebase Auth displayName
     await currentUser.updateProfile({ displayName: name });
 
-    // 2. Update both Firestore & Realtime DB user document
+    // 2. Update both Firestore & Realtime DB user document & LocalStorage
     if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveUserProfileData === 'function') {
       await window.NEXUS_FIREBASE.saveUserProfileData(currentUser.uid, {
         name: name,
@@ -3915,19 +3925,10 @@ async function saveUserProfile(e) {
     }
 
     // 3. Update local UI badges immediately
-    updateProfileBadgesUI(name, selectedAvatarSymbol, role, company);
+    updateProfileBadgesUI(name, selectedAvatarSymbol, role || "Not Set", company || "Not Set");
 
-    // Show success alert and return to View mode
-    const successDiv = document.getElementById("profile-success-message");
-    if (successDiv) {
-      successDiv.style.display = "block";
-      setTimeout(() => {
-        successDiv.style.display = "none";
-        toggleProfileEditMode(false);
-      }, 1000);
-    } else {
-      toggleProfileEditMode(false);
-    }
+    // Close the profile modal completely
+    closeProfileModal();
   } catch (err) {
     console.error("Error saving profile:", err);
     const errDiv = document.getElementById("profile-error-message");
