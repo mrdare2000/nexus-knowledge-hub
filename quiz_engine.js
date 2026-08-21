@@ -197,12 +197,73 @@
 
   // Render Portal Dashboard
   function renderPortalDashboard() {
-    const weeks = NEXUS_QUIZ_DATABASE.weeks;
-    const activeQuiz = weeks[weeks.length - 1];
-    const myAttempts = userAttempts;
+    const myAttempts = userAttempts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    const totalAttempts = myAttempts.length;
+    const avgScore = totalAttempts > 0 ? Math.round(myAttempts.reduce((acc, cur) => acc + (cur.percentage || 0), 0) / totalAttempts) : 0;
+    const passedAttempts = myAttempts.filter(a => (a.percentage || 0) >= 50);
+    const bestScore = totalAttempts > 0 ? Math.max(...myAttempts.map(a => a.percentage || 0)) : 0;
+
+    let rankLabel = "New Learner";
+    if (bestScore >= 90) rankLabel = "Freight Master 🏆";
+    else if (bestScore >= 75) rankLabel = "Advanced Practitioner 🥈";
+    else if (bestScore >= 50) rankLabel = "Competent Practitioner 🥉";
+
+    const weeks = window.NEXUS_QUIZ_DATABASE ? window.NEXUS_QUIZ_DATABASE.weeks : [];
+    const activeQuiz = weeks.length > 0 ? weeks[weeks.length - 1] : null;
 
     return `
-      <div class="quiz-hub-dashboard" style="max-width: 1000px; margin: 0 auto;">
+      <div class="quiz-portal-dashboard" style="max-width: 1050px; margin: 0 auto; font-family: 'Inter', sans-serif;">
+        
+        <!-- Page Section Header -->
+        <div class="section-header" style="text-align: center; margin-bottom: 35px;">
+          <h2 style="font-size: 2.2rem; margin-bottom: 8px; font-family: 'Outfit', sans-serif;">
+            <span style="color: var(--primary-navy);">Quiz</span> <span style="color: var(--accent-orange);">Hub</span>
+          </h2>
+          <p style="font-size: 0.98rem; color: var(--text-muted); max-width: 650px; margin: 0 auto; line-height: 1.5;">
+            Test your knowledge with weekly logistics challenges, track competency scores, and earn verifiable certificates.
+          </p>
+        </div>
+
+        <!-- 4 Metric Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px;">
+          
+          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Total Quizzes</span>
+              <span style="font-size: 1.6rem;">🏆</span>
+            </div>
+            <div style="font-size: 2rem; font-weight: 900; color: var(--primary-navy); font-family: 'Outfit', sans-serif;">${totalAttempts}</div>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Completed attempts</span>
+          </div>
+
+          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Average Score</span>
+              <span style="font-size: 1.6rem;">📊</span>
+            </div>
+            <div style="font-size: 2rem; font-weight: 900; color: var(--accent-orange); font-family: 'Outfit', sans-serif;">${avgScore}%</div>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Overall accuracy</span>
+          </div>
+
+          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Certificates</span>
+              <span style="font-size: 1.6rem;">📜</span>
+            </div>
+            <div style="font-size: 2rem; font-weight: 900; color: #10B981; font-family: 'Outfit', sans-serif;">${passedAttempts.length}</div>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Earned Statements</span>
+          </div>
+
+          <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Rank Level</span>
+              <span style="font-size: 1.6rem;">🥇</span>
+            </div>
+            <div style="font-size: 1.1rem; font-weight: 800; color: var(--primary-navy); font-family: 'Outfit', sans-serif; margin-top: 5px;">${rankLabel}</div>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Based on highest score</span>
+          </div>
+
+        </div>
         
         <!-- Active Featured Weekly Challenge Card -->
         <div style="background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2px solid var(--accent-orange); border-radius: 24px; padding: 30px; margin-bottom: 35px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; box-shadow: 0 10px 30px rgba(255,90,31,0.12);">
