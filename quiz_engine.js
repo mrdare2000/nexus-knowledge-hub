@@ -80,13 +80,15 @@
     let modified = false;
 
     attempts.forEach(a => {
-      if ((a.percentage === 0 || a.mcqScore === 0) && a.detailedResults && a.detailedResults.length > 0) {
-        const week = NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === a.weekId);
-        if (!week) return;
+      const week = (NEXUS_QUIZ_DATABASE.weeks && NEXUS_QUIZ_DATABASE.weeks.length > 0)
+        ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === a.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
+        : null;
+      if (!week) return;
 
-        let mcqScore = 0;
-        let shortScore = 0;
+      let mcqScore = 0;
+      let shortScore = 0;
 
+      if (a.detailedResults && Array.isArray(a.detailedResults)) {
         a.detailedResults.forEach(r => {
           const q = week.questions.find(item => item.id === r.questionId || item.question === r.question);
           if (!q) return;
@@ -94,39 +96,45 @@
           if (q.type === 'mcq') {
             const correctIdx = (typeof q.answerIndex !== 'undefined') ? q.answerIndex : q.correctAnswer;
             const correctText = q.options[correctIdx];
+            r.correctAnswer = correctText;
+
             if (r.userAnswer === correctText || (typeof r.userChoiceIdx !== 'undefined' && r.userChoiceIdx === correctIdx)) {
               r.isCorrect = true;
               mcqScore++;
+            } else {
+              r.isCorrect = false;
             }
-            r.correctAnswer = correctText;
           } else if (q.type === 'short') {
             const validKeywords = q.keywords || q.acceptedKeywords || [];
             const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
+            r.correctAnswer = modelAns;
+
             if (validKeywords.length > 0) {
               if (validKeywords.some(kw => (r.userAnswer || '').toLowerCase().includes(kw.toLowerCase()))) {
                 r.isCorrect = true;
                 shortScore++;
+              } else {
+                r.isCorrect = false;
               }
             }
-            r.correctAnswer = modelAns;
           }
         });
 
         const totalScore = mcqScore + shortScore;
         const percentage = Math.round((totalScore / 20) * 100);
 
-        if (percentage > 0) {
+        if (a.percentage !== percentage || a.mcqScore !== mcqScore) {
           a.mcqScore = mcqScore;
           a.shortScore = shortScore;
           a.totalScore = totalScore;
           a.percentage = percentage;
           if (percentage >= 90) a.grade = "Distinction / Freight Master 🏆";
-          else if (percentage >= 75) a.grade = "Merit / Senior Specialist 🥈";
+          else if (percentage >= 75) a.grade = "Merit / Advanced Practitioner 🥈";
           else if (percentage >= 50) a.grade = "Pass / Competent Practitioner 🥉";
           else a.grade = "Re-attempt Recommended";
           modified = true;
 
-          // Push updated score to Cloud Firestore & Realtime DB
+          // Push corrected score to Cloud Firestore & Realtime DB
           if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
             window.NEXUS_FIREBASE.saveQuizAttempt(a);
           }
@@ -687,24 +695,50 @@
         </h3>
 
         <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;">
-          ${attempt.detailedResults.map((r, idx) => `
-            <div style="background: var(--bg-white); border: 1.5px solid ${r.isCorrect ? '#10B981' : '#EF4444'}; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="font-size: 0.8rem; font-weight: 800; color: var(--primary-navy);">Question ${idx + 1}</span>
-                <span style="background: ${r.isCorrect ? '#D1FAE5' : '#FEE2E2'}; color: ${r.isCorrect ? '#065F46' : '#991B1B'}; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;">
-                  ${r.isCorrect ? '✅ Correct (+1 Mark)' : '❌ Incorrect (0 Marks)'}
-                </span>
+          ${attempt.detailedResults.map((r, idx) => {
+            const week = (typeof NEXUS_QUIZ_DATABASE !== 'undefined' && NEXUS_QUIZ_DATABASE.weeks)
+              ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === attempt.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
+              : null;
+            const q = week ? week.questions.find(item => item.id === r.questionId || item.question === r.question) : null;
+            
+            let displayCorrect = r.correctAnswer;
+            let displayIsCorrect = r.isCorrect;
+
+            if (q && q.type === 'mcq') {
+              const correctIdx = (typeof q.answerIndex !== 'undefined') ? q.answerIndex : q.correctAnswer;
+              const trueCorrectText = q.options[correctIdx];
+              if (!displayCorrect || displayCorrect === 'undefined') displayCorrect = trueCorrectText;
+              if (r.userAnswer === trueCorrectText || (typeof r.userChoiceIdx !== 'undefined' && r.userChoiceIdx === correctIdx)) {
+                displayIsCorrect = true;
+              }
+            } else if (q && q.type === 'short') {
+              const validKeywords = q.keywords || q.acceptedKeywords || [];
+              const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
+              if (!displayCorrect || displayCorrect === 'undefined') displayCorrect = modelAns;
+              if (validKeywords.length > 0 && validKeywords.some(kw => (r.userAnswer || '').toLowerCase().includes(kw.toLowerCase()))) {
+                displayIsCorrect = true;
+              }
+            }
+
+            return `
+              <div style="background: var(--bg-white); border: 1.5px solid ${displayIsCorrect ? '#10B981' : '#EF4444'}; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span style="font-size: 0.8rem; font-weight: 800; color: var(--primary-navy);">Question ${idx + 1}</span>
+                  <span style="background: ${displayIsCorrect ? '#D1FAE5' : '#FEE2E2'}; color: ${displayIsCorrect ? '#065F46' : '#991B1B'}; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;">
+                    ${displayIsCorrect ? '✅ Correct (+1 Mark)' : '❌ Incorrect (0 Marks)'}
+                  </span>
+                </div>
+                <h4 style="font-size: 0.98rem; color: var(--primary-navy); margin: 0 0 10px 0; font-weight: 700;">${r.question}</h4>
+                <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+                  Your Answer: <strong style="color: ${displayIsCorrect ? '#059669' : '#DC2626'};">${r.userAnswer}</strong>
+                </div>
+                ${!displayIsCorrect ? `<div style="font-size: 0.88rem; color: var(--primary-navy); margin-bottom: 8px;">Correct Answer: <strong>${displayCorrect}</strong></div>` : ''}
+                <div style="background: #F8FAFC; border-left: 3px solid var(--accent-orange); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #475569; margin-top: 8px;">
+                  💡 <strong>Explanation:</strong> ${r.explanation}
+                </div>
               </div>
-              <h4 style="font-size: 0.98rem; color: var(--primary-navy); margin: 0 0 10px 0; font-weight: 700;">${r.question}</h4>
-              <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
-                Your Answer: <strong style="color: ${r.isCorrect ? '#059669' : '#DC2626'};">${r.userAnswer}</strong>
-              </div>
-              ${!r.isCorrect ? `<div style="font-size: 0.88rem; color: var(--primary-navy); margin-bottom: 8px;">Correct Answer: <strong>${r.correctAnswer}</strong></div>` : ''}
-              <div style="background: #F8FAFC; border-left: 3px solid var(--accent-orange); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #475569; margin-top: 8px;">
-                💡 <strong>Explanation:</strong> ${r.explanation}
-              </div>
-            </div>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
       </div>
     `;

@@ -44,6 +44,42 @@
     await loadAllData();
   }
 
+  function fetchWithTimeout(promiseFn, ms = 3500) {
+    return new Promise((resolve) => {
+      let settled = false;
+      const timer = setTimeout(() => {
+        if (!settled) {
+          settled = true;
+          console.warn(`Admin Portal: Fetch timed out after ${ms}ms, proceeding with available data`);
+          resolve([]);
+        }
+      }, ms);
+
+      try {
+        promiseFn().then(res => {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timer);
+            resolve(res || []);
+          }
+        }).catch(err => {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timer);
+            console.warn("Admin Portal Fetch Error:", err);
+            resolve([]);
+          }
+        });
+      } catch (e) {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          resolve([]);
+        }
+      }
+    });
+  }
+
   async function loadAllData() {
     isLoading = true;
     renderContentArea();
@@ -51,8 +87,8 @@
     try {
       if (window.NEXUS_FIREBASE) {
         const [users, attempts] = await Promise.all([
-          window.NEXUS_FIREBASE.fetchAllUsers(),
-          window.NEXUS_FIREBASE.fetchAllQuizAttempts()
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 3500),
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 3500)
         ]);
         allUsers = users || [];
         allAttempts = attempts || [];
