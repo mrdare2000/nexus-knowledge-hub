@@ -138,6 +138,10 @@
 
   async function saveQuizAttempt(attemptRecord) {
     if (!isFirebaseReady && !initFirebase()) return false;
+    if (!attemptRecord || !attemptRecord.attemptId) return false;
+
+    const payload = JSON.parse(JSON.stringify(attemptRecord));
+    payload.timestamp = payload.timestamp || new Date().toISOString();
 
     let savedFirestore = false;
     let savedRealtime = false;
@@ -145,10 +149,7 @@
     // A. Save to Cloud Firestore DB
     if (firestore) {
       try {
-        await firestore.collection("quiz_attempts").doc(attemptRecord.attemptId).set({
-          ...attemptRecord,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+        await firestore.collection("quiz_attempts").doc(payload.attemptId).set(payload, { merge: true });
         savedFirestore = true;
       } catch (e) {
         console.warn("Firestore save warning:", e.message);
@@ -158,7 +159,7 @@
     // B. Save to Realtime Database (Dual Backup Sync)
     if (realtimeDb) {
       try {
-        await realtimeDb.ref("attempts/" + attemptRecord.attemptId).set(attemptRecord);
+        await realtimeDb.ref("attempts/" + payload.attemptId).set(payload);
         savedRealtime = true;
       } catch (e) {
         console.warn("Realtime DB save warning:", e.message);
@@ -281,49 +282,106 @@
 
   async function fetchAllUsers() {
     if (!isFirebaseReady && !initFirebase()) return [];
-    if (!firestore) return [];
 
-    try {
-      const snapshot = await firestore.collection("users").get();
-      const users = [];
-      snapshot.forEach(doc => {
-        const d = doc.data();
-        const uid = doc.id || d.uid || d.id;
-        users.push({ id: uid, uid: uid, ...d });
-      });
+    const usersMap = {};
 
-      users.sort((a, b) => {
-        const dateA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt)) : new Date(0);
-        const dateB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate() : new Date(b.createdAt)) : new Date(0);
-        return dateB.getTime() - dateA.getTime();
-      });
-
-      return users;
-    } catch (e) {
-      console.error("Admin Portal: Error fetching users from Cloud Firestore:", e);
-      return [];
+    // Source A: Cloud Firestore
+    if (firestore) {
+      try {
+        const snapshot = await firestore.collection("users").get();
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const uid = doc.id || d.uid || d.id;
+          usersMap[uid] = { id: uid, uid: uid, ...d };
+        });
+      } catch (e) {
+        console.warn("Admin: Firestore fetch users warning:", e.message);
+      }
     }
+
+    // Source B: Realtime Database
+    if (realtimeDb) {
+      try {
+        const snapshot = await realtimeDb.ref("users").once("value");
+        const val = snapshot.val();
+        if (val) {
+          Object.keys(val).forEach(key => {
+            const item = val[key];
+            const uid = item.uid || item.id || key;
+            if (!usersMap[uid]) {
+              usersMap[uid] = { id: uid, uid: uid, ...item };
+            }
+          });
+        }
+      } catch (e) {
+        console.warn("Admin: Realtime DB fetch users warning:", e.message);
+      }
+    }
+
+    const users = Object.values(usersMap);
+    users.sort((a, b) => {
+      const dateA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt)) : new Date(0);
+      const dateB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate() : new Date(b.createdAt)) : new Date(0);
+      return dateB.getTime() - dateA.getTime();
+    });
+
+    return users;
   }
 
   async function fetchAllQuizAttempts() {
     if (!isFirebaseReady && !initFirebase()) return [];
-    if (!firestore) return [];
 
-    try {
-      const snapshot = await firestore.collection("quiz_attempts").get();
-      const attempts = [];
-      snapshot.forEach(doc => {
-        const d = doc.data();
-        const id = d.attemptId || doc.id;
-        attempts.push({ id: id, attemptId: id, ...d });
-      });
+    const attemptsMap = {};
 
-      attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
-      return attempts;
-    } catch (e) {
-      console.error("Admin Portal: Error fetching quiz attempts from Cloud Firestore:", e);
-      return [];
+    // Source A: Cloud Firestore
+    if (firestore) {
+      try {
+        const snapshot = await firestore.collection("quiz_attempts").get();
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const id = d.attemptId || doc.id;
+          attemptsMap[id] = { id: id, attemptId: id, ...d };
+        });
+      } catch (e) {
+        console.warn("Admin: Firestore fetch attempts warning:", e.message);
+      }
     }
+
+    // Source B: Realtime Database
+    if (realtimeDb) {
+      try {
+        const snapshot = await realtimeDb.ref("attempts").once("value");
+        const val = snapshot.val();
+        if (val) {
+          Object.keys(val).forEach(key => {
+            const item = val[key];
+            const id = item.attemptId || key;
+            if (!attemptsMap[id]) {
+              attemptsMap[id] = { id: id, attemptId: id, ...item };
+            }
+          });
+        }
+      } catch (e) {
+        console.warn("Admin: Realtime DB fetch attempts warning:", e.message);
+      }
+    }
+
+    // Source C: LocalStorage Backup (Sync if local device has attempts not yet pushed)
+    try {
+      const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+      localAttempts.forEach(item => {
+        const id = item.attemptId;
+        if (id && !attemptsMap[id]) {
+          attemptsMap[id] = item;
+          // Auto-sync missing local attempt to Cloud DB
+          saveQuizAttempt(item);
+        }
+      });
+    } catch (e) {}
+
+    const attempts = Object.values(attemptsMap);
+    attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
+    return attempts;
   }
 
   async function deleteUserData(uid) {
