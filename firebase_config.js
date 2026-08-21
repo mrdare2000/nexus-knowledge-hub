@@ -87,6 +87,14 @@
       } catch (e) { console.warn("Realtime DB user save warning:", e.message); }
     }
 
+    // Save to LocalStorage Backup
+    try {
+      let localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
+      localUsers = localUsers.filter(u => u.uid !== user.uid);
+      localUsers.push(userData);
+      localStorage.setItem('nexus_registered_users', JSON.stringify(localUsers));
+    } catch(e) {}
+
     return user;
   }
 
@@ -108,6 +116,19 @@
       try { await realtimeDb.ref("users/" + uid).update(payload); }
       catch (e) { console.warn("Realtime DB user update warning:", e.message); }
     }
+
+    // Save to LocalStorage Backup
+    try {
+      let localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
+      const idx = localUsers.findIndex(u => u.uid === uid);
+      if (idx >= 0) {
+        localUsers[idx] = { ...localUsers[idx], ...payload };
+      } else {
+        localUsers.push(payload);
+      }
+      localStorage.setItem('nexus_registered_users', JSON.stringify(localUsers));
+    } catch(e) {}
+
     return true;
   }
 
@@ -284,6 +305,33 @@
     if (!isFirebaseReady && !initFirebase()) return [];
 
     const usersMap = {};
+
+    // Source 1: LocalStorage Backup (Immediate inclusion)
+    try {
+      const localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
+      localUsers.forEach(item => {
+        const uid = item.uid || item.id;
+        if (uid) usersMap[uid] = item;
+      });
+    } catch (e) {}
+
+    // Source 2: Current Auth Session User
+    if (auth && auth.currentUser) {
+      const cu = auth.currentUser;
+      if (!usersMap[cu.uid]) {
+        usersMap[cu.uid] = {
+          uid: cu.uid,
+          id: cu.uid,
+          email: cu.email,
+          displayName: cu.displayName || cu.email.split('@')[0],
+          name: cu.displayName || cu.email.split('@')[0],
+          role: 'Logistics Student',
+          company: 'University of Moratuwa',
+          avatar: '🎓',
+          createdAt: new Date().toISOString()
+        };
+      }
+    }
 
     const fsPromise = firestore ? firestore.collection("users").get().then(snapshot => {
       snapshot.forEach(doc => {

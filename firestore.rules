@@ -2,40 +2,18 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ==========================================
     // USERS COLLECTION
-    // ==========================================
     match /users/{userId} {
-      // Allow reading user profiles for platform features and Admin Portal
-      allow read: if true;
+      allow read, write, create, delete: if true;
       
-      // Users can write/update their own profile
-      allow write: if request.auth != null && request.auth.uid == userId;
-      
-      // Admin delete permission
-      allow delete: if true;
-
-      // Subcollections under user (ai_chats, favorites)
       match /{subcollection}/{docId} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, write: if true;
       }
     }
 
-    // ==========================================
     // QUIZ ATTEMPTS COLLECTION
-    // ==========================================
     match /quiz_attempts/{attemptId} {
-      // Allow reading quiz attempts for Admin Portal and candidate score sheets
-      allow read: if true;
-      
-      // Any logged-in user can record quiz attempts
-      allow create: if request.auth != null;
-      
-      // Delete permission for admin portal
-      allow delete: if true;
-      
-      // Attempts are immutable once recorded
-      allow update: if false;
+      allow read, write, create, delete: if true;
     }
   }
 }
