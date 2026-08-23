@@ -300,34 +300,74 @@
   // ----------------------------------------------------
 
   async function fetchAllUsers() {
-    if (!isFirebaseReady && !initFirebase()) return [];
+    // Force re-initialization if services are not ready
+    if (!isFirebaseReady) initFirebase();
+    if (!firestore && !realtimeDb) {
+      console.warn("⚠️ fetchAllUsers: Both firestore and realtimeDb are null. Re-initializing Firebase...");
+      initFirebase();
+    }
+
+    console.log(`🔍 fetchAllUsers: firestore=${!!firestore}, realtimeDb=${!!realtimeDb}, isFirebaseReady=${isFirebaseReady}`);
 
     const usersMap = {};
 
     // Source 1: Cloud Firestore (Primary)
-    const fsPromise = firestore ? firestore.collection("users").get().then(snapshot => {
-      snapshot.forEach(doc => {
-        const d = doc.data();
-        const uid = doc.id || d.uid || d.id;
-        usersMap[uid] = { id: uid, uid: uid, ...d };
-      });
-    }).catch(e => console.warn("Admin: Firestore fetch users warning:", e.message)) : Promise.resolve();
-
-    // Source 2: Realtime DB (Secondary backup)
-    const rtPromise = realtimeDb ? realtimeDb.ref("users").once("value").then(snapshot => {
-      const val = snapshot.val();
-      if (val) {
-        Object.keys(val).forEach(key => {
-          const item = val[key];
-          const uid = item.uid || item.id || key;
-          if (!usersMap[uid]) {
-            usersMap[uid] = { id: uid, uid: uid, ...item };
-          }
+    if (firestore) {
+      try {
+        const snapshot = await firestore.collection("users").get();
+        console.log(`🔍 Firestore users collection: ${snapshot.size} documents found`);
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const uid = doc.id || d.uid || d.id;
+          usersMap[uid] = { id: uid, uid: uid, ...d };
         });
+      } catch (e) {
+        console.error("❌ Firestore fetch users error:", e.message, e);
       }
-    }).catch(e => console.warn("Admin: Realtime DB fetch users warning:", e.message)) : Promise.resolve();
+    } else {
+      console.warn("⚠️ fetchAllUsers: Firestore service is null — skipping Firestore source.");
+    }
 
-    await Promise.allSettled([fsPromise, rtPromise]);
+    // Source 2: Realtime DB (Secondary backup — fills gaps)
+    if (realtimeDb) {
+      try {
+        const snapshot = await realtimeDb.ref("users").once("value");
+        const val = snapshot.val();
+        const rtCount = val ? Object.keys(val).length : 0;
+        console.log(`🔍 Realtime DB users: ${rtCount} entries found`);
+        if (val) {
+          Object.keys(val).forEach(key => {
+            const item = val[key];
+            const uid = item.uid || item.id || key;
+            if (!usersMap[uid]) {
+              usersMap[uid] = { id: uid, uid: uid, ...item };
+            }
+          });
+        }
+      } catch (e) {
+        console.error("❌ Realtime DB fetch users error:", e.message, e);
+      }
+    } else {
+      console.warn("⚠️ fetchAllUsers: Realtime DB service is null — skipping Realtime DB source.");
+    }
+
+    // Source 3: Current Authenticated User (supplementary — ensures at least logged-in admin is visible)
+    if (auth && auth.currentUser) {
+      const cu = auth.currentUser;
+      if (!usersMap[cu.uid]) {
+        usersMap[cu.uid] = {
+          uid: cu.uid,
+          id: cu.uid,
+          email: cu.email,
+          displayName: cu.displayName || cu.email.split('@')[0],
+          name: cu.displayName || cu.email.split('@')[0],
+          role: 'Not Set',
+          company: 'Not Set',
+          avatar: '👤',
+          createdAt: new Date().toISOString()
+        };
+      }
+    }
 
     const users = Object.values(usersMap);
     users.sort((a, b) => {
@@ -341,34 +381,56 @@
   }
 
   async function fetchAllQuizAttempts() {
-    if (!isFirebaseReady && !initFirebase()) return [];
+    // Force re-initialization if services are not ready
+    if (!isFirebaseReady) initFirebase();
+    if (!firestore && !realtimeDb) {
+      console.warn("⚠️ fetchAllQuizAttempts: Both firestore and realtimeDb are null. Re-initializing Firebase...");
+      initFirebase();
+    }
+
+    console.log(`🔍 fetchAllQuizAttempts: firestore=${!!firestore}, realtimeDb=${!!realtimeDb}`);
 
     const attemptsMap = {};
 
     // Source 1: Cloud Firestore (Primary)
-    const fsPromise = firestore ? firestore.collection("quiz_attempts").get().then(snapshot => {
-      snapshot.forEach(doc => {
-        const d = doc.data();
-        const id = d.attemptId || doc.id;
-        attemptsMap[id] = { id: id, attemptId: id, ...d };
-      });
-    }).catch(e => console.warn("Admin: Firestore fetch attempts warning:", e.message)) : Promise.resolve();
-
-    // Source 2: Realtime DB (Secondary backup)
-    const rtPromise = realtimeDb ? realtimeDb.ref("attempts").once("value").then(snapshot => {
-      const val = snapshot.val();
-      if (val) {
-        Object.keys(val).forEach(key => {
-          const item = val[key];
-          const id = item.attemptId || key;
-          if (!attemptsMap[id]) {
-            attemptsMap[id] = { id: id, attemptId: id, ...item };
-          }
+    if (firestore) {
+      try {
+        const snapshot = await firestore.collection("quiz_attempts").get();
+        console.log(`🔍 Firestore quiz_attempts collection: ${snapshot.size} documents found`);
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const id = d.attemptId || doc.id;
+          attemptsMap[id] = { id: id, attemptId: id, ...d };
         });
+      } catch (e) {
+        console.error("❌ Firestore fetch quiz_attempts error:", e.message, e);
       }
-    }).catch(e => console.warn("Admin: Realtime DB fetch attempts warning:", e.message)) : Promise.resolve();
+    } else {
+      console.warn("⚠️ fetchAllQuizAttempts: Firestore service is null — skipping Firestore source.");
+    }
 
-    await Promise.allSettled([fsPromise, rtPromise]);
+    // Source 2: Realtime DB (Secondary backup — fills gaps)
+    if (realtimeDb) {
+      try {
+        const snapshot = await realtimeDb.ref("attempts").once("value");
+        const val = snapshot.val();
+        const rtCount = val ? Object.keys(val).length : 0;
+        console.log(`🔍 Realtime DB attempts: ${rtCount} entries found`);
+        if (val) {
+          Object.keys(val).forEach(key => {
+            const item = val[key];
+            const id = item.attemptId || key;
+            if (!attemptsMap[id]) {
+              attemptsMap[id] = { id: id, attemptId: id, ...item };
+            }
+          });
+        }
+      } catch (e) {
+        console.error("❌ Realtime DB fetch attempts error:", e.message, e);
+      }
+    } else {
+      console.warn("⚠️ fetchAllQuizAttempts: Realtime DB service is null — skipping Realtime DB source.");
+    }
 
     const attempts = Object.values(attemptsMap);
     attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
