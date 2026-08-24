@@ -4969,53 +4969,339 @@ footer {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .admin-header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 18px;
+/* ==========================================================================
+   MASTER MOBILE & RESPONSIVE UX ENGINE (ALL PAGES, TABS, MODALS & WINDOWS)
+   ========================================================================== */
+
+/* --- Tablet / Large Mobile Breakpoint (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 0px;
   }
-  .admin-header-right {
-    width: 100%;
-    justify-content: flex-end;
+  
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 18px 18px 95px 18px !important;
   }
-  .admin-stats-row {
-    grid-template-columns: repeat(2, 1fr);
+
+  /* Grid adaptations */
+  .features-grid,
+  .tools-grid,
+  .news-grid,
+  .learning-grid,
+  .quiz-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
   }
-  .admin-toolbar {
-    flex-direction: column;
+
+  .tool-split-container {
+    grid-template-columns: 1fr !important;
   }
-  .admin-search-wrap {
-    min-width: 100%;
-  }
-  .admin-acc-right {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .admin-acc-metric {
-    font-size: 0.72rem;
-  }
-  .admin-tabs {
-    flex-direction: column;
-  }
-  .admin-subview-toggle {
-    flex-wrap: wrap;
-  }
-  .admin-toast {
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
+
+  /* Modal scaling */
+  .modal-content,
+  .profile-modal-content {
+    max-width: 90% !important;
   }
 }
 
+/* --- Standard Mobile Breakpoint (max-width: 768px) --- */
+@media (max-width: 768px) {
+  html, body {
+    font-size: 86%;
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+
+  .main-content {
+    padding: 12px 10px 95px 10px !important;
+  }
+
+  /* Navigation & Bottom Bar */
+  .mobile-bottom-bar {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 62px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1.5px solid rgba(10, 37, 64, 0.08);
+    z-index: 1080;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 4px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .mobile-bottom-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    color: #64748B;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    flex: 1;
+    padding: 6px 0;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-bottom-item.active {
+    color: var(--accent-orange);
+    font-weight: 800;
+  }
+
+  .mobile-bottom-icon {
+    font-size: 1.25rem;
+  }
+
+  /* Single Column Grids for All Pages */
+  .hero-section-grid,
+  .features-grid,
+  .tools-grid,
+  .news-grid,
+  .learning-grid,
+  .quiz-grid,
+  .contact-grid,
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* Hero Section Responsiveness */
+  .hero-card, .hero-banner {
+    padding: 22px 16px !important;
+    border-radius: 20px !important;
+    text-align: center !important;
+  }
+
+  .hero-title {
+    font-size: 1.65rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem !important;
+  }
+
+  .hero-cta-group {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+
+  .hero-cta-group .btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px !important;
+  }
+
+  /* Filter Tabs Horizontal Scroll Bar */
+  .topic-tabs-strip,
+  .tool-tabs-strip,
+  .news-category-strip,
+  .quiz-subview-toggle {
+    display: flex !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 8px !important;
+    margin-bottom: 16px !important;
+    gap: 8px !important;
+  }
+
+  .topic-tabs-strip::-webkit-scrollbar,
+  .tool-tabs-strip::-webkit-scrollbar,
+  .news-category-strip::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .tab-pill, .tool-tab-btn, .category-pill {
+    flex-shrink: 0 !important;
+    padding: 8px 14px !important;
+    font-size: 0.82rem !important;
+    border-radius: 20px !important;
+  }
+
+  /* Modals Touch Perfection */
+  .modal-overlay {
+    padding: 8px !important;
+    align-items: flex-end !important;
+  }
+
+  .modal-content,
+  .profile-modal-content,
+  .subtopic-modal-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 24px 24px 0 0 !important;
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+    padding: 22px 16px !important;
+  }
+
+  /* Prevent iOS Input Auto-Zoom (16px base font for inputs) */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px !important;
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Quiz Hub Responsiveness */
+  .quiz-gatekeeper-card {
+    padding: 26px 16px !important;
+    border-radius: 20px !important;
+    margin: 15px auto !important;
+  }
+
+  .quiz-gatekeeper-card h2 {
+    font-size: 1.45rem !important;
+  }
+
+  .quiz-candidate-strip {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 14px 16px !important;
+  }
+
+  .quiz-option-card {
+    padding: 14px 14px !important;
+    min-height: 48px !important;
+    font-size: 0.92rem !important;
+  }
+
+  .quiz-score-circle {
+    width: 110px !important;
+    height: 110px !important;
+    font-size: 1.5rem !important;
+  }
+
+  /* Nexus AI Chat Interface Mobile Fixes */
+  .ai-chat-container {
+    height: calc(100dvh - 140px) !important;
+    border-radius: 16px !important;
+  }
+
+  .ai-message-bubble {
+    max-width: 90% !important;
+    font-size: 0.9rem !important;
+    padding: 12px 14px !important;
+  }
+
+  .ai-prompt-pill {
+    font-size: 0.8rem !important;
+    padding: 8px 12px !important;
+  }
+
+  /* Admin Portal Responsive Cards */
+  .admin-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 16px 14px !important;
+    border-radius: 16px !important;
+    gap: 12px !important;
+  }
+
+  .admin-header-right {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  .admin-stats-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .admin-stat-card {
+    padding: 12px 14px !important;
+  }
+
+  .admin-stat-value {
+    font-size: 1.45rem !important;
+  }
+
+  .admin-toolbar {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .admin-search-wrap {
+    min-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .admin-acc-right {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .admin-acc-metric {
+    font-size: 0.72rem !important;
+  }
+
+  .admin-tabs {
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  .admin-subview-toggle {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .admin-table-wrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px !important;
+  }
+
+  .admin-toast {
+    left: 14px !important;
+    right: 14px !important;
+    bottom: 74px !important;
+  }
+}
+
+/* --- Small Mobile Phones Breakpoint (max-width: 480px) --- */
 @media (max-width: 480px) {
   .admin-stats-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
-  .admin-stat-card {
-    padding: 14px;
+
+  .avatar-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
   }
-  .admin-stat-value {
-    font-size: 1.6rem;
+
+  .avatar-option {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 1.1rem !important;
+  }
+
+  .hero-title {
+    font-size: 1.45rem !important;
+  }
+
+  .btn {
+    padding: 12px 18px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .quiz-gatekeeper-card {
+    padding: 22px 14px !important;
   }
 }
