@@ -81,16 +81,14 @@
   }
 
   async function loadAllData() {
-    // Show loading spinner while fetching from Cloud Backend
     isLoading = true;
     renderContentArea();
 
-    // Fetch ONLY from Cloud Firebase Backend — NO localStorage
     try {
       if (window.NEXUS_FIREBASE) {
         const [users, attempts] = await Promise.all([
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 12000),
-          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 12000)
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllUsers(), 15000),
+          fetchWithTimeout(() => window.NEXUS_FIREBASE.fetchAllQuizAttempts(), 15000)
         ]);
         allUsers = (users && users.length > 0) ? users : [];
         allAttempts = (attempts && attempts.length > 0) ? attempts : [];
@@ -100,10 +98,29 @@
         allUsers = [];
         allAttempts = [];
       }
+
+      // Safety Net: If cloud data returned 0 users or timed out, load from local storage backup
+      if (allUsers.length === 0) {
+        try {
+          const localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
+          if (localUsers.length > 0) {
+            allUsers = localUsers;
+            console.log(`🛡️ Admin Portal Emergency Fallback: Loaded ${allUsers.length} users from LocalStorage cache.`);
+          }
+        } catch(e) {}
+      }
+
+      if (allAttempts.length === 0) {
+        try {
+          const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+          if (localAttempts.length > 0) {
+            allAttempts = localAttempts;
+            console.log(`🛡️ Admin Portal Emergency Fallback: Loaded ${allAttempts.length} attempts from LocalStorage cache.`);
+          }
+        } catch(e) {}
+      }
     } catch (err) {
       console.error("Admin Portal Data Load Error:", err);
-      allUsers = [];
-      allAttempts = [];
     } finally {
       isLoading = false;
       renderContentArea();

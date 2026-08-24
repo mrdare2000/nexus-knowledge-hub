@@ -354,7 +354,7 @@
       console.warn("⚠️ fetchAllUsers: Realtime DB service is null — skipping Realtime DB source.");
     }
 
-    // Source 3: Current Authenticated User (supplementary — ensures at least logged-in admin is visible)
+    // Source 3: Current Authenticated User (supplementary)
     if (auth && auth.currentUser) {
       const cu = auth.currentUser;
       if (!usersMap[cu.uid]) {
@@ -372,6 +372,19 @@
       }
     }
 
+    // Source 4: LocalStorage Cache Fallback (Ensures zero data loss if network/cloud is blocked)
+    try {
+      const localUsers = JSON.parse(localStorage.getItem('nexus_registered_users')) || [];
+      localUsers.forEach(u => {
+        if (u && (u.uid || u.id)) {
+          const uid = u.uid || u.id;
+          if (!usersMap[uid]) {
+            usersMap[uid] = u;
+          }
+        }
+      });
+    } catch (e) {}
+
     const users = Object.values(usersMap);
     users.sort((a, b) => {
       const dateA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt)) : new Date(0);
@@ -379,7 +392,7 @@
       return dateB.getTime() - dateA.getTime();
     });
 
-    console.log(`☁️ Admin: Fetched ${users.length} users from Cloud Backend.`);
+    console.log(`☁️ Admin: Fetched ${users.length} users from Hybrid Cloud/Cache Engine.`);
     return users;
   }
 
@@ -435,9 +448,22 @@
       console.warn("⚠️ fetchAllQuizAttempts: Realtime DB service is null — skipping Realtime DB source.");
     }
 
+    // Source 3: LocalStorage Cache Fallback (Ensures zero data loss if network/cloud is blocked)
+    try {
+      const localAttempts = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+      localAttempts.forEach(a => {
+        if (a && (a.attemptId || a.id)) {
+          const id = a.attemptId || a.id;
+          if (!attemptsMap[id]) {
+            attemptsMap[id] = a;
+          }
+        }
+      });
+    } catch (e) {}
+
     const attempts = Object.values(attemptsMap);
     attempts.sort((a, b) => new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime());
-    console.log(`☁️ Admin: Fetched ${attempts.length} quiz attempts from Cloud Backend.`);
+    console.log(`☁️ Admin: Fetched ${attempts.length} quiz attempts from Hybrid Cloud/Cache Engine.`);
     return attempts;
   }
 
