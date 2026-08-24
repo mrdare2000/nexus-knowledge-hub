@@ -201,17 +201,57 @@
 
   function renderQuizGatekeeperUI() {
     return `
-      <div class="quiz-gatekeeper-card" style="max-width: 650px; margin: 40px auto; padding: 45px 30px; text-align: center; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); color: white;">
-        <div style="width: 80px; height: 80px; background: rgba(255, 90, 31, 0.15); border: 2px solid var(--accent-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 2.5rem; box-shadow: 0 0 20px rgba(255, 90, 31, 0.3);">
-          🔒
+      <div class="quiz-gatekeeper-card" style="max-width: 680px; margin: 35px auto; padding: 48px 36px; text-align: center; background: linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%); border: 1.5px solid #E2E8F0; border-radius: 28px; box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.02); color: var(--primary-navy); position: relative; overflow: hidden;">
+        
+        <!-- Subtle Top Decorative Glow Accent -->
+        <div style="position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 280px; height: 120px; background: radial-gradient(circle, rgba(255, 90, 31, 0.12) 0%, rgba(255, 255, 255, 0) 70%); pointer-events: none;"></div>
+
+        <!-- Category Badge Pill -->
+        <div style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: #FFF7ED; border: 1px solid #FFEDD5; border-radius: 30px; color: var(--accent-orange); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 22px;">
+          <span>✨</span> Professional Certification Hub
         </div>
-        <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; margin-bottom: 12px; color: white;">Quiz Hub & Certifications Locked</h2>
-        <p style="font-size: 1rem; color: #94A3B8; margin-bottom: 28px; line-height: 1.6; max-width: 520px; margin-left: auto; margin-right: auto;">
-          Quiz Hub access is reserved for registered Nexus members. Sign in or create a free account to take weekly freight challenges, track your scores, and earn verifiable certificates synced across all your devices.
+
+        <!-- Lock Icon Badge -->
+        <div style="width: 84px; height: 84px; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2.5px solid var(--accent-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px auto; font-size: 2.5rem; box-shadow: 0 12px 28px -6px rgba(255, 90, 31, 0.25);">
+          🔐
+        </div>
+
+        <!-- Main Title -->
+        <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.9rem; font-weight: 800; margin-bottom: 12px; color: var(--primary-navy); letter-spacing: -0.3px;">
+          Unlock Quiz Hub & Certifications
+        </h2>
+
+        <!-- Description -->
+        <p style="font-size: 0.98rem; color: #475569; margin-bottom: 30px; line-height: 1.65; max-width: 530px; margin-left: auto; margin-right: auto; font-weight: 500;">
+          Access weekly freight forwarding challenges, evaluate Incoterms & SOLAS mastery, track your progress, and earn verifiable logistics certificates.
         </p>
-        <button onclick="openAuthModal()" class="btn btn-primary" style="padding: 14px 32px; font-size: 1.05rem; font-weight: 700; border-radius: 12px; box-shadow: 0 10px 25px rgba(255, 90, 31, 0.4); cursor: pointer;">
-          🔑 Sign In / Create Free Account
-        </button>
+
+        <!-- Feature Highlight Pills -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 34px; text-align: left;">
+          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 14px 16px; border-radius: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <span style="font-size: 1.3rem;">🎯</span>
+            <span style="font-size: 0.83rem; font-weight: 700; color: var(--primary-navy); line-height: 1.3;">Weekly Freight Challenges</span>
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 14px 16px; border-radius: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <span style="font-size: 1.3rem;">🏆</span>
+            <span style="font-size: 0.83rem; font-weight: 700; color: var(--primary-navy); line-height: 1.3;">Verifiable Digital Certificates</span>
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 14px 16px; border-radius: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+            <span style="font-size: 1.3rem;">⚡</span>
+            <span style="font-size: 0.83rem; font-weight: 700; color: var(--primary-navy); line-height: 1.3;">Cross-Device Score Syncing</span>
+          </div>
+        </div>
+
+        <!-- Primary Call to Action Button -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+          <button onclick="openAuthModal()" class="btn btn-primary" style="padding: 15px 38px; font-size: 1.05rem; font-weight: 700; border-radius: 14px; background: linear-gradient(135deg, #FF5A1F 0%, #FF7A00 100%); color: white; border: none; box-shadow: 0 12px 28px -6px rgba(255, 90, 31, 0.38); cursor: pointer; transition: all 0.25s ease;">
+            🔑 Sign In / Create Free Account
+          </button>
+          
+          <span style="font-size: 0.84rem; color: #64748B; font-weight: 500;">
+            100% Free for Students & Freight Professionals
+          </span>
+        </div>
       </div>
     `;
   }
