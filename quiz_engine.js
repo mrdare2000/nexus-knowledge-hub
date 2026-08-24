@@ -60,7 +60,22 @@
     // 1. GATEKEEPER: If user is logged out, show Gatekeeper UI
     if (!currentUser) {
       container.innerHTML = renderQuizGatekeeperUI();
+      // Set short retry timeouts to catch async Firebase Auth hydration
+      if (!window.__quizAuthHydrationChecked) {
+        window.__quizAuthHydrationChecked = true;
+        [300, 800, 1500, 3000].forEach(delay => {
+          setTimeout(() => {
+            const recheckUser = getCurrentAuthUser();
+            if (recheckUser) {
+              console.log("🔓 Firebase Auth hydrated user asynchronously, unlocking Quiz Hub...");
+              renderQuizHubUI();
+            }
+          }, delay);
+        });
+      }
       return;
+    } else {
+      window.__quizAuthHydrationChecked = false;
     }
 
     // Auto-regrade any previous 0% attempts caused by earlier schema mismatch

@@ -1681,10 +1681,22 @@
       </div>
     </div>
   </div>
-  <!-- Loading scripts -->
+  <!-- Firebase Backend Cloud SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+  <script src="firebase_config.js?v=20260824_v2"></script>
+
+  <!-- Quiz & Knowledge Database Scripts -->
+  <script src="knowledge_base.js?v=20260824_v2"></script>
+  <script src="quiz_database.js?v=20260824_v2"></script>
+  <script src="quiz_engine.js?v=20260824_v2"></script>
+  <script src="admin_portal.js?v=20260824_v2"></script>
+
+  <!-- Core Application Logic Script (Depends on Firebase & Modules) -->
+  <script src="script.js?v=20260824_v2"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script src="knowledge_base.js?v=2.0"></script>
-  <script src="script.js?v=2.0"></script>
   <script>
     // Tool panel routing
     function toggleToolPanel(panelName) {
@@ -1843,19 +1855,7 @@
     </div>
   </div>
 
-  <!-- Firebase Backend Cloud SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-  <script src="firebase_config.js?v=20260821_v11"></script>
 
-  <!-- Quiz Engine Scripts -->
-  <script src="quiz_database.js?v=20260821_v12"></script>
-  <script src="quiz_engine.js?v=20260821_v19"></script>
-
-  <!-- Admin Portal Engine -->
-  <script src="admin_portal.js?v=20260821_v9"></script>
 
   <!-- Admin Gate Password Modal -->
   <div id="admin-gate-modal" class="modal-overlay" style="display: none;">

@@ -3500,31 +3500,49 @@ window.getCurrentUser = function() {
 };
 
 function initAuth() {
-  if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.onAuthStateChanged) {
-    window.NEXUS_FIREBASE.onAuthStateChanged((user) => {
-      if (user) {
+  function tryAttachListener() {
+    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.onAuthStateChanged === 'function') {
+      window.NEXUS_FIREBASE.init();
+      window.NEXUS_FIREBASE.onAuthStateChanged((user) => {
         currentUser = user;
         window.currentUser = user;
         updateAuthUI(user);
 
-        // Verify in background without breaking session on transient network errors
-        user.reload().catch((err) => {
-          if (err && (err.code === "auth/user-not-found" || err.code === "auth/user-disabled")) {
-            console.warn("User account deleted/disabled from Firebase Console:", err);
-            if (window.NEXUS_FIREBASE.logout) window.NEXUS_FIREBASE.logout();
-            currentUser = null;
-            window.currentUser = null;
-            updateAuthUI(null);
-          } else {
-            console.warn("Background user reload warning (session retained):", err.message);
-          }
-        });
-      } else {
-        currentUser = null;
-        window.currentUser = null;
-        updateAuthUI(null);
+        if (user) {
+          user.reload().catch((err) => {
+            if (err && (err.code === "auth/user-not-found" || err.code === "auth/user-disabled")) {
+              console.warn("User account deleted/disabled from Firebase Console:", err);
+              if (window.NEXUS_FIREBASE.logout) window.NEXUS_FIREBASE.logout();
+              currentUser = null;
+              window.currentUser = null;
+              updateAuthUI(null);
+            } else {
+              console.warn("Background user reload warning (session retained):", err.message);
+            }
+          });
+        }
+      });
+
+      // Immediate check if initial user is already hydrated
+      const initialUser = window.NEXUS_FIREBASE.getCurrentUser();
+      if (initialUser) {
+        currentUser = initialUser;
+        window.currentUser = initialUser;
+        updateAuthUI(initialUser);
       }
-    });
+      return true;
+    }
+    return false;
+  }
+
+  if (!tryAttachListener()) {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (tryAttachListener() || attempts > 50) {
+        clearInterval(interval);
+      }
+    }, 100);
   }
 }
 
@@ -3538,6 +3556,9 @@ function getFirestoreDb() {
 }
 
 function updateAuthUI(user) {
+  currentUser = user;
+  window.currentUser = user;
+
   const loginBtn = document.getElementById("sidebar-login-btn");
   const userProfile = document.getElementById("sidebar-user-profile");
   const homeLoginBtn = document.getElementById("home-login-btn");
