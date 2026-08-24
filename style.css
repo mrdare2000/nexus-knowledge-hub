@@ -4111,63 +4111,84 @@ footer {
 
 /* MOBILE BOTTOM BAR STYLING */
 .mobile-bottom-bar {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 768px) {
   .mobile-bottom-bar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(16px);
-    border-top: 1.5px solid var(--border-color);
-    z-index: 9999;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 5px;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 62px !important;
+    max-height: 62px !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-top: 1.5px solid var(--border-color) !important;
+    z-index: 99999 !important;
+    padding: 0 4px !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
   }
 
   .mobile-bottom-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    height: 100%;
-    color: var(--text-muted);
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    padding: 6px 0;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    max-height: 62px !important;
+    color: var(--text-muted) !important;
+    text-decoration: none !important;
+    padding: 4px 2px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    transition: all 0.15s ease !important;
   }
 
   .mobile-bottom-icon {
-    font-size: 1.25rem;
-    margin-bottom: 2px;
-    transition: transform 0.2s ease;
+    font-size: 1.2rem !important;
+    line-height: 1 !important;
+    margin-bottom: 2px !important;
+    display: block !important;
+    pointer-events: none !important;
   }
 
   .mobile-bottom-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    font-family: var(--font-title);
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    font-family: var(--font-title) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: block !important;
+    max-width: 100% !important;
+    pointer-events: none !important;
   }
 
   .mobile-bottom-item.active, .mobile-bottom-item:hover {
-    color: var(--accent-orange);
+    color: var(--accent-orange) !important;
   }
 
   .mobile-bottom-item.active .mobile-bottom-icon {
-    transform: scale(1.15);
+    transform: scale(1.1) !important;
   }
 
   body {
-    padding-bottom: 70px;
+    padding-bottom: 75px !important;
   }
 }
 
@@ -5018,48 +5039,7 @@ footer {
     padding: 12px 10px 95px 10px !important;
   }
 
-  /* Navigation & Bottom Bar */
-  .mobile-bottom-bar {
-    display: flex !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 62px;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1.5px solid rgba(10, 37, 64, 0.08);
-    z-index: 1080;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 4px;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
-  }
 
-  .mobile-bottom-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    color: #64748B;
-    text-decoration: none;
-    font-size: 0.72rem;
-    font-weight: 600;
-    flex: 1;
-    padding: 6px 0;
-    transition: all 0.2s ease;
-  }
-
-  .mobile-bottom-item.active {
-    color: var(--accent-orange);
-    font-weight: 800;
-  }
-
-  .mobile-bottom-icon {
-    font-size: 1.25rem;
-  }
 
   /* Single Column Grids for All Pages */
   .hero-section-grid,
