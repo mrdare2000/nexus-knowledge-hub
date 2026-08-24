@@ -694,27 +694,23 @@
 
     userAttempts.unshift(attemptRecord);
 
-    // PRIMARY: Save to Cloud Firebase Backend (must succeed)
-    let backendSaved = false;
-    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
-      try {
-        backendSaved = await window.NEXUS_FIREBASE.saveQuizAttempt(attemptRecord);
-        console.log('☁️ Quiz attempt saved to Cloud Backend:', backendSaved);
-      } catch (err) {
-        console.error('❌ Failed to save quiz attempt to backend:', err);
-      }
-    }
-
-    // SECONDARY: Cache to localStorage as backup
+    // 1. Cache to localStorage immediately for instant data safety
     try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
 
-    if (!backendSaved) {
-      console.warn('⚠️ Quiz attempt saved to local cache only. Backend sync pending.');
-    }
-
+    // 2. Transition UI to Results & Certificate view INSTANTLY (<20ms)
     isAttemptingQuiz = false;
     currentViewingAttempt = attemptRecord;
     renderQuizHubUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 3. Asynchronously sync to Cloud Firebase Backend in background
+    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
+      window.NEXUS_FIREBASE.saveQuizAttempt(attemptRecord).then(saved => {
+        console.log('☁️ Quiz attempt synced to Cloud Backend:', saved);
+      }).catch(err => {
+        console.error('❌ Cloud quiz sync warning:', err);
+      });
+    }
   }
 
   // Render Quiz Results View Screen

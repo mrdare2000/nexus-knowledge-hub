@@ -159,34 +159,37 @@
     const payload = JSON.parse(JSON.stringify(attemptRecord));
     payload.timestamp = payload.timestamp || new Date().toISOString();
 
-    let savedFirestore = false;
-    let savedRealtime = false;
+    const writePromises = [];
 
-    // A. Save to Cloud Firestore DB (Root Collection & User Subcollection)
+    // A. Save to Cloud Firestore DB
     if (firestore) {
-      try {
-        await firestore.collection("quiz_attempts").doc(payload.attemptId).set(payload, { merge: true });
-        if (payload.userId) {
-          await firestore.collection("users").doc(payload.userId).collection("quiz_attempts").doc(payload.attemptId).set(payload, { merge: true });
-        }
-        savedFirestore = true;
-      } catch (e) {
-        console.warn("Firestore save warning:", e.message);
-      }
+      const fsWrite = firestore.collection("quiz_attempts").doc(payload.attemptId).set(payload, { merge: true })
+        .then(() => {
+          if (payload.userId) {
+            return firestore.collection("users").doc(payload.userId).collection("quiz_attempts").doc(payload.attemptId).set(payload, { merge: true });
+          }
+        }).catch(e => console.warn("Firestore save warning:", e.message));
+      writePromises.push(fsWrite);
     }
 
-    // B. Save to Realtime Database (Dual Backup Sync)
+    // B. Save to Realtime Database
     if (realtimeDb) {
-      try {
-        await realtimeDb.ref("attempts/" + payload.attemptId).set(payload);
-        savedRealtime = true;
-      } catch (e) {
-        console.warn("Realtime DB save warning:", e.message);
-      }
+      const rtWrite = realtimeDb.ref("attempts/" + payload.attemptId).set(payload)
+        .catch(e => console.warn("Realtime DB save warning:", e.message));
+      writePromises.push(rtWrite);
     }
 
-    console.log(`☁️ Quiz attempt synced: Firestore [${savedFirestore}], Realtime DB [${savedRealtime}]`);
-    return savedFirestore || savedRealtime;
+    // Safety timeout (max 4 seconds) to ensure call never hangs UI
+    const timeoutPromise = new Promise(resolve => setTimeout(resolve, 4000));
+
+    try {
+      await Promise.race([Promise.allSettled(writePromises), timeoutPromise]);
+      console.log(`☁️ Quiz attempt synced to Cloud Backend.`);
+      return true;
+    } catch (e) {
+      console.warn("Cloud save warning:", e.message);
+      return false;
+    }
   }
 
   async function fetchQuizAttempts(userId = null) {
