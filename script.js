@@ -3487,22 +3487,41 @@ function hideGlobalLoader() {
   if (loader) loader.style.display = "none";
 }
 
+let currentUser = null;
+window.currentUser = null;
+
+window.getCurrentUser = function() {
+  if (currentUser) return currentUser;
+  if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.getCurrentUser === 'function') {
+    const u = window.NEXUS_FIREBASE.getCurrentUser();
+    if (u) return u;
+  }
+  return null;
+};
+
 function initAuth() {
   if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.onAuthStateChanged) {
     window.NEXUS_FIREBASE.onAuthStateChanged((user) => {
       if (user) {
-        // Verify if user account still exists in Firebase Auth backend (handles console deletion)
-        user.reload().then(() => {
-          currentUser = user;
-          updateAuthUI(user);
-        }).catch((err) => {
-          console.warn("User account deleted from Firebase Console:", err);
-          if (window.NEXUS_FIREBASE.logout) window.NEXUS_FIREBASE.logout();
-          currentUser = null;
-          updateAuthUI(null);
+        currentUser = user;
+        window.currentUser = user;
+        updateAuthUI(user);
+
+        // Verify in background without breaking session on transient network errors
+        user.reload().catch((err) => {
+          if (err && (err.code === "auth/user-not-found" || err.code === "auth/user-disabled")) {
+            console.warn("User account deleted/disabled from Firebase Console:", err);
+            if (window.NEXUS_FIREBASE.logout) window.NEXUS_FIREBASE.logout();
+            currentUser = null;
+            window.currentUser = null;
+            updateAuthUI(null);
+          } else {
+            console.warn("Background user reload warning (session retained):", err.message);
+          }
         });
       } else {
         currentUser = null;
+        window.currentUser = null;
         updateAuthUI(null);
       }
     });

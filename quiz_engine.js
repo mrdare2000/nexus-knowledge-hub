@@ -21,8 +21,22 @@
   let fetchedRemoteAttempts = false;
 
   function getCurrentAuthUser() {
-    if (typeof window.getCurrentUser === 'function') return window.getCurrentUser();
-    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.getCurrentUser === 'function') return window.NEXUS_FIREBASE.getCurrentUser();
+    if (typeof window.getCurrentUser === 'function' && window.getCurrentUser()) {
+      return window.getCurrentUser();
+    }
+    if (window.currentUser) {
+      return window.currentUser;
+    }
+    if (window.NEXUS_FIREBASE) {
+      if (typeof window.NEXUS_FIREBASE.getCurrentUser === 'function' && window.NEXUS_FIREBASE.getCurrentUser()) {
+        return window.NEXUS_FIREBASE.getCurrentUser();
+      }
+      const auth = typeof window.NEXUS_FIREBASE.getAuth === 'function' ? window.NEXUS_FIREBASE.getAuth() : null;
+      if (auth && auth.currentUser) return auth.currentUser;
+    }
+    if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+      return firebase.auth().currentUser;
+    }
     return null;
   }
 
