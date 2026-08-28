@@ -91,7 +91,7 @@ function escapeHTML(str) {
    2. SPA ROUTING & DYNAMIC SEO TITLES & META (HTML5 History API)
    ========================================== */
 const PAGE_SEO_TITLES = {
-  home: "Nexus Knowledge Hub | Freight Forwarding & Logistics Guide | Nexus Cargos (Pvt) Ltd",
+  home: "Nexus Knowledge Hub — Official Logistics & Shipping Educational Platform | Nexus Cargos",
   news: "Global Logistics & Freight Supply Chain News | Nexus Knowledge Hub",
   learning: "Freight Forwarding Operations Library | Nexus Knowledge Hub",
   tools: "Interactive Shipping Tools & CBM Calculators | Nexus Knowledge Hub",
@@ -215,7 +215,7 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
   const slug = PAGE_SLUGS[pageId] || "home";
   const isFileProtocol = window.location.protocol === "file:";
   const relativePath = pageId === "home" ? "/" : `/${slug}`;
-  const canonicalUrl = `https://nexusknowledgehub.com${relativePath}`;
+  const canonicalUrl = `https://www.nexusknowledgehub.com${relativePath}`;
 
   const canonicalTag = document.querySelector('link[rel="canonical"]');
   if (canonicalTag) {
