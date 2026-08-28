@@ -480,6 +480,246 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           explanation: "Vessel draft determines minimum water depth required for port navigation."
         }
       ]
+    },
+    {
+      id: "week-3",
+      title: "Weekly Quiz 03",
+      description: "20 Questions • 10 MCQ + 10 Short Answer",
+      questions: [
+        // 10 MCQs
+        {
+          id: "w3-q1",
+          type: "mcq",
+          category: "Air Freight",
+          question: "What is the standardized metal container or pallet used to consolidate cargo inside aircraft lower decks called?",
+          options: [
+            "ISO Container",
+            "Unit Load Device (ULD)",
+            "Intermodal Swap Body",
+            "Barge Container"
+          ],
+          answerIndex: 1,
+          explanation: "Unit Load Devices (ULDs), such as AKE containers or PMC pallets, allow rapid loading and unloading of aircraft holds."
+        },
+        {
+          id: "w3-q2",
+          type: "mcq",
+          category: "Incoterms® 2026",
+          question: "Under CIP (Carriage and Insurance Paid to) terms, what level of minimum insurance coverage must the seller procure for the buyer?",
+          options: [
+            "Institute Cargo Clauses (C) - Minimum Risk",
+            "Institute Cargo Clauses (B) - Basic Risk",
+            "Institute Cargo Clauses (A) - All Risks",
+            "No mandatory insurance requirement"
+          ],
+          answerIndex: 2,
+          explanation: "Incoterms® rules mandate Clause (A) 'All Risks' insurance coverage under CIP terms, whereas CIF only requires Clause (C)."
+        },
+        {
+          id: "w3-q3",
+          type: "mcq",
+          category: "Ocean Freight",
+          question: "What classification is given to ultra-large container ships with carrying capacities exceeding 20,000 TEUs?",
+          options: [
+            "Handysize",
+            "Panamax",
+            "ULCV (Ultra Large Container Vessel)",
+            "Aframax"
+          ],
+          answerIndex: 2,
+          explanation: "Ultra Large Container Vessels (ULCVs) carry over 20,000 TEUs and operate primarily on major Asia-Europe trade lanes."
+        },
+        {
+          id: "w3-q4",
+          type: "mcq",
+          category: "Shipping Contracts",
+          question: "What legal contract governs the hire and operation of an entire vessel between a shipowner and a charterer?",
+          options: [
+            "Bill of Lading (B/L)",
+            "Charter Party Agreement",
+            "Letter of Indemnity (LOI)",
+            "Freight Manifest"
+          ],
+          answerIndex: 1,
+          explanation: "A Charter Party agreement details terms, freight rates, and laytime for voyage or time charters."
+        },
+        {
+          id: "w3-q5",
+          type: "mcq",
+          category: "Customs & Valuation",
+          question: "Which type of customs duty is calculated as a fixed monetary rate per physical unit (e.g. $2.00 per kg) rather than cargo value?",
+          options: [
+            "Ad Valorem Duty",
+            "Specific Duty",
+            "Compound Duty",
+            "Anti-Dumping Duty"
+          ],
+          answerIndex: 1,
+          explanation: "Specific duty is assessed on physical metrics (weight, volume, quantity) independent of commercial value."
+        },
+        {
+          id: "w3-q6",
+          type: "mcq",
+          category: "Incoterms® 2026",
+          question: "Which Incoterm rule introduced in 2020 requires the seller to deliver and unload goods at the named place of destination?",
+          options: [
+            "DPU (Delivered at Place Unloaded)",
+            "DAP (Delivered at Place)",
+            "FAS (Free Alongside Ship)",
+            "CPT (Carriage Paid To)"
+          ],
+          answerIndex: 0,
+          explanation: "DPU (formerly DAT) is the only Incoterm that explicitly requires the seller to unload cargo at destination."
+        },
+        {
+          id: "w3-q7",
+          type: "mcq",
+          category: "History of Canals & Ports",
+          question: "In what year did the expanded Panama Canal (Third Set of Locks) open to accommodate Neopanamax mega-vessels?",
+          options: [
+            "1999",
+            "2008",
+            "2016",
+            "2020"
+          ],
+          answerIndex: 2,
+          explanation: "The expanded Panama Canal opened on June 26, 2016, enabling ships up to 14,000 TEU to transit the locks."
+        },
+        {
+          id: "w3-q8",
+          type: "mcq",
+          category: "Special Cargo Handling",
+          question: "What maritime vessel type utilizes internal ramps to drive wheeled cargo such as automobiles, trucks, and trailers directly on board?",
+          options: [
+            "Capesize Bulk Carrier",
+            "Ro-Ro (Roll-on / Roll-off)",
+            "Product Tanker",
+            "Feeder Containership"
+          ],
+          answerIndex: 1,
+          explanation: "Ro-Ro vessels feature built-in ramps for driving wheeled vehicles directly into vessel cargo decks."
+        },
+        {
+          id: "w3-q9",
+          type: "mcq",
+          category: "Freight Rates & Surcharges",
+          question: "What surcharge do ocean carriers apply when vessels face excessive waiting times at anchorage due to overcrowded terminals?",
+          options: [
+            "PCS (Port Congestion Surcharge)",
+            "GRI (General Rate Increase)",
+            "PSS (Peak Season Surcharge)",
+            "THC (Terminal Handling Charge)"
+          ],
+          answerIndex: 0,
+          explanation: "Port Congestion Surcharge (PCS) compensates ocean carriers for operating delays and fuel consumed while idling at anchor."
+        },
+        {
+          id: "w3-q10",
+          type: "mcq",
+          category: "Dangerous Goods & Compliance",
+          question: "Under IMDG Regulations, which UN Hazard Class covers Corrosive Liquids and Solids (e.g. sulfuric acid, battery fluid)?",
+          options: [
+            "Class 2",
+            "Class 5",
+            "Class 8",
+            "Class 9"
+          ],
+          answerIndex: 2,
+          explanation: "Class 8 dangerous goods encompass corrosive substances capable of damaging living tissue or ship structure."
+        },
+
+        // 10 Short Answer Questions
+        {
+          id: "w3-q11",
+          type: "short",
+          category: "Incoterms® 2026",
+          question: "Under FAS terms, where must the seller place the cargo for delivery to complete export obligations?",
+          modelAnswer: "Alongside the vessel at the named port of shipment",
+          keywords: ["alongside", "vessel", "ship", "port", "quay", "wharf"],
+          explanation: "FAS (Free Alongside Ship) requires placing cargo alongside the vessel on the quay or barge."
+        },
+        {
+          id: "w3-q12",
+          type: "short",
+          category: "Air Freight",
+          question: "What 11-digit document tracking number identifies Master Air Waybills, starting with a 3-digit airline prefix?",
+          modelAnswer: "MAWB Number (Master Air Waybill Number)",
+          keywords: ["mawb", "air", "waybill", "number"],
+          explanation: "MAWB numbers consist of a 3-digit airline code prefix followed by an 8-digit tracking serial."
+        },
+        {
+          id: "w3-q13",
+          type: "short",
+          category: "Customs & Security",
+          question: "What pre-arrival security declaration filing is mandatory for cargo entering European Union sea and air ports?",
+          modelAnswer: "ICS2 (Import Control System 2) / ENS (Entry Summary Declaration)",
+          keywords: ["ics2", "ens", "entry", "summary", "declaration"],
+          explanation: "ICS2 / ENS requires advance cargo data submission prior to loading destined for EU territory."
+        },
+        {
+          id: "w3-q14",
+          type: "short",
+          category: "Ocean Freight Pricing",
+          question: "What rating standard unit equals 1 CBM or 1,000 kg (whichever yields higher freight revenue) for LCL cargo?",
+          modelAnswer: "Revenue Ton (W/M - Weight or Measurement)",
+          keywords: ["revenue", "ton", "w/m", "weight", "measurement"],
+          explanation: "Revenue Ton (W/M) charges LCL freight based on volume (CBM) or weight (metric ton), whichever is greater."
+        },
+        {
+          id: "w3-q15",
+          type: "short",
+          category: "Warehousing & Inventory",
+          question: "What inventory rotation principle dispatches the oldest batch of received goods first to prevent stock deterioration?",
+          modelAnswer: "FIFO (First In, First Out)",
+          keywords: ["fifo", "first", "in", "out"],
+          explanation: "FIFO prevents obsolescence and expiration by shipping the oldest inventory stock first."
+        },
+        {
+          id: "w3-q16",
+          type: "short",
+          category: "Trade Lanes & Maritime",
+          question: "What key maritime bottleneck strait between Sumatra and the Malay Peninsula carries over 25% of world sea trade?",
+          modelAnswer: "Strait of Malacca",
+          keywords: ["malacca", "strait"],
+          explanation: "The Strait of Malacca is the primary sea lane connecting Asia with the Middle East and Europe."
+        },
+        {
+          id: "w3-q17",
+          type: "short",
+          category: "Trade Finance",
+          question: "What financial payment instrument issued by an importing bank guarantees payment to the exporter against compliant shipping documents?",
+          modelAnswer: "Letter of Credit (L/C)",
+          keywords: ["letter", "credit", "lc"],
+          explanation: "A Letter of Credit (L/C) provides bank-backed payment security in international trade."
+        },
+        {
+          id: "w3-q18",
+          type: "short",
+          category: "Container Operations",
+          question: "What fee does a shipping line charge an importer for failing to return an empty container to the depot within allowed free days?",
+          modelAnswer: "Container Detention",
+          keywords: ["detention"],
+          explanation: "Detention accrues when empty containers are held beyond agreed free time outside the port terminal."
+        },
+        {
+          id: "w3-q19",
+          type: "short",
+          category: "Cold Chain Logistics",
+          question: "What electronic temperature monitoring device placed inside reefer shipments records thermal logs during transit?",
+          modelAnswer: "Data Logger (Temperature Logger)",
+          keywords: ["data", "logger", "temperature", "recorder"],
+          explanation: "Data Loggers record continuous temperature metrics to verify cold-chain compliance upon arrival."
+        },
+        {
+          id: "w3-q20",
+          type: "short",
+          category: "Supply Chain Strategy",
+          question: "What inventory supply strategy delivers raw components to production lines immediately before assembly without buffer storage?",
+          modelAnswer: "Just-In-Time (JIT)",
+          keywords: ["just", "in", "time", "jit"],
+          explanation: "Just-In-Time (JIT) minimizes holding costs by scheduling material arrivals precisely as needed in production."
+        }
+      ]
     }
   ]
 };
