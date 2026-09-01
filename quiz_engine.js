@@ -312,7 +312,10 @@
     else if (bestScore >= 50) rankLabel = "Competent Practitioner 🥉";
 
     const weeks = window.NEXUS_QUIZ_DATABASE ? window.NEXUS_QUIZ_DATABASE.weeks : [];
-    const activeQuiz = weeks.length > 0 ? weeks[weeks.length - 1] : null;
+    const featuredQuiz = weeks.length > 0 ? weeks[weeks.length - 1] : null;
+    if (featuredQuiz && (!activeQuiz || !isAttemptingQuiz)) {
+      activeQuiz = featuredQuiz;
+    }
 
     return `
       <div class="quiz-portal-dashboard" style="max-width: 1050px; margin: 0 auto; font-family: 'Inter', sans-serif;">
@@ -375,10 +378,10 @@
               🔥 FEATURED WEEKLY CHALLENGE
             </span>
             <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 10px 0; font-size: 1.5rem;">
-              ${activeQuiz ? activeQuiz.title : 'Weekly Quiz Challenge'}
+              ${featuredQuiz ? featuredQuiz.title : 'Weekly Quiz Challenge'}
             </h2>
             <p style="color: var(--text-muted); font-size: 0.92rem; margin: 0 0 15px 0; line-height: 1.5;">
-              ${activeQuiz ? activeQuiz.description : 'Test your logistics knowledge with 20 weekly questions.'}
+              ${featuredQuiz ? featuredQuiz.description : 'Test your logistics knowledge with 20 weekly questions.'}
             </p>
             <div style="display: flex; gap: 15px; font-size: 0.82rem; color: var(--primary-navy); font-weight: 700;">
               <span>📝 20 Assessment Questions</span>
@@ -389,8 +392,8 @@
 
           <div>
             ${(function(){
-              if (!activeQuiz) return '';
-              const actAtt = myAttempts.find(a => a.weekId === activeQuiz.id);
+              if (!featuredQuiz) return '';
+              const actAtt = myAttempts.find(a => a.weekId === featuredQuiz.id);
               if (actAtt) {
                 return `
                   <button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
@@ -504,6 +507,10 @@
     const startActiveBtn = document.getElementById('btn-start-active-quiz');
     if (startActiveBtn) {
       startActiveBtn.addEventListener('click', function () {
+        const weeks = (window.NEXUS_QUIZ_DATABASE && window.NEXUS_QUIZ_DATABASE.weeks) ? window.NEXUS_QUIZ_DATABASE.weeks : [];
+        if (weeks.length > 0) {
+          activeQuiz = weeks[weeks.length - 1];
+        }
         isAttemptingQuiz = true;
         currentViewingAttempt = null;
         renderQuizHubUI();
@@ -549,6 +556,9 @@
 
   // Render Quiz Questions Form
   function renderQuizQuestionsForm() {
+    if (!activeQuiz && window.NEXUS_QUIZ_DATABASE && window.NEXUS_QUIZ_DATABASE.weeks && window.NEXUS_QUIZ_DATABASE.weeks.length > 0) {
+      activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[window.NEXUS_QUIZ_DATABASE.weeks.length - 1];
+    }
     let html = `
       <div class="quiz-questions-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
