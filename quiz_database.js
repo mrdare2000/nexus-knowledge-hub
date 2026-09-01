@@ -157,7 +157,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Incoterms® 2026",
           question: "Under FOB terms, at what exact physical point does legal risk transfer from the Seller to the Buyer?",
           modelAnswer: "Once the goods are loaded on board the vessel at the named port of shipment.",
-          keywords: ["loaded", "on board", "vessel", "shipment", "ship"],
+          keywords: ["on board", "loaded on board", "loaded aboard"],
           explanation: "In FOB (Free On Board), risk passes from seller to buyer the moment cargo is physically loaded aboard the vessel at origin."
         },
         {
@@ -166,7 +166,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Shipping Basics",
           question: "What does the abbreviation TEU stand for in container shipping statistics?",
           modelAnswer: "Twenty-foot Equivalent Unit",
-          keywords: ["twenty", "foot", "equivalent", "unit"],
+          keywords: ["teu", "twenty-foot equivalent", "twenty foot equivalent"],
           explanation: "TEU is the universal unit of measurement equal to one standard 20ft ISO container."
         },
         {
@@ -175,7 +175,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Customs & Compliance",
           question: "What automated electronic customs clearance portal is operated by UNCTAD and Sri Lanka Customs?",
           modelAnswer: "ASYCUDA World",
-          keywords: ["asycuda", "world"],
+          keywords: ["asycuda"],
           explanation: "ASYCUDA (Automated System for Customs Data) World handles electronic CUSDEC declarations."
         },
         {
@@ -184,7 +184,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Shipping Documents",
           question: "Which essential document lists the itemized box counts, net weights, gross weights, and package dimensions of a shipment?",
           modelAnswer: "Packing List (PL)",
-          keywords: ["packing", "list"],
+          keywords: ["packing list"],
           explanation: "The Packing List details cargo packaging breakdown for physical customs verification."
         },
         {
@@ -211,7 +211,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Air Freight",
           question: "What non-negotiable contract document is issued by airlines for air cargo transport?",
           modelAnswer: "Air Waybill (AWB)",
-          keywords: ["air", "waybill", "awb"],
+          keywords: ["air waybill", "awb"],
           explanation: "An Air Waybill (AWB) acts as receipt of goods and contract of carriage in air freight."
         },
         {
@@ -229,7 +229,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Logistics Process & SOPs",
           question: "What mandatory SOLAS regulation requires shippers to provide certified weight declarations before container vessel loading?",
           modelAnswer: "VGM (Verified Gross Mass)",
-          keywords: ["vgm", "verified", "gross", "mass"],
+          keywords: ["vgm", "verified gross mass"],
           explanation: "SOLAS VGM mandates accurate container weight measurement to prevent vessel instability."
         },
         {
@@ -238,7 +238,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Supply Chain & Logistics",
           question: "What logistics acronym describes a non-asset lead logistics provider managing an entire supply chain ecosystem?",
           modelAnswer: "4PL (Fourth-Party Logistics)",
-          keywords: ["4pl", "fourth", "party"],
+          keywords: ["4pl", "fourth-party logistics", "fourth party"],
           explanation: "4PL integrators manage 3PLs, technology, and end-to-end supply chain execution."
         }
       ]
@@ -404,7 +404,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Customs Clearance",
           question: "What tax identification number must Sri Lankan exporters declare on customs entry documents?",
           modelAnswer: "TIN (Tax Identification Number)",
-          keywords: ["tin", "tax"],
+          keywords: ["tin", "tax identification number"],
           explanation: "TIN is mandatory for IRD & Sri Lanka Customs registration."
         },
         {
@@ -413,7 +413,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Shipping Documents",
           question: "What document proves the country of manufacture of goods to claim preferential tariff discounts?",
           modelAnswer: "Certificate of Origin (COO)",
-          keywords: ["certificate", "origin", "coo"],
+          keywords: ["certificate of origin", "coo"],
           explanation: "Certificate of Origin (COO) verifies manufacturing country for FTA duty benefits."
         },
         {
@@ -422,7 +422,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Ocean Freight",
           question: "What container shipping acronym represents less-than-container-load consolidated cargo?",
           modelAnswer: "LCL (Less than Container Load)",
-          keywords: ["lcl", "less"],
+          keywords: ["lcl", "less than container"],
           explanation: "LCL consolidates multiple shippers' goods into a shared container."
         },
         {
@@ -431,7 +431,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Freight Charges",
           question: "What surcharge compensates carriers for exchange rate fluctuations between USD and local currency?",
           modelAnswer: "CAF (Currency Adjustment Factor)",
-          keywords: ["caf", "currency"],
+          keywords: ["caf", "currency adjustment"],
           explanation: "CAF covers currency exchange rate volatility."
         },
         {
@@ -449,7 +449,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Special Cargo Handling",
           question: "What document specifies 16 safety sections for handling dangerous chemical cargo?",
           modelAnswer: "MSDS / SDS (Safety Data Sheet)",
-          keywords: ["msds", "sds", "safety", "data", "sheet"],
+          keywords: ["msds", "sds", "safety data sheet"],
           explanation: "MSDS/SDS outlines hazardous chemical storage and emergency procedures."
         },
         {
@@ -458,7 +458,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Supply Chain",
           question: "What phenomenon describes how small fluctuations in retail demand create amplified swings upstream in supply chains?",
           modelAnswer: "The Bullwhip Effect",
-          keywords: ["bullwhip", "effect"],
+          keywords: ["bullwhip"],
           explanation: "The Bullwhip Effect causes distorted inventory forecasting upstream."
         },
         {
@@ -467,7 +467,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Trade Lane Guides",
           question: "What major US West Coast port pair handles the largest volume of Asian container imports?",
           modelAnswer: "Port of Los Angeles & Port of Long Beach (LA/LB)",
-          keywords: ["los angeles", "long beach", "la", "lb"],
+          keywords: ["los angeles", "long beach"],
           explanation: "LA/LB is the primary US West Coast ocean gateway."
         },
         {
@@ -635,7 +635,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Incoterms® 2026",
           question: "Under FAS terms, where must the seller place the cargo for delivery to complete export obligations?",
           modelAnswer: "Alongside the vessel at the named port of shipment",
-          keywords: ["alongside", "vessel", "ship", "port", "quay", "wharf"],
+          keywords: ["alongside", "free alongside"],
           explanation: "FAS (Free Alongside Ship) requires placing cargo alongside the vessel on the quay or barge."
         },
         {
@@ -644,7 +644,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Air Freight",
           question: "What 11-digit document tracking number identifies Master Air Waybills, starting with a 3-digit airline prefix?",
           modelAnswer: "MAWB Number (Master Air Waybill Number)",
-          keywords: ["mawb", "air", "waybill", "number"],
+          keywords: ["mawb", "master air waybill"],
           explanation: "MAWB numbers consist of a 3-digit airline code prefix followed by an 8-digit tracking serial."
         },
         {
@@ -653,7 +653,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Customs & Security",
           question: "What pre-arrival security declaration filing is mandatory for cargo entering European Union sea and air ports?",
           modelAnswer: "ICS2 (Import Control System 2) / ENS (Entry Summary Declaration)",
-          keywords: ["ics2", "ens", "entry", "summary", "declaration"],
+          keywords: ["ics2", "ics 2", "ens", "entry summary declaration", "import control system"],
           explanation: "ICS2 / ENS requires advance cargo data submission prior to loading destined for EU territory."
         },
         {
@@ -662,7 +662,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Ocean Freight Pricing",
           question: "What rating standard unit equals 1 CBM or 1,000 kg (whichever yields higher freight revenue) for LCL cargo?",
           modelAnswer: "Revenue Ton (W/M - Weight or Measurement)",
-          keywords: ["revenue", "ton", "w/m", "weight", "measurement"],
+          keywords: ["revenue ton", "w/m", "weight or measure"],
           explanation: "Revenue Ton (W/M) charges LCL freight based on volume (CBM) or weight (metric ton), whichever is greater."
         },
         {
@@ -671,7 +671,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Warehousing & Inventory",
           question: "What inventory rotation principle dispatches the oldest batch of received goods first to prevent stock deterioration?",
           modelAnswer: "FIFO (First In, First Out)",
-          keywords: ["fifo", "first", "in", "out"],
+          keywords: ["fifo", "first in first out", "first-in first-out"],
           explanation: "FIFO prevents obsolescence and expiration by shipping the oldest inventory stock first."
         },
         {
@@ -689,7 +689,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Trade Finance",
           question: "What financial payment instrument issued by an importing bank guarantees payment to the exporter against compliant shipping documents?",
           modelAnswer: "Letter of Credit (L/C)",
-          keywords: ["letter", "credit", "lc"],
+          keywords: ["letter of credit", "l/c", "lc"],
           explanation: "A Letter of Credit (L/C) provides bank-backed payment security in international trade."
         },
         {
@@ -707,7 +707,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Cold Chain Logistics",
           question: "What electronic temperature monitoring device placed inside reefer shipments records thermal logs during transit?",
           modelAnswer: "Data Logger (Temperature Logger)",
-          keywords: ["data", "logger", "temperature", "recorder"],
+          keywords: ["data logger", "temperature logger", "temperature recorder"],
           explanation: "Data Loggers record continuous temperature metrics to verify cold-chain compliance upon arrival."
         },
         {
@@ -716,13 +716,254 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Supply Chain Strategy",
           question: "What inventory supply strategy delivers raw components to production lines immediately before assembly without buffer storage?",
           modelAnswer: "Just-In-Time (JIT)",
-          keywords: ["just", "in", "time", "jit"],
+          keywords: ["jit", "just-in-time", "just in time"],
           explanation: "Just-In-Time (JIT) minimizes holding costs by scheduling material arrivals precisely as needed in production."
+        }
+      ]
+    },
+    {
+      id: "week-4",
+      title: "Weekly Quiz 04",
+      description: "20 Questions • 10 MCQ + 10 Short Answer",
+      questions: [
+        // 10 MCQs
+        {
+          id: "w4-q1",
+          type: "mcq",
+          category: "Marine Insurance",
+          question: "What maritime insurance principle requires all cargo stakeholders to proportionally share financial losses when cargo is intentionally sacrificed to save a vessel in peril?",
+          options: [
+            "Marine Particular Average",
+            "General Average",
+            "Salvage Award",
+            "Abandonment Clause"
+          ],
+          answerIndex: 1,
+          explanation: "General Average is a centuries-old maritime law principle where all parties in a sea venture (ship, cargo, freight) proportionally share losses resulting from voluntary sacrifice made to preserve the voyage."
+        },
+        {
+          id: "w4-q2",
+          type: "mcq",
+          category: "Trade Compliance",
+          question: "What internationally recognized customs certification program grants trusted traders expedited clearance and reduced inspections under the WCO SAFE Framework of Standards?",
+          options: [
+            "C-TPAT (Customs-Trade Partnership Against Terrorism)",
+            "AEO (Authorized Economic Operator)",
+            "ISO 28000 Supply Chain Security",
+            "FAST (Free and Secure Trade)"
+          ],
+          answerIndex: 1,
+          explanation: "AEO (Authorized Economic Operator) is a WCO global standard granting certified traders benefits including fewer inspections, priority processing, and mutual recognition between countries."
+        },
+        {
+          id: "w4-q3",
+          type: "mcq",
+          category: "E-commerce Logistics",
+          question: "In e-commerce supply chains, which segment of the delivery chain typically accounts for over 50% of total shipping costs due to fragmented residential deliveries?",
+          options: [
+            "First-mile (origin pickup)",
+            "Line-haul (trunk transport)",
+            "Last-mile delivery",
+            "Reverse logistics (returns)"
+          ],
+          answerIndex: 2,
+          explanation: "Last-mile delivery — the final leg from distribution hub to customer doorstep — is the most expensive and complex logistics segment due to low drop density and failed delivery attempts."
+        },
+        {
+          id: "w4-q4",
+          type: "mcq",
+          category: "Intermodal Transport",
+          question: "What intermodal freight method involves loading highway truck trailers directly onto railway flatcars for long-distance trunk haul transport?",
+          options: [
+            "Containerization (ISO Box)",
+            "TOFC / Piggyback",
+            "Ro-Pax Ferry",
+            "Drayage"
+          ],
+          answerIndex: 1,
+          explanation: "TOFC (Trailer on Flatcar), also known as Piggyback, combines the flexibility of truck transport with the cost efficiency of rail for long-distance intermodal freight movement."
+        },
+        {
+          id: "w4-q5",
+          type: "mcq",
+          category: "Maritime Law",
+          question: "Which international convention governs the rights, responsibilities, and liability limits of ocean carriers for cargo loss or damage under Bills of Lading?",
+          options: [
+            "Rotterdam Rules",
+            "Hague-Visby Rules",
+            "Hamburg Rules",
+            "Warsaw Convention"
+          ],
+          answerIndex: 1,
+          explanation: "The Hague-Visby Rules (1968 amendment to 1924 Hague Rules) remain the most widely adopted international convention governing carrier liability for ocean cargo claims."
+        },
+        {
+          id: "w4-q6",
+          type: "mcq",
+          category: "Port Operations",
+          question: "What large-scale port equipment is used to load and discharge shipping containers between vessel decks and the quayside terminal?",
+          options: [
+            "Reach Stacker",
+            "Rubber-Tyred Gantry (RTG)",
+            "Ship-to-Shore (STS) Gantry Crane",
+            "Straddle Carrier"
+          ],
+          answerIndex: 2,
+          explanation: "Ship-to-Shore (STS) Gantry Cranes, also called quay cranes, are the primary equipment for loading and discharging containers from vessels at modern container terminals."
+        },
+        {
+          id: "w4-q7",
+          type: "mcq",
+          category: "Customs Procedures",
+          question: "What type of customs-regulated storage facility allows imported goods to be stored without payment of import duties until they are released into domestic consumption?",
+          options: [
+            "Free Trade Zone (FTZ)",
+            "Bonded Warehouse",
+            "Cross-Dock Terminal",
+            "Inland Container Depot (ICD)"
+          ],
+          answerIndex: 1,
+          explanation: "A Bonded Warehouse is a secured facility licensed by customs authorities where imported goods can be stored, manipulated, or manufactured without paying duties until withdrawal for local use or re-export."
+        },
+        {
+          id: "w4-q8",
+          type: "mcq",
+          category: "Green Logistics & Compliance",
+          question: "What IMO regulation, effective January 1, 2020, limits the sulfur content in marine vessel fuel oil to 0.50% m/m globally to reduce SOx air pollution?",
+          options: [
+            "MARPOL Annex VI / IMO 2020 Sulfur Cap",
+            "SOLAS Chapter XI-2 (ISPS Code)",
+            "ISM Code (International Safety Management)",
+            "Ballast Water Management Convention"
+          ],
+          answerIndex: 0,
+          explanation: "IMO 2020 (MARPOL Annex VI) reduced the global sulfur cap from 3.50% to 0.50% m/m, requiring ships to use low-sulfur fuel oil (LSFO) or install exhaust gas scrubbers."
+        },
+        {
+          id: "w4-q9",
+          type: "mcq",
+          category: "Trade Finance",
+          question: "What is the most common and fastest method of international trade payment where the buyer's bank directly wires funds electronically to the seller's bank account?",
+          options: [
+            "Documentary Collection (D/P)",
+            "Letter of Credit (L/C)",
+            "Telegraphic Transfer (T/T Wire)",
+            "Open Account (O/A) with 90-day terms"
+          ],
+          answerIndex: 2,
+          explanation: "Telegraphic Transfer (T/T), also known as wire transfer, is the most widely used international payment method offering speed and simplicity, though it carries higher risk for the exporter compared to L/C."
+        },
+        {
+          id: "w4-q10",
+          type: "mcq",
+          category: "Freight Technology",
+          question: "What electronic technology standard enables automated, paperless exchange of structured trade documents (purchase orders, invoices, shipping notices) between supply chain partners?",
+          options: [
+            "Blockchain (Distributed Ledger)",
+            "EDI (Electronic Data Interchange)",
+            "RFID (Radio Frequency Identification)",
+            "IoT (Internet of Things)"
+          ],
+          answerIndex: 1,
+          explanation: "EDI (Electronic Data Interchange) is the computer-to-computer exchange of business documents in standardized formats (EDIFACT, ANSI X12), eliminating paper-based processing in logistics."
+        },
+
+        // 10 Short Answer Questions
+        {
+          id: "w4-q11",
+          type: "short",
+          category: "Customs & Compliance",
+          question: "What US Customs electronic system requires ocean carriers to transmit cargo manifest data at least 24 hours before a vessel departs from a foreign port bound for the United States?",
+          modelAnswer: "AMS (Automated Manifest System)",
+          keywords: ["ams", "automated manifest system"],
+          explanation: "AMS (Automated Manifest System) is the US CBP electronic system for advance cargo information filing, working alongside ISF 10+2 for import security."
+        },
+        {
+          id: "w4-q12",
+          type: "short",
+          category: "Ocean Freight Operations",
+          question: "What ocean freight logistics term describes transferring cargo containers from one vessel to another at an intermediate hub port before reaching the final destination?",
+          modelAnswer: "Transshipment",
+          keywords: ["transshipment", "transhipment", "trans-shipment"],
+          explanation: "Transshipment allows carriers to consolidate cargo volumes through major hub ports (e.g., Singapore, Colombo, Dubai) for onward connection to smaller feeder ports."
+        },
+        {
+          id: "w4-q13",
+          type: "short",
+          category: "Air Cargo Standards",
+          question: "What IATA reference publication provides standardized worldwide air cargo rate tariffs, rules, and routing regulations used by airlines and freight forwarders?",
+          modelAnswer: "TACT (The Air Cargo Tariff)",
+          keywords: ["tact", "air cargo tariff"],
+          explanation: "TACT (The Air Cargo Tariff) is IATA's official tariff publication covering rates, rules, and regulations for international air cargo transport."
+        },
+        {
+          id: "w4-q14",
+          type: "short",
+          category: "Customs Classification",
+          question: "Which Harmonized System (HS) chapter number covers 'Vehicles other than railway or tramway rolling stock', including automobiles, trucks, and motorcycles?",
+          modelAnswer: "Chapter 87",
+          keywords: ["87", "chapter 87"],
+          explanation: "HS Chapter 87 encompasses all motor vehicles (cars, trucks, buses, motorcycles) and their parts, excluding railway rolling stock (Chapter 86)."
+        },
+        {
+          id: "w4-q15",
+          type: "short",
+          category: "Supply Chain Management",
+          question: "What collaborative inventory replenishment arrangement allows the supplier to monitor and replenish the buyer's stock levels automatically based on real-time consumption data?",
+          modelAnswer: "VMI (Vendor Managed Inventory)",
+          keywords: ["vmi", "vendor managed inventory", "vendor-managed inventory"],
+          explanation: "VMI (Vendor Managed Inventory) shifts replenishment responsibility to the supplier, reducing stockouts and improving supply chain efficiency."
+        },
+        {
+          id: "w4-q16",
+          type: "short",
+          category: "Maritime Safety",
+          question: "What marking painted on a ship's hull indicates the maximum safe loading draft limit permitted under various water density and seasonal ocean conditions?",
+          modelAnswer: "Plimsoll Line (Load Line)",
+          keywords: ["plimsoll", "load line"],
+          explanation: "The Plimsoll Line (or Load Line), mandated by the International Load Line Convention, prevents vessel overloading by marking maximum draft limits for different water conditions."
+        },
+        {
+          id: "w4-q17",
+          type: "short",
+          category: "Warehouse Technology",
+          question: "What software system manages and optimizes warehouse operations including receiving, put-away, inventory tracking, order picking, packing, and shipping?",
+          modelAnswer: "WMS (Warehouse Management System)",
+          keywords: ["wms", "warehouse management system"],
+          explanation: "WMS (Warehouse Management System) software provides real-time visibility into inventory levels, optimizes storage locations, and directs warehouse workflows."
+        },
+        {
+          id: "w4-q18",
+          type: "short",
+          category: "Trade Lanes & Maritime Chokepoints",
+          question: "What narrow maritime chokepoint between Iran and Oman carries approximately 20-25% of the world's daily oil supply via tanker traffic?",
+          modelAnswer: "Strait of Hormuz",
+          keywords: ["hormuz"],
+          explanation: "The Strait of Hormuz connects the Persian Gulf to the Gulf of Oman and is the world's most critical oil transit chokepoint."
+        },
+        {
+          id: "w4-q19",
+          type: "short",
+          category: "Freight Charges",
+          question: "What port-related charge covers the cost of handling containers at the marine terminal, including loading and unloading between the vessel and the container yard?",
+          modelAnswer: "THC (Terminal Handling Charge)",
+          keywords: ["thc", "terminal handling"],
+          explanation: "THC (Terminal Handling Charge) is levied at both origin and destination ports to cover container handling costs at terminal facilities."
+        },
+        {
+          id: "w4-q20",
+          type: "short",
+          category: "Phytosanitary Compliance",
+          question: "What international phytosanitary standard requires all solid wood packaging materials (pallets, crates, dunnage) used in international trade to be heat-treated or fumigated to prevent pest spread?",
+          modelAnswer: "ISPM 15",
+          keywords: ["ispm 15", "ispm15", "ispm"],
+          explanation: "ISPM 15 (International Standards for Phytosanitary Measures No. 15) mandates treatment and marking of wood packaging to prevent cross-border transmission of invasive insects and plant diseases."
         }
       ]
     }
   ]
 };
+
 
 if (typeof window !== 'undefined') {
   window.NEXUS_QUIZ_DATABASE = NEXUS_QUIZ_DATABASE;
