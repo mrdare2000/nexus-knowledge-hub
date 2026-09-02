@@ -2871,6 +2871,268 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
           `,
           youtube: "https://www.youtube.com/embed/VbLowVNpj_8"
+        },
+        {
+          id: "multimodal-transport",
+          title: "Multimodal Transport",
+          summary: "Moving cargo across borders using multiple transport modes — sea, road, rail, and air — in a single journey.",
+          image: "images/multimodal_transport.png",
+          content: `
+            <img src="images/multimodal_transport.png" alt="multimodal-transport infographic" class="kb-infographic" />
+
+            <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border:2px solid #93C5FD; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#1E40AF; font-size:1.3rem;">\uD83C\uDF10 What is Multimodal Transport?</h4>
+              <p style="margin:0; color:#1E3A8A; font-size:0.95rem; line-height:1.7;">Multimodal Transport is the movement of cargo from origin to destination using <strong>two or more different modes of transport</strong> (sea, road, rail, air) under a single contract of carriage. Unlike using separate carriers for each leg, a <strong>Multimodal Transport Operator (MTO)</strong> takes full responsibility for the entire door-to-door journey, regardless of how many different transport modes are used along the way.</p>
+            </div>
+
+            <h3>Why Multimodal Transport Exists</h3>
+            <p>No single mode of transport can handle every leg of an international shipment. A factory in inland China cannot directly load cargo onto an ocean vessel — it must first travel by truck or rail to a seaport. Similarly, when cargo arrives at the destination port, it must be transferred to a truck or train for the final delivery to an inland warehouse. This reality means that <strong>almost every international shipment is inherently multimodal</strong>. The key is how these different legs are managed, documented, and insured.</p>
+
+            <h3>Types of Multimodal Transport Combinations</h3>
+            <p>Here are the most common multimodal combinations used in international freight forwarding, each with real-world practical examples:</p>
+
+            <!-- CSS INFOGRAPHIC: MULTIMODAL TYPES -->
+            <div style="margin:25px 0; display:flex; flex-direction:column; gap:20px; font-family:'Outfit', sans-serif;">
+              
+              <!-- SEA-ROAD -->
+              <div style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%); border:2px solid #7DD3FC; padding:25px; border-radius:16px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                  <span style="font-size:1.8rem;">\uD83D\uDE9A\u2693\uD83D\uDE9A</span>
+                  <h4 style="margin:0; color:#0284C7; font-size:1.2rem;">1. Sea-Road (Truck + Ship + Truck) — The Most Common</h4>
+                </div>
+                <p style="font-size:0.95rem; color:#0C4A6E; margin:0 0 15px 0; line-height:1.7;">This is the backbone of global trade. Cargo moves by truck from the shipper's factory or warehouse to the origin seaport, crosses the ocean by vessel, and then moves by truck again from the destination port to the consignee's warehouse or distribution center.</p>
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #0EA5E9;">
+                  <strong style="color:#0369A1; display:block; margin-bottom:8px;">\uD83D\uDCCD Practical Example: Sri Lanka Tea Export to USA</strong>
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+                    <span style="background:#E0F2FE; color:#0369A1; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Factory in Kandy</span>
+                    <span style="color:#0284C7; font-weight:bold;">\u27A1 Truck</span>
+                    <span style="background:#E0F2FE; color:#0369A1; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Colombo Port</span>
+                    <span style="color:#0284C7; font-weight:bold;">\u27A1 Ship (25 days)</span>
+                    <span style="background:#E0F2FE; color:#0369A1; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">New York Port</span>
+                    <span style="color:#0284C7; font-weight:bold;">\u27A1 Truck</span>
+                    <span style="background:#E0F2FE; color:#0369A1; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Warehouse in New Jersey</span>
+                  </div>
+                  <p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">Tea is loaded into a container at the factory in Kandy, trucked 120km to Colombo Port, loaded onto a vessel bound for New York, then trucked from the port to the buyer's warehouse in New Jersey. Three modes of transport, one seamless chain.</p>
+                </div>
+              </div>
+
+              <!-- SEA-RAIL -->
+              <div style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border:2px solid #86EFAC; padding:25px; border-radius:16px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                  <span style="font-size:1.8rem;">\uD83D\uDE82\u2693\uD83D\uDE82</span>
+                  <h4 style="margin:0; color:#15803D; font-size:1.2rem;">2. Sea-Rail (Rail + Ship + Rail) — For Inland Connectivity</h4>
+                </div>
+                <p style="font-size:0.95rem; color:#14532D; margin:0 0 15px 0; line-height:1.7;">When origin or destination points are deep inland (hundreds of kilometers from a port), rail transport is far more cost-effective than trucking for long distances. Containers are loaded onto flatbed rail wagons and transported to/from the port by train.</p>
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #16A34A;">
+                  <strong style="color:#15803D; display:block; margin-bottom:8px;">\uD83D\uDCCD Practical Example: Chinese Electronics to Europe</strong>
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+                    <span style="background:#DCFCE7; color:#15803D; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Factory in Chongqing</span>
+                    <span style="color:#16A34A; font-weight:bold;">\u27A1 Rail (China Rail)</span>
+                    <span style="background:#DCFCE7; color:#15803D; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Shanghai Port</span>
+                    <span style="color:#16A34A; font-weight:bold;">\u27A1 Ship (30 days)</span>
+                    <span style="background:#DCFCE7; color:#15803D; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Hamburg Port</span>
+                    <span style="color:#16A34A; font-weight:bold;">\u27A1 Rail (DB Cargo)</span>
+                    <span style="background:#DCFCE7; color:#15803D; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Warehouse in Prague</span>
+                  </div>
+                  <p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">Electronics manufactured in Chongqing (1,800km inland from Shanghai) travel by rail to Shanghai Port, cross the ocean to Hamburg, then onward by European rail to a distribution center in Prague, Czech Republic.</p>
+                </div>
+              </div>
+
+              <!-- AIR-ROAD -->
+              <div style="background: linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%); border:2px solid #E879F9; padding:25px; border-radius:16px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                  <span style="font-size:1.8rem;">\uD83D\uDE9A\u2708\uFE0F\uD83D\uDE9A</span>
+                  <h4 style="margin:0; color:#A21CAF; font-size:1.2rem;">3. Air-Road (Truck + Plane + Truck) — For Time-Critical Cargo</h4>
+                </div>
+                <p style="font-size:0.95rem; color:#4A044E; margin:0 0 15px 0; line-height:1.7;">Used for high-value, time-sensitive cargo where speed is the absolute priority. Goods are trucked to the origin airport, flown to the destination airport, and then trucked for final delivery. This is the fastest but most expensive combination.</p>
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #C026D3;">
+                  <strong style="color:#A21CAF; display:block; margin-bottom:8px;">\uD83D\uDCCD Practical Example: Pharmaceutical Vaccines from Belgium to Sri Lanka</strong>
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+                    <span style="background:#FAE8FF; color:#86198F; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Pfizer Lab (Brussels)</span>
+                    <span style="color:#C026D3; font-weight:bold;">\u27A1 Reefer Truck</span>
+                    <span style="background:#FAE8FF; color:#86198F; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Brussels Airport (BRU)</span>
+                    <span style="color:#C026D3; font-weight:bold;">\u27A1 Cargo Flight</span>
+                    <span style="background:#FAE8FF; color:#86198F; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">BIA Airport (CMB)</span>
+                    <span style="color:#C026D3; font-weight:bold;">\u27A1 Reefer Truck</span>
+                    <span style="background:#FAE8FF; color:#86198F; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Cold Storage (Colombo)</span>
+                  </div>
+                  <p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">Temperature-sensitive vaccines must maintain a strict cold chain (2-8\u00B0C) throughout. Reefer trucks transport from the lab to the airport. The cargo flies in Envirotainer passive cooling ULDs. Upon landing at BIA, reefer trucks rush the vaccines to a temperature-controlled facility. Total transit: 24-48 hours.</p>
+                </div>
+              </div>
+
+              <!-- SEA-AIR -->
+              <div style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FCD34D; padding:25px; border-radius:16px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                  <span style="font-size:1.8rem;">\u2693\u2708\uFE0F</span>
+                  <h4 style="margin:0; color:#B45309; font-size:1.2rem;">4. Sea-Air (Ship + Plane) — The Best of Both Worlds</h4>
+                </div>
+                <p style="font-size:0.95rem; color:#78350F; margin:0 0 15px 0; line-height:1.7;">A clever hybrid strategy: use <strong>sea freight for the first long leg</strong> (to save cost), then <strong>switch to air freight for the final leg</strong> (to save time). This gives you a transit time faster than pure ocean but cheaper than pure air. Dubai and Singapore are major sea-air transshipment hubs.</p>
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #D97706;">
+                  <strong style="color:#B45309; display:block; margin-bottom:8px;">\uD83D\uDCCD Practical Example: Garments from Bangladesh to USA (via Dubai)</strong>
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+                    <span style="background:#FEF3C7; color:#92400E; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Dhaka Factory</span>
+                    <span style="color:#D97706; font-weight:bold;">\u27A1 Truck</span>
+                    <span style="background:#FEF3C7; color:#92400E; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Chittagong Port</span>
+                    <span style="color:#D97706; font-weight:bold;">\u27A1 Ship (7 days)</span>
+                    <span style="background:#FEF3C7; color:#92400E; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Dubai (Jebel Ali)</span>
+                    <span style="color:#D97706; font-weight:bold;">\u27A1 Flight (16 hrs)</span>
+                    <span style="background:#FEF3C7; color:#92400E; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">JFK New York</span>
+                  </div>
+                  <p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">Instead of 30+ days full ocean or paying full air freight rates, the garment exporter ships by sea to Dubai (7 days), then transfers to air freight for the final leg to New York (16 hours). Total transit ~10 days vs 35 days by pure sea. Cost savings of ~40% compared to full air freight.</p>
+                </div>
+              </div>
+
+              <!-- LAND BRIDGE -->
+              <div style="background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%); border:2px solid #FDA4AF; padding:25px; border-radius:16px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                  <span style="font-size:1.8rem;">\u2693\uD83D\uDE82\u2693</span>
+                  <h4 style="margin:0; color:#BE123C; font-size:1.2rem;">5. Land Bridge (Ship + Rail/Truck + Ship) — Crossing Continents</h4>
+                </div>
+                <p style="font-size:0.95rem; color:#881337; margin:0 0 15px 0; line-height:1.7;">A land bridge is when ocean cargo is offloaded at one coast, transported overland across a continent by rail or truck, and then reloaded onto another vessel at the opposite coast. This avoids extremely long all-water routes (like going around the tip of South America or through the Panama Canal).</p>
+                <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                  <div style="flex:1; min-width:250px; background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #E11D48;">
+                    <strong style="color:#BE123C; display:block; margin-bottom:8px;">\uD83C\uDDFA\uD83C\uDDF8 US Mini Land Bridge</strong>
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+                      <span style="background:#FFE4E6; color:#9F1239; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:bold;">Tokyo</span>
+                      <span style="color:#E11D48; font-weight:bold; font-size:0.85rem;">\u27A1 Ship</span>
+                      <span style="background:#FFE4E6; color:#9F1239; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:bold;">Los Angeles</span>
+                      <span style="color:#E11D48; font-weight:bold; font-size:0.85rem;">\u27A1 Rail</span>
+                      <span style="background:#FFE4E6; color:#9F1239; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:bold;">Chicago</span>
+                    </div>
+                    <p style="font-size:0.85rem; color:#475569; margin:0;">Cargo from Asia arrives at the US West Coast, then crosses overland by rail to an inland US city instead of sailing around to the East Coast.</p>
+                  </div>
+                  <div style="flex:1; min-width:250px; background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #E11D48;">
+                    <strong style="color:#BE123C; display:block; margin-bottom:8px;">\uD83C\uDDF7\uD83C\uDDFA Trans-Siberian Land Bridge</strong>
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+                      <span style="background:#FFE4E6; color:#9F1239; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:bold;">Busan</span>
+                      <span style="color:#E11D48; font-weight:bold; font-size:0.85rem;">\u27A1 Ship</span>
+                      <span style="background:#FFE4E6; color:#9F1239; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:bold;">Vladivostok</span>
+                      <span style="color:#E11D48; font-weight:bold; font-size:0.85rem;">\u27A1 Rail (9,288km)</span>
+                      <span style="background:#FFE4E6; color:#9F1239; padding:4px 10px; border-radius:15px; font-size:0.8rem; font-weight:bold;">Moscow</span>
+                    </div>
+                    <p style="font-size:0.85rem; color:#475569; margin:0;">Korean/Japanese cargo ships to Vladivostok, then crosses the entire Russian continent via the Trans-Siberian Railway to reach European markets.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RAIL-ROAD -->
+              <div style="background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); border:2px solid #C4B5FD; padding:25px; border-radius:16px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                  <span style="font-size:1.8rem;">\uD83D\uDE82\uD83D\uDE9A</span>
+                  <h4 style="margin:0; color:#6D28D9; font-size:1.2rem;">6. Rail-Road (Train + Truck) — Long Haul + Last Mile</h4>
+                </div>
+                <p style="font-size:0.95rem; color:#4C1D95; margin:0 0 15px 0; line-height:1.7;">This combines the cost efficiency of rail for long-distance inland transport with the flexibility of trucks for first/last mile delivery. Containers are loaded onto flatbed rail wagons for the long haul, then transferred to trucks at the nearest rail terminal for final delivery.</p>
+                <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #7C3AED;">
+                  <strong style="color:#6D28D9; display:block; margin-bottom:8px;">\uD83D\uDCCD Practical Example: Auto Parts across India</strong>
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+                    <span style="background:#EDE9FE; color:#5B21B6; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Factory (Chennai)</span>
+                    <span style="color:#7C3AED; font-weight:bold;">\u27A1 Truck</span>
+                    <span style="background:#EDE9FE; color:#5B21B6; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Rail Terminal</span>
+                    <span style="color:#7C3AED; font-weight:bold;">\u27A1 Train (2,200km)</span>
+                    <span style="background:#EDE9FE; color:#5B21B6; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Delhi Rail Terminal</span>
+                    <span style="color:#7C3AED; font-weight:bold;">\u27A1 Truck</span>
+                    <span style="background:#EDE9FE; color:#5B21B6; padding:6px 12px; border-radius:20px; font-size:0.85rem; font-weight:bold;">Assembly Plant (Gurgaon)</span>
+                  </div>
+                  <p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">Auto parts are trucked from the factory to the nearest Inland Container Depot (ICD), loaded onto Indian Railways, transported 2,200km across the country, and then trucked from the Delhi rail yard to the final assembly plant. Rail reduces cost by 30-40% compared to pure trucking.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- DOCUMENTATION SECTION -->
+            <div style="margin:25px 0; background:#F8FAFC; border:2px solid #E2E8F0; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 15px 0; color:#0F172A; font-size:1.2rem;">\uD83D\uDCDD Multimodal Transport Documents</h4>
+              
+              <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                <div style="flex:1; min-width:250px; background:#FFF; padding:20px; border-radius:12px; border-top:4px solid #3B82F6; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#1D4ED8; display:block; margin-bottom:8px;">Multimodal Transport Document (MTD)</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.5;">A single document covering the entire journey across all transport modes. The MTO (Multimodal Transport Operator) issues this and takes full liability for the cargo from origin to destination, regardless of which carrier handles which leg.</p>
+                </div>
+                <div style="flex:1; min-width:250px; background:#FFF; padding:20px; border-radius:12px; border-top:4px solid #10B981; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#047857; display:block; margin-bottom:8px;">Through Bill of Lading</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.5;">A single B/L that covers the cargo across multiple carriers and modes. Unlike separate B/Ls for each leg (which shifts liability at each transfer point), a Through B/L provides continuous coverage under one issuing party.</p>
+                </div>
+                <div style="flex:1; min-width:250px; background:#FFF; padding:20px; border-radius:12px; border-top:4px solid #F59E0B; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#B45309; display:block; margin-bottom:8px;">Combined Transport B/L (FIATA FBL)</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.5;">The FIATA FBL is the industry-standard multimodal B/L issued by freight forwarders worldwide. It is globally recognized by banks for Letter of Credit transactions, making it essential for international trade finance.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- KEY PLAYERS -->
+            <div style="margin:25px 0; background: linear-gradient(135deg, #ECFEFF 0%, #CFFAFE 100%); border:2px solid #67E8F9; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 15px 0; color:#0891B2; font-size:1.2rem;">\uD83C\uDFE2 The Multimodal Transport Operator (MTO)</h4>
+              <p style="font-size:0.95rem; color:#164E63; margin:0 0 15px 0; line-height:1.7;">The MTO is the single point of contact and responsibility for the entire multimodal journey. This is usually a large freight forwarder or logistics company (like DHL, Kuehne+Nagel, or DB Schenker) that:</p>
+              <ul style="margin:0; padding-left:20px; font-size:0.95rem; color:#155E75; line-height:1.8;">
+                <li><strong>Contracts</strong> with the shipper for the full door-to-door movement.</li>
+                <li><strong>Sub-contracts</strong> individual legs to specialized carriers (ocean carriers, airlines, trucking companies, rail operators).</li>
+                <li><strong>Bears full liability</strong> for loss, damage, or delay across ALL legs — even those operated by sub-contractors.</li>
+                <li><strong>Issues a single document</strong> (MTD or Through B/L) covering the entire chain.</li>
+              </ul>
+            </div>
+
+            <!-- COMPARISON TABLE -->
+            <table class="kb-table">
+              <thead>
+                <tr>
+                  <th>Combination</th>
+                  <th>Speed</th>
+                  <th>Cost</th>
+                  <th>Best For</th>
+                  <th>Example Route</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sea-Road</strong></td>
+                  <td>Slow (25-45 days)</td>
+                  <td>\uD83D\uDFE2 Lowest</td>
+                  <td>General cargo, bulk shipments</td>
+                  <td>Colombo \u2192 Ship \u2192 NY \u2192 Truck \u2192 NJ</td>
+                </tr>
+                <tr>
+                  <td><strong>Sea-Rail</strong></td>
+                  <td>Slow (25-40 days)</td>
+                  <td>\uD83D\uDFE2 Low</td>
+                  <td>Inland origins/destinations, heavy goods</td>
+                  <td>Chongqing \u2192 Rail \u2192 Shanghai \u2192 Ship \u2192 Hamburg</td>
+                </tr>
+                <tr>
+                  <td><strong>Air-Road</strong></td>
+                  <td>\u26A1 Fastest (1-3 days)</td>
+                  <td>\uD83D\uDD34 Highest</td>
+                  <td>Pharma, electronics, perishables</td>
+                  <td>Brussels \u2192 Flight \u2192 Colombo \u2192 Truck \u2192 WH</td>
+                </tr>
+                <tr>
+                  <td><strong>Sea-Air</strong></td>
+                  <td>Medium (8-15 days)</td>
+                  <td>\uD83D\uDFE1 Medium</td>
+                  <td>Fashion, seasonal goods, urgent restocks</td>
+                  <td>Chittagong \u2192 Ship \u2192 Dubai \u2192 Flight \u2192 JFK</td>
+                </tr>
+                <tr>
+                  <td><strong>Land Bridge</strong></td>
+                  <td>Medium (15-25 days)</td>
+                  <td>\uD83D\uDFE1 Medium</td>
+                  <td>Transcontinental, avoiding canal congestion</td>
+                  <td>Tokyo \u2192 Ship \u2192 LA \u2192 Rail \u2192 Chicago</td>
+                </tr>
+                <tr>
+                  <td><strong>Rail-Road</strong></td>
+                  <td>Medium (3-7 days)</td>
+                  <td>\uD83D\uDFE2 Low</td>
+                  <td>Domestic long haul, heavy inland cargo</td>
+                  <td>Chennai \u2192 Train \u2192 Delhi \u2192 Truck \u2192 Gurgaon</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="background:#FFFBEB; border-left:5px solid #D97706; padding:20px; border-radius:8px; margin-top:20px;">
+              <h4 style="margin:0 0 10px 0; color:#92400E; font-size: 1.1rem;">\uD83D\uDCA1 Key Advantage of Multimodal</h4>
+              <p style="margin:0; font-size:0.95rem; color:#78350F; line-height: 1.6;">The biggest advantage is <strong>single-point accountability</strong>. If cargo is damaged during transit and you used separate carriers with separate contracts, you face a nightmare trying to prove which carrier caused the damage. With multimodal transport under a single MTD, the MTO is liable for the entire journey — the shipper only needs to prove the cargo was damaged, not identify which specific leg it happened on.</p>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/2gYvh3oFO98"
         }
       ]
     },
@@ -2956,6 +3218,57 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <h4 style="margin:0 0 10px 0; color:#0F172A; font-size: 1.1rem;">\uD83D\uDCCA The Role of Data Loggers</h4>
               <p style="margin:0; font-size:0.95rem; color:#475569; line-height: 1.6;">How does the buyer know the shipping line didn't unplug the container to save fuel? High-value shipments always contain USB or GPS-enabled temperature data loggers hidden inside the boxes. Upon arrival, the consignee downloads the data to prove the temperature never spiked. If the graph shows a spike, the consignee rejects the cargo and files a massive insurance claim against the carrier.</p>
             </div>
+
+            <div style="margin:30px 0; background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border:2px solid #93C5FD; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                <span style="font-size:2rem;">\uD83D\uDCCB</span>
+                <h4 style="margin:0; color:#1E40AF; font-size:1.3rem;">PTI (Pre-Trip Inspection) Certificate — Mandatory Document</h4>
+              </div>
+              
+              <p style="font-size:0.95rem; color:#1E3A8A; margin:0 0 20px 0; line-height:1.7;">When booking a temperature-controlled (reefer) shipment, the freight forwarder must submit a <strong>PTI (Pre-Trip Inspection) Certificate</strong> to the shipping line at the time of booking. This is a <strong>mandatory document</strong> — without it, the carrier will not accept the booking. The PTI serves as a formal instruction to the carrier on exactly how to handle the reefer container throughout the entire voyage.</p>
+
+              <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:20px;">
+                <div style="flex:1; min-width:280px; background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #2563EB; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#1D4ED8; font-size:1.1rem; display:block; margin-bottom:10px;">What Does a PTI Contain?</strong>
+                  <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#1E3A8A; line-height:1.8;">
+                    <li><strong>Container Details:</strong> Container number, type (e.g., 40' Reefer), and the booking reference number.</li>
+                    <li><strong>Commodity:</strong> The exact cargo description (e.g., Frozen Meat, Fresh Flowers, Pharmaceuticals).</li>
+                    <li><strong>Set Temperature:</strong> The required temperature setting (e.g., -18 \u00B0C for frozen goods, +2 \u00B0C to +8 \u00B0C for chilled pharmaceuticals).</li>
+                    <li><strong>Ventilation Settings:</strong> Required airflow percentage for certain fresh produce.</li>
+                    <li><strong>Humidity Control:</strong> Specific humidity levels if needed for delicate cargo.</li>
+                  </ul>
+                </div>
+                
+                <div style="flex:1; min-width:280px; background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #10B981; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#047857; font-size:1.1rem; display:block; margin-bottom:10px;">Inspection Checklist</strong>
+                  <p style="font-size:0.9rem; color:#064E3B; margin:0 0 10px 0; line-height:1.6;">Before the container is released for loading, a certified reefer technician physically inspects and verifies:</p>
+                  <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#064E3B; line-height:1.8;">
+                    <li>\u2705 <strong>Compressor Condition</strong> — Working Properly</li>
+                    <li>\u2705 <strong>Cooling System</strong> — Passed</li>
+                    <li>\u2705 <strong>Temperature Control</strong> — Set vs Actual verified</li>
+                    <li>\u2705 <strong>Sensor Calibration</strong> — Sensors Calibrated</li>
+                    <li>\u2705 <strong>Door Seals & Insulation</strong> — Good Condition</li>
+                    <li>\u2705 <strong>Electrical System</strong> — All OK</li>
+                    <li>\u2705 <strong>Alarm Status</strong> — No Alarms</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #F59E0B; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom:20px;">
+                <strong style="color:#B45309; font-size:1.05rem; display:block; margin-bottom:8px;">\uD83D\uDD27 Test Run Results</strong>
+                <p style="font-size:0.9rem; color:#78350F; margin:0; line-height:1.6;">The PTI also records the results of a mandatory <strong>test run</strong>. The reefer unit is powered on for a set duration (typically 2 hours), and the technician verifies that the actual temperature stabilizes at the required set point (e.g., "Temperature Stable at -18 \u00B0C"). Only after a successful test run and all inspection points pass will the technician certify the container as <strong>"PTI APPROVED"</strong> and ready for cargo loading.</p>
+              </div>
+
+              <div style="background:#FEF2F2; border:2px dashed #FCA5A5; padding:15px; border-radius:8px; margin-bottom:20px;">
+                <strong style="color:#991B1B; display:block; margin-bottom:5px;">\u26A0\uFE0F Why This Matters</strong>
+                <p style="font-size:0.9rem; color:#7F1D1D; margin:0; line-height:1.6;">If a reefer container is loaded with $500,000 worth of frozen seafood and the compressor fails mid-ocean because nobody inspected it beforehand, the entire cargo is destroyed. The PTI protects all parties — the shipper, the forwarder, and the carrier — by ensuring the equipment is mechanically sound <em>before</em> any cargo is loaded.</p>
+              </div>
+
+              <div style="text-align:center;">
+                <p style="font-size:0.85rem; color:#64748B; margin:0 0 10px 0; font-style:italic;">\uD83D\uDCC4 Sample PTI (Pre-Trip Inspection) Certificate</p>
+                <img src="images/pti_certificate.png" alt="PTI Pre-Trip Inspection Certificate Sample" style="width:100%; max-width:500px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.15); border:2px solid #CBD5E1;">
+              </div>
+            </div>
           `,
           youtube: "https://www.youtube.com/embed/iblelo0_7T4",
           linkToWidget: "reefer"
@@ -2995,9 +3308,34 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
                 </div>
               </div>
               
-              <div style="margin-top: 20px; background: #FEF2F2; padding: 15px; border-radius: 8px; border-left: 5px solid #DC2626;">
-                <strong style="color:#9F1239; display:block; font-size: 1.05rem;">The DGD (Shipper's Declaration)</strong>
-                <p style="font-size:0.95rem; color:#7F1D1D; margin:5px 0 0 0; line-height:1.6;">The shipper (not the forwarder) is legally responsible for signing the Dangerous Goods Declaration. If a shipper misdeclares undeclared lithium batteries to save money, and they spontaneously combust causing an aircraft fire, the shipper faces massive international criminal liability and jail time.</p>
+              <div style="margin-top: 20px; background: #FEF2F2; padding: 20px; border-radius: 12px; border-left: 5px solid #DC2626;">
+                <strong style="color:#9F1239; display:block; font-size: 1.15rem; margin-bottom:10px;">\uD83D\uDCCB MSDS (Material Safety Data Sheet) — The Critical DG Document</strong>
+                <p style="font-size:0.95rem; color:#7F1D1D; margin:0 0 15px 0; line-height:1.7;">The <strong>MSDS (Material Safety Data Sheet)</strong> is the single most important document in dangerous goods shipping. It is a comprehensive technical document prepared by the chemical manufacturer that provides detailed safety information about the hazardous substance being shipped. Every DG shipment <strong>must</strong> be accompanied by a valid, up-to-date MSDS.</p>
+                
+                <div style="background:#FFF; padding:15px; border-radius:8px; margin-bottom:15px;">
+                  <strong style="color:#B91C1C; font-size:1rem; display:block; margin-bottom:8px;">What Does an MSDS Contain?</strong>
+                  <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#7F1D1D; line-height:1.8;">
+                    <li><strong>Product Identification:</strong> Chemical name, UN Number, CAS Number, and trade name.</li>
+                    <li><strong>Hazard Classification:</strong> The DG Class (1-9), Packing Group (I, II, III), and specific hazard symbols.</li>
+                    <li><strong>Composition:</strong> Exact chemical ingredients and their concentration percentages.</li>
+                    <li><strong>First Aid Measures:</strong> Emergency procedures if a worker is exposed (inhalation, skin contact, ingestion).</li>
+                    <li><strong>Fire-Fighting Measures:</strong> Suitable and unsuitable extinguishing agents.</li>
+                    <li><strong>Accidental Release:</strong> Spill cleanup procedures and containment methods.</li>
+                    <li><strong>Handling & Storage:</strong> Safe temperature, ventilation, and stacking requirements during transit and warehousing.</li>
+                    <li><strong>Transport Information:</strong> The proper shipping name, UN number, labels, and stowage instructions the carrier needs.</li>
+                  </ul>
+                </div>
+
+                <div style="background:#FFF; padding:15px; border-radius:8px; margin-bottom:15px;">
+                  <strong style="color:#B91C1C; font-size:1rem; display:block; margin-bottom:8px;">Shipper's Declaration for Dangerous Goods</strong>
+                  <p style="font-size:0.9rem; color:#7F1D1D; margin:0 0 10px 0; line-height:1.6;">In addition to the MSDS, the shipper (not the forwarder) is legally responsible for signing a <strong>Shipper's Declaration for Dangerous Goods</strong>. This declaration confirms that the cargo has been properly classified, packaged, marked, labeled, and is in proper condition for transport. Key fields include the Proper Shipping Name, DG Class, UN Number, and Packing Group.</p>
+                  <p style="font-size:0.9rem; color:#991B1B; margin:0; line-height:1.6;"><strong>\u26A0\uFE0F Criminal Liability:</strong> If a shipper misdeclares undeclared lithium batteries to save money, and they spontaneously combust causing an aircraft fire, the shipper faces massive international criminal liability and jail time.</p>
+                </div>
+
+                <div style="text-align:center;">
+                  <p style="font-size:0.85rem; color:#64748B; margin:0 0 10px 0; font-style:italic;">\uD83D\uDCC4 Sample Shipper's Declaration for Dangerous Goods</p>
+                  <img src="images/msds_dangerous_goods.png" alt="MSDS Material Safety Data Sheet - Shipper's Declaration for Dangerous Goods" style="width:100%; max-width:450px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.15); border:2px solid #FCA5A5;">
+                </div>
               </div>
             </div>
           `,
@@ -3242,6 +3580,155 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
           `,
           youtube: "https://www.youtube.com/embed/dnZCzCgF0Gg"
+        },
+        {
+          id: "break-bulk-cargo",
+          title: "Break Bulk Cargo",
+          summary: "Non-containerized cargo loaded piece by piece — steel coils, timber, bagged goods, and heavy machinery.",
+          image: "images/break_bulk_cargo.png",
+          content: `
+            <img src="images/break_bulk_cargo.png" alt="break-bulk-cargo infographic" class="kb-infographic" />
+
+            <div style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border:2px solid #FCD34D; padding:25px; border-radius:16px; margin-bottom:25px; font-family:'Outfit', sans-serif;">
+              <h4 style="margin:0 0 10px 0; color:#B45309; font-size:1.3rem;">\uD83D\uDCE6 What is Break Bulk Cargo?</h4>
+              <p style="margin:0; color:#78350F; font-size:0.95rem; line-height:1.7;">Break Bulk cargo refers to goods that are <strong>too large, too heavy, or too irregularly shaped to fit inside a standard shipping container</strong>. Instead of being packed into a 20ft or 40ft box, each individual piece of cargo is loaded separately onto the vessel — either by the ship's own cranes, shore-based cranes, or specialized lifting equipment. This was the <strong>original method of shipping goods before containerization</strong> in 1956.</p>
+            </div>
+
+            <h3>Why Break Bulk Still Exists</h3>
+            <p>Even though containerization revolutionized shipping, approximately <strong>20-25% of all global ocean cargo</strong> is still shipped as break bulk. The simple reason: many types of cargo physically cannot be containerized. A 15-meter steel beam, a 50-ton transformer, or a consignment of 10,000 bags of cement stacked on pallets are all examples of cargo that must be handled piece by piece.</p>
+
+            <!-- BREAK BULK vs CONTAINER vs BULK -->
+            <div style="margin:30px 0; font-family:'Outfit', sans-serif;">
+              <h4 style="text-align:center; color:#0F172A; font-size:1.2rem; margin:0 0 20px 0;">\uD83D\uDD04 Understanding the Three Types of Ocean Cargo</h4>
+              <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                <div style="flex:1; min-width:220px; background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align:center;">
+                  <div style="font-size:2.5rem; margin-bottom:10px;">\uD83D\uDCE6</div>
+                  <strong style="color:#1D4ED8; font-size:1.15rem; display:block; margin-bottom:10px;">Containerized Cargo</strong>
+                  <p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">Goods packed <strong>inside</strong> standard 20ft/40ft shipping containers. Electronics, garments, consumer goods. Handled by container gantry cranes.</p>
+                </div>
+                <div style="flex:1; min-width:220px; background:#FFFBEB; border:2px solid #FCD34D; padding:20px; border-radius:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align:center;">
+                  <div style="font-size:2.5rem; margin-bottom:10px;">\uD83D\uDDDC\uFE0F</div>
+                  <strong style="color:#B45309; font-size:1.15rem; display:block; margin-bottom:10px;">Break Bulk Cargo</strong>
+                  <p style="font-size:0.85rem; color:#78350F; margin:0; line-height:1.5;">Individual pieces loaded <strong>separately</strong> onto the vessel. Steel coils, timber, machinery, bagged goods. Handled by ship cranes or mobile cranes.</p>
+                </div>
+                <div style="flex:1; min-width:220px; background:#FFF; border:2px solid #E2E8F0; padding:20px; border-radius:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align:center;">
+                  <div style="font-size:2.5rem; margin-bottom:10px;">\u26FD</div>
+                  <strong style="color:#047857; font-size:1.15rem; display:block; margin-bottom:10px;">Bulk Cargo</strong>
+                  <p style="font-size:0.85rem; color:#475569; margin:0; line-height:1.5;">Loose, unpackaged commodities loaded <strong>directly into the ship's hold</strong>. Grain, coal, iron ore, crude oil. Poured or pumped, not handled piece by piece.</p>
+                </div>
+              </div>
+            </div>
+
+            <h3>Common Break Bulk Commodities</h3>
+            
+            <div style="margin:25px 0; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; font-family:'Outfit', sans-serif;">
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:15px; border-radius:12px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">\uD83E\uDDF1</div>
+                <strong style="color:#0F172A; display:block; margin-bottom:5px;">Steel Products</strong>
+                <p style="font-size:0.85rem; color:#64748B; margin:0;">Steel coils, steel beams (H-beams, I-beams), steel pipes, rebar bundles, and steel plates.</p>
+              </div>
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:15px; border-radius:12px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">\uD83C\uDF32</div>
+                <strong style="color:#0F172A; display:block; margin-bottom:5px;">Timber & Lumber</strong>
+                <p style="font-size:0.85rem; color:#64748B; margin:0;">Log bundles, sawn timber, plywood sheets, and wooden poles that exceed container dimensions.</p>
+              </div>
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:15px; border-radius:12px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">\uD83D\uDCE6</div>
+                <strong style="color:#0F172A; display:block; margin-bottom:5px;">Bagged Goods</strong>
+                <p style="font-size:0.85rem; color:#64748B; margin:0;">Bags of rice, cement, fertilizer, flour, and sugar — palletized and loaded in ship holds by the thousands.</p>
+              </div>
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:15px; border-radius:12px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">\u2699\uFE0F</div>
+                <strong style="color:#0F172A; display:block; margin-bottom:5px;">Heavy Machinery</strong>
+                <p style="font-size:0.85rem; color:#64748B; margin:0;">Excavators, bulldozers, generators, transformers, turbines, and industrial equipment.</p>
+              </div>
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:15px; border-radius:12px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">\uD83D\uDE97</div>
+                <strong style="color:#0F172A; display:block; margin-bottom:5px;">Vehicles</strong>
+                <p style="font-size:0.85rem; color:#64748B; margin:0;">Cars, trucks, buses, and military vehicles that are driven directly onto/off the vessel (RoRo) or lifted by crane.</p>
+              </div>
+              <div style="background:#FFF; border:2px solid #E2E8F0; padding:15px; border-radius:12px; text-align:center;">
+                <div style="font-size:2rem; margin-bottom:8px;">\uD83C\uDFF7\uFE0F</div>
+                <strong style="color:#0F172A; display:block; margin-bottom:5px;">Drums & Barrels</strong>
+                <p style="font-size:0.85rem; color:#64748B; margin:0;">Chemical drums, oil barrels, wine casks, and industrial liquid containers loaded individually.</p>
+              </div>
+            </div>
+
+            <!-- LOADING METHODS -->
+            <div style="margin:25px 0; background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border:2px solid #CBD5E1; padding:25px; border-radius:16px; font-family:'Outfit', sans-serif;">
+              <h4 style="text-align:center; color:#0F172A; font-size:1.2rem; margin:0 0 20px 0;">\uD83C\uDFD7\uFE0F Break Bulk Loading Methods</h4>
+              
+              <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                <div style="flex:1; min-width:250px; background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #3B82F6; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#1D4ED8; font-size:1.1rem; display:block; margin-bottom:10px;">Ship's Own Gear (Geared Vessels)</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.6;">Many break bulk vessels are equipped with their own hydraulic deck cranes (typically 25-80 ton capacity). These "geared" vessels can load/unload cargo independently without relying on port infrastructure — essential when calling at small or underdeveloped ports in Africa or South Asia that lack shore cranes.</p>
+                </div>
+                <div style="flex:1; min-width:250px; background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #10B981; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                  <strong style="color:#047857; font-size:1.1rem; display:block; margin-bottom:10px;">Shore-Based Mobile Cranes</strong>
+                  <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.6;">At well-equipped ports, massive mobile harbor cranes (Liebherr, Gottwald) lift cargo from the quayside onto the vessel. For extremely heavy pieces (100+ tons), floating crane barges are positioned alongside the ship to handle the lift.</p>
+                </div>
+              </div>
+              
+              <div style="background:#FFF; padding:20px; border-radius:12px; border-left:4px solid #F59E0B; margin-top:15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <strong style="color:#B45309; font-size:1.1rem; display:block; margin-bottom:10px;">Cargo Securing (Lashing & Dunnage)</strong>
+                <p style="font-size:0.9rem; color:#475569; margin:0; line-height:1.6;">Unlike containerized cargo (which is locked into standardized cell guides on the ship), break bulk cargo sits loose in the ship's hold or on deck. It must be meticulously <strong>lashed</strong> (tied down with steel chains, wire ropes, and turnbuckles) and protected with <strong>dunnage</strong> (wooden boards, air bags, and chafing mats) to prevent shifting during rough seas. Poor lashing can cause the entire cargo to shift to one side, capsizing the vessel.</p>
+              </div>
+            </div>
+
+            <!-- COST COMPARISON -->
+            <table class="kb-table">
+              <thead>
+                <tr>
+                  <th>Factor</th>
+                  <th>Break Bulk</th>
+                  <th>Containerized</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Loading Speed</strong></td>
+                  <td>Slow (each piece handled individually)</td>
+                  <td>Fast (standardized crane operations)</td>
+                </tr>
+                <tr>
+                  <td><strong>Port Time</strong></td>
+                  <td>3-7 days per port call</td>
+                  <td>12-24 hours per port call</td>
+                </tr>
+                <tr>
+                  <td><strong>Labor Requirement</strong></td>
+                  <td>High (stevedores, riggers, lashing teams)</td>
+                  <td>Low (automated crane operators)</td>
+                </tr>
+                <tr>
+                  <td><strong>Damage Risk</strong></td>
+                  <td>Higher (exposed cargo, multiple handling points)</td>
+                  <td>Lower (sealed container protection)</td>
+                </tr>
+                <tr>
+                  <td><strong>Theft Risk</strong></td>
+                  <td>Higher (cargo is visible and accessible)</td>
+                  <td>Lower (sealed and bolt-locked)</td>
+                </tr>
+                <tr>
+                  <td><strong>Flexibility</strong></td>
+                  <td>\u2705 Can handle any size/shape cargo</td>
+                  <td>\u274C Limited to container internal dimensions</td>
+                </tr>
+                <tr>
+                  <td><strong>Cost Per Ton</strong></td>
+                  <td>Higher (more labor, longer port stays)</td>
+                  <td>Lower (economies of scale)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="background:#FFFBEB; border-left:5px solid #D97706; padding:20px; border-radius:8px; margin-top:20px;">
+              <h4 style="margin:0 0 10px 0; color:#92400E; font-size: 1.1rem;">\uD83D\uDCA1 Industry Insight: The Break Bulk Renaissance</h4>
+              <p style="margin:0; font-size:0.95rem; color:#78350F; line-height: 1.6;">Despite the container revolution, the break bulk market is actually <strong>growing</strong>. The global boom in renewable energy (wind turbines, solar farm structures), infrastructure development in Africa and Southeast Asia, and increasing oil & gas exploration projects all require massive, non-containerizable components to be shipped. Major break bulk carriers like <strong>BBC Chartering</strong>, <strong>AAL Shipping</strong>, and <strong>Intermarine</strong> operate dedicated fleets of multipurpose vessels specifically designed for this market.</p>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/8eCwKTD4lzs"
         }
       ]
     },
