@@ -3309,32 +3309,28 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               
               <div style="margin-top: 20px; background: #FEF2F2; padding: 20px; border-radius: 12px; border-left: 5px solid #DC2626;">
-                <strong style="color:#9F1239; display:block; font-size: 1.15rem; margin-bottom:10px;">\uD83D\uDCCB MSDS (Material Safety Data Sheet) — The Critical DG Document</strong>
-                <p style="font-size:0.95rem; color:#7F1D1D; margin:0 0 15px 0; line-height:1.7;">The <strong>MSDS (Material Safety Data Sheet)</strong> is the single most important document in dangerous goods shipping. It is a comprehensive technical document prepared by the chemical manufacturer that provides detailed safety information about the hazardous substance being shipped. Every DG shipment <strong>must</strong> be accompanied by a valid, up-to-date MSDS.</p>
+                <strong style="color:#9F1239; display:block; font-size: 1.15rem; margin-bottom:10px;">\uD83D\uDCCB MSDS (Material Safety Data Sheet) — Mandatory Dangerous Goods Document</strong>
+                <p style="font-size:0.95rem; color:#7F1D1D; margin:0 0 15px 0; line-height:1.7;">The <strong>MSDS (Material Safety Data Sheet)</strong> is the mandatory technical safety document required for every Dangerous Goods (DG) shipment. Prepared by the chemical manufacturer, it provides carriers, forwarders, emergency responders, and customs officers with critical handling, safety, and hazard mitigation instructions for the substance being transported.</p>
                 
                 <div style="background:#FFF; padding:15px; border-radius:8px; margin-bottom:15px;">
-                  <strong style="color:#B91C1C; font-size:1rem; display:block; margin-bottom:8px;">What Does an MSDS Contain?</strong>
+                  <strong style="color:#B91C1C; font-size:1rem; display:block; margin-bottom:8px;">Key Fields & Sections of an MSDS Document:</strong>
                   <ul style="margin:0; padding-left:20px; font-size:0.9rem; color:#7F1D1D; line-height:1.8;">
-                    <li><strong>Product Identification:</strong> Chemical name, UN Number, CAS Number, and trade name.</li>
-                    <li><strong>Hazard Classification:</strong> The DG Class (1-9), Packing Group (I, II, III), and specific hazard symbols.</li>
-                    <li><strong>Composition:</strong> Exact chemical ingredients and their concentration percentages.</li>
-                    <li><strong>First Aid Measures:</strong> Emergency procedures if a worker is exposed (inhalation, skin contact, ingestion).</li>
-                    <li><strong>Fire-Fighting Measures:</strong> Suitable and unsuitable extinguishing agents.</li>
-                    <li><strong>Accidental Release:</strong> Spill cleanup procedures and containment methods.</li>
-                    <li><strong>Handling & Storage:</strong> Safe temperature, ventilation, and stacking requirements during transit and warehousing.</li>
-                    <li><strong>Transport Information:</strong> The proper shipping name, UN number, labels, and stowage instructions the carrier needs.</li>
+                    <li><strong>Product & Chemical Name:</strong> Trade name, chemical identity, and CAS registry number.</li>
+                    <li><strong>UN Number & Hazard Class:</strong> Globally recognized UN ID (e.g., UN 3480) and DG Class (Class 1-9).</li>
+                    <li><strong>Physical State & Flash Point:</strong> Liquid/Gas/Solid status and minimum temperature at which vapours ignite.</li>
+                    <li><strong>First Aid Measures:</strong> Emergency medical procedures for exposure, inhalation, or skin contact.</li>
+                    <li><strong>Fire-Fighting:</strong> Suitable extinguishing media (water spray, dry chemical, CO2) and specific precautions.</li>
+                    <li><strong>Storage & Handling Requirements:</strong> Ventilation, ambient temperature limits, and segregation rules.</li>
                   </ul>
                 </div>
 
-                <div style="background:#FFF; padding:15px; border-radius:8px; margin-bottom:15px;">
-                  <strong style="color:#B91C1C; font-size:1rem; display:block; margin-bottom:8px;">Shipper's Declaration for Dangerous Goods</strong>
-                  <p style="font-size:0.9rem; color:#7F1D1D; margin:0 0 10px 0; line-height:1.6;">In addition to the MSDS, the shipper (not the forwarder) is legally responsible for signing a <strong>Shipper's Declaration for Dangerous Goods</strong>. This declaration confirms that the cargo has been properly classified, packaged, marked, labeled, and is in proper condition for transport. Key fields include the Proper Shipping Name, DG Class, UN Number, and Packing Group.</p>
-                  <p style="font-size:0.9rem; color:#991B1B; margin:0; line-height:1.6;"><strong>\u26A0\uFE0F Criminal Liability:</strong> If a shipper misdeclares undeclared lithium batteries to save money, and they spontaneously combust causing an aircraft fire, the shipper faces massive international criminal liability and jail time.</p>
+                <div style="background:#FEF2F2; border-left:4px solid #EF4444; padding:12px 15px; border-radius:6px; margin-bottom:15px;">
+                  <p style="font-size:0.9rem; color:#991B1B; margin:0; line-height:1.6;"><strong>\u26A0\uFE0F Carrier Compliance:</strong> Ocean and air carriers will immediately reject a DG booking if a valid MSDS is missing or outdated. The shipper must ensure all hazard classifications on the MSDS match the physical cargo labels exactly.</p>
                 </div>
 
                 <div style="text-align:center;">
-                  <p style="font-size:0.85rem; color:#64748B; margin:0 0 10px 0; font-style:italic;">\uD83D\uDCC4 Sample Shipper's Declaration for Dangerous Goods</p>
-                  <img src="images/msds_dangerous_goods.png" alt="MSDS Material Safety Data Sheet - Shipper's Declaration for Dangerous Goods" style="width:100%; max-width:450px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.15); border:2px solid #FCA5A5;">
+                  <p style="font-size:0.85rem; color:#64748B; margin:0 0 10px 0; font-style:italic;">\uD83D\uDCC4 Sample MSDS (Material Safety Data Sheet) Document</p>
+                  <img src="images/msds_dangerous_goods.png" alt="MSDS Material Safety Data Sheet Document Sample" style="width:100%; max-width:450px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.15); border:2px solid #FCA5A5;">
                 </div>
               </div>
             </div>
