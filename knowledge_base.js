@@ -3132,7 +3132,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.95rem; color:#78350F; line-height: 1.6;">The biggest advantage is <strong>single-point accountability</strong>. If cargo is damaged during transit and you used separate carriers with separate contracts, you face a nightmare trying to prove which carrier caused the damage. With multimodal transport under a single MTD, the MTO is liable for the entire journey — the shipper only needs to prove the cargo was damaged, not identify which specific leg it happened on.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/2gYvh3oFO98"
+          youtube: "https://www.youtube.com/embed/YNKbt-g2Wx4"
         }
       ]
     },
@@ -3724,7 +3724,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               <p style="margin:0; font-size:0.95rem; color:#78350F; line-height: 1.6;">Despite the container revolution, the break bulk market is actually <strong>growing</strong>. The global boom in renewable energy (wind turbines, solar farm structures), infrastructure development in Africa and Southeast Asia, and increasing oil & gas exploration projects all require massive, non-containerizable components to be shipped. Major break bulk carriers like <strong>BBC Chartering</strong>, <strong>AAL Shipping</strong>, and <strong>Intermarine</strong> operate dedicated fleets of multipurpose vessels specifically designed for this market.</p>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/8eCwKTD4lzs"
+          youtube: "https://www.youtube.com/embed/9WJNk1FBpB0"
         }
       ]
     },
