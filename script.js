@@ -296,14 +296,7 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
       window.NEXUS_QUIZ_ENGINE.refresh();
     }
   }
-  if (pageId === "admin") {
-    // Block direct URL access without authentication
-    if (!window.NEXUS_ADMIN || !window.NEXUS_ADMIN.isAuthenticated()) {
-      switchPage('home');
-      return;
-    }
-    window.NEXUS_ADMIN.init();
-  }
+
 
   // Scroll to top after layout has been updated
   if (!isInitialLoad) {
@@ -317,66 +310,6 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
 
 // Make switchPage available globally for inline onclick handlers
 window.switchPage = switchPage;
-
-// ==========================================
-// ADMIN GATE — Password Protected Access
-// ==========================================
-const ADMIN_PASSWORD_HASH = 'a0f3a7b2c8d1e9f4b6c0d5e2a7f1b3c8d4e0f6a9b2c5d8e1f3a6b9c2d5e8f1';
-
-function openAdminGate() {
-  const modal = document.getElementById('admin-gate-modal');
-  if (modal) {
-    modal.style.display = 'flex';
-    const pwInput = document.getElementById('admin-gate-password');
-    if (pwInput) { pwInput.value = ''; pwInput.focus(); }
-    const errEl = document.getElementById('admin-gate-error');
-    if (errEl) errEl.style.display = 'none';
-  }
-}
-window.openAdminGate = openAdminGate;
-
-function closeAdminGate() {
-  const modal = document.getElementById('admin-gate-modal');
-  if (modal) modal.style.display = 'none';
-}
-window.closeAdminGate = closeAdminGate;
-
-async function verifyAdminPassword(e) {
-  if (e) e.preventDefault();
-  const pwInput = document.getElementById('admin-gate-password');
-  const errEl = document.getElementById('admin-gate-error');
-  if (!pwInput) return;
-
-  const password = pwInput.value.trim();
-  if (!password) {
-    if (errEl) { errEl.textContent = '⚠️ Please enter the admin password.'; errEl.style.display = 'block'; }
-    return;
-  }
-
-  // Direct password comparison (hardcoded admin credential)
-  if (password === 'ownerdarshika2000') {
-    closeAdminGate();
-    if (window.NEXUS_ADMIN) {
-      window.NEXUS_ADMIN.authenticate();
-      switchPage('admin');
-    }
-  } else {
-    if (errEl) {
-      errEl.textContent = '❌ Access denied. Invalid admin password.';
-      errEl.style.display = 'block';
-    }
-    // Shake animation
-    const modalContent = document.querySelector('#admin-gate-modal > div');
-    if (modalContent) {
-      modalContent.style.animation = 'none';
-      void modalContent.offsetWidth;
-      modalContent.style.animation = 'adminShake 0.4s ease';
-    }
-    pwInput.value = '';
-    pwInput.focus();
-  }
-}
-window.verifyAdminPassword = verifyAdminPassword;
 
 /* ==========================================
    SIDEBAR NAVIGATION SYSTEM
@@ -2021,8 +1954,26 @@ function appendChatMessage(sender, text) {
   msgArea.scrollTop = msgArea.scrollHeight;
 }
 
+// XSS Sanitizer — strips dangerous HTML/JS from AI output before rendering
+function sanitizeForDisplay(text) {
+  if (typeof text !== 'string') return '';
+  return text
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<iframe[\s\S]*?<\/iframe>/gi, '')
+    .replace(/<object[\s\S]*?<\/object>/gi, '')
+    .replace(/<embed[\s\S]*?\/?>|<\/embed>/gi, '')
+    .replace(/<link[\s\S]*?\/?>|<\/link>/gi, '')
+    .replace(/\bon\w+\s*=\s*["'][^"']*["']/gi, '')
+    .replace(/\bon\w+\s*=\s*[^\s>]*/gi, '')
+    .replace(/javascript\s*:/gi, 'blocked:')
+    .replace(/data\s*:\s*text\/html/gi, 'blocked:')
+    .replace(/vbscript\s*:/gi, 'blocked:');
+}
+
 // Custom lightweight Markdown-to-HTML parser
 function parseMarkdown(text) {
+  // Sanitize input to prevent XSS before parsing
+  text = sanitizeForDisplay(text);
   let lines = text.split("\n");
   let html = [];
   let inList = false;
