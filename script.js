@@ -3886,22 +3886,69 @@ async function handleLogout() {
 
 async function handleForgotPassword(e) {
   e.preventDefault();
-  const email = document.getElementById('signin-email').value;
+  const email = document.getElementById('signin-email').value.trim();
   if (!email) {
     showAuthError("Please enter your email address first.");
     return;
   }
+
+  // Basic email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showAuthError("Please enter a valid email address.");
+    return;
+  }
   
   try {
-    if (window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.auth) {
+    if (!window.NEXUS_FIREBASE) {
+      throw new Error("Firebase backend unavailable. Please refresh the page and try again.");
+    }
+
+    // Use the dedicated sendPasswordResetEmail function
+    if (typeof window.NEXUS_FIREBASE.sendPasswordResetEmail === 'function') {
+      await window.NEXUS_FIREBASE.sendPasswordResetEmail(email);
+    } else if (window.NEXUS_FIREBASE.auth) {
+      // Fallback to direct auth call
       await window.NEXUS_FIREBASE.auth.sendPasswordResetEmail(email);
-      showAuthError("Password reset email sent! Please check your inbox.");
-      document.getElementById("auth-error-message").style.color = "#059669";
-      document.getElementById("auth-error-message").style.backgroundColor = "#D1FAE5";
-      document.getElementById("auth-error-message").style.borderColor = "#6EE7B7";
+    } else {
+      throw new Error("Authentication service is not available.");
+    }
+
+    console.log("✅ Password reset email sent successfully to:", email);
+
+    // Show success message
+    const msgEl = document.getElementById("auth-error-message");
+    showAuthError("✅ Password reset email sent to " + email + "! Check your inbox (and spam/junk folder). The link expires in 1 hour.");
+    if (msgEl) {
+      msgEl.style.color = "#059669";
+      msgEl.style.backgroundColor = "#D1FAE5";
+      msgEl.style.borderColor = "#6EE7B7";
     }
   } catch (error) {
-    showAuthError(error.message || "Failed to send reset email.");
+    console.error("❌ Password reset failed:", error.code, error.message);
+
+    // User-friendly error messages based on Firebase error codes
+    let userMessage;
+    switch (error.code) {
+      case 'auth/user-not-found':
+        userMessage = "No account found with this email address. Please check the email or create a new account.";
+        break;
+      case 'auth/invalid-email':
+        userMessage = "Invalid email address format. Please check and try again.";
+        break;
+      case 'auth/too-many-requests':
+        userMessage = "Too many reset attempts. Please wait a few minutes before trying again.";
+        break;
+      case 'auth/network-request-failed':
+        userMessage = "Network error. Please check your internet connection and try again.";
+        break;
+      case 'auth/unauthorized-continue-uri':
+        userMessage = "Password reset service configuration error. Please contact the administrator.";
+        break;
+      default:
+        userMessage = error.message || "Failed to send password reset email. Please try again.";
+    }
+    showAuthError(userMessage);
   }
 }
 

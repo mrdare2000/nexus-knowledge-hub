@@ -148,6 +148,19 @@
     return auth ? auth.currentUser : null;
   }
 
+  async function sendPasswordResetEmail(email) {
+    if (!isFirebaseReady && !initFirebase()) throw new Error("Firebase backend unavailable.");
+    if (!auth) throw new Error("Firebase Auth not initialized.");
+
+    const actionCodeSettings = {
+      url: 'https://nexusknowledgehub.com/knowledge-hub',
+      handleCodeInApp: false
+    };
+
+    await auth.sendPasswordResetEmail(email, actionCodeSettings);
+    return true;
+  }
+
   // ----------------------------------------------------
   // 2. QUIZ RESULTS & ATTEMPTS PERSISTENCE
   // ----------------------------------------------------
@@ -529,6 +542,7 @@
     logout: logout,
     onAuthStateChanged: onAuthStateChanged,
     getCurrentUser: getCurrentUser,
+    sendPasswordResetEmail: sendPasswordResetEmail,
     saveUserProfileData: saveUserProfileData,
     saveQuizAttempt: saveQuizAttempt,
     fetchQuizAttempts: fetchQuizAttempts,
