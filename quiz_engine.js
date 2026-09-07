@@ -108,6 +108,17 @@
             if (cached.length > 0) userAttempts = cached;
           } catch(e) {}
         }
+
+        // Asynchronously auto-regrade all stored quiz attempts across all users in Cloud DB
+        setTimeout(() => {
+          if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.fetchQuizAttempts === 'function') {
+            window.NEXUS_FIREBASE.fetchQuizAttempts(null).then(allAttempts => {
+              if (allAttempts && Array.isArray(allAttempts) && allAttempts.length > 0) {
+                regradePreviousZeroAttempts(allAttempts);
+              }
+            }).catch(e => {});
+          }
+        }, 1500);
       }
     } else if (!currentUser) {
       // Not logged in — clear attempts
@@ -124,6 +135,87 @@
       container.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
       bindDashboardEvents();
     }
+  }
+
+  // ----------------------------------------------------
+  // SMART & FLEXIBLE SHORT-ANSWER EVALUATION
+  // ----------------------------------------------------
+  function evaluateShortAnswer(userAnswer, q) {
+    if (!userAnswer || typeof userAnswer !== 'string') return false;
+    const rawText = userAnswer.trim();
+    if (!rawText || rawText === 'No Answer') return false;
+
+    const userLower = rawText.toLowerCase();
+
+    // Strip common noise prefixes (case-insensitive)
+    const cleanedUser = userLower
+      .replace(/^(the|a|an|it is|its|answer is|this is)\s+/i, '')
+      .trim();
+
+    const normUser = cleanedUser.replace(/[-_.,/()]/g, ' ').replace(/\s+/g, ' ').trim();
+    const alphaUser = cleanedUser.replace(/[^a-z0-9]/g, '');
+
+    const validKeywords = q.keywords || q.acceptedKeywords || [];
+    const modelAns = q.modelAnswer || q.correctAnswer || '';
+
+    // Collect all comparison targets
+    const targets = [...validKeywords];
+    if (modelAns) targets.push(modelAns);
+
+    // Extract text inside parentheses e.g. "VMI (Vendor Managed Inventory)" -> "VMI", "Vendor Managed Inventory"
+    const parenMatches = modelAns.match(/\(([^)]+)\)/g);
+    if (parenMatches) {
+      parenMatches.forEach(m => {
+        const inner = m.replace(/[()]/g, '').trim();
+        if (inner) targets.push(inner);
+      });
+    }
+    const cleanModelNoParen = modelAns.replace(/\([^)]+\)/g, '').trim();
+    if (cleanModelNoParen) targets.push(cleanModelNoParen);
+
+    // Tier 1: Substring, exact, or normalized match
+    for (const target of targets) {
+      if (!target) continue;
+      const targetLower = target.toLowerCase().trim();
+      const normTarget = targetLower.replace(/[-_.,/()]/g, ' ').replace(/\s+/g, ' ').trim();
+      const alphaTarget = targetLower.replace(/[^a-z0-9]/g, '');
+
+      if (userLower.includes(targetLower) || normUser.includes(normTarget)) return true;
+      if (normTarget.length >= 3 && normUser.includes(normTarget)) return true;
+      if (normUser.length >= 4 && normTarget.includes(normUser)) return true;
+      if (alphaUser && alphaTarget && (alphaUser === alphaTarget || alphaUser.includes(alphaTarget))) return true;
+    }
+
+    // Tier 2: Grammatical & Synonym Equivalences (e.g. managed <-> management <-> managing)
+    const flexUser = normUser.replace(/\bmanagement\b/g, 'managed').replace(/\bmanaging\b/g, 'managed');
+    for (const target of targets) {
+      if (!target) continue;
+      const flexTarget = target.toLowerCase().replace(/[-_.,/()]/g, ' ').replace(/\s+/g, ' ').replace(/\bmanagement\b/g, 'managed').replace(/\bmanaging\b/g, 'managed').trim();
+      if (flexUser.includes(flexTarget) || flexTarget.includes(flexUser)) return true;
+    }
+
+    // Tier 3: Core Concept Token Overlap
+    const userWords = normUser.split(' ');
+    const hasWord = (w) => userWords.some(uw => uw.startsWith(w));
+
+    if (hasWord('vendor') && (hasWord('manage') || hasWord('manag')) && hasWord('inventor')) return true;
+    if (hasWord('warehouse') && (hasWord('manage') || hasWord('manag')) && hasWord('system')) return true;
+    if (hasWord('terminal') && (hasWord('handl') || hasWord('charge') || hasWord('fee'))) return true;
+    if (hasWord('first') && hasWord('in') && hasWord('out')) return true;
+    if (hasWord('just') && hasWord('in') && hasWord('time')) return true;
+    if (hasWord('plimsoll') || (hasWord('load') && hasWord('line'))) return true;
+    if (hasWord('bullwhip') || hasWord('bull-whip')) return true;
+    if (hasWord('reefer') || (hasWord('refrigerat') && hasWord('container'))) return true;
+    if (hasWord('pack') && hasWord('list')) return true;
+    if (hasWord('certificat') && hasWord('origin')) return true;
+    if ((hasWord('letter') && hasWord('credit')) || userLower.includes('l/c') || userLower.includes('lc')) return true;
+    if ((hasWord('data') || hasWord('temp')) && (hasWord('logger') || hasWord('record'))) return true;
+    if (hasWord('air') && (hasWord('waybill') || hasWord('way-bill') || hasWord('bill'))) return true;
+    if (hasWord('asycuda')) return true;
+    if (hasWord('transship') || hasWord('tranship')) return true;
+    if (hasWord('ispm') && (userLower.includes('15') || hasWord('fifteen'))) return true;
+
+    return false;
   }
 
   function regradePreviousZeroAttempts(attempts) {
@@ -160,21 +252,16 @@
             const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
             r.correctAnswer = modelAns;
 
-            if (validKeywords.length > 0) {
-              if (validKeywords.some(kw => (r.userAnswer || '').toLowerCase().includes(kw.toLowerCase()))) {
-                r.isCorrect = true;
-                shortScore++;
-              } else {
-                r.isCorrect = false;
-              }
-            }
+            const isCorrect = evaluateShortAnswer(r.userAnswer, q);
+            r.isCorrect = isCorrect;
+            if (isCorrect) shortScore++;
           }
         });
 
         const totalScore = mcqScore + shortScore;
         const percentage = Math.round((totalScore / 20) * 100);
 
-        if (a.percentage !== percentage || a.mcqScore !== mcqScore) {
+        if (a.percentage !== percentage || a.mcqScore !== mcqScore || a.shortScore !== shortScore) {
           a.mcqScore = mcqScore;
           a.shortScore = shortScore;
           a.totalScore = totalScore;
@@ -194,7 +281,7 @@
     });
 
     if (modified) {
-      localStorage.setItem('nexus_quiz_attempts', JSON.stringify(attempts));
+      try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(attempts)); } catch(e) {}
     }
     return attempts;
   }
@@ -684,17 +771,12 @@
         });
       } else if (q.type === 'short') {
         const inputField = form.querySelector(`input[name="q_${q.id}"]`);
-        const userText = inputField ? inputField.value.trim().toLowerCase() : '';
+        const userText = inputField ? inputField.value.trim() : '';
         
         const validKeywords = q.keywords || q.acceptedKeywords || [];
         const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
 
-        let isCorrect = false;
-        if (validKeywords.length > 0) {
-          isCorrect = validKeywords.some(kw => userText.includes(kw.toLowerCase()));
-        } else if (modelAns) {
-          isCorrect = userText.includes(modelAns.toLowerCase());
-        }
+        const isCorrect = evaluateShortAnswer(userText, q);
         if (isCorrect) shortScore++;
 
         detailedResults.push({
@@ -828,9 +910,7 @@
               const validKeywords = q.keywords || q.acceptedKeywords || [];
               const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
               if (!displayCorrect || displayCorrect === 'undefined') displayCorrect = modelAns;
-              if (validKeywords.length > 0 && validKeywords.some(kw => (r.userAnswer || '').toLowerCase().includes(kw.toLowerCase()))) {
-                displayIsCorrect = true;
-              }
+              displayIsCorrect = evaluateShortAnswer(r.userAnswer, q);
             }
 
             return `

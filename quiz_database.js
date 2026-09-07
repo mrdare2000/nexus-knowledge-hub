@@ -875,7 +875,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Customs & Compliance",
           question: "What US Customs electronic system requires ocean carriers to transmit cargo manifest data at least 24 hours before a vessel departs from a foreign port bound for the United States?",
           modelAnswer: "AMS (Automated Manifest System)",
-          keywords: ["ams", "automated manifest system"],
+          keywords: ["ams", "automated manifest system", "automated manifest"],
           explanation: "AMS (Automated Manifest System) is the US CBP electronic system for advance cargo information filing, working alongside ISF 10+2 for import security."
         },
         {
@@ -884,7 +884,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Ocean Freight Operations",
           question: "What ocean freight logistics term describes transferring cargo containers from one vessel to another at an intermediate hub port before reaching the final destination?",
           modelAnswer: "Transshipment",
-          keywords: ["transshipment", "transhipment", "trans-shipment"],
+          keywords: ["transshipment", "transhipment", "trans-shipment", "trans shipment", "transshipping"],
           explanation: "Transshipment allows carriers to consolidate cargo volumes through major hub ports (e.g., Singapore, Colombo, Dubai) for onward connection to smaller feeder ports."
         },
         {
@@ -893,7 +893,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Air Cargo Standards",
           question: "What IATA reference publication provides standardized worldwide air cargo rate tariffs, rules, and routing regulations used by airlines and freight forwarders?",
           modelAnswer: "TACT (The Air Cargo Tariff)",
-          keywords: ["tact", "air cargo tariff"],
+          keywords: ["tact", "air cargo tariff", "the air cargo tariff"],
           explanation: "TACT (The Air Cargo Tariff) is IATA's official tariff publication covering rates, rules, and regulations for international air cargo transport."
         },
         {
@@ -902,7 +902,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Customs Classification",
           question: "Which Harmonized System (HS) chapter number covers 'Vehicles other than railway or tramway rolling stock', including automobiles, trucks, and motorcycles?",
           modelAnswer: "Chapter 87",
-          keywords: ["87", "chapter 87"],
+          keywords: ["87", "chapter 87", "ch 87", "chap 87", "hs 87", "hs chapter 87"],
           explanation: "HS Chapter 87 encompasses all motor vehicles (cars, trucks, buses, motorcycles) and their parts, excluding railway rolling stock (Chapter 86)."
         },
         {
@@ -911,7 +911,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Supply Chain Management",
           question: "What collaborative inventory replenishment arrangement allows the supplier to monitor and replenish the buyer's stock levels automatically based on real-time consumption data?",
           modelAnswer: "VMI (Vendor Managed Inventory)",
-          keywords: ["vmi", "vendor managed inventory", "vendor-managed inventory"],
+          keywords: ["vmi", "vendor managed inventory", "vendor management inventory", "vendor-managed inventory", "vendor-management inventory", "vendor managed", "vendor management"],
           explanation: "VMI (Vendor Managed Inventory) shifts replenishment responsibility to the supplier, reducing stockouts and improving supply chain efficiency."
         },
         {
@@ -920,7 +920,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Maritime Safety",
           question: "What marking painted on a ship's hull indicates the maximum safe loading draft limit permitted under various water density and seasonal ocean conditions?",
           modelAnswer: "Plimsoll Line (Load Line)",
-          keywords: ["plimsoll", "load line"],
+          keywords: ["plimsoll", "load line", "plimsoll line", "plimsoll mark", "loadline"],
           explanation: "The Plimsoll Line (or Load Line), mandated by the International Load Line Convention, prevents vessel overloading by marking maximum draft limits for different water conditions."
         },
         {
@@ -929,7 +929,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Warehouse Technology",
           question: "What software system manages and optimizes warehouse operations including receiving, put-away, inventory tracking, order picking, packing, and shipping?",
           modelAnswer: "WMS (Warehouse Management System)",
-          keywords: ["wms", "warehouse management system"],
+          keywords: ["wms", "warehouse management system", "warehouse managing system", "warehouse management"],
           explanation: "WMS (Warehouse Management System) software provides real-time visibility into inventory levels, optimizes storage locations, and directs warehouse workflows."
         },
         {
@@ -938,7 +938,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Trade Lanes & Maritime Chokepoints",
           question: "What narrow maritime chokepoint between Iran and Oman carries approximately 20-25% of the world's daily oil supply via tanker traffic?",
           modelAnswer: "Strait of Hormuz",
-          keywords: ["hormuz"],
+          keywords: ["hormuz", "strait of hormuz", "hormuz strait"],
           explanation: "The Strait of Hormuz connects the Persian Gulf to the Gulf of Oman and is the world's most critical oil transit chokepoint."
         },
         {
@@ -947,7 +947,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Freight Charges",
           question: "What port-related charge covers the cost of handling containers at the marine terminal, including loading and unloading between the vessel and the container yard?",
           modelAnswer: "THC (Terminal Handling Charge)",
-          keywords: ["thc", "terminal handling"],
+          keywords: ["thc", "terminal handling charge", "terminal handling charges", "terminal handling fee", "terminal handling"],
           explanation: "THC (Terminal Handling Charge) is levied at both origin and destination ports to cover container handling costs at terminal facilities."
         },
         {
@@ -956,7 +956,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Phytosanitary Compliance",
           question: "What international phytosanitary standard requires all solid wood packaging materials (pallets, crates, dunnage) used in international trade to be heat-treated or fumigated to prevent pest spread?",
           modelAnswer: "ISPM 15",
-          keywords: ["ispm 15", "ispm15", "ispm"],
+          keywords: ["ispm 15", "ispm15", "ispm-15", "ispm"],
           explanation: "ISPM 15 (International Standards for Phytosanitary Measures No. 15) mandates treatment and marking of wood packaging to prevent cross-border transmission of invasive insects and plant diseases."
         }
       ]
