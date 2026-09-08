@@ -646,6 +646,11 @@
     if (!activeQuiz && window.NEXUS_QUIZ_DATABASE && window.NEXUS_QUIZ_DATABASE.weeks && window.NEXUS_QUIZ_DATABASE.weeks.length > 0) {
       activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[window.NEXUS_QUIZ_DATABASE.weeks.length - 1];
     }
+    
+    if (activeQuiz && activeQuiz.quizType === 'crossword') {
+      return renderCrosswordQuizForm(activeQuiz);
+    }
+
     let html = `
       <div class="quiz-questions-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
@@ -724,6 +729,157 @@
     return html;
   }
 
+  // Render Crossword Quiz Form HTML
+  function renderCrosswordQuizForm(quiz) {
+    const data = quiz.crosswordData;
+    const rows = data.gridRows;
+    const cols = data.gridCols;
+    const words = data.words;
+
+    const grid = Array.from({ length: rows }, () => Array.from({ length: cols }, () => null));
+
+    words.forEach(w => {
+      const isAcross = w.direction === 'across';
+      const len = w.word.length;
+      for (let i = 0; i < len; i++) {
+        const r = isAcross ? w.row : w.row + i;
+        const c = isAcross ? w.col + i : w.col;
+        if (!grid[r][c]) {
+          grid[r][c] = { letter: w.word[i], number: null, words: [] };
+        }
+        grid[r][c].words.push(w.id);
+        if (i === 0) {
+          grid[r][c].number = w.number;
+        }
+      }
+    });
+
+    const acrossWords = words.filter(w => w.direction === 'across');
+    const downWords = words.filter(w => w.direction === 'down');
+    const firstWord = words[0];
+
+    return `
+      <div class="crossword-container">
+        
+        <!-- Navigation Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-white); padding: 15px 25px; border-radius: 16px; border: 1.5px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <button id="btn-back-to-dashboard" style="padding: 10px 22px; border-radius: 30px; font-weight: 800; font-size: 0.88rem; border: 1.5px solid var(--primary-navy); color: var(--primary-navy); background: #F8FAFC; cursor: pointer; transition: all 0.2s ease;">
+            ← Back
+          </button>
+          <span style="font-size: 0.95rem; font-weight: 800; color: var(--primary-navy); font-family: 'Outfit', sans-serif;">
+            ${quiz.title}
+          </span>
+        </div>
+
+        <!-- Special Edition Banner -->
+        <div class="crossword-header-banner">
+          <div class="cw-banner-info">
+            <h2>
+              <span>🧩 ${quiz.title}</span>
+              <span class="cw-badge-special">Special Edition 01</span>
+            </h2>
+            <p>Fill in the 20-word logistics crossword puzzle using clues and hints! Click any clue to highlight its cells.</p>
+          </div>
+          <div class="cw-stats-pills">
+            <div class="cw-stat-pill">📝 20 Words Total</div>
+            <div class="cw-stat-pill">⭐ 100 Marks (5/word)</div>
+            <div class="cw-stat-pill">💡 Clue Hints Available</div>
+          </div>
+        </div>
+
+        <!-- Active Clue Bar -->
+        <div class="crossword-active-clue-bar" id="cw-active-clue-bar">
+          <div class="cw-active-clue-text">
+            <span class="cw-clue-tag" id="cw-bar-tag">${firstWord.number} ${firstWord.direction.toUpperCase()} (${firstWord.word.length} Letters)</span>
+            <span class="cw-clue-main-desc" id="cw-bar-desc">${firstWord.clue}</span>
+            <div class="cw-hint-text" id="cw-bar-hint">💡 Hint: ${firstWord.hint}</div>
+          </div>
+          <button type="button" class="cw-hint-toggle-btn" id="btn-toggle-hint" data-word-id="${firstWord.id}">
+            💡 Reveal Hint
+          </button>
+        </div>
+
+        <form id="crossword-attempt-form">
+          <!-- Main Grid + Clues Layout -->
+          <div class="crossword-main-layout">
+            
+            <!-- Left: Interactive Grid -->
+            <div class="crossword-grid-wrapper">
+              <div class="crossword-grid" style="grid-template-columns: repeat(${cols}, 32px); grid-template-rows: repeat(${rows}, 32px);">
+                ${grid.map((rowArr, rIdx) => {
+                  return rowArr.map((cell, cIdx) => {
+                    if (!cell) {
+                      return `<div class="cw-cell black"></div>`;
+                    }
+                    const wordIdsStr = cell.words.join(' ');
+                    const numHtml = cell.number ? `<span class="cw-num">${cell.number}</span>` : '';
+                    return `
+                      <div class="cw-cell" data-row="${rIdx}" data-col="${cIdx}" data-words="${wordIdsStr}" id="cw-cell-${rIdx}-${cIdx}">
+                        ${numHtml}
+                        <input type="text" class="cw-input" maxlength="1" data-row="${rIdx}" data-col="${cIdx}" id="cw-inp-${rIdx}-${cIdx}" autocomplete="off" spellcheck="false">
+                      </div>
+                    `;
+                  }).join('');
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- Right: Clues Split -->
+            <div class="crossword-clues-wrapper">
+              <div class="cw-clues-columns">
+                
+                <!-- Across Clues Column -->
+                <div class="cw-clue-column">
+                  <h3>➡️ ACROSS</h3>
+                  <div class="cw-clue-list">
+                    ${acrossWords.map(w => `
+                      <div class="cw-clue-item ${w.id === firstWord.id ? 'active' : ''}" data-word-id="${w.id}" id="clue-item-${w.id}">
+                        <div class="cw-clue-header">
+                          <span class="cw-clue-num-title">${w.number}. ${w.clue.substring(0, 32)}...</span>
+                          <span class="cw-word-len">(${w.word.length})</span>
+                        </div>
+                        <div class="cw-clue-body">${w.clue}</div>
+                        <div class="cw-hint-text" id="hint-${w.id}">💡 Hint: ${w.hint}</div>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <!-- Down Clues Column -->
+                <div class="cw-clue-column">
+                  <h3>⬇️ DOWN</h3>
+                  <div class="cw-clue-list">
+                    ${downWords.map(w => `
+                      <div class="cw-clue-item ${w.id === firstWord.id ? 'active' : ''}" data-word-id="${w.id}" id="clue-item-${w.id}">
+                        <div class="cw-clue-header">
+                          <span class="cw-clue-num-title">${w.number}. ${w.clue.substring(0, 32)}...</span>
+                          <span class="cw-word-len">(${w.word.length})</span>
+                        </div>
+                        <div class="cw-clue-body">${w.clue}</div>
+                        <div class="cw-hint-text" id="hint-${w.id}">💡 Hint: ${w.hint}</div>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Submit Button -->
+          <div style="text-align: center; margin: 35px 0 20px 0;">
+            <button type="submit" class="btn btn-primary" style="padding: 18px 50px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(255,90,31,0.35);">
+              ✅ Submit Crossword Puzzle
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    `;
+  }
+
   // Bind Quiz Events
   function bindQuizEvents() {
     const backBtn = document.getElementById('btn-back-to-dashboard');
@@ -734,11 +890,274 @@
       });
     }
 
+    if (activeQuiz && activeQuiz.quizType === 'crossword') {
+      bindCrosswordEvents(activeQuiz);
+      return;
+    }
+
     const form = document.getElementById('quiz-attempt-form');
     if (form) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         gradeAssessment(form);
+      });
+    }
+  }
+
+  // Bind Interactive Crossword Puzzle Events
+  function bindCrosswordEvents(quiz) {
+    const words = quiz.crosswordData.words;
+    let selectedWordId = words[0].id;
+    let currentDir = words[0].direction;
+
+    function selectWord(wordId, focusRow, focusCol) {
+      const wordObj = words.find(w => w.id === wordId);
+      if (!wordObj) return;
+
+      selectedWordId = wordId;
+      currentDir = wordObj.direction;
+
+      // Highlight active clue in clue list
+      document.querySelectorAll('.cw-clue-item').forEach(el => el.classList.remove('active'));
+      const activeClueEl = document.getElementById(`clue-item-${wordId}`);
+      if (activeClueEl) {
+        activeClueEl.classList.add('active');
+        activeClueEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      // Highlight active word cells in grid
+      document.querySelectorAll('.cw-cell').forEach(el => {
+        el.classList.remove('active-word');
+        el.classList.remove('active-cell');
+      });
+
+      const isAcross = wordObj.direction === 'across';
+      for (let i = 0; i < wordObj.word.length; i++) {
+        const r = isAcross ? wordObj.row : wordObj.row + i;
+        const c = isAcross ? wordObj.col + i : wordObj.col;
+        const cellEl = document.getElementById(`cw-cell-${r}-${c}`);
+        if (cellEl) cellEl.classList.add('active-word');
+      }
+
+      // Focus cell
+      const targetRow = typeof focusRow === 'number' ? focusRow : wordObj.row;
+      const targetCol = typeof focusCol === 'number' ? focusCol : wordObj.col;
+      const targetCellEl = document.getElementById(`cw-cell-${targetRow}-${targetCol}`);
+      const targetInpEl = document.getElementById(`cw-inp-${targetRow}-${targetCol}`);
+      if (targetCellEl) targetCellEl.classList.add('active-cell');
+      if (targetInpEl) targetInpEl.focus();
+
+      // Update active clue bar
+      const barTag = document.getElementById('cw-bar-tag');
+      const barDesc = document.getElementById('cw-bar-desc');
+      const barHint = document.getElementById('cw-bar-hint');
+      const hintBtn = document.getElementById('btn-toggle-hint');
+
+      if (barTag) barTag.textContent = `${wordObj.number} ${wordObj.direction.toUpperCase()} (${wordObj.word.length} Letters)`;
+      if (barDesc) barDesc.textContent = wordObj.clue;
+      if (barHint) {
+        barHint.textContent = `💡 Hint: ${wordObj.hint}`;
+        const hintTextEl = document.getElementById(`hint-${wordId}`);
+        if (hintTextEl && hintTextEl.classList.contains('visible')) {
+          barHint.classList.add('visible');
+        } else {
+          barHint.classList.remove('visible');
+        }
+      }
+      if (hintBtn) hintBtn.setAttribute('data-word-id', wordId);
+    }
+
+    // Select initial word
+    selectWord(selectedWordId);
+
+    // Clue item clicks
+    document.querySelectorAll('.cw-clue-item').forEach(item => {
+      item.addEventListener('click', function () {
+        const wId = item.getAttribute('data-word-id');
+        selectWord(wId);
+      });
+    });
+
+    // Hint toggle button click
+    const hintBtn = document.getElementById('btn-toggle-hint');
+    if (hintBtn) {
+      hintBtn.addEventListener('click', function () {
+        const wId = hintBtn.getAttribute('data-word-id') || selectedWordId;
+        const hintEl = document.getElementById(`hint-${wId}`);
+        const barHintEl = document.getElementById('cw-bar-hint');
+        if (hintEl) {
+          hintEl.classList.toggle('visible');
+          if (barHintEl) barHintEl.classList.toggle('visible', hintEl.classList.contains('visible'));
+        }
+      });
+    }
+
+    // Grid cell clicks & input handlers
+    document.querySelectorAll('.cw-input').forEach(inp => {
+      inp.addEventListener('click', function () {
+        const r = parseInt(inp.getAttribute('data-row'));
+        const c = parseInt(inp.getAttribute('data-col'));
+        const cellEl = document.getElementById(`cw-cell-${r}-${c}`);
+        const wordIds = cellEl ? (cellEl.getAttribute('data-words') || '').split(' ') : [];
+
+        // If clicked on an already selected cell, toggle direction if cell is an intersection
+        if (wordIds.length > 1) {
+          const currentWordObj = words.find(w => w.id === selectedWordId);
+          const otherWordId = wordIds.find(id => id !== selectedWordId);
+          if (otherWordId && currentWordObj && (currentWordObj.row === r && currentWordObj.col === c)) {
+            selectWord(otherWordId, r, c);
+            return;
+          }
+        }
+
+        const matchWordId = wordIds.find(id => {
+          const w = words.find(item => item.id === id);
+          return w && w.direction === currentDir;
+        }) || wordIds[0];
+
+        if (matchWordId) selectWord(matchWordId, r, c);
+      });
+
+      inp.addEventListener('input', function (e) {
+        inp.value = inp.value.toUpperCase();
+        if (inp.value) {
+          // Advance to next letter in current word
+          const r = parseInt(inp.getAttribute('data-row'));
+          const c = parseInt(inp.getAttribute('data-col'));
+          const wordObj = words.find(w => w.id === selectedWordId);
+          if (wordObj) {
+            const isAcross = wordObj.direction === 'across';
+            const nextR = isAcross ? r : r + 1;
+            const nextC = isAcross ? c + 1 : c;
+            const nextInp = document.getElementById(`cw-inp-${nextR}-${nextC}`);
+            if (nextInp) {
+              selectWord(selectedWordId, nextR, nextC);
+            }
+          }
+        }
+      });
+
+      inp.addEventListener('keydown', function (e) {
+        const r = parseInt(inp.getAttribute('data-row'));
+        const c = parseInt(inp.getAttribute('data-col'));
+        const wordObj = words.find(w => w.id === selectedWordId);
+
+        if (e.key === 'Backspace') {
+          if (!inp.value && wordObj) {
+            const isAcross = wordObj.direction === 'across';
+            const prevR = isAcross ? r : r - 1;
+            const prevC = isAcross ? c - 1 : c;
+            const prevInp = document.getElementById(`cw-inp-${prevR}-${prevC}`);
+            if (prevInp) {
+              prevInp.value = '';
+              selectWord(selectedWordId, prevR, prevC);
+            }
+          }
+        } else if (e.key === 'ArrowRight') {
+          const nextInp = document.getElementById(`cw-inp-${r}-${c + 1}`);
+          if (nextInp) nextInp.focus();
+        } else if (e.key === 'ArrowLeft') {
+          const prevInp = document.getElementById(`cw-inp-${r}-${c - 1}`);
+          if (prevInp) prevInp.focus();
+        } else if (e.key === 'ArrowDown') {
+          const nextInp = document.getElementById(`cw-inp-${r + 1}-${c}`);
+          if (nextInp) nextInp.focus();
+        } else if (e.key === 'ArrowUp') {
+          const prevInp = document.getElementById(`cw-inp-${r - 1}-${c}`);
+          if (prevInp) prevInp.focus();
+        }
+      });
+    });
+
+    // Form submit
+    const cwForm = document.getElementById('crossword-attempt-form');
+    if (cwForm) {
+      cwForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        gradeCrosswordAssessment(quiz);
+      });
+    }
+  }
+
+  // Grade Crossword Assessment
+  async function gradeCrosswordAssessment(quiz) {
+    const words = quiz.crosswordData.words;
+    let correctCount = 0;
+    const detailedResults = [];
+
+    words.forEach(w => {
+      const isAcross = w.direction === 'across';
+      let userWord = '';
+      for (let i = 0; i < w.word.length; i++) {
+        const r = isAcross ? w.row : w.row + i;
+        const c = isAcross ? w.col + i : w.col;
+        const inp = document.getElementById(`cw-inp-${r}-${c}`);
+        userWord += inp ? (inp.value.trim().toUpperCase() || '_') : '_';
+      }
+
+      const isCorrect = (userWord === w.word);
+      if (isCorrect) correctCount++;
+
+      detailedResults.push({
+        isCrossword: true,
+        wordId: w.id,
+        label: `${w.number} ${w.direction.toUpperCase()}`,
+        question: `Clue (${w.number} ${w.direction.toUpperCase()} • ${w.word.length} letters): ${w.clue}`,
+        userAnswer: userWord.replace(/_/g, ' '),
+        correctAnswer: w.word,
+        isCorrect: isCorrect,
+        explanation: `${w.clue} (Hint: ${w.hint})`
+      });
+    });
+
+    const totalScore = correctCount * 5; // 20 words x 5 = 100
+    const percentage = totalScore;
+
+    let grade = "Re-attempt Recommended";
+    if (percentage >= 90) grade = "Distinction / Crossword Freight Master 🏆";
+    else if (percentage >= 75) grade = "Merit / Logistics Puzzle Specialist 🥈";
+    else if (percentage >= 50) grade = "Pass / Competent Freight Specialist 🥉";
+
+    const currentUser = getCurrentAuthUser();
+    const profile = window.currentUserProfileData || {};
+    const candidateName = profile.name || (currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "Logistics Candidate");
+    const candidateEmail = currentUser ? currentUser.email : "candidate@nexus.com";
+    const candidateUid = currentUser ? currentUser.uid : "usr_guest";
+    const candidateRole = (profile.role && profile.role !== 'Not Set') ? profile.role : '';
+    const candidateCompany = (profile.company && profile.company !== 'Not Set') ? profile.company : '';
+
+    const attemptRecord = {
+      attemptId: 'att_' + Date.now(),
+      userId: candidateUid,
+      userName: candidateName,
+      userEmail: candidateEmail,
+      userCompany: candidateCompany || 'Not Set',
+      userRole: candidateRole || 'Not Set',
+      weekId: quiz.id,
+      weekTitle: quiz.title,
+      mcqScore: correctCount,
+      shortScore: 0,
+      totalScore: totalScore,
+      percentage: percentage,
+      grade: grade,
+      timestamp: new Date().toISOString(),
+      detailedResults: detailedResults
+    };
+
+    userAttempts.unshift(attemptRecord);
+
+    try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
+
+    isAttemptingQuiz = false;
+    currentViewingAttempt = attemptRecord;
+    renderQuizHubUI();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
+      window.NEXUS_FIREBASE.saveQuizAttempt(attemptRecord).then(saved => {
+        console.log('☁️ Crossword attempt saved to cloud:', saved);
+      }).catch(err => {
+        console.error('❌ Cloud crossword save warning:', err);
       });
     }
   }
@@ -848,6 +1267,7 @@
   // Render Quiz Results View Screen
   function renderQuizResultsView(attempt) {
     const subtext = [attempt.userRole, attempt.userCompany].filter(val => val && val !== 'Not Set').join(' • ');
+    const isCrossword = attempt.detailedResults && attempt.detailedResults[0] && attempt.detailedResults[0].isCrossword;
 
     return `
       <div class="quiz-results-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
@@ -869,11 +1289,19 @@
             </span>
           </div>
 
-          <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.9rem; color: #CBD5E1; margin-bottom: 25px;">
-            <span>MCQ Score: <strong>${attempt.mcqScore}/10</strong></span>
-            <span>•</span>
-            <span>Short Answer Score: <strong>${attempt.shortScore}/10</strong></span>
-          </div>
+          ${isCrossword ? `
+            <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.9rem; color: #CBD5E1; margin-bottom: 25px;">
+              <span>Correct Words: <strong>${attempt.mcqScore}/20</strong></span>
+              <span>•</span>
+              <span>Total Marks: <strong>${attempt.totalScore}/100</strong></span>
+            </div>
+          ` : `
+            <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.9rem; color: #CBD5E1; margin-bottom: 25px;">
+              <span>MCQ Score: <strong>${attempt.mcqScore}/10</strong></span>
+              <span>•</span>
+              <span>Short Answer Score: <strong>${attempt.shortScore}/10</strong></span>
+            </div>
+          `}
 
           <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <button id="btn-generate-pdf-cert" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1rem; box-shadow: 0 10px 25px rgba(255,90,31,0.4);">
@@ -886,11 +1314,33 @@
         </div>
 
         <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.3rem; margin: 0 0 20px 0;">
-          💡 Question Explanations & Detailed Evaluation
+          💡 Word Explanations & Detailed Evaluation
         </h3>
 
         <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;">
           ${attempt.detailedResults.map((r, idx) => {
+            if (r.isCrossword) {
+              const displayIsCorrect = r.isCorrect;
+              return `
+                <div style="background: var(--bg-white); border: 1.5px solid ${displayIsCorrect ? '#10B981' : '#EF4444'}; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-size: 0.85rem; font-weight: 800; color: var(--primary-navy);">${r.label}</span>
+                    <span style="background: ${displayIsCorrect ? '#D1FAE5' : '#FEE2E2'}; color: ${displayIsCorrect ? '#065F46' : '#991B1B'}; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;">
+                      ${displayIsCorrect ? '✅ Correct (+5 Marks)' : '❌ Incorrect (0 Marks)'}
+                    </span>
+                  </div>
+                  <h4 style="font-size: 0.98rem; color: var(--primary-navy); margin: 0 0 10px 0; font-weight: 700;">${r.question}</h4>
+                  <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+                    Your Entry: <strong style="color: ${displayIsCorrect ? '#059669' : '#DC2626'}; font-family: monospace;">${r.userAnswer}</strong>
+                  </div>
+                  ${!displayIsCorrect ? `<div style="font-size: 0.88rem; color: var(--primary-navy); margin-bottom: 8px;">Correct Word: <strong style="font-family: monospace;">${r.correctAnswer}</strong></div>` : ''}
+                  <div style="background: #F8FAFC; border-left: 3px solid var(--accent-orange); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #475569; margin-top: 8px;">
+                    💡 <strong>Clue & Hint:</strong> ${r.explanation}
+                  </div>
+                </div>
+              `;
+            }
+
             const week = (typeof NEXUS_QUIZ_DATABASE !== 'undefined' && NEXUS_QUIZ_DATABASE.weeks)
               ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === attempt.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
               : null;
