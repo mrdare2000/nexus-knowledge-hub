@@ -50,8 +50,8 @@
     renderQuizHubUI();
   }
 
-  // Render Core UI Shell
-  async function renderQuizHubUI() {
+  // Render Core UI Shell (Instant Non-Blocking Render)
+  function renderQuizHubUI() {
     const container = document.getElementById('quiz-hub-container');
     if (!container) return;
 
@@ -78,36 +78,50 @@
       window.__quizAuthHydrationChecked = false;
     }
 
-    // Auto-regrade any previous 0% attempts caused by earlier schema mismatch
-    userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(userAttempts));
+    // Load cached attempts from localStorage first for instant 0ms rendering
+    if (userAttempts.length === 0) {
+      try {
+        const cached = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
+        if (cached.length > 0) {
+          userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(cached));
+        }
+      } catch(e) {}
+    } else {
+      userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(userAttempts));
+    }
 
-    // 2. Fetch remote attempts from Firestore if logged in (Backend is primary source)
+    // 2. Render UI Shell IMMEDIATELY (Instant Response)
+    if (currentViewingAttempt) {
+      container.innerHTML = renderQuizResultsView(currentViewingAttempt);
+      bindResultsViewEvents();
+    } else if (isAttemptingQuiz) {
+      container.innerHTML = renderQuizQuestionsForm();
+      bindQuizEvents();
+    } else {
+      container.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
+      bindDashboardEvents();
+    }
+
+    // 3. Fetch remote attempts from Cloud Firebase in background (Non-blocking)
     if (currentUser && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.fetchQuizAttempts === 'function') {
       if (!fetchedRemoteAttempts) {
         fetchedRemoteAttempts = true;
-        try {
-          const remoteAttempts = await window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid);
+        window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid).then(remoteAttempts => {
           if (remoteAttempts && remoteAttempts.length > 0) {
             userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(remoteAttempts));
-            // Update localStorage cache with backend data
             try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
-          } else {
-            // Backend has no data — try localStorage cache as fallback for offline scenarios
-            try {
-              const cached = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-              if (cached.length > 0) {
-                userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(cached));
+            // Refresh dashboard with cloud data if user is on dashboard view
+            if (!isAttemptingQuiz && !currentViewingAttempt) {
+              const freshContainer = document.getElementById('quiz-hub-container');
+              if (freshContainer) {
+                freshContainer.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
+                bindDashboardEvents();
               }
-            } catch(e) {}
+            }
           }
-        } catch(err) {
-          console.error("Error fetching user attempts from backend:", err);
-          // Fallback to localStorage cache on network error
-          try {
-            const cached = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-            if (cached.length > 0) userAttempts = deduplicateUserAttempts(cached);
-          } catch(e) {}
-        }
+        }).catch(err => {
+          console.warn("Background remote attempts fetch warning:", err);
+        });
 
         // Asynchronously auto-regrade all stored quiz attempts across all users in Cloud DB
         setTimeout(() => {
@@ -118,23 +132,8 @@
               }
             }).catch(e => {});
           }
-        }, 1500);
+        }, 2000);
       }
-    } else if (!currentUser) {
-      userAttempts = [];
-    }
-
-    userAttempts = deduplicateUserAttempts(userAttempts);
-
-    if (currentViewingAttempt) {
-      container.innerHTML = renderQuizResultsView(currentViewingAttempt);
-      bindResultsViewEvents();
-    } else if (isAttemptingQuiz) {
-      container.innerHTML = renderQuizQuestionsForm();
-      bindQuizEvents();
-    } else {
-      container.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
-      bindDashboardEvents();
     }
   }
 
@@ -1649,16 +1648,20 @@
     printWindow.document.close();
   }
 
-  // Event Listeners on DOM Loaded
-  document.addEventListener('DOMContentLoaded', function () {
+  // Event Listeners on DOM Loaded & Ready State Check
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      initQuizHub();
+    });
+  } else {
     initQuizHub();
-  });
+  }
 
   window.NEXUS_QUIZ_ENGINE = {
     init: initQuizHub,
     refresh: function() {
       fetchedRemoteAttempts = false;
-      renderQuizHubUI();
+      initQuizHub();
     }
   };
 
