@@ -121,7 +121,6 @@
         }, 1500);
       }
     } else if (!currentUser) {
-      // Not logged in — clear attempts
       userAttempts = [];
     }
 
