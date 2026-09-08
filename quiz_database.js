@@ -964,34 +964,24 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
     {
       id: "week-5",
       title: "Weekly Quiz 05 — Special Edition 01: Crossword Puzzle 🧩",
-      description: "Logistics Word Crossword Puzzle • 20 Words • 10 Across + 10 Down Clues • 100 Marks",
+      description: "Logistics Word Crossword Puzzle • 10 Words • 5 Across + 5 Down Clues • 100 Marks",
       quizType: "crossword",
       totalMarks: 100,
       crosswordData: {
-        gridRows: 20,
-        gridCols: 20,
+        gridRows: 22,
+        gridCols: 15,
         words: [
-          { id: "A1", number: 1, direction: "across", word: "INCOTERMS", clue: "Standardized 3-letter international trade rules published by ICC defining buyer/seller obligations.", hint: "Examples include FOB, CIF, EXW, DDP.", row: 0, col: 2 },
-          { id: "A2", number: 3, direction: "across", word: "DETENTION", clue: "Penalty fee charged when a container is kept outside the port terminal beyond free days.", hint: "Charged per day when customer delays returning empty container.", row: 2, col: 10 },
-          { id: "A3", number: 5, direction: "across", word: "CONTAINER", clue: "Standardized ISO metal box used to transport cargo across ocean, rail, and road intermodally.", hint: "Common lengths are 20ft and 40ft.", row: 4, col: 3 },
-          { id: "A4", number: 7, direction: "across", word: "CABOTAGE", clue: "The transport of goods or passengers between two places in the same country by a foreign operator.", hint: "Often restricted by national maritime and aviation laws.", row: 7, col: 1 },
-          { id: "A5", number: 9, direction: "across", word: "DUNNAGE", clue: "Padding or bracing material used to protect cargo inside shipping containers during transport.", hint: "Includes airbags, wooden blocks, and foam.", row: 9, col: 4 },
-          { id: "A6", number: 11, direction: "across", word: "MARITIME", clue: "Relating to shipping, ocean navigation, seafaring, and commercial sea trade.", hint: "Covers ocean freight and port logistics.", row: 10, col: 11 },
-          { id: "A7", number: 13, direction: "across", word: "DEMURRAGE", clue: "Penalty fee charged when a container is held inside the port terminal past the allowed free time.", hint: "Charged per day by ocean carriers inside port yard.", row: 12, col: 0 },
-          { id: "A8", number: 15, direction: "across", word: "PALLET", clue: "Flat wooden or plastic portable platform used to stack, consolidate, and handle unitized cargo.", hint: "Standard sizes include EUR-pallet and ISO pallet.", row: 14, col: 2 },
-          { id: "A9", number: 17, direction: "across", word: "STOWAGE", clue: "The careful positioning and securing of cargo on board a ship to ensure balance and safety.", hint: "Improper execution can cause vessel instability.", row: 16, col: 5 },
-          { id: "A10", number: 19, direction: "across", word: "MANIFEST", clue: "Comprehensive shipping document listing all cargo, passengers, and crew carried on a vessel.", hint: "Submitted to customs authorities prior to vessel arrival.", row: 18, col: 0 },
+          { id: "A1", number: 1, direction: "across", word: "INCOTERMS", clue: "Standardized 3-letter international trade rules published by ICC defining buyer/seller obligations.", hint: "Examples include FOB, CIF, EXW, DDP.", row: 1, col: 1 },
+          { id: "A2", number: 3, direction: "across", word: "FREIGHT", clue: "Goods or cargo transported by ship, aircraft, train, or truck for commercial trade.", hint: "Also refers to the payment rate for cargo transport.", row: 4, col: 5 },
+          { id: "A3", number: 5, direction: "across", word: "PALLET", clue: "Flat wooden or plastic portable platform used to stack, consolidate, and handle unitized cargo.", hint: "Standard sizes include EUR-pallet and ISO pallet.", row: 8, col: 1 },
+          { id: "A4", number: 7, direction: "across", word: "BARGE", clue: "Flat-bottomed vessel used primarily on rivers and inland canals to carry heavy bulk cargo.", hint: "Usually towed or pushed by tugboats.", row: 12, col: 3 },
+          { id: "A5", number: 9, direction: "across", word: "REROUTE", clue: "To alter the planned pathway or destination of a shipment while in transit.", hint: "Done when unexpected delays or port congestion occur.", row: 15, col: 7 },
 
-          { id: "D1", number: 2, direction: "down", word: "CUSTOMS", clue: "Government authority responsible for collecting tariffs and controlling the flow of goods across borders.", hint: "Conducts inspections and enforces import duties.", row: 0, col: 4 },
-          { id: "D2", number: 4, direction: "down", word: "DIESEL", clue: "Heavy liquid fuel engine oil used extensively in freight trucks, cargo locomotives, and port cranes.", hint: "Primary fuel for ground transport fleet.", row: 2, col: 10 },
-          { id: "D3", number: 6, direction: "down", word: "TRAIN", clue: "Rail transport convoy used to haul heavy intermodal container freight across continents.", hint: "Key mode of hinterland transport.", row: 5, col: 6 },
-          { id: "D4", number: 8, direction: "down", word: "CARRIER", clue: "Company or entity legally responsible for transporting goods for shippers under contract.", hint: "Examples: Maersk, MSC, FedEx, DHL.", row: 6, col: 12 },
-          { id: "D5", number: 10, direction: "down", word: "BARGE", clue: "Flat-bottomed vessel used primarily on rivers and inland canals to carry bulk cargo.", hint: "Usually towed or pushed by tugboats.", row: 8, col: 14 },
-          { id: "D6", number: 12, direction: "down", word: "DRAFT", clue: "Vertical distance between the waterline and the bottom of a ship's hull, limiting shallow port entry.", hint: "Measured to ensure vessel doesn't run aground.", row: 10, col: 16 },
-          { id: "D7", number: 14, direction: "down", word: "REEFER", clue: "Refrigerated container equipped with active cooling unit for temperature-sensitive cargo.", hint: "Used for fruits, pharmaceuticals, and meat.", row: 12, col: 4 },
-          { id: "D8", number: 16, direction: "down", word: "TEU", clue: "Standard unit of measurement for cargo capacity equal to one 20-foot shipping container.", hint: "Stands for Twenty-foot Equivalent Unit.", row: 14, col: 6 },
-          { id: "D9", number: 18, direction: "down", word: "BUNKER", clue: "Heavy fuel oil used to power ships' marine engines, subject to ocean surcharges like BAF.", hint: "Fuel tanks on ships are called bunker tanks.", row: 14, col: 10 },
-          { id: "D10", number: 20, direction: "down", word: "TARIFF", clue: "Tax or duty imposed by a government on imported or exported goods.", hint: "Used to protect domestic industries.", row: 14, col: 14 }
+          { id: "D1", number: 2, direction: "down", word: "CUSTOMS", clue: "Government authority responsible for collecting tariffs and controlling the flow of goods across borders.", hint: "Conducts inspections and enforces import duties.", row: 1, col: 3 },
+          { id: "D2", number: 4, direction: "down", word: "REEFER", clue: "Refrigerated container equipped with active cooling unit for temperature-sensitive cargo.", hint: "Used for fruits, pharmaceuticals, and meat.", row: 3, col: 7 },
+          { id: "D3", number: 6, direction: "down", word: "EXPORT", clue: "To send goods or commercial products to another country for international sale or trade.", hint: "Opposite of import.", row: 8, col: 5 },
+          { id: "D4", number: 8, direction: "down", word: "DEMURRAGE", clue: "Penalty fee charged when a container is held inside the port terminal past allowed free time.", hint: "Charged per day by ocean carriers inside port yard.", row: 11, col: 7 },
+          { id: "D5", number: 10, direction: "down", word: "EMBARGO", clue: "Official government ban on trade or commercial activity with a specific country.", hint: "Strict economic sanction on cross-border trade.", row: 15, col: 13 }
         ]
       }
     }

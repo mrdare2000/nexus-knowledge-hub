@@ -5218,13 +5218,20 @@ body {
    ========================================================================== */
 
 .crossword-container {
+  --cw-cell-size: 19.5px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1150px;
   margin: 0 auto;
   padding: 10px 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .crossword-container {
+    --cw-cell-size: 16px;
+  }
 }
 
 .crossword-header-banner {
@@ -5359,12 +5366,12 @@ body {
 /* Main Crossword Split Layout */
 .crossword-main-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
   align-items: start;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1050px) {
   .crossword-main-layout {
     grid-template-columns: 1fr;
   }
@@ -5374,37 +5381,33 @@ body {
 .crossword-grid-wrapper {
   background: #FFFFFF;
   border-radius: var(--border-radius-md);
-  padding: 14px;
+  padding: 12px;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
-  overflow-x: hidden;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media (max-width: 600px) {
-  .crossword-grid-wrapper {
-    overflow-x: auto;
-  }
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .crossword-grid {
   display: grid;
-  grid-template-columns: repeat(20, 23px);
-  grid-template-rows: repeat(20, 23px);
-  gap: 1.5px;
+  grid-template-columns: repeat(20, var(--cw-cell-size, 19.5px));
+  grid-template-rows: repeat(20, var(--cw-cell-size, 19.5px));
+  gap: 1px;
   background: #CBD5E1;
-  border: 2px solid #334155;
-  border-radius: 4px;
-  padding: 1.5px;
+  border: 2px solid #0F172A;
+  border-radius: 6px;
+  padding: 1px;
   user-select: none;
 }
 
 .cw-cell {
   position: relative;
-  width: 23px;
-  height: 23px;
+  width: var(--cw-cell-size, 19.5px);
+  height: var(--cw-cell-size, 19.5px);
   background: #FFFFFF;
   display: flex;
   align-items: center;
@@ -5413,7 +5416,7 @@ body {
 }
 
 .cw-cell.black {
-  background: #1E293B !important;
+  background: #0F172A !important;
 }
 
 .cw-cell.active-word {
@@ -5437,9 +5440,9 @@ body {
   position: absolute;
   top: 0px;
   left: 1px;
-  font-size: 7px;
+  font-size: 6.5px;
   font-weight: 800;
-  color: #334155;
+  color: #475569;
   pointer-events: none;
   z-index: 2;
   line-height: 1;
@@ -5452,7 +5455,7 @@ body {
   background: transparent;
   text-align: center;
   font-family: var(--font-title);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #0F172A;
   text-transform: uppercase;

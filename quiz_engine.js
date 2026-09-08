@@ -893,7 +893,7 @@
             
             <!-- Left: Interactive Grid -->
             <div class="crossword-grid-wrapper">
-              <div class="crossword-grid" style="grid-template-columns: repeat(${cols}, 23px); grid-template-rows: repeat(${rows}, 23px);">
+              <div class="crossword-grid" style="grid-template-columns: repeat(${cols}, var(--cw-cell-size, 19.5px)); grid-template-rows: repeat(${rows}, var(--cw-cell-size, 19.5px));">
                 ${grid.map((rowArr, rIdx) => {
                   return rowArr.map((cell, cIdx) => {
                     if (!cell) {
