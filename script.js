@@ -3243,235 +3243,6 @@ function filterHSOptions() {
    ========================================== */
 let globalNewsCache = null;
 
-// Curated & Real-Time Breaking Logistics Headlines (Guarantees 25+ High Quality Articles)
-const CURATED_LOGISTICS_NEWS = [
-  {
-    title: "Indonesia Volcano Eruption Forces Major Airport Closures & Regional Aviation Supply Chain Disruptions",
-    pubDate: "2026-09-07T08:30:00Z",
-    description: "A massive 15,000-meter volcanic ash plume from Indonesia's Mount Anak Krakatau eruption forced the immediate closure of 8 regional airports, including Jakarta (Soekarno-Hatta CGK & Halim HLP). Over 270,000 passengers and hundreds of air freight cargo shipments have been grounded or rerouted across key Asian air corridors.",
-    link: "https://www.google.com/search?q=indonesia+volcano+eruption+flights+cancelled+airports+closed",
-    publisherImage: "images/indonesia_volcano_flight_disruption.png",
-    badge: "🚨 BREAKING AVIATION ALERT",
-    category: "Air Freight & Aviation"
-  },
-  {
-    title: "Global Ocean Freight Rates Stabilize as Red Sea Transit Rerouting Standardizes Around Cape of Good Hope",
-    pubDate: "2026-09-06T14:15:00Z",
-    description: "Major ocean carrier alliances maintain altered maritime routes bypassing the Bab el-Mandeb strait. Transit times between Asia and Northern Europe remain extended by 10-14 days while container spot rates show signs of seasonal stabilization.",
-    link: "https://www.seatrade-maritime.com/",
-    publisherImage: "images/bg_ocean.png",
-    badge: "🚢 MARITIME MARKET",
-    category: "Ocean Shipping"
-  },
-  {
-    title: "Air Freight Capacity Demand Surges Ahead of Q4 Global E-Commerce Peak Season",
-    pubDate: "2026-09-05T11:00:00Z",
-    description: "Global air freight spot rates experience upward pressure across Trans-Pacific and Asia-Europe lanes as tech product rollouts and cross-border e-commerce platforms lock in seasonal charter capacity.",
-    link: "https://simpleflying.com/",
-    publisherImage: "images/air_cargo_ulds_pallets.png",
-    badge: "✈️ AIR FREIGHT",
-    category: "Air Freight Market"
-  },
-  {
-    title: "Port of Colombo West Container Terminal Prepares for Commercial Phase 1 Operations",
-    pubDate: "2026-09-04T09:00:00Z",
-    description: "The deep-water West Container Terminal (WCT-1) at Colombo Port completes quay crane installations, boosting South Asia's primary transshipment hub capacity by an additional 3.2 million TEUs annually.",
-    link: "https://www.porttechnology.org/",
-    publisherImage: "images/bg_port.png",
-    badge: "⚓ PORT INFRASTRUCTURE",
-    category: "Port Operations"
-  },
-  {
-    title: "Panama Canal Authority Restores Daily Vessel Booking Slots to Normal Limits Following Rainy Season Recovery",
-    pubDate: "2026-09-03T16:20:00Z",
-    description: "Gatun Lake water levels recover after seasonal rainfall, allowing the Panama Canal Authority to raise maximum draft limits to 47 feet and restore daily vessel transits to 36 ships per day.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/ocean_containers.png",
-    badge: "🌊 CHOKEPOINT UPDATE",
-    category: "Maritime Trade"
-  },
-  {
-    title: "EU CBAM Phase-In Forces Importers to Audit Supply Chain Carbon Intensity Profiles",
-    pubDate: "2026-09-02T13:45:00Z",
-    description: "European Union Carbon Border Adjustment Mechanism (CBAM) mandatory reporting standards require international exporters of steel, aluminum, fertilizer, and cement to submit verified embedded emissions data.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/customs_docs.png",
-    badge: "🌱 SUSTAINABILITY & CUSTOMS",
-    category: "Customs Compliance"
-  },
-  {
-    title: "US East Coast and Gulf Coast Port Operators Reach Master Agreement Settlement with ILA Dockworkers",
-    pubDate: "2026-09-01T10:10:00Z",
-    description: "A multi-year labor pact covers 45,000 dockworkers across US East and Gulf Coast container ports, eliminating strike disruption risks for peak holiday cargo import flows.",
-    link: "https://www.freightwaves.com/",
-    publisherImage: "images/bg_trucking.png",
-    badge: "🤝 PORT LABOR",
-    category: "Port Logistics"
-  },
-  {
-    title: "Tuas Mega Port Deploys Next-Gen Autonomous AGVs & AI-Driven Berth Allocation System",
-    pubDate: "2026-08-31T07:30:00Z",
-    description: "Maritime and Port Authority of Singapore expands autonomous electric yard cranes and digital twin modeling to cut container dwell times by 22% at Tuas Port terminal.",
-    link: "https://www.porttechnology.org/",
-    publisherImage: "images/bg_warehouse.png",
-    badge: "🤖 PORT TECH",
-    category: "Smart Warehousing"
-  },
-  {
-    title: "Pharmaceutical & Cold Chain Logistics Demand Spikes with New Temperature-Controlled GDP Standards",
-    pubDate: "2026-08-30T15:15:00Z",
-    description: "Global logistics providers invest in smart real-time data loggers and specialized reefer container fleets to comply with enhanced EU Good Distribution Practice (GDP) pharma guidelines.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/temperature_controlled_cargo.png",
-    badge: "❄️ COLD CHAIN",
-    category: "Cold Chain Logistics"
-  },
-  {
-    title: "Suez Canal Authority Extends Toll Rebates for Trans-Atlantic Container & Tanker Ships",
-    pubDate: "2026-08-29T12:00:00Z",
-    description: "To maintain route competitiveness against the Cape of Good Hope transit, Suez Canal Authority announces extended toll discounts ranging from 15% to 75% for eligible vessel types.",
-    link: "https://www.seatrade-maritime.com/",
-    publisherImage: "images/fcl_vs_lcl_shipment.png",
-    badge: "🚢 MARITIME RATES",
-    category: "Ocean Freight"
-  },
-  {
-    title: "Major Express Logistics Integrators Accelerate Last-Mile Delivery Fleet Electrification",
-    pubDate: "2026-08-28T09:45:00Z",
-    description: "Leading global parcel carriers roll out over 20,000 customized electric vans across urban delivery zones in Asia-Pacific and Europe to meet 2030 corporate net-zero targets.",
-    link: "https://www.freightwaves.com/",
-    publisherImage: "images/ecommerce_logistics.png",
-    badge: "🚚 LAST MILE TECH",
-    category: "Ground Logistics"
-  },
-  {
-    title: "IATA Releases Updated Dangerous Goods Regulations (DGR) for Lithium Battery Air Shipments",
-    pubDate: "2026-08-27T14:30:00Z",
-    description: "International Air Transport Association mandates stricter state of charge (SoC) limits and enhanced fire-resistant ULD containment packaging for air transporting commercial lithium batteries.",
-    link: "https://simpleflying.com/",
-    publisherImage: "images/dangerous_goods_air_freight.png",
-    badge: "⚠️ DG COMPLIANCE",
-    category: "Special Cargo"
-  },
-  {
-    title: "IMEC Trade Route Feasibility Infrastructure Agreements Signed at Regional Supply Chain Summit",
-    pubDate: "2026-08-26T11:20:00Z",
-    description: "Rail and maritime transport ministries advance standardized customs clearance protocols and unified digital bill of lading systems for the India-Middle East-Europe trade corridor.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/multimodal_transport.png",
-    badge: "🌐 TRADE CORRIDOR",
-    category: "Multimodal Logistics"
-  },
-  {
-    title: "Eurasian Land Bridge Rail Container Volume Surges as Shippers Seek 18-Day Transit Option",
-    pubDate: "2026-08-25T08:15:00Z",
-    description: "Intermodal rail operators report 35% growth in westbound container block trains connecting Xi'an and Chengdu with Central European logistics hubs in Duisburg and Malaszewicze.",
-    link: "https://www.freightwaves.com/",
-    publisherImage: "images/break_bulk_cargo.png",
-    badge: "🚆 RAIL FREIGHT",
-    category: "Overland Logistics"
-  },
-  {
-    title: "Record Delivery of Dual-Fuel LNG Container Ships Alters Global Fleet Energy Composition",
-    pubDate: "2026-08-24T16:00:00Z",
-    description: "Global container fleet capacity expands as top ocean carriers take delivery of over 1.2 million TEUs of methanol and dual-fuel LNG eco-vessels designed for low-carbon maritime transport.",
-    link: "https://www.seatrade-maritime.com/",
-    publisherImage: "images/container_knowledge.jpg",
-    badge: "⛽ GREEN SHIPPING",
-    category: "Maritime Sustainability"
-  },
-  {
-    title: "3PLs Adopt AI Automated Storage and Retrieval Systems (ASRS) to Mitigate Labor Shortages",
-    pubDate: "2026-08-23T10:40:00Z",
-    description: "High-density vertical warehouses incorporate autonomous mobile robots (AMRs) and automated picking systems to achieve 99.8% order accuracy during high-volume promotional sales events.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/3pl_4pl_logistics.png",
-    badge: "🏭 WAREHOUSE AUTOMATION",
-    category: "3PL Services"
-  },
-  {
-    title: "Sri Lanka Customs Enhances ASYCUDA World Declaration Portal with Paperless CUSDEC Verification",
-    pubDate: "2026-08-22T13:10:00Z",
-    description: "Sri Lanka Customs implements mandatory electronic document attachment integration within ASYCUDA World, reducing container customs clearance processing time from days to under 4 hours.",
-    link: "https://www.nexusknowledgehub.com/",
-    publisherImage: "images/export_customs.png",
-    badge: "📝 CUSTOMS TECH",
-    category: "Customs Clearance"
-  },
-  {
-    title: "Project Cargo Logistics Integrators Experience Spike in Heavy-Lift Antonov Air Charter Requests",
-    pubDate: "2026-08-21T09:25:00Z",
-    description: "Energy and mining sector developments spur emergency charter flights of out-of-gauge power generation equipment using specialized freighter aircraft across Asia and Africa.",
-    link: "https://simpleflying.com/",
-    publisherImage: "images/air_freight_components.png",
-    badge: "✈️ HEAVY LIFT",
-    category: "Air Freight"
-  },
-  {
-    title: "Digital Freight Platforms Report 40% Growth in Real-Time Spot Rate Booking Conversions",
-    pubDate: "2026-08-20T14:50:00Z",
-    description: "Small and medium-sized exporters shift from manual quotation requests to instant API container bookings, digital bill of lading issuance, and automated ocean tracking dashboards.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/what_is_freight_forwarding.png",
-    badge: "💻 DIGITAL FREIGHT",
-    category: "Freight Forwarding"
-  },
-  {
-    title: "New Controlled Atmosphere (CA) Container Tech Extends Fresh Produce Transit Windows",
-    pubDate: "2026-08-19T11:05:00Z",
-    description: "Advanced nitrogen and oxygen monitoring systems inside specialized reefer containers allow delicate tropical fruits and vegetables to maintain fresh quality during 45-day ocean voyages.",
-    link: "https://www.seatrade-maritime.com/",
-    publisherImage: "images/perishable_cargo.png",
-    badge: "🍎 AGRI LOGISTICS",
-    category: "Reefer Shipping"
-  },
-  {
-    title: "US CBP Enforces Strict $5,000 Penalties for Non-Compliant Importer Security Filings (ISF)",
-    pubDate: "2026-08-18T15:35:00Z",
-    description: "US Customs and Border Protection reminds ocean shippers that ISF 10+2 submissions must be transmitted at least 24 hours prior to loading at foreign ports to avoid automatic penalty assessments.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/country_specific_compliance_guides.png",
-    badge: "⚖️ REGULATORY COMPLIANCE",
-    category: "Customs Regulations"
-  },
-  {
-    title: "South Asian Textile Hubs Expand Fast-Fashion Air-Sea Combined Freight Solutions",
-    pubDate: "2026-08-17T08:50:00Z",
-    description: "Garment manufacturers in Sri Lanka, India, and Bangladesh utilize hybrid sea-air transit through Dubai and Colombo hubs to meet tight European retail seasonal deadlines at half the cost of direct air freight.",
-    link: "https://www.freightwaves.com/",
-    publisherImage: "images/garments_and_retail_cargo.png",
-    badge: "👗 TEXTILE LOGISTICS",
-    category: "Retail Supply Chain"
-  },
-  {
-    title: "Shipping Lines Extend Free Time Dwell Allowances to Mitigate Terminal Congestion Surcharges",
-    pubDate: "2026-08-16T12:40:00Z",
-    description: "Leading ocean carriers introduce flexible demurrage and detention free-time packages for high-volume shippers to reduce container yard bottleneck expenses at major transshipment ports.",
-    link: "https://www.porttechnology.org/",
-    publisherImage: "images/detention_demurrage_storage_infographic.png",
-    badge: "⏱️ DEMURRAGE MANAGEMENT",
-    category: "Container Freight"
-  },
-  {
-    title: "Major Electronics Brands Partner with 3PLs to Build Closed-Loop Reverse Logistics Hubs",
-    pubDate: "2026-08-15T10:15:00Z",
-    description: "Automated product return centers enable global consumer technology companies to inspect, refurbish, or recycle returned electronics with minimal carbon footprint.",
-    link: "https://www.supplychaindive.com/",
-    publisherImage: "images/reverse_logistics.png",
-    badge: "♻️ REVERSE LOGISTICS",
-    category: "Supply Chain Strategy"
-  },
-  {
-    title: "International Maritime Organization Reaffirms Strict Enforcement of SOLAS VGM Weight Rules",
-    pubDate: "2026-08-14T07:20:00Z",
-    description: "Port authorities step up random certified scale audits of export containers to ensure declared Verified Gross Mass (VGM) matches actual container weight before vessel loading.",
-    link: "https://www.seatrade-maritime.com/",
-    publisherImage: "images/container_loading_basics_infographic.png",
-    badge: "⚖️ MARITIME SAFETY",
-    category: "Ocean Safety"
-  }
-];
-
 function extractImageFromHTML(htmlContent) {
   if (!htmlContent) return null;
   const match = htmlContent.match(/<img[^>]+src=["']([^"']+)["']/i);
@@ -3479,33 +3250,22 @@ function extractImageFromHTML(htmlContent) {
 }
 
 function getArticlePublisherImage(article) {
-  let imgUrl = article.publisherImage || article.thumbnail || article.enclosure?.link || article.enclosure?.url;
+  let imgUrl = article.thumbnail || article.enclosure?.link || article.enclosure?.url;
   if (!imgUrl || imgUrl.trim() === "") {
     imgUrl = extractImageFromHTML(article.content) || extractImageFromHTML(article.description);
   }
   
   if (imgUrl && typeof imgUrl === 'string') {
-    imgUrl = imgUrl.trim();
+    imgUrl = imgUrl.trim().replace(/&amp;/g, '&');
     if (imgUrl.startsWith('http://')) {
       imgUrl = imgUrl.replace('http://', 'https://');
     }
-    return imgUrl;
+    // Only return real external publisher images, never local fallback
+    if (imgUrl.startsWith('https://') || imgUrl.startsWith('//')) {
+      return imgUrl;
+    }
   }
-
-  // Dynamic high-quality fallback image based on article content
-  const text = ((article.title || '') + " " + (article.description || '')).toLowerCase();
-  if (text.includes('air') || text.includes('flight') || text.includes('aviation') || text.includes('cargo plane') || text.includes('airline')) {
-    return 'images/bg_air.png';
-  } else if (text.includes('port') || text.includes('terminal') || text.includes('dock') || text.includes('berth') || text.includes('quay')) {
-    return 'images/bg_port.png';
-  } else if (text.includes('truck') || text.includes('road') || text.includes('delivery') || text.includes('van') || text.includes('fleet')) {
-    return 'images/bg_trucking.png';
-  } else if (text.includes('warehouse') || text.includes('inventory') || text.includes('storage') || text.includes('fulfilment') || text.includes('3pl')) {
-    return 'images/bg_warehouse.png';
-  } else if (text.includes('customs') || text.includes('duty') || text.includes('tariff') || text.includes('declaration') || text.includes('isf')) {
-    return 'images/customs_docs.png';
-  }
-  return 'images/bg_ocean.png';
+  return null; // No fallback - articles without real images will be filtered out
 }
 
 async function fetchLogisticsNews() {
@@ -3514,13 +3274,33 @@ async function fetchLogisticsNews() {
     return;
   }
   
-  // Dedicated feeds strictly covering Global Supply Chain, Maritime, Ports, Freight & Cargo Logistics
+  // Comprehensive RSS feeds from top global logistics, aviation, maritime, trade & politics news sources
   const feeds = [
-    'https://www.supplychaindive.com/feeds/news/',             // Logistics & Supply Chain
-    'https://www.seatrade-maritime.com/rss.xml',                // Maritime & Ocean Shipping
-    'https://www.porttechnology.org/feed/',                    // Ports & Container Terminals
-    'https://www.freightwaves.com/feed',                       // Freight, Trucking & Ground Transport
-    'https://simpleflying.com/feed/'                            // Air Aviation & Air Freight
+    // Supply Chain & Logistics
+    'https://www.supplychaindive.com/feeds/news/',
+    'https://www.logisticsmgmt.com/rss',
+    'https://theloadstar.com/feed/',
+    // Maritime & Ocean Shipping
+    'https://www.seatrade-maritime.com/rss.xml',
+    'https://gcaptain.com/feed/',
+    'https://splash247.com/feed/',
+    'https://www.hellenicshippingnews.com/feed/',
+    'https://www.offshore-energy.biz/feed/',
+    // Ports & Container Terminals
+    'https://www.porttechnology.org/feed/',
+    // Freight, Trucking & Ground Transport
+    'https://www.freightwaves.com/feed',
+    // Aviation & Air Freight
+    'https://simpleflying.com/feed/',
+    'https://www.aircargonews.net/feed/',
+    'https://aviationsourcenews.com/feed/',
+    // Global Trade, Politics, Tariffs & Economy
+    'https://feeds.reuters.com/reuters/businessNews',
+    'https://feeds.bbci.co.uk/news/business/rss.xml',
+    'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml',
+    // Emergency & Breaking World News
+    'https://feeds.bbci.co.uk/news/world/rss.xml',
+    'https://feeds.reuters.com/Reuters/worldNews'
   ];
 
   const LOGISTICS_KEYWORDS = [
@@ -3530,8 +3310,26 @@ async function fetchLogisticsNews() {
     'warehouse', 'customs', 'houthi', 'red sea', 'panama', 'suez',
     'carrier', 'ocean', 'bunker', 'tanker', 'chokepoint', 'tonnage', 'teu',
     'dockworker', 'terminal', 'boeing', 'airbus', 'shipment', 'freighter',
-    'volcano', 'eruption', 'ash', 'disruption', 'airport', 'flight', 'indonesia',
-    'grounded', 'cancelled', 'airways', 'iata'
+    'volcano', 'eruption', 'ash', 'disruption', 'airport', 'flight',
+    'grounded', 'cancelled', 'airways', 'iata', 'imo', 'dock', 'berth',
+    'port congestion', 'sanctions', 'embargo', 'duties', 'cbp', 'wto',
+    'supply disruption', 'shortage', 'delivery', 'fulfillment', 'fulfilment',
+    'air freight', 'ocean freight', 'road freight', 'intermodal', 'multimodal',
+    'crane', 'reefer', 'cold chain', 'dangerous goods', 'hazmat', 'pipeline',
+    'blockade', 'strike', 'labor', 'labour', 'dock strike', 'storm', 'hurricane',
+    'typhoon', 'earthquake', 'tsunami', 'flood', 'wildfire', 'emergency',
+    'evacuation', 'rescue', 'disaster', 'catastrophe', 'alert', 'crisis',
+    'geopolitical', 'war', 'conflict', 'blockage', 'closure', 'ban',
+    'rate', 'cost', 'price', 'fuel', 'oil', 'energy', 'lng', 'commodity',
+    'semiconductor', 'chip', 'shortage', 'manufacturing', 'factory',
+    'e-commerce', 'amazon', 'retail', 'last mile', '3pl', 'forwarding',
+    'demurrage', 'detention', 'vgm', 'bill of lading', 'bol',
+    'drone', 'autonomous', 'electric vehicle', 'ev', 'sustainability',
+    'emissions', 'decarbonization', 'net zero', 'green shipping',
+    'maersk', 'msc', 'cosco', 'hapag', 'cma cgm', 'evergreen', 'yang ming',
+    'fedex', 'ups', 'dhl', 'kuehne', 'db schenker', 'flexport',
+    'china', 'india', 'trade war', 'us-china', 'brics', 'asean',
+    'indonesia', 'airport closure', 'grounding', 'diversion'
   ];
   
   const homeLoading = document.getElementById('news-loading-state');
@@ -3539,13 +3337,6 @@ async function fetchLogisticsNews() {
   
   const seenTitles = new Set();
   const allArticles = [];
-
-  // 1. First add Curated Breaking News Headlines to guarantee top priority & zero downtime
-  CURATED_LOGISTICS_NEWS.forEach(item => {
-    const norm = item.title.trim().toLowerCase();
-    seenTitles.add(norm);
-    allArticles.push(item);
-  });
 
   try {
     const fetchPromises = feeds.map(feedUrl => {
@@ -3557,7 +3348,7 @@ async function fetchLogisticsNews() {
 
     const results = await Promise.all(fetchPromises);
     
-    // Group valid articles by feed source to guarantee balanced representation
+    // Group valid articles by feed source for balanced representation
     const feedBuckets = [];
 
     results.forEach(data => {
@@ -3573,6 +3364,8 @@ async function fetchLogisticsNews() {
           if (!isRelevant) return;
 
           const pubImg = getArticlePublisherImage(article);
+          // ONLY include articles that have a REAL publisher image from the news source
+          if (!pubImg) return;
 
           seenTitles.add(normTitle);
           validFeedItems.push({ ...article, publisherImage: pubImg });
@@ -3586,7 +3379,7 @@ async function fetchLogisticsNews() {
       }
     });
 
-    // Interleave live RSS articles round-robin from each feed bucket
+    // Interleave live RSS articles round-robin from each feed bucket for balanced coverage
     let maxBucketLen = 0;
     feedBuckets.forEach(b => { if (b.length > maxBucketLen) maxBucketLen = b.length; });
 
@@ -3597,16 +3390,20 @@ async function fetchLogisticsNews() {
         }
       });
     }
+
+    // Final sort: newest articles first across all feeds
+    allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
   } catch (error) {
-    console.warn("Live RSS fetch failed or partially unavailable, using curated logistics news stream:", error);
+    console.warn("Live RSS fetch failed:", error);
   }
 
   if (allArticles.length > 0) {
     globalNewsCache = allArticles;
     renderNews(allArticles);
   } else {
-    if (homeLoading) homeLoading.innerHTML = `<p style="color: #ef4444;">Unable to load the latest news at this time.</p>`;
-    if (fullLoading) fullLoading.innerHTML = `<p style="color: #ef4444;">Unable to load the news archive at this time.</p>`;
+    if (homeLoading) homeLoading.innerHTML = `<p style="color: #ef4444;">Unable to load the latest news at this time. Please check your internet connection and try again.</p>`;
+    if (fullLoading) fullLoading.innerHTML = `<p style="color: #ef4444;">Unable to load the news archive at this time. Please check your internet connection and try again.</p>`;
   }
 }
 
@@ -3636,7 +3433,8 @@ function renderNews(allArticles) {
 function generateNewsHTML(articles) {
   let html = '';
   articles.forEach((article) => {
-    const imgUrl = article.publisherImage || getArticlePublisherImage(article);
+    const imgUrl = article.publisherImage;
+    if (!imgUrl) return; // Safety: skip any article that somehow lost its image
     const pubDate = new Date(article.pubDate);
     const dateString = isNaN(pubDate.getTime()) ? '' : pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     const rawDesc = article.description || '';
@@ -3644,17 +3442,11 @@ function generateNewsHTML(articles) {
 
     const safeTitle = escapeHTML(article.title || '');
     const safeDesc = escapeHTML(cleanDesc);
-    const badgeText = article.badge ? escapeHTML(article.badge) : '';
 
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
         <div class="news-card-image" style="position: relative;">
           <img src="${imgUrl}" alt="${safeTitle}" onerror="this.parentElement.parentElement.style.display='none';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          ${badgeText ? `
-            <div style="position: absolute; top: 12px; left: 12px; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(6px); color: #FF5A1F; border: 1px solid rgba(255, 90, 31, 0.4); font-size: 0.68rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
-              ${badgeText}
-            </div>
-          ` : ''}
         </div>
         <div class="news-card-content">
           <span class="news-date">${dateString}</span>
