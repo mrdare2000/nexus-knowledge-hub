@@ -503,28 +503,54 @@
           ${[...weeks].reverse().map((w) => {
             const originalSetNum = weeks.indexOf(w) + 1;
             const attempt = myAttempts.find(a => a.weekId === w.id);
+            const isSpecial = w.quizType === 'crossword' || (w.title && w.title.includes('Special Edition'));
+
+            const cardStyle = isSpecial 
+              ? `background: linear-gradient(145deg, #FFFFFF 0%, #FFF7ED 100%); border: 2px solid #F26938; padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(242, 105, 56, 0.18); position: relative; overflow: hidden;`
+              : `background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);`;
+
+            const badgeHtml = isSpecial
+              ? `<span style="background: linear-gradient(135deg, #F26938 0%, #E11D48 100%); color: #FFFFFF; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 6px; box-shadow: 0 2px 8px rgba(242,105,56,0.35);">🔥 SPECIAL EDITION #${originalSetNum}</span>`
+              : `<span style="background: #EFF6FF; color: #1E40AF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">SET #${originalSetNum}</span>`;
+
+            let titleHtml = `<h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">${w.title}</h4>`;
+            if (isSpecial && w.title.includes(' — ')) {
+              const parts = w.title.split(' — ');
+              titleHtml = `
+                <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">
+                  <span>${parts[0]}</span>
+                  <span style="display: block; margin-top: 6px; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); color: #F26938; border: 1.5px solid rgba(242, 105, 56, 0.4); padding: 6px 12px; border-radius: 10px; font-size: 0.95rem; font-weight: 900; box-shadow: 0 4px 12px rgba(242, 105, 56, 0.15);">
+                    🧩 ${parts[1]}
+                  </span>
+                </h4>
+              `;
+            }
+
+            const btnHtml = attempt
+              ? `<button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
+                  📊 View Score & Certificate
+                 </button>`
+              : (isSpecial 
+                  ? `<button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 13px; border-radius: 10px; font-weight: 800; font-size: 0.92rem; background: linear-gradient(135deg, #F26938 0%, #E11D48 100%); border: none; color: #FFF; box-shadow: 0 6px 20px rgba(242, 105, 56, 0.4); cursor: pointer;">
+                      🧩 Attempt Special Crossword
+                    </button>`
+                  : `<button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;">
+                      📝 Attempt Quiz
+                    </button>`
+                );
+
             return `
-              <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <div style="${cardStyle}">
                 <div>
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="background: #EFF6FF; color: #1E40AF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">
-                      SET #${originalSetNum}
-                    </span>
+                    ${badgeHtml}
                     ${attempt ? `<span style="background: #F0FDF4; color: #15803D; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">Completed: ${attempt.percentage}%</span>` : `<span style="background: #FFFBEB; color: #B45309; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 6px;">Available</span>`}
                   </div>
-                  <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">${w.title}</h4>
+                  ${titleHtml}
                   <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0 0 20px 0; line-height: 1.5;">${w.description}</p>
                 </div>
 
-                ${attempt ? `
-                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
-                    📊 View Score & Certificate
-                  </button>
-                ` : `
-                  <button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;">
-                    📝 Attempt Quiz
-                  </button>
-                `}
+                ${btnHtml}
               </div>
             `;
           }).join('')}
@@ -804,7 +830,7 @@
             
             <!-- Left: Interactive Grid -->
             <div class="crossword-grid-wrapper">
-              <div class="crossword-grid" style="grid-template-columns: repeat(${cols}, 32px); grid-template-rows: repeat(${rows}, 32px);">
+              <div class="crossword-grid" style="grid-template-columns: repeat(${cols}, 23px); grid-template-rows: repeat(${rows}, 23px);">
                 ${grid.map((rowArr, rIdx) => {
                   return rowArr.map((cell, cIdx) => {
                     if (!cell) {
