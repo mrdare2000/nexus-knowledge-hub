@@ -248,10 +248,41 @@
       let mcqScore = 0;
       let shortScore = 0;
 
-      if (a.detailedResults && Array.isArray(a.detailedResults)) {
-        if (a.detailedResults[0] && a.detailedResults[0].isCrossword) return;
+      if (a.weekId === 'week-5' || (a.detailedResults && a.detailedResults[0] && a.detailedResults[0].isCrossword)) {
+        let correctWords = 0;
+        let totalWords = 10;
 
-        a.detailedResults.forEach(r => {
+        if (a.detailedResults && Array.isArray(a.detailedResults)) {
+          totalWords = a.detailedResults.length || 10;
+          correctWords = a.detailedResults.filter(r => r.isCorrect).length;
+          // Handle old attempts where 10/10 words gave 50 marks or mcqScore was recorded as 10
+          if ((a.percentage === 50 || a.totalScore === 50 || a.mcqScore === 10) && (correctWords === 10 || correctWords === 0)) {
+            correctWords = 10;
+          }
+        } else {
+          correctWords = (a.mcqScore && a.mcqScore > 0) ? a.mcqScore : 10;
+        }
+
+        const newTotal = Math.min(100, Math.round((correctWords / totalWords) * 100));
+
+        if (a.percentage !== newTotal || a.totalScore !== newTotal || a.mcqScore !== correctWords) {
+          a.mcqScore = correctWords;
+          a.totalScore = newTotal;
+          a.percentage = newTotal;
+          if (newTotal >= 90) a.grade = "Distinction / Crossword Freight Master 🏆";
+          else if (newTotal >= 75) a.grade = "Merit / Logistics Puzzle Specialist 🥈";
+          else if (newTotal >= 50) a.grade = "Pass / Competent Freight Specialist 🥉";
+          else a.grade = "Re-attempt Recommended";
+          modified = true;
+
+          if (window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveQuizAttempt === 'function') {
+            window.NEXUS_FIREBASE.saveQuizAttempt(a);
+          }
+        }
+        return;
+      }
+
+      if (a.detailedResults && Array.isArray(a.detailedResults)) {
           if (r.isCrossword || !week.questions) return;
           const q = week.questions.find(item => item.id === r.questionId || item.question === r.question);
           if (!q) return;
@@ -866,11 +897,11 @@
               <span>🧩 ${quiz.title}</span>
               <span class="cw-badge-special">Special Edition 01</span>
             </h2>
-            <p>Fill in the 20-word logistics crossword puzzle using clues and hints! Click any clue to highlight its cells.</p>
+            <p>Fill in the ${words.length}-word logistics crossword puzzle using clues and hints! Click any clue to highlight its cells.</p>
           </div>
           <div class="cw-stats-pills">
-            <div class="cw-stat-pill">📝 20 Words Total</div>
-            <div class="cw-stat-pill">⭐ 100 Marks (5/word)</div>
+            <div class="cw-stat-pill">📝 ${words.length} Words Total</div>
+            <div class="cw-stat-pill">⭐ 100 Marks (${Math.round(100 / words.length)}/word)</div>
             <div class="cw-stat-pill">💡 Clue Hints Available</div>
           </div>
         </div>
@@ -1224,7 +1255,9 @@
       });
     });
 
-    const totalScore = correctCount * 5; // 20 words x 5 = 100
+    const totalWords = words.length;
+    const marksPerWord = 100 / totalWords;
+    const totalScore = Math.round(correctCount * marksPerWord);
     const percentage = totalScore;
 
     let grade = "Re-attempt Recommended";
@@ -1431,7 +1464,7 @@
 
           ${isCrossword ? `
             <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.9rem; color: #CBD5E1; margin-bottom: 25px;">
-              <span>Correct Words: <strong>${attempt.mcqScore}/20</strong></span>
+              <span>Correct Words: <strong>${attempt.mcqScore}/${results.length || 10}</strong></span>
               <span>•</span>
               <span>Total Marks: <strong>${attempt.totalScore}/100</strong></span>
             </div>
@@ -1461,12 +1494,13 @@
           ${results.map((r, idx) => {
             if (r.isCrossword) {
               const displayIsCorrect = r.isCorrect;
+              const marksPerWord = Math.round(100 / (results.length || 10));
               return `
                 <div style="background: var(--bg-white); border: 1.5px solid ${displayIsCorrect ? '#10B981' : '#EF4444'}; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <span style="font-size: 0.85rem; font-weight: 800; color: var(--primary-navy);">${r.label}</span>
                     <span style="background: ${displayIsCorrect ? '#D1FAE5' : '#FEE2E2'}; color: ${displayIsCorrect ? '#065F46' : '#991B1B'}; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;">
-                      ${displayIsCorrect ? '✅ Correct (+5 Marks)' : '❌ Incorrect (0 Marks)'}
+                      ${displayIsCorrect ? `✅ Correct (+${marksPerWord} Marks)` : '❌ Incorrect (0 Marks)'}
                     </span>
                   </div>
                   <h4 style="font-size: 0.98rem; color: var(--primary-navy); margin: 0 0 10px 0; font-weight: 700;">${r.question}</h4>
