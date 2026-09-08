@@ -79,7 +79,7 @@
     }
 
     // Auto-regrade any previous 0% attempts caused by earlier schema mismatch
-    regradePreviousZeroAttempts(userAttempts);
+    userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(userAttempts));
 
     // 2. Fetch remote attempts from Firestore if logged in (Backend is primary source)
     if (currentUser && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.fetchQuizAttempts === 'function') {
@@ -88,7 +88,7 @@
         try {
           const remoteAttempts = await window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid);
           if (remoteAttempts && remoteAttempts.length > 0) {
-            userAttempts = regradePreviousZeroAttempts(remoteAttempts);
+            userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(remoteAttempts));
             // Update localStorage cache with backend data
             try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
           } else {
@@ -96,7 +96,7 @@
             try {
               const cached = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
               if (cached.length > 0) {
-                userAttempts = regradePreviousZeroAttempts(cached);
+                userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(cached));
               }
             } catch(e) {}
           }
@@ -105,7 +105,7 @@
           // Fallback to localStorage cache on network error
           try {
             const cached = JSON.parse(localStorage.getItem('nexus_quiz_attempts')) || [];
-            if (cached.length > 0) userAttempts = cached;
+            if (cached.length > 0) userAttempts = deduplicateUserAttempts(cached);
           } catch(e) {}
         }
 
@@ -123,6 +123,8 @@
     } else if (!currentUser) {
       userAttempts = [];
     }
+
+    userAttempts = deduplicateUserAttempts(userAttempts);
 
     if (currentViewingAttempt) {
       container.innerHTML = renderQuizResultsView(currentViewingAttempt);
@@ -217,6 +219,22 @@
     return false;
   }
 
+  function deduplicateUserAttempts(attempts) {
+    if (!attempts || !Array.isArray(attempts)) return [];
+    const seen = new Set();
+    const result = [];
+    attempts.forEach(a => {
+      if (!a || !a.weekId) return;
+      const uId = a.userId || a.userEmail || 'guest';
+      const key = `${uId}_${a.weekId}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        result.push(a);
+      }
+    });
+    return result;
+  }
+
   function regradePreviousZeroAttempts(attempts) {
     if (!attempts || !Array.isArray(attempts) || typeof NEXUS_QUIZ_DATABASE === 'undefined') return attempts;
     let modified = false;
@@ -225,13 +243,16 @@
       const week = (NEXUS_QUIZ_DATABASE.weeks && NEXUS_QUIZ_DATABASE.weeks.length > 0)
         ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === a.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
         : null;
-      if (!week) return;
+      if (!week || !week.questions) return;
 
       let mcqScore = 0;
       let shortScore = 0;
 
       if (a.detailedResults && Array.isArray(a.detailedResults)) {
+        if (a.detailedResults[0] && a.detailedResults[0].isCrossword) return;
+
         a.detailedResults.forEach(r => {
+          if (r.isCrossword || !week.questions) return;
           const q = week.questions.find(item => item.id === r.questionId || item.question === r.question);
           if (!q) return;
 
@@ -482,7 +503,7 @@
               const actAtt = myAttempts.find(a => a.weekId === featuredQuiz.id);
               if (actAtt) {
                 return `
-                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap;">
+                  <button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" data-week-id="${featuredQuiz.id}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap; cursor: pointer;">
                     📊 View Score & Certificate
                   </button>
                 `;
@@ -527,7 +548,7 @@
             }
 
             const btnHtml = attempt
-              ? `<button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5;">
+              ? `<button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5; cursor: pointer;">
                   📊 View Score & Certificate
                  </button>`
               : (isSpecial 
@@ -596,7 +617,7 @@
                   </td>
                   <td style="padding: 14px 12px; border-bottom: 1px solid #E2E8F0; text-align: center;">
                     <div style="display: flex; gap: 8px; justify-content: center;">
-                      <button class="btn-view-results" data-attempt-id="${a.attemptId}" style="padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; border: 1.5px solid var(--primary-navy); color: var(--primary-navy); background: #F8FAFC; cursor: pointer; transition: all 0.2s ease;">
+                      <button class="btn-view-results" data-attempt-id="${a.attemptId}" data-week-id="${a.weekId}" style="padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; border: 1.5px solid var(--primary-navy); color: var(--primary-navy); background: #F8FAFC; cursor: pointer; transition: all 0.2s ease;">
                         📊 View Score
                       </button>
                       <button class="btn btn-primary btn-download-hist-pdf" data-attempt-id="${a.attemptId}" style="padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;">
@@ -623,6 +644,14 @@
         if (weeks.length > 0) {
           activeQuiz = weeks[weeks.length - 1];
         }
+        const currentUser = getCurrentAuthUser();
+        const existing = activeQuiz ? userAttempts.find(a => a.weekId === activeQuiz.id && currentUser && (a.userId === currentUser.uid || a.userEmail === currentUser.email)) : null;
+        if (existing) {
+          currentViewingAttempt = existing;
+          isAttemptingQuiz = false;
+          renderQuizHubUI();
+          return;
+        }
         isAttemptingQuiz = true;
         currentViewingAttempt = null;
         renderQuizHubUI();
@@ -635,6 +664,14 @@
         const weekId = btn.getAttribute('data-week-id');
         const selected = window.NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === weekId);
         if (selected) {
+          const currentUser = getCurrentAuthUser();
+          const existing = userAttempts.find(a => a.weekId === weekId && currentUser && (a.userId === currentUser.uid || a.userEmail === currentUser.email));
+          if (existing) {
+            currentViewingAttempt = existing;
+            isAttemptingQuiz = false;
+            renderQuizHubUI();
+            return;
+          }
           activeQuiz = selected;
           isAttemptingQuiz = true;
           currentViewingAttempt = null;
@@ -645,13 +682,27 @@
 
     const viewBtns = document.querySelectorAll('.btn-view-results');
     viewBtns.forEach(btn => {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
         const attId = btn.getAttribute('data-attempt-id');
-        const att = userAttempts.find(a => a.attemptId === attId);
+        const weekId = btn.getAttribute('data-week-id');
+        const currentUser = getCurrentAuthUser();
+
+        let att = userAttempts.find(a => (attId && (a.attemptId === attId || a.id === attId)));
+        if (!att && weekId) {
+          att = userAttempts.find(a => a.weekId === weekId && currentUser && (a.userId === currentUser.uid || a.userEmail === currentUser.email));
+        }
+        if (!att && weekId) {
+          att = userAttempts.find(a => a.weekId === weekId);
+        }
+
         if (att) {
           currentViewingAttempt = att;
           isAttemptingQuiz = false;
           renderQuizHubUI();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          console.warn("Attempt record not found for:", attId, weekId);
         }
       });
     });
@@ -672,6 +723,18 @@
       activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[window.NEXUS_QUIZ_DATABASE.weeks.length - 1];
     }
     
+    // Prevent re-attempting if quiz already completed
+    const currentUser = getCurrentAuthUser();
+    if (activeQuiz && currentUser) {
+      const existing = userAttempts.find(a => a.weekId === activeQuiz.id && (a.userId === currentUser.uid || a.userEmail === currentUser.email));
+      if (existing) {
+        isAttemptingQuiz = false;
+        currentViewingAttempt = existing;
+        setTimeout(() => renderQuizHubUI(), 0);
+        return renderQuizResultsView(existing);
+      }
+    }
+
     if (activeQuiz && activeQuiz.quizType === 'crossword') {
       return renderCrosswordQuizForm(activeQuiz);
     }
@@ -1104,8 +1167,34 @@
     }
   }
 
+  let isSubmittingCrossword = false;
+
   // Grade Crossword Assessment
   async function gradeCrosswordAssessment(quiz) {
+    if (isSubmittingCrossword) return;
+    isSubmittingCrossword = true;
+
+    const submitBtn = document.querySelector('#crossword-attempt-form button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = "⏳ Submitting & Grading...";
+    }
+
+    const currentUser = getCurrentAuthUser();
+    const candidateUid = currentUser ? currentUser.uid : "usr_guest";
+    const candidateEmail = currentUser ? currentUser.email : "candidate@nexus.com";
+
+    // Prevent duplicate submission if already exists
+    const existing = userAttempts.find(a => a.weekId === quiz.id && (a.userId === candidateUid || a.userEmail === candidateEmail));
+    if (existing) {
+      isSubmittingCrossword = false;
+      isAttemptingQuiz = false;
+      currentViewingAttempt = existing;
+      renderQuizHubUI();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const words = quiz.crosswordData.words;
     let correctCount = 0;
     const detailedResults = [];
@@ -1143,11 +1232,8 @@
     else if (percentage >= 75) grade = "Merit / Logistics Puzzle Specialist 🥈";
     else if (percentage >= 50) grade = "Pass / Competent Freight Specialist 🥉";
 
-    const currentUser = getCurrentAuthUser();
     const profile = window.currentUserProfileData || {};
     const candidateName = profile.name || (currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "Logistics Candidate");
-    const candidateEmail = currentUser ? currentUser.email : "candidate@nexus.com";
-    const candidateUid = currentUser ? currentUser.uid : "usr_guest";
     const candidateRole = (profile.role && profile.role !== 'Not Set') ? profile.role : '';
     const candidateCompany = (profile.company && profile.company !== 'Not Set') ? profile.company : '';
 
@@ -1170,9 +1256,11 @@
     };
 
     userAttempts.unshift(attemptRecord);
+    userAttempts = deduplicateUserAttempts(userAttempts);
 
     try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
 
+    isSubmittingCrossword = false;
     isAttemptingQuiz = false;
     currentViewingAttempt = attemptRecord;
     renderQuizHubUI();
@@ -1187,8 +1275,33 @@
     }
   }
 
+  let isSubmittingQuiz = false;
+
   // Grade Assessment Logic
   async function gradeAssessment(form) {
+    if (isSubmittingQuiz) return;
+    isSubmittingQuiz = true;
+
+    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = "⏳ Submitting & Grading...";
+    }
+
+    const currentUser = getCurrentAuthUser();
+    const candidateUid = currentUser ? currentUser.uid : "usr_guest";
+    const candidateEmail = currentUser ? currentUser.email : "candidate@nexus.com";
+
+    const existing = activeQuiz ? userAttempts.find(a => a.weekId === activeQuiz.id && (a.userId === candidateUid || a.userEmail === candidateEmail)) : null;
+    if (existing) {
+      isSubmittingQuiz = false;
+      isAttemptingQuiz = false;
+      currentViewingAttempt = existing;
+      renderQuizHubUI();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     let mcqScore = 0;
     let shortScore = 0;
     const detailedResults = [];
@@ -1242,11 +1355,8 @@
     else if (percentage >= 75) grade = "Merit / Advanced Practitioner 🥈";
     else if (percentage >= 50) grade = "Pass / Competent Practitioner 🥉";
 
-    const currentUser = getCurrentAuthUser();
     const profile = window.currentUserProfileData || {};
     const candidateName = profile.name || (currentUser ? (currentUser.displayName || currentUser.email.split('@')[0]) : "Logistics Candidate");
-    const candidateEmail = currentUser ? currentUser.email : "candidate@nexus.com";
-    const candidateUid = currentUser ? currentUser.uid : "usr_guest";
     const candidateRole = (profile.role && profile.role !== 'Not Set') ? profile.role : '';
     const candidateCompany = (profile.company && profile.company !== 'Not Set') ? profile.company : '';
 
@@ -1269,11 +1379,13 @@
     };
 
     userAttempts.unshift(attemptRecord);
+    userAttempts = deduplicateUserAttempts(userAttempts);
 
     // 1. Cache to localStorage immediately for instant data safety
     try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
 
     // 2. Transition UI to Results & Certificate view INSTANTLY (<20ms)
+    isSubmittingQuiz = false;
     isAttemptingQuiz = false;
     currentViewingAttempt = attemptRecord;
     renderQuizHubUI();
@@ -1291,8 +1403,11 @@
 
   // Render Quiz Results View Screen
   function renderQuizResultsView(attempt) {
+    if (!attempt) return `<div style="padding: 40px; text-align: center; font-size: 1.1rem; color: var(--text-muted);">No attempt results available.</div>`;
+
     const subtext = [attempt.userRole, attempt.userCompany].filter(val => val && val !== 'Not Set').join(' • ');
-    const isCrossword = attempt.detailedResults && attempt.detailedResults[0] && attempt.detailedResults[0].isCrossword;
+    const results = (attempt.detailedResults && Array.isArray(attempt.detailedResults)) ? attempt.detailedResults : [];
+    const isCrossword = (results.length > 0 && results[0].isCrossword) || (attempt.weekTitle && attempt.weekTitle.includes('Crossword'));
 
     return `
       <div class="quiz-results-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
@@ -1343,7 +1458,7 @@
         </h3>
 
         <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;">
-          ${attempt.detailedResults.map((r, idx) => {
+          ${results.map((r, idx) => {
             if (r.isCrossword) {
               const displayIsCorrect = r.isCorrect;
               return `
@@ -1369,7 +1484,7 @@
             const week = (typeof NEXUS_QUIZ_DATABASE !== 'undefined' && NEXUS_QUIZ_DATABASE.weeks)
               ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === attempt.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
               : null;
-            const q = week ? week.questions.find(item => item.id === r.questionId || item.question === r.question) : null;
+            const q = (week && week.questions) ? week.questions.find(item => item.id === r.questionId || item.question === r.question) : null;
             
             let displayCorrect = r.correctAnswer;
             let displayIsCorrect = r.isCorrect;
