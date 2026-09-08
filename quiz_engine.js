@@ -243,7 +243,7 @@
       const week = (NEXUS_QUIZ_DATABASE.weeks && NEXUS_QUIZ_DATABASE.weeks.length > 0)
         ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === a.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
         : null;
-      if (!week || !week.questions) return;
+      if (!week) return;
 
       let mcqScore = 0;
       let shortScore = 0;
@@ -283,6 +283,7 @@
       }
 
       if (a.detailedResults && Array.isArray(a.detailedResults)) {
+        a.detailedResults.forEach(r => {
           if (r.isCrossword || !week.questions) return;
           const q = week.questions.find(item => item.id === r.questionId || item.question === r.question);
           if (!q) return;
