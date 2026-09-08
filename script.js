@@ -3309,11 +3309,11 @@ function getArticlePublisherImage(article) {
   return LOGISTICS_PHOTO_POOL.warehouse;
 }
 
-// Fallback Curated Live News (20 UNIQUE Articles with Direct Permalink URLs & Unique Subject Photos)
+// Fallback Curated Live News (20 UNIQUE Articles with Valid Publisher URLs & Unique Subject Photos)
 const FALLBACK_LOGISTICS_NEWS = [
   {
     title: "Indonesia Mount Lewotobi Eruption Grounds International Flights & Disrupts Regional Air Freight",
-    link: "https://www.aircargonews.net/airlines/indonesia-volcano-eruption-grounds-flights-disrupting-southeast-asia-cargo/",
+    link: "https://www.aircargonews.net/airlines/",
     pubDate: new Date().toISOString(),
     description: "Volcanic ash plumes reaching 10,000 meters from Mount Lewotobi Laki-laki have forced major airlines to cancel flights across Bali and Lombok, delaying air freight shipments across Southeast Asia.",
     author: "Air Cargo News",
@@ -3321,7 +3321,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Red Sea Maritime Crisis: Carrier Diversions Around Cape of Good Hope Surge Bunker Costs by 18%",
-    link: "https://theloadstar.com/maritime/red-sea-crisis-carrier-diversions-around-cape-surge-bunker-costs-18-percent/",
+    link: "https://theloadstar.com/category/news/",
     pubDate: new Date(Date.now() - 3600000 * 2).toISOString(),
     description: "Major ocean lines including Maersk and MSC continue re-routing Asia-Europe container vessels around Africa, extending transit times by 12 days and increasing fuel surcharges.",
     author: "The Loadstar",
@@ -3329,7 +3329,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Panama Canal Transit Slots Expanded Following Unseasonal Heavy Rainfall in Gatun Lake",
-    link: "https://gcaptain.com/panama-canal-transit-slots-expanded-gatun-lake-rainfall/",
+    link: "https://gcaptain.com/category/maritime-news/",
     pubDate: new Date(Date.now() - 3600000 * 5).toISOString(),
     description: "The Panama Canal Authority has increased daily vessel transits to 36 ships per day as Gatun Lake water levels stabilize, clearing previous draft restrictions for Neopanamax container ships.",
     author: "gCaptain Maritime",
@@ -3337,7 +3337,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Global Supply Chain Index Stabilizes Ahead of Peak Holiday Shipping Season",
-    link: "https://www.supplychaindive.com/news/global-supply-chain-index-stabilizes-peak-season-holiday/",
+    link: "https://www.supplychaindive.com/topic/logistics/",
     pubDate: new Date(Date.now() - 3600000 * 9).toISOString(),
     description: "Container spot rates on major East-West trade lanes show signs of moderating while ocean carriers adjust blank sailings to match shifting retail inventory demand.",
     author: "Supply Chain Dive",
@@ -3345,7 +3345,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Port of Singapore Records All-Time Container Throughput Milestone of 39 Million TEUs",
-    link: "https://www.porttechnology.org/news/port-of-singapore-39-million-teu-record-throughput/",
+    link: "https://www.porttechnology.org/news/",
     pubDate: new Date(Date.now() - 3600000 * 14).toISOString(),
     description: "Singapore maritime port authority credits automated berth planning and yard digital twin tech for managing record vessel arrivals amidst global port congestion challenges.",
     author: "Port Technology International",
@@ -3353,7 +3353,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Air Freight Spot Rates Surge 14% Amid Tech & E-Commerce Cross-Border Peak Capacity Demand",
-    link: "https://www.aircargonews.net/freight-rates/air-freight-spot-rates-surge-14-percent-tech-e-commerce-capacity/",
+    link: "https://www.aircargonews.net/freight-rates/",
     pubDate: new Date(Date.now() - 3600000 * 18).toISOString(),
     description: "Charter flights out of Asian manufacturing hubs report tight space availability as high-value consumer electronics and fast-fashion shipments crowd out general cargo.",
     author: "Air Cargo News",
@@ -3361,7 +3361,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "IMO Enforces Stricter Vessel Decarbonization Mandates for CII Rating Compliance",
-    link: "https://www.seatrade-maritime.com/environmental/imo-decarbonization-mandates-cii-rating-compliance/",
+    link: "https://www.seatrade-maritime.com/environmental/",
     pubDate: new Date(Date.now() - 3600000 * 22).toISOString(),
     description: "International Maritime Organization pushes shipping lines towards green methanol and LNG dual-fuel propulsion as carbon intensity indicator rules tighten.",
     author: "Seatrade Maritime",
@@ -3369,7 +3369,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "US-China Trade Tariff Adjustments Trigger Accelerated Nearshoring in Southeast Asia",
-    link: "https://www.bbc.com/news/articles/us-china-trade-tariff-adjustments-southeast-asia-nearshoring",
+    link: "https://www.bbc.com/news/business",
     pubDate: new Date(Date.now() - 3600000 * 26).toISOString(),
     description: "Global manufacturers shift warehouse sourcing and assembly hubs to Vietnam, Malaysia, and India to minimize geopolitical tariff exposure on electronics and textiles.",
     author: "BBC Business",
@@ -3377,7 +3377,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Suez Canal Maritime Transits Rebound as Naval Escorts Stabilize Red Sea Security Corridor",
-    link: "https://theloadstar.com/chokepoints/suez-canal-maritime-traffic-rebounds-amid-security-escorts/",
+    link: "https://theloadstar.com/category/news/",
     pubDate: new Date(Date.now() - 3600000 * 30).toISOString(),
     description: "International naval coalition patrols provide increased convoy protection for bulk carriers and tanker vessels navigating the Bab al-Mandab strait.",
     author: "The Loadstar",
@@ -3385,7 +3385,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "IMO & SOLAS Enforce Strict Inspection Protocols on Dangerous Goods & Hazmat Containers",
-    link: "https://www.freightwaves.com/news/hazmat-dangerous-goods-maritime-safety-compliance-solas/",
+    link: "https://www.freightwaves.com/news",
     pubDate: new Date(Date.now() - 3600000 * 34).toISOString(),
     description: "Port state controls tighten inspections on Class 3 flammable liquids and Class 9 lithium battery declarations following recent container yard fire incidents.",
     author: "FreightWaves Safety",
@@ -3393,7 +3393,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Cold Chain Logistics Growth Accelerates with IATA CEIV Pharma Airport Certification",
-    link: "https://www.aircargonews.net/pharma/cold-chain-reefer-pharma-air-freight-standards-iata-ceiv/",
+    link: "https://www.aircargonews.net/pharma/",
     pubDate: new Date(Date.now() - 3600000 * 38).toISOString(),
     description: "Global air hubs invest in active thermal dollies and temperature-controlled reefer facilities to support high-value pharmaceutical logistics chains.",
     author: "Air Cargo News",
@@ -3401,7 +3401,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Intermodal Rail Freight Volume Surges Across Major Eurasian & Transcontinental Freight Corridors",
-    link: "https://www.supplychaindive.com/news/intermodal-rail-freight-volume-growth-cross-border-corridors/",
+    link: "https://www.supplychaindive.com/topic/logistics/",
     pubDate: new Date(Date.now() - 3600000 * 42).toISOString(),
     description: "Shippers leverage block trains and dry ports to bypass ocean congestion, cutting transit times between inland manufacturing centers and ocean gateways.",
     author: "Supply Chain Dive",
@@ -3409,7 +3409,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "East Coast Container Terminal Master Contract Negotiations Reach Preliminary Agreement",
-    link: "https://gcaptain.com/ports/dockworker-labor-contract-negotiations-east-coast-ports/",
+    link: "https://gcaptain.com/category/maritime-news/",
     pubDate: new Date(Date.now() - 3600000 * 46).toISOString(),
     description: "Maritime port operators and dockworker unions agree on wage structures and semi-automated terminal equipment rules, heading off supply chain strike risks.",
     author: "gCaptain Maritime",
@@ -3417,7 +3417,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Customs Clearance Digitization Mandate Expedites Electronic CUSDEC & ASYCUDA Filings",
-    link: "https://www.porttechnology.org/customs/digital-customs-declarations-cusdec-asycuda-automation/",
+    link: "https://www.porttechnology.org/news/",
     pubDate: new Date(Date.now() - 3600000 * 50).toISOString(),
     description: "Global customs authorities phase out paper documentation in favor of automated Single Window portals, reducing import clearance dwell times from days to hours.",
     author: "Port Technology International",
@@ -3425,7 +3425,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "E-Commerce Fulfillment Networks Expand Automated Sorting Hubs for Last-Mile Delivery",
-    link: "https://www.supplychaindive.com/fulfillment/last-mile-e-commerce-logistics-peak-capacity/",
+    link: "https://www.supplychaindive.com/topic/logistics/",
     pubDate: new Date(Date.now() - 3600000 * 54).toISOString(),
     description: "Retail logistics operators deploy AI-driven robotic sorting lines to process higher parcel volumes and meet strict same-day and next-day delivery SLAs.",
     author: "Supply Chain Dive",
@@ -3433,7 +3433,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Global Tanker Fleet Rates Surge Following Shifts in Crude & LNG Energy Trade Routes",
-    link: "https://www.seatrade-maritime.com/tankers/lng-crude-carrier-rates-fluctuate-bunker-fuel/",
+    link: "https://www.seatrade-maritime.com/tankers/",
     pubDate: new Date(Date.now() - 3600000 * 58).toISOString(),
     description: "VLCC ocean tanker charter rates rise as energy importers secure long-haul crude shipments, increasing ton-mile demand across Atlantic and Indian Ocean trade lanes.",
     author: "Seatrade Maritime",
@@ -3441,7 +3441,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Autonomous Scanning Drones Streamline High-Bay Warehouse Inventory Audits",
-    link: "https://www.logisticsmgmt.com/article/autonomous_drones_warehouse_inventory_management/",
+    link: "https://www.logisticsmgmt.com/news",
     pubDate: new Date(Date.now() - 3600000 * 62).toISOString(),
     description: "Third-party logistics providers deploy indoor barcode-scanning drones to conduct overnight stock counts with 99.9% inventory accuracy.",
     author: "Logistics Management",
@@ -3449,7 +3449,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Air Cargo ULD Palletization Standards Upgraded for Enhanced Flight Deck Safety",
-    link: "https://www.aircargonews.net/freight/uld-pallet-air-cargo-handling-safety-standards/",
+    link: "https://www.aircargonews.net/freight/",
     pubDate: new Date(Date.now() - 3600000 * 66).toISOString(),
     description: "IATA updates Unit Load Device tie-down regulations and net tension guidelines to prevent cargo shift during heavy turbulence.",
     author: "Air Cargo News",
@@ -3457,7 +3457,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "European Highway Freight Index Reports Steady Spot Rates Amid Diesel Price Stabilization",
-    link: "https://www.logisticsmgmt.com/article/road_freight_capacity_truckload_spot_rates_index/",
+    link: "https://www.logisticsmgmt.com/news",
     pubDate: new Date(Date.now() - 3600000 * 70).toISOString(),
     description: "Cross-border truckload operators report balanced freight capacity across major EU transport corridors as fuel surcharges normalize.",
     author: "Logistics Management",
@@ -3465,7 +3465,7 @@ const FALLBACK_LOGISTICS_NEWS = [
   },
   {
     title: "Global Trade Analytics Report Highlights Container Rate Volatility & Currency Fluctuations",
-    link: "https://www.reuters.com/business/global-trade-exchange-rates-tariffs-container-shipping-2026/",
+    link: "https://www.reuters.com/business/",
     pubDate: new Date(Date.now() - 3600000 * 74).toISOString(),
     description: "Trade economists advise freight forwarders and cargo owners to hedge currency risks and utilize long-term contract rates to stabilize supply chain budgets.",
     author: "Reuters Freight",
