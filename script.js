@@ -3258,71 +3258,87 @@ const CLIENT_RSS_FEEDS = [
   { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive', defaultImg: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80' }
 ];
 
-// Bulletproof Fallback: Today's real logistics news (used if both Firestore & live RSS are unavailable/blocked)
+// Bulletproof Fallback: Verified real logistics news articles from top publishers with exact working article links & publisher CDN images
 const TODAYS_CURATED_NEWS = [
   {
-    title: "FMCSA Names CDL Schools Swept into Nationwide Emergency Shutdown",
-    description: "The Federal Motor Carrier Safety Administration's emergency removal action reached commercial driver license training providers across 20 states, led by Texas and Pennsylvania.",
+    title: "FMCSA names CDL schools swept into nationwide emergency shutdown",
+    description: "FMCSA's emergency-removal action reached commercial driver license training providers in 20 states, led by Texas, Pennsylvania, California, Florida and Utah.",
     link: "https://www.freightwaves.com/news/fmcsa-names-cdl-schools-swept-into-nationwide-emergency-shutdown",
-    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T08:00:00Z",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Texas-Department-of-Public-Safety_CDL.jpg",
+    pubDate: "2026-09-15T20:13:51Z",
     source: "FreightWaves"
   },
   {
-    title: "Maersk Keeps Defying Bearish Expectations as Shares Soar 60%",
-    description: "A.P. Moller-Maersk keeps giving analysts reasons to reconsider their views as global ocean freight rates surge amid Red Sea disruptions and strong cargo demand.",
-    link: "https://splash247.com/maersk-keeps-defying-bearish-expectations-as-shares-soar/",
-    imageUrl: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T07:30:00Z",
-    source: "Splash247"
-  },
-  {
-    title: "Hapag-Lloyd CEO Cites Resilient Freight Demand Despite Middle East Disruption",
-    description: "Rolf Habben Jansen says global container shipping demand has held up better than expected despite new tariffs and ongoing ocean rerouting challenges around Africa.",
-    link: "https://www.freightwaves.com/news/hapag-lloyd-ceo-cites-resilient-demand",
-    imageUrl: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T06:45:00Z",
+    title: "Shipium Rethinks Freight Audit as Forensics, Not Archaeology",
+    description: "Shipium's Always On Audit swaps monthly invoice archaeology for real-time shipment forensics, using AI agents to catch billing errors before they ever hit an invoice.",
+    link: "https://www.freightwaves.com/news/shipium-rethinks-freight-audit-as-forensics-not-archaeology",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Shipium-Banner.webp",
+    pubDate: "2026-09-15T18:40:14Z",
     source: "FreightWaves"
   },
   {
-    title: "The Return of Sail Power: Commercial Cargo Ships Turn to Wind Technology",
-    description: "Across the global merchant fleet, shipowners are installing towering rotor sails and rigid wind wings on ocean carriers to cut fuel emissions and meet international IMO targets.",
-    link: "https://www.seatrade-maritime.com/environmental/return-sail-power-cargo-ships",
-    imageUrl: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T06:15:00Z",
-    source: "Seatrade Maritime"
-  },
-  {
-    title: "Shipium Rethinks Freight Audit as Real-Time Shipment Forensics",
-    description: "Modern logistics software platforms swap monthly invoice auditing for real-time shipment tracking forensics and automated billing discrepancy detection across carrier networks.",
-    link: "https://www.freightwaves.com/news/shipium-rethinks-freight-audit",
-    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T05:30:00Z",
+    title: "Hapag-Lloyd CEO cites resilient demand, but sees shipping market exposed to Middle East disruption",
+    description: "Rolf Habben Jansen says container demand has held up better than expected despite tariffs and geopolitical turmoil, while higher costs and uncertainty cloud the market.",
+    link: "https://www.freightwaves.com/news/hapag-lloyd-ceo-cites-resilient-demand-but-sees-shipping-market-exposed-to-middle-east-disruption",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/HabbenJensen_7f0238.jpg",
+    pubDate: "2026-09-15T18:04:53Z",
     source: "FreightWaves"
   },
   {
-    title: "Global Air Cargo Freight Rates Surge 12% Ahead of Peak Q4 Season",
-    description: "E-commerce volumes and ocean shipping delays push international shippers to lock in air cargo space ahead of the annual fourth-quarter retail peak season.",
-    link: "https://www.supplychaindive.com/news/air-freight-rates-surge-peak-season/",
-    imageUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T04:30:00Z",
-    source: "Supply Chain Dive"
+    title: "Mikargo247, Verified Carrier launch coverage for strategic cargo theft",
+    description: "Verified Carrier and MiKargo247 are partnering to offer freight brokers spot cargo insurance coverage for strategic theft, including double brokering and carrier identity theft.",
+    link: "https://www.freightwaves.com/news/mikargo247-verified-carrier-launch-coverage-for-strategic-cargo-theft",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2025/12/23/pallets-and-a-forlift-at-a-temperature-controlled-warehouse.jpg",
+    pubDate: "2026-09-15T16:30:13Z",
+    source: "FreightWaves"
   },
   {
-    title: "Port of Los Angeles Cargo Operations Accelerate Amid Container Shifts",
-    description: "U.S. West Coast container terminals report strong third-quarter cargo throughput as ocean carriers optimize vessel schedules and intermodal rail connections.",
-    link: "https://splash247.com/port-of-los-angeles-cargo-operations-accelerate/",
-    imageUrl: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T03:45:00Z",
-    source: "Splash247"
+    title: "OXEA taps Uber Freight to manage North American, European logistics",
+    description: "Chemical manufacturer OXEA selected Uber Freight to manage the company's transportation across the U.S., Canada, Mexico and Europe.",
+    link: "https://www.freightwaves.com/news/oxea-taps-uber-freight-to-manage-north-american-european-logistics",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/OXEA_-Uber-Freight.jpg",
+    pubDate: "2026-09-15T16:00:00Z",
+    source: "FreightWaves"
   },
   {
-    title: "EU Finalizes Maritime Carbon Tariff Compliance Guidelines for Ocean Liners",
-    description: "Global container lines operating into European ports face new carbon emissions reporting and offset requirements under the EU Emissions Trading System expansion.",
-    link: "https://www.seatrade-maritime.com/regulation/eu-maritime-carbon-tariff",
-    imageUrl: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=80",
-    pubDate: "2026-09-16T02:15:00Z",
-    source: "Seatrade Maritime"
+    title: "U.S. container imports climb 3.8% to 2.6 million TEUs, 3rd highest monthly level",
+    description: "Imports climbed 3.8% from July to 2.60 million TEUs as gains at East, Gulf and West Coast gateways coincided with a broad increase in sourcing-market volumes.",
+    link: "https://www.freightwaves.com/news/u-s-container-imports-climb-3-8-to-2-6-million-teus-3rd-highest-monthly-level",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/PortHoustonX.jpg",
+    pubDate: "2026-09-15T15:57:06Z",
+    source: "FreightWaves"
+  },
+  {
+    title: "Amazon calls timeout on 21 Air cargo contract",
+    description: "Amazon has stopped using 21 Air, saying it's a temporary step while it evaluates factors behind the fatal accident with one of its planes.",
+    link: "https://www.freightwaves.com/news/amazon-calls-timeout-on-21-air-cargo-contract",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Amazon-21-Air-change_1.jpg",
+    pubDate: "2026-09-15T14:16:29Z",
+    source: "FreightWaves"
+  },
+  {
+    title: "Radiant Logistics sees double-digit growth in FQ4, shares up 16%",
+    description: "Radiant Logistics beat fiscal fourth-quarter expectations due to a solid performance in its international business and a tightening domestic surface transportation market.",
+    link: "https://www.freightwaves.com/news/radiant-logistics-sees-double-digit-growth-in-fq4-shares-up-16",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Radiants-key-performance-indicators.jpg",
+    pubDate: "2026-09-15T13:54:19Z",
+    source: "FreightWaves"
+  },
+  {
+    title: "Update: DOE/EIA diesel at record; so is futures price",
+    description: "The benchmark diesel price used for most fuel surcharges is at an all-time high as diesel futures surge across energy markets.",
+    link: "https://www.freightwaves.com/news/doe-eia-price-at-record-as-diesel-surge-shows-no-sign-of-retreat",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/dts-sep-15.jpg",
+    pubDate: "2026-09-15T13:41:55Z",
+    source: "FreightWaves"
+  },
+  {
+    title: "C.H. Robinson and its Customer Unilever Sued Over Catastrophic Crash",
+    description: "Lawsuit filed following fatal accident involving logistics broker C.H. Robinson and major shipper Unilever.",
+    link: "https://www.freightwaves.com/news/c-h-robinson-and-its-customer-unilever-sued-over-catastrophic-crash",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2019/08/CHRW_office.jpg",
+    pubDate: "2026-09-15T13:49:13Z",
+    source: "FreightWaves"
   }
 ];
 
