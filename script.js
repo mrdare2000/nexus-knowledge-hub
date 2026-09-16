@@ -3250,18 +3250,12 @@ function filterHSOptions() {
    ========================================== */
 let globalNewsCache = null;
 
-// Top logistics/shipping RSS feeds for client-side fallback
+// Verified high-yielding logistics & maritime RSS feeds for client-side fallback
 const CLIENT_RSS_FEEDS = [
-  { url: 'https://www.freightwaves.com/feed', source: 'FreightWaves' },
-  { url: 'https://gcaptain.com/feed/', source: 'gCaptain' },
-  { url: 'https://theloadstar.com/feed/', source: 'The Loadstar' },
-  { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive' },
-  { url: 'https://feeds.feedburner.com/SupplyChainBrain', source: 'Supply Chain Brain' },
-  { url: 'https://www.hellenicshippingnews.com/feed/', source: 'Hellenic Shipping' },
-  { url: 'https://www.seatrade-maritime.com/rss.xml', source: 'Seatrade Maritime' },
-  { url: 'https://splash247.com/feed/', source: 'Splash247' },
-  { url: 'https://www.logisticsmgmt.com/rss', source: 'Logistics Management' },
-  { url: 'https://www.joc.com/rss/all', source: 'Journal of Commerce' }
+  { url: 'https://www.freightwaves.com/feed', source: 'FreightWaves', defaultImg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80' },
+  { url: 'https://www.seatrade-maritime.com/rss.xml', source: 'Seatrade Maritime', defaultImg: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=600&q=80' },
+  { url: 'https://splash247.com/feed/', source: 'Splash247', defaultImg: 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=600&q=80' },
+  { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive', defaultImg: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80' }
 ];
 
 async function fetchLogisticsNews() {
@@ -3292,7 +3286,7 @@ async function fetchLogisticsNews() {
       return;
     }
   } catch (e) {
-    console.error('[NEWS] Client-side RSS fallback also failed:', e);
+    console.error('[NEWS] Client-side RSS fallback failed:', e);
   }
 
   // If everything fails, show a useful error
@@ -3300,9 +3294,9 @@ async function fetchLogisticsNews() {
 }
 
 async function fetchFromFirestore() {
-  // Wait for Firebase to be ready (max 5 seconds)
+  // Wait for Firebase to be ready (max 3 seconds)
   let attempts = 0;
-  while ((!window.NEXUS_FIREBASE || !window.NEXUS_FIREBASE.isReady()) && attempts < 20) {
+  while ((!window.NEXUS_FIREBASE || !window.NEXUS_FIREBASE.isReady()) && attempts < 12) {
     await new Promise(r => setTimeout(r, 250));
     attempts++;
   }
@@ -3338,9 +3332,7 @@ async function fetchFromRSSFallback() {
   const allArticles = [];
   const rss2jsonBase = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
-  // Fetch multiple feeds in parallel (pick 5 to stay within free tier limits)
-  const feedsToFetch = CLIENT_RSS_FEEDS.slice(0, 5);
-  const feedPromises = feedsToFetch.map(async (feed) => {
+  const feedPromises = CLIENT_RSS_FEEDS.map(async (feed) => {
     try {
       const resp = await fetch(rss2jsonBase + encodeURIComponent(feed.url));
       if (!resp.ok) return [];
@@ -3350,42 +3342,49 @@ async function fetchFromRSSFallback() {
       return data.items
         .filter(item => item.title && item.link)
         .map(item => {
-          // Extract image: thumbnail > enclosure > first img in description
+          // Extract image: thumbnail > enclosure.link > img tag in description/content > feed default
           let imageUrl = item.thumbnail || '';
           if (!imageUrl && item.enclosure && item.enclosure.link) {
             imageUrl = item.enclosure.link;
           }
-          if (!imageUrl && item.description) {
-            const imgMatch = item.description.match(/<img[^>]+src=["']([^"']+)["']/i);
-            if (imgMatch) imageUrl = imgMatch[1];
+          if (!imageUrl) {
+            const html = (item.description || '') + ' ' + (item.content || '');
+            const imgMatch = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if (imgMatch && imgMatch[1] && !imgMatch[1].includes('gravatar')) {
+              imageUrl = imgMatch[1];
+            }
           }
-          // Skip articles without images
-          if (!imageUrl || imageUrl.includes('gravatar') || imageUrl.length < 10) return null;
+          // If still no image, use the feed's default logistics cover image
+          if (!imageUrl || imageUrl.length < 10) {
+            imageUrl = feed.defaultImg;
+          }
+
+          const rawDesc = item.description || item.content || '';
+          const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, '').trim().substring(0, 220);
 
           return {
             title: item.title,
-            description: (item.description || '').replace(/<\/?[^>]+(>|$)/g, '').substring(0, 200),
+            description: cleanDesc,
             link: item.link,
             imageUrl: imageUrl,
-            pubDate: item.pubDate || '',
+            pubDate: item.pubDate || new Date().toISOString(),
             source: feed.source
           };
-        })
-        .filter(Boolean);
+        });
     } catch (e) {
-      console.warn(`[NEWS] Failed to fetch ${feed.source}:`, e.message);
+      console.warn(`[NEWS] Fallback failed for ${feed.source}:`, e.message);
       return [];
     }
   });
 
   const results = await Promise.allSettled(feedPromises);
   results.forEach(result => {
-    if (result.status === 'fulfilled' && result.value) {
+    if (result.status === 'fulfilled' && Array.isArray(result.value)) {
       allArticles.push(...result.value);
     }
   });
 
-  // Sort by date (newest first) and limit to 30
+  // Sort newest first
   allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
   return allArticles.slice(0, 30);
 }
