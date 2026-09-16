@@ -984,6 +984,293 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           { id: "D5", number: 10, direction: "down", word: "EMBARGO", clue: "Official government ban on trade or commercial activity with a specific country.", hint: "Strict economic sanction on cross-border trade.", row: 15, col: 13 }
         ]
       }
+    },
+    {
+      id: "week-6",
+      title: "Weekly Quiz 06",
+      description: "20 Questions • 20 Multiple Choice Questions (MCQs)",
+      questions: [
+        {
+          id: "w6-q1",
+          type: "mcq",
+          category: "Incoterms® Rules",
+          question: "Under Incoterms® 2020 DPU (Delivered at Place Unloaded), who is responsible for unloading the goods from the arriving transport at the named place of destination?",
+          options: [
+            "The Buyer",
+            "The Seller",
+            "The Ocean Carrier",
+            "The Customs Broker"
+          ],
+          answerIndex: 1,
+          explanation: "DPU is the only Incoterm rule that explicitly requires the seller to unload cargo from the arriving transport vehicle at destination."
+        },
+        {
+          id: "w6-q2",
+          type: "mcq",
+          category: "Container Shipping & Port Operations",
+          question: "What does TEU stand for in global container shipping metrics?",
+          options: [
+            "Tonnage Equivalent Unit",
+            "Twenty-foot Equivalent Unit",
+            "Terminal Export Unit",
+            "Total Effective Usage"
+          ],
+          answerIndex: 1,
+          explanation: "TEU (Twenty-foot Equivalent Unit) is the standard capacity unit based on a standard 20-foot shipping container."
+        },
+        {
+          id: "w6-q3",
+          type: "mcq",
+          category: "Air Freight & IATA Regulations",
+          question: "Which IATA manual specifies worldwide rules and packaging standards for shipping Dangerous Goods (HAZMAT) by air?",
+          options: [
+            "IATA TACSS",
+            "IATA DGR (Dangerous Goods Regulations)",
+            "ICAO Annex 17",
+            "FIATA Model Rules"
+          ],
+          answerIndex: 1,
+          explanation: "The IATA Dangerous Goods Regulations (DGR) is the official industry manual for preparing, packaging, labeling, and shipping hazmat by air."
+        },
+        {
+          id: "w6-q4",
+          type: "mcq",
+          category: "Customs Compliance & Trade",
+          question: "What type of customs bond is required for importers who regularly clear shipments throughout a 12-month period?",
+          options: [
+            "Single Entry Bond (SEB)",
+            "Continuous Import Bond",
+            "Customs Carnet Bond",
+            "Warehouse Entry Bond"
+          ],
+          answerIndex: 1,
+          explanation: "A Continuous Import Bond covers all import entries through any port of entry during an ongoing 1-year period."
+        },
+        {
+          id: "w6-q5",
+          type: "mcq",
+          category: "Warehouse Management Systems",
+          question: "In warehouse inventory management, what does the LIFO inventory valuation strategy stand for?",
+          options: [
+            "Logistics In, Freight Out",
+            "Last In, First Out",
+            "Linear Inventory Fixed Output",
+            "Level Inflow, Fast Outflow"
+          ],
+          answerIndex: 1,
+          explanation: "LIFO (Last-In, First-Out) assumes the newest inventory received is processed or sold first."
+        },
+        {
+          id: "w6-q6",
+          type: "mcq",
+          category: "Ocean Routes & Maritime Chokepoints",
+          question: "Which strategic maritime chokepoint connects the Red Sea to the Gulf of Aden and the Indian Ocean?",
+          options: [
+            "Strait of Malacca",
+            "Bab el-Mandeb Strait",
+            "Strait of Gibraltar",
+            "Sunda Strait"
+          ],
+          answerIndex: 1,
+          explanation: "The Bab el-Mandeb Strait lies between Yemen and the Horn of Africa, serving as the southern gateway to the Red Sea and Suez Canal."
+        },
+        {
+          id: "w6-q7",
+          type: "mcq",
+          category: "Ocean Freight Rate Surcharges",
+          question: "What does the surcharge acronym GRI stand for in ocean freight pricing negotiations?",
+          options: [
+            "General Rate Increase",
+            "Gross Revenue Index",
+            "Global Re-route Indemnity",
+            "Guaranteed Risk Insurance"
+          ],
+          answerIndex: 0,
+          explanation: "GRI (General Rate Increase) is an adjustment applied by ocean shipping lines to raise base freight rates across specific trade routes."
+        },
+        {
+          id: "w6-q8",
+          type: "mcq",
+          category: "Supply Chain KPIs & Performance",
+          question: "What supply chain KPI measures orders delivered complete, undamaged, on time, and with accurate invoicing?",
+          options: [
+            "OTIF (On-Time In-Full)",
+            "Perfect Order Rate (POR)",
+            "Cash-to-Cash Cycle Time",
+            "Inventory Turnover Ratio"
+          ],
+          answerIndex: 1,
+          explanation: "Perfect Order Rate evaluates the percentage of orders meeting all 4 fulfillment criteria: complete, on time, damage-free, and correctly documented."
+        },
+        {
+          id: "w6-q9",
+          type: "mcq",
+          category: "Maritime Documentation",
+          question: "What defines a 'Clean Bill of Lading' in ocean transportation?",
+          options: [
+            "A B/L printed on recycled green paper",
+            "A B/L issued with no clause or notation indicating damaged cargo or defective packaging",
+            "A B/L issued directly by customs without freight charges",
+            "A B/L that covers non-hazardous materials only"
+          ],
+          answerIndex: 1,
+          explanation: "A Clean Bill of Lading confirms that cargo was received on board in apparent good order and condition without noted defects."
+        },
+        {
+          id: "w6-q10",
+          type: "mcq",
+          category: "Intermodal & Multimodal Transport",
+          question: "What is the primary distinction between Intermodal Transport and Multimodal Transport?",
+          options: [
+            "Intermodal uses aircraft only; Multimodal uses ocean ships only",
+            "Intermodal uses separate contracts per carrier leg; Multimodal operates under a single contract with one MTO",
+            "Intermodal does not use standard containers; Multimodal requires containers",
+            "There is no operational difference between the two terms"
+          ],
+          answerIndex: 1,
+          explanation: "Intermodal transport involves multiple contracts for each transport leg, whereas Multimodal transport uses one single contract under one Multimodal Transport Operator (MTO)."
+        },
+        {
+          id: "w6-q11",
+          type: "mcq",
+          category: "Temperature-Controlled Logistics",
+          question: "What is the standard deep-freeze temperature range maintained inside specialized reefer containers for frozen cargo?",
+          options: [
+            "0°C to +4°C",
+            "-20°C to -25°C",
+            "-50°C to -80°C",
+            "+10°C to +15°C"
+          ],
+          answerIndex: 1,
+          explanation: "Standard deep-freeze reefer containers operate between -20°C and -25°C to preserve frozen foods and biological pharmaceuticals."
+        },
+        {
+          id: "w6-q12",
+          type: "mcq",
+          category: "Contract Logistics",
+          question: "What does the acronym VMI stand for in buyer-supplier supply chain relationships?",
+          options: [
+            "Variable Material Inspection",
+            "Vendor Managed Inventory",
+            "Volume Measured Import",
+            "Verified Maritime Insurance"
+          ],
+          answerIndex: 1,
+          explanation: "Vendor Managed Inventory (VMI) is a practice where the supplier monitors inventory levels and manages replenishment at the buyer's facility."
+        },
+        {
+          id: "w6-q13",
+          type: "mcq",
+          category: "Air Cargo Load Planning",
+          question: "What does ULD stand for in air cargo handling and aircraft loading?",
+          options: [
+            "Universal Loading Dock",
+            "Unit Load Device",
+            "Under-deck Logistics Unit",
+            "Upper Level Distribution"
+          ],
+          answerIndex: 1,
+          explanation: "Unit Load Devices (ULDs) are specialized air cargo pallets and contoured containers used to load freight into aircraft holds."
+        },
+        {
+          id: "w6-q14",
+          type: "mcq",
+          category: "Terminal Operations & Fees",
+          question: "What is the distinction between container 'Demurrage' and 'Detention' fees?",
+          options: [
+            "Demurrage is for air cargo; Detention is for sea freight",
+            "Demurrage applies inside the port terminal; Detention applies outside the port terminal past allowed free time",
+            "Demurrage is paid to customs; Detention is paid to truck drivers",
+            "Demurrage is for damaged goods; Detention is for lost containers"
+          ],
+          answerIndex: 1,
+          explanation: "Demurrage is incurred when an uncollected container stays inside the port past free days. Detention applies when an empty container is retained outside the port past free return days."
+        },
+        {
+          id: "w6-q15",
+          type: "mcq",
+          category: "Cargo Protection & Dunnage",
+          question: "What is the main operational purpose of using inflatable air dunnage bags inside shipping containers?",
+          options: [
+            "To lower ambient internal temperature during transit",
+            "To fill void spaces and prevent cargo shifting during ocean or rail movement",
+            "To absorb moisture and humidity",
+            "To increase container weight for customs compliance"
+          ],
+          answerIndex: 1,
+          explanation: "Inflatable air dunnage bags fill void gaps between cargo pallets to brace the load against shifting and impact damage in transit."
+        },
+        {
+          id: "w6-q16",
+          type: "mcq",
+          category: "Incoterms® Rules",
+          question: "Under the FOB (Free On Board) Incoterm 2020, at what exact point does legal risk of loss transfer to the buyer?",
+          options: [
+            "When cargo leaves the seller's warehouse",
+            "When cargo is loaded on board the vessel nominated by the buyer at the named port of loading",
+            "When cargo arrives at the destination discharge port",
+            "When the ocean carrier issues the final bill of lading"
+          ],
+          answerIndex: 1,
+          explanation: "Under FOB terms, risk transfers to the buyer as soon as the goods are placed safely on board the ocean vessel at the loading port."
+        },
+        {
+          id: "w6-q17",
+          type: "mcq",
+          category: "International Trade Policy",
+          question: "What is the purpose of 'Rules of Origin' under Free Trade Agreements (FTAs)?",
+          options: [
+            "To dictate which language is printed on outer export cartons",
+            "To establish product origin criteria required to qualify for preferential duty rates",
+            "To enforce that all exports are produced by state-owned enterprises",
+            "To mandate that cargo must ship under DDP Incoterms"
+          ],
+          answerIndex: 1,
+          explanation: "Rules of Origin establish the specific production or value-add criteria required for goods to qualify for reduced or zero tariff rates under FTAs."
+        },
+        {
+          id: "w6-q18",
+          type: "mcq",
+          category: "Ocean Carrier Fleets",
+          question: "What type of vessel features built-in internal ramps allowing vehicles and wheeled cargo to drive on and off unassisted?",
+          options: [
+            "Capesize Bulk Carrier",
+            "Ro-Ro (Roll-on/Roll-off) Ship",
+            "VLCC Crude Tanker",
+            "Gearless Container Vessel"
+          ],
+          answerIndex: 1,
+          explanation: "Ro-Ro (Roll-on/Roll-off) vessels are equipped with internal ramps designed for drive-on/drive-off transport of cars, trucks, and trailer cargo."
+        },
+        {
+          id: "w6-q19",
+          type: "mcq",
+          category: "Last-Mile & Order Fulfillment",
+          question: "In logistics warehouse operations, what does 'Cross-Docking' mean?",
+          options: [
+            "Storing goods in long-term warehouse racks over 6 months",
+            "Directly transferring incoming freight from inbound trucks to outbound vehicles with minimal or zero storage time",
+            "Inspecting hazardous cargo on a marine pier",
+            "Returning rejected goods back to overseas suppliers"
+          ],
+          answerIndex: 1,
+          explanation: "Cross-docking is a lean distribution strategy where inbound freight is unloaded and directly reloaded onto outbound vehicles without storage."
+        },
+        {
+          id: "w6-q20",
+          type: "mcq",
+          category: "Supply Chain Visibility",
+          question: "What technology uses radio frequency signals to automatically identify and track tagged pallets without direct line-of-sight scanning?",
+          options: [
+            "2D Barcode DataMatrix",
+            "RFID (Radio Frequency Identification)",
+            "Optical Character Recognition (OCR)",
+            "GPS Telematics"
+          ],
+          answerIndex: 1,
+          explanation: "RFID (Radio Frequency Identification) enables automatic wireless scanning and data capture from cargo tags through radio signals."
+        }
+      ]
     }
   ]
 };
