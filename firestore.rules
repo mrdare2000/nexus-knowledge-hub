@@ -22,6 +22,12 @@ service cloud.firestore {
       allow delete: if false; // No frontend deletion of quiz attempts
     }
 
+    // NEWS COLLECTION — public read, server-only write (via admin SDK)
+    match /news/{articleId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
     // DEFAULT: Deny everything else
     match /{document=**} {
       allow read, write: if false;
