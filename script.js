@@ -3239,16 +3239,30 @@ function filterHSOptions() {
 }
 
 /* ==========================================
-   10. GLOBAL INDUSTRY NEWS (FIRESTORE-BACKED LIVE FEED)
+   10. GLOBAL INDUSTRY NEWS (FIRESTORE + CLIENT-SIDE FALLBACK)
    ==========================================
-   News articles are stored in Firestore 'news' collection by
-   the /api/news-update cron job. Each document contains:
-   { title, description, link, imageUrl, pubDate, source, sortOrder }
+   Primary: Reads from Firestore 'news' collection (populated by /api/news-update cron).
+   Fallback: If Firestore is empty or unavailable, fetches RSS feeds directly via
+             rss2json.com API so the news feed ALWAYS shows real content.
    
    Home page shows 6 latest, News Hub shows 30 latest.
    All images are REAL article images from the original news source.
    ========================================== */
 let globalNewsCache = null;
+
+// Top logistics/shipping RSS feeds for client-side fallback
+const CLIENT_RSS_FEEDS = [
+  { url: 'https://www.freightwaves.com/feed', source: 'FreightWaves' },
+  { url: 'https://gcaptain.com/feed/', source: 'gCaptain' },
+  { url: 'https://theloadstar.com/feed/', source: 'The Loadstar' },
+  { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive' },
+  { url: 'https://feeds.feedburner.com/SupplyChainBrain', source: 'Supply Chain Brain' },
+  { url: 'https://www.hellenicshippingnews.com/feed/', source: 'Hellenic Shipping' },
+  { url: 'https://www.seatrade-maritime.com/rss.xml', source: 'Seatrade Maritime' },
+  { url: 'https://splash247.com/feed/', source: 'Splash247' },
+  { url: 'https://www.logisticsmgmt.com/rss', source: 'Logistics Management' },
+  { url: 'https://www.joc.com/rss/all', source: 'Journal of Commerce' }
+];
 
 async function fetchLogisticsNews() {
   if (globalNewsCache) {
@@ -3256,71 +3270,131 @@ async function fetchLogisticsNews() {
     return;
   }
 
-  const homeLoading = document.getElementById('news-loading-state');
-  const fullLoading = document.getElementById('full-news-loading-state');
-
   try {
-    // Wait for Firebase to be ready
-    let attempts = 0;
-    while ((!window.NEXUS_FIREBASE || !window.NEXUS_FIREBASE.isReady()) && attempts < 20) {
-      await new Promise(r => setTimeout(r, 250));
-      attempts++;
-    }
-
-    const db = window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.firestore;
-    if (!db) {
-      console.warn('[NEWS] Firestore not available, cannot load news.');
-      showNewsError();
+    // Try Firestore first (fast path when backend is deployed)
+    let firestoreArticles = await fetchFromFirestore();
+    if (firestoreArticles && firestoreArticles.length > 0) {
+      globalNewsCache = firestoreArticles;
+      renderNews(firestoreArticles);
       return;
     }
-
-    // Read all news articles from Firestore, ordered by sortOrder (newest first)
-    const snapshot = await db.collection('news')
-      .orderBy('sortOrder', 'asc')
-      .limit(30)
-      .get();
-
-    if (snapshot.empty) {
-      console.warn('[NEWS] No news articles found in Firestore.');
-      showNewsError();
-      return;
-    }
-
-    const articles = [];
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      // Only include articles with a valid image URL
-      if (data.title && data.imageUrl && data.link) {
-        articles.push({
-          title: data.title,
-          description: data.description || '',
-          link: data.link,
-          imageUrl: data.imageUrl,
-          pubDate: data.pubDate || '',
-          source: data.source || 'News'
-        });
-      }
-    });
-
-    if (articles.length === 0) {
-      showNewsError();
-      return;
-    }
-
-    globalNewsCache = articles;
-    renderNews(articles);
-
-  } catch (error) {
-    console.error('[NEWS] Failed to fetch news from Firestore:', error);
-    showNewsError();
+  } catch (e) {
+    console.warn('[NEWS] Firestore fetch failed, trying client-side fallback:', e.message);
   }
+
+  // Fallback: fetch RSS feeds directly via rss2json.com
+  console.log('[NEWS] Firestore empty or unavailable, using client-side RSS fallback...');
+  try {
+    const fallbackArticles = await fetchFromRSSFallback();
+    if (fallbackArticles.length > 0) {
+      globalNewsCache = fallbackArticles;
+      renderNews(fallbackArticles);
+      return;
+    }
+  } catch (e) {
+    console.error('[NEWS] Client-side RSS fallback also failed:', e);
+  }
+
+  // If everything fails, show a useful error
+  showNewsError();
+}
+
+async function fetchFromFirestore() {
+  // Wait for Firebase to be ready (max 5 seconds)
+  let attempts = 0;
+  while ((!window.NEXUS_FIREBASE || !window.NEXUS_FIREBASE.isReady()) && attempts < 20) {
+    await new Promise(r => setTimeout(r, 250));
+    attempts++;
+  }
+
+  const db = window.NEXUS_FIREBASE && window.NEXUS_FIREBASE.firestore;
+  if (!db) return [];
+
+  const snapshot = await db.collection('news')
+    .orderBy('sortOrder', 'asc')
+    .limit(30)
+    .get();
+
+  if (snapshot.empty) return [];
+
+  const articles = [];
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    if (data.title && data.imageUrl && data.link) {
+      articles.push({
+        title: data.title,
+        description: data.description || '',
+        link: data.link,
+        imageUrl: data.imageUrl,
+        pubDate: data.pubDate || '',
+        source: data.source || 'News'
+      });
+    }
+  });
+  return articles;
+}
+
+async function fetchFromRSSFallback() {
+  const allArticles = [];
+  const rss2jsonBase = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+  // Fetch multiple feeds in parallel (pick 5 to stay within free tier limits)
+  const feedsToFetch = CLIENT_RSS_FEEDS.slice(0, 5);
+  const feedPromises = feedsToFetch.map(async (feed) => {
+    try {
+      const resp = await fetch(rss2jsonBase + encodeURIComponent(feed.url));
+      if (!resp.ok) return [];
+      const data = await resp.json();
+      if (data.status !== 'ok' || !data.items) return [];
+
+      return data.items
+        .filter(item => item.title && item.link)
+        .map(item => {
+          // Extract image: thumbnail > enclosure > first img in description
+          let imageUrl = item.thumbnail || '';
+          if (!imageUrl && item.enclosure && item.enclosure.link) {
+            imageUrl = item.enclosure.link;
+          }
+          if (!imageUrl && item.description) {
+            const imgMatch = item.description.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if (imgMatch) imageUrl = imgMatch[1];
+          }
+          // Skip articles without images
+          if (!imageUrl || imageUrl.includes('gravatar') || imageUrl.length < 10) return null;
+
+          return {
+            title: item.title,
+            description: (item.description || '').replace(/<\/?[^>]+(>|$)/g, '').substring(0, 200),
+            link: item.link,
+            imageUrl: imageUrl,
+            pubDate: item.pubDate || '',
+            source: feed.source
+          };
+        })
+        .filter(Boolean);
+    } catch (e) {
+      console.warn(`[NEWS] Failed to fetch ${feed.source}:`, e.message);
+      return [];
+    }
+  });
+
+  const results = await Promise.allSettled(feedPromises);
+  results.forEach(result => {
+    if (result.status === 'fulfilled' && result.value) {
+      allArticles.push(...result.value);
+    }
+  });
+
+  // Sort by date (newest first) and limit to 30
+  allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+  return allArticles.slice(0, 30);
 }
 
 function showNewsError() {
   const homeLoading = document.getElementById('news-loading-state');
   const fullLoading = document.getElementById('full-news-loading-state');
   
-  const errorHTML = '<p style="text-align:center; color: var(--text-muted); padding: 30px;">News feed is updating. Please check back shortly.</p>';
+  const errorHTML = '<p style="text-align:center; color: var(--text-muted); padding: 30px;">Unable to load news at the moment. Please try again later.</p>';
   
   if (homeLoading) homeLoading.innerHTML = errorHTML;
   if (fullLoading) fullLoading.innerHTML = errorHTML;
