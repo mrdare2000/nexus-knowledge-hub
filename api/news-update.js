@@ -353,40 +353,54 @@ export default async function handler(req, res) {
   console.log(`[NEWS-UPDATE] Starting news feed update at ${new Date().toISOString()}`);
 
   try {
-    // ── Step 1: Fetch all RSS feeds in parallel ──
-    const fetchPromises = RSS_FEEDS.map(feedUrl => {
+    // ── Step 1: Fetch all RSS feeds in parallel (with retry) ──
+    const MAX_RETRIES = 2;
+    const RETRY_DELAY_MS = 1500;
+
+    async function fetchFeedWithRetry(feedUrl, attempt = 1) {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-      return fetch(feedUrl, {
-        signal: controller.signal,
-        headers: {
-          'User-Agent': 'NexusKnowledgeHub/1.0 (News Aggregator)',
-          'Accept': 'application/rss+xml, application/xml, text/xml, */*'
-        }
-      })
-        .then(r => {
-          clearTimeout(timeoutId);
-          return r.ok ? r.text() : null;
-        })
-        .then(xmlText => {
-          if (!xmlText) return [];
-          return parseRSSFeed(xmlText, feedUrl);
-        })
-        .catch(err => {
-          clearTimeout(timeoutId);
-          console.warn(`[NEWS-UPDATE] Feed failed: ${feedUrl} — ${err.message}`);
-          return [];
+      try {
+        const r = await fetch(feedUrl, {
+          signal: controller.signal,
+          headers: {
+            'User-Agent': 'NexusKnowledgeHub/1.0 (News Aggregator)',
+            'Accept': 'application/rss+xml, application/xml, text/xml, */*'
+          }
         });
-    });
+        clearTimeout(timeoutId);
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const xmlText = await r.text();
+        return parseRSSFeed(xmlText, feedUrl);
+      } catch (err) {
+        clearTimeout(timeoutId);
+        if (attempt < MAX_RETRIES) {
+          console.warn(`[NEWS-UPDATE] Feed attempt ${attempt} failed: ${feedUrl} — ${err.message}. Retrying...`);
+          await new Promise(r => setTimeout(r, RETRY_DELAY_MS));
+          return fetchFeedWithRetry(feedUrl, attempt + 1);
+        }
+        console.warn(`[NEWS-UPDATE] Feed failed after ${MAX_RETRIES} attempts: ${feedUrl} — ${err.message}`);
+        return [];
+      }
+    }
+
+    const fetchPromises = RSS_FEEDS.map(feedUrl => fetchFeedWithRetry(feedUrl));
 
     const results = await Promise.all(fetchPromises);
 
     // ── Step 2: Merge, deduplicate, sort ──
     const seenTitles = new Set();
     const allArticles = [];
+    let feedsSucceeded = 0;
+    let feedsFailed = 0;
 
     results.forEach(feedArticles => {
+      if (feedArticles.length > 0) {
+        feedsSucceeded++;
+      } else {
+        feedsFailed++;
+      }
       feedArticles.forEach(article => {
         const normTitle = article.title.trim().toLowerCase();
         if (seenTitles.has(normTitle)) return;
@@ -401,7 +415,7 @@ export default async function handler(req, res) {
     // Take top MAX_ARTICLES
     const topArticles = allArticles.slice(0, MAX_ARTICLES);
 
-    console.log(`[NEWS-UPDATE] Fetched ${allArticles.length} total articles, storing top ${topArticles.length}`);
+    console.log(`[NEWS-UPDATE] Feeds: ${feedsSucceeded} OK, ${feedsFailed} failed. Total articles: ${allArticles.length}, storing top ${topArticles.length}`);
 
     if (topArticles.length === 0) {
       console.warn('[NEWS-UPDATE] No articles found from any feed. Skipping Firestore write.');

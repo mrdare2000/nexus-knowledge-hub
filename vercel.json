@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/news-update",
-      "schedule": "0 5 * * *"
+      "schedule": "0 1,7,13,19 * * *"
     }
   ],
   "redirects": [

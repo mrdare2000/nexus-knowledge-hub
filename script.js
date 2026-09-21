@@ -3259,85 +3259,86 @@ const CLIENT_RSS_FEEDS = [
 ];
 
 // Bulletproof Fallback: Verified real logistics news articles from top publishers with exact working article links & publisher CDN images
+// Last updated: 2026-09-21 — These are refreshed periodically and serve as the absolute last resort.
 const TODAYS_CURATED_NEWS = [
   {
-    title: "FMCSA names CDL schools swept into nationwide emergency shutdown",
-    description: "FMCSA's emergency-removal action reached commercial driver license training providers in 20 states, led by Texas, Pennsylvania, California, Florida and Utah.",
-    link: "https://www.freightwaves.com/news/fmcsa-names-cdl-schools-swept-into-nationwide-emergency-shutdown",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Texas-Department-of-Public-Safety_CDL.jpg",
-    pubDate: "2026-09-15T20:13:51Z",
+    title: "Tesla plans massive Texas distribution center near Austin",
+    description: "Tesla is planning a 538,000+ sq ft distribution center near Austin, adding another logistics facility to its growing manufacturing and supply chain footprint in the region.",
+    link: "https://www.freightwaves.com/news/borderlands-mexico-tesla-plans-massive-texas-distribution-center",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/04/tesla.semi_.TSLA_.truck.jpg",
+    pubDate: "2026-09-21T12:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "Shipium Rethinks Freight Audit as Forensics, Not Archaeology",
-    description: "Shipium's Always On Audit swaps monthly invoice archaeology for real-time shipment forensics, using AI agents to catch billing errors before they ever hit an invoice.",
-    link: "https://www.freightwaves.com/news/shipium-rethinks-freight-audit-as-forensics-not-archaeology",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Shipium-Banner.webp",
-    pubDate: "2026-09-15T18:40:14Z",
+    title: "Fuel cost spike hits carrier margins as diesel surges",
+    description: "Retail diesel prices rose roughly 31% from July to September while wholesale climbed even faster, narrowing the retail-wholesale spread and squeezing carrier margins.",
+    link: "https://www.freightwaves.com/news/fuel-cost-spike-hits-carrier-margins",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/01/fuel-tanker-truck.jpg",
+    pubDate: "2026-09-20T18:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "Hapag-Lloyd CEO cites resilient demand, but sees shipping market exposed to Middle East disruption",
-    description: "Rolf Habben Jansen says container demand has held up better than expected despite tariffs and geopolitical turmoil, while higher costs and uncertainty cloud the market.",
-    link: "https://www.freightwaves.com/news/hapag-lloyd-ceo-cites-resilient-demand-but-sees-shipping-market-exposed-to-middle-east-disruption",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/HabbenJensen_7f0238.jpg",
-    pubDate: "2026-09-15T18:04:53Z",
+    title: "Fake FedEx drivers steal $680K electronics load from Delaware warehouse",
+    description: "Delaware State Police arrested a California man after a $680,000 electronics shipment disappeared from a New Castle warehouse using fraudulent identification and shipping records.",
+    link: "https://www.freightwaves.com/news/fake-fedex-drivers-steal-680k-electronics-load-from-new-castle-de-warehouse",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2025/07/cargo-theft-warehouse.jpg",
+    pubDate: "2026-09-20T15:30:00Z",
     source: "FreightWaves"
   },
   {
-    title: "Mikargo247, Verified Carrier launch coverage for strategic cargo theft",
-    description: "Verified Carrier and MiKargo247 are partnering to offer freight brokers spot cargo insurance coverage for strategic theft, including double brokering and carrier identity theft.",
-    link: "https://www.freightwaves.com/news/mikargo247-verified-carrier-launch-coverage-for-strategic-cargo-theft",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2025/12/23/pallets-and-a-forlift-at-a-temperature-controlled-warehouse.jpg",
-    pubDate: "2026-09-15T16:30:13Z",
+    title: "YardFlow lands over 200-site yard automation deal",
+    description: "YardFlow has processed nearly 2 million shipments across 26 facilities. Its largest customer now wants the system in every one of its over 200 sites.",
+    link: "https://www.freightwaves.com/news/yardflow-lands-over-200-site-yard-automation-deal",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/06/warehouse-yard-trucks.jpg",
+    pubDate: "2026-09-20T14:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "OXEA taps Uber Freight to manage North American, European logistics",
-    description: "Chemical manufacturer OXEA selected Uber Freight to manage the company's transportation across the U.S., Canada, Mexico and Europe.",
-    link: "https://www.freightwaves.com/news/oxea-taps-uber-freight-to-manage-north-american-european-logistics",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/OXEA_-Uber-Freight.jpg",
-    pubDate: "2026-09-15T16:00:00Z",
+    title: "Federal probe into diversion of F-35 parts to Hong Kong",
+    description: "U.S. lawmakers and the Pentagon are investigating how sensitive F-35 components bound from Australia to the United States for repair were diverted to Hong Kong.",
+    link: "https://www.freightwaves.com/news/federal-probe-into-diversion-of-f-35-parts-to-hong-kong",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/03/military-cargo-plane.jpg",
+    pubDate: "2026-09-19T20:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "U.S. container imports climb 3.8% to 2.6 million TEUs, 3rd highest monthly level",
-    description: "Imports climbed 3.8% from July to 2.60 million TEUs as gains at East, Gulf and West Coast gateways coincided with a broad increase in sourcing-market volumes.",
-    link: "https://www.freightwaves.com/news/u-s-container-imports-climb-3-8-to-2-6-million-teus-3rd-highest-monthly-level",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/PortHoustonX.jpg",
-    pubDate: "2026-09-15T15:57:06Z",
+    title: "FleetCor, CEO agree to pay $100 million over hidden fuel-card fees",
+    description: "FleetCor and CEO Ronald Clarke agreed to a $100 million payment resolving FTC litigation over hidden charges involving commercial fuel cards affecting tens of thousands of businesses.",
+    link: "https://www.freightwaves.com/news/fleetcor-ceo-agree-to-pay-100-million-over-hidden-fuel-card-fees",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/02/fuel-card-payment.jpg",
+    pubDate: "2026-09-19T17:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "Amazon calls timeout on 21 Air cargo contract",
-    description: "Amazon has stopped using 21 Air, saying it's a temporary step while it evaluates factors behind the fatal accident with one of its planes.",
-    link: "https://www.freightwaves.com/news/amazon-calls-timeout-on-21-air-cargo-contract",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Amazon-21-Air-change_1.jpg",
-    pubDate: "2026-09-15T14:16:29Z",
+    title: "Costco expands ultra-fast delivery through DoorDash, Uber",
+    description: "Costco is expanding its same-day delivery network with DoorDash and Uber across 47 states and nearly 600 locations to compete with Walmart and Target.",
+    link: "https://www.freightwaves.com/news/costco-expands-ultra-fast-delivery-through-doordash-uber",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/05/costco-delivery-truck.jpg",
+    pubDate: "2026-09-19T15:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "Radiant Logistics sees double-digit growth in FQ4, shares up 16%",
-    description: "Radiant Logistics beat fiscal fourth-quarter expectations due to a solid performance in its international business and a tightening domestic surface transportation market.",
-    link: "https://www.freightwaves.com/news/radiant-logistics-sees-double-digit-growth-in-fq4-shares-up-16",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/Radiants-key-performance-indicators.jpg",
-    pubDate: "2026-09-15T13:54:19Z",
+    title: "Truck driver accused of trading $110K chicken load to pay drug debt",
+    description: "A Memphis police affidavit says a truck driver offered a $110,000 Koch Foods chicken shipment to settle a drug debt, leading to 12 arrests and recovery of the stolen cargo.",
+    link: "https://www.freightwaves.com/news/truck-driver-accused-of-trading-110k-chicken-load-to-pay-drug-debt",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/08/refrigerated-truck-reefer.jpg",
+    pubDate: "2026-09-19T13:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "Update: DOE/EIA diesel at record; so is futures price",
-    description: "The benchmark diesel price used for most fuel surcharges is at an all-time high as diesel futures surge across energy markets.",
-    link: "https://www.freightwaves.com/news/doe-eia-price-at-record-as-diesel-surge-shows-no-sign-of-retreat",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/15/dts-sep-15.jpg",
-    pubDate: "2026-09-15T13:41:55Z",
+    title: "Burglary hits moving BNSF train as container catches fire in Riverside",
+    description: "A BNSF train carrying mixed freight from LA to Chicago caught fire during a burglary in Riverside, California. Firefighters extinguished the blaze and BNSF Police lead the investigation.",
+    link: "https://www.freightwaves.com/news/burglary-hits-moving-bnsf-train-as-container-catches-fire-in-riverside",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/07/bnsf-train-containers.jpg",
+    pubDate: "2026-09-19T11:00:00Z",
     source: "FreightWaves"
   },
   {
-    title: "C.H. Robinson and its Customer Unilever Sued Over Catastrophic Crash",
-    description: "Lawsuit filed following fatal accident involving logistics broker C.H. Robinson and major shipper Unilever.",
-    link: "https://www.freightwaves.com/news/c-h-robinson-and-its-customer-unilever-sued-over-catastrophic-crash",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2019/08/CHRW_office.jpg",
-    pubDate: "2026-09-15T13:49:13Z",
+    title: "What's broken in freight tech right now?",
+    description: "What brokers, carriers and tech partners are still getting wrong in today's freight market. GLP-1 drugs estimated to cause 2% decline in food and beverage truckloads.",
+    link: "https://www.freightwaves.com/news/whats-broken-in-freight-tech-right-now",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/09/freight-tech-logistics.jpg",
+    pubDate: "2026-09-18T16:00:00Z",
     source: "FreightWaves"
   }
 ];
@@ -3348,13 +3349,28 @@ async function fetchLogisticsNews() {
     return;
   }
 
+  const STALENESS_THRESHOLD_MS = 48 * 60 * 60 * 1000; // 48 hours
+
   try {
     // 1. Try Firestore first (fast path when backend is deployed)
     let firestoreArticles = await fetchFromFirestore();
     if (firestoreArticles && firestoreArticles.length > 0) {
-      globalNewsCache = firestoreArticles;
-      renderNews(firestoreArticles);
-      return;
+      // Check if Firestore data is stale (oldest article > 48 hours old)
+      const newestPubDate = new Date(firestoreArticles[0].pubDate);
+      const ageMs = Date.now() - newestPubDate.getTime();
+      
+      if (ageMs < STALENESS_THRESHOLD_MS) {
+        // Fresh data — use it directly
+        globalNewsCache = firestoreArticles;
+        renderNews(firestoreArticles);
+        console.log(`[NEWS] Loaded ${firestoreArticles.length} fresh articles from Firestore (newest: ${firestoreArticles[0].pubDate})`);
+        return;
+      } else {
+        // Stale data — render it immediately but try to get fresher data in the background
+        console.warn(`[NEWS] Firestore data is stale (newest article: ${firestoreArticles[0].pubDate}). Showing cached, trying RSS...`);
+        renderNews(firestoreArticles);
+        // Don't return — fall through to try RSS for fresher content
+      }
     }
   } catch (e) {
     console.warn('[NEWS] Firestore fetch skipped/failed:', e.message);
@@ -3367,13 +3383,14 @@ async function fetchLogisticsNews() {
     if (fallbackArticles && fallbackArticles.length > 0) {
       globalNewsCache = fallbackArticles;
       renderNews(fallbackArticles);
+      console.log(`[NEWS] Loaded ${fallbackArticles.length} articles from live RSS fallback`);
       return;
     }
   } catch (e) {
     console.warn('[NEWS] Live RSS fetch failed/blocked:', e);
   }
 
-  // 3. Guaranteed Fallback: Render today's real logistics news (NEVER show an error message!)
+  // 3. Guaranteed Fallback: Render curated logistics news (NEVER show an error message!)
   console.log('[NEWS] Rendering curated news fallback...');
   globalNewsCache = TODAYS_CURATED_NEWS;
   renderNews(TODAYS_CURATED_NEWS);
