@@ -3262,18 +3262,66 @@ const CLIENT_RSS_FEEDS = [
 // Last updated: 2026-09-21 — These are refreshed periodically and serve as the absolute last resort.
 const TODAYS_CURATED_NEWS = [
   {
+    title: "Trafigura rolls out VLCC venture Volare Shipping with Oslo IPO",
+    description: "Commodity trading giant Trafigura is opening its growing VLCC fleet to outside investors, launching a $500m private placement ahead of a planned Oslo listing of newly created Volare Shipping.",
+    link: "https://splash247.com/trafigura-rolls-out-vlcc-venture-volare-shipping-with-oslo-ipo/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Andrea-Olivi-Trafigura.jpg",
+    pubDate: "2026-09-21T07:47:28Z",
+    source: "Splash 247"
+  },
+  {
+    title: "ClarkSea Index surges 27% above 2007 peak",
+    description: "Clarksons' cross-sector ClarkSea Index continues to record new all-time highs as strong conditions spread across gas carriers, bulkers, containerships and car carriers alongside extraordinary crude tanker earnings.",
+    link: "https://splash247.com/clarksea-index-surges-27-above-2007-peak/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/01/Dhalkut-VLCC-Asyad-Shipping.jpg",
+    pubDate: "2026-09-21T06:00:00Z",
+    source: "Splash 247"
+  },
+  {
+    title: "Transpacific-Europe container rate gap blows out to record",
+    description: "The world's two great east-west container trades are moving in dramatically different directions, with the gap between transpacific and Asia-Europe spot rates widening to unprecedented levels.",
+    link: "https://splash247.com/transpacific-europe-rate-gap-blows-out-to-record/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2024/09/Port-Authority-of-New-York-New-Jersey-and-CMA-CGM.jpg",
+    pubDate: "2026-09-21T05:45:00Z",
+    source: "Splash 247"
+  },
+  {
+    title: "Crew claims hackers seized control of LNG carrier safety systems",
+    description: "A US LNG cargo bound for Italy has been diverted after the crew of its carrier reported a systems failure as a suspected cyberattack, adding to growing concerns over attacks on shipboard digital systems.",
+    link: "https://splash247.com/crew-claims-hackers-seized-control-of-lng-carrier-safety-systems/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cydome-Cyber-Hack.jpg",
+    pubDate: "2026-09-21T05:30:00Z",
+    source: "Splash 247"
+  },
+  {
+    title: "Is maritime neglecting AI?",
+    description: "Olga Boenigk, the founder of AI goes Maritime, challenges the shipping industry's cautious approach to artificial intelligence adoption, arguing that the window for careful waiting is closing fast.",
+    link: "https://splash247.com/is-maritime-neglecting-ai/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/AI-Containership-SplashTech.jpg",
+    pubDate: "2026-09-21T04:10:00Z",
+    source: "Splash 247"
+  },
+  {
+    title: "Qatar Energy Chief says Bessent 'wrong' about Hormuz future",
+    description: "Qatari Energy Minister Saad Al-Kaabi said Treasury Secretary Scott Bessent is 'wrong' about the strategic Strait of Hormuz, intensifying the geopolitical debate over global shipping chokepoints.",
+    link: "https://gcaptain.com/qatar-energy-chief-says-bessent-wrong-about-hormuz-future/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Sea-Leopard-VLCC-lewoszewski-Marine-Traffic.jpg",
+    pubDate: "2026-09-20T22:39:11Z",
+    source: "gCaptain"
+  },
+  {
     title: "Tesla plans massive Texas distribution center near Austin",
     description: "Tesla is planning a 538,000+ sq ft distribution center near Austin, adding another logistics facility to its growing manufacturing and supply chain footprint in the region.",
     link: "https://www.freightwaves.com/news/borderlands-mexico-tesla-plans-massive-texas-distribution-center",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/04/tesla.semi_.TSLA_.truck.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2025/11/Ren-Yuanlin-Yangzijiang-Financial-Holding.jpg",
     pubDate: "2026-09-21T12:00:00Z",
     source: "FreightWaves"
   },
   {
     title: "Fuel cost spike hits carrier margins as diesel surges",
-    description: "Retail diesel prices rose roughly 31% from July to September while wholesale climbed even faster, narrowing the retail-wholesale spread and squeezing carrier margins.",
+    description: "Retail diesel prices rose roughly 31% from July to September while wholesale climbed even faster, narrowing the retail-wholesale spread and squeezing carrier margins across the U.S.",
     link: "https://www.freightwaves.com/news/fuel-cost-spike-hits-carrier-margins",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/01/fuel-tanker-truck.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Lisca-Nera-M-tanker-Augusta-Due.jpg",
     pubDate: "2026-09-20T18:00:00Z",
     source: "FreightWaves"
   },
@@ -3281,64 +3329,16 @@ const TODAYS_CURATED_NEWS = [
     title: "Fake FedEx drivers steal $680K electronics load from Delaware warehouse",
     description: "Delaware State Police arrested a California man after a $680,000 electronics shipment disappeared from a New Castle warehouse using fraudulent identification and shipping records.",
     link: "https://www.freightwaves.com/news/fake-fedex-drivers-steal-680k-electronics-load-from-new-castle-de-warehouse",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2025/07/cargo-theft-warehouse.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Orient-Inspirer.jpg",
     pubDate: "2026-09-20T15:30:00Z",
     source: "FreightWaves"
   },
   {
-    title: "YardFlow lands over 200-site yard automation deal",
-    description: "YardFlow has processed nearly 2 million shipments across 26 facilities. Its largest customer now wants the system in every one of its over 200 sites.",
-    link: "https://www.freightwaves.com/news/yardflow-lands-over-200-site-yard-automation-deal",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/06/warehouse-yard-trucks.jpg",
-    pubDate: "2026-09-20T14:00:00Z",
-    source: "FreightWaves"
-  },
-  {
-    title: "Federal probe into diversion of F-35 parts to Hong Kong",
-    description: "U.S. lawmakers and the Pentagon are investigating how sensitive F-35 components bound from Australia to the United States for repair were diverted to Hong Kong.",
-    link: "https://www.freightwaves.com/news/federal-probe-into-diversion-of-f-35-parts-to-hong-kong",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/03/military-cargo-plane.jpg",
-    pubDate: "2026-09-19T20:00:00Z",
-    source: "FreightWaves"
-  },
-  {
-    title: "FleetCor, CEO agree to pay $100 million over hidden fuel-card fees",
-    description: "FleetCor and CEO Ronald Clarke agreed to a $100 million payment resolving FTC litigation over hidden charges involving commercial fuel cards affecting tens of thousands of businesses.",
-    link: "https://www.freightwaves.com/news/fleetcor-ceo-agree-to-pay-100-million-over-hidden-fuel-card-fees",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/02/fuel-card-payment.jpg",
-    pubDate: "2026-09-19T17:00:00Z",
-    source: "FreightWaves"
-  },
-  {
     title: "Costco expands ultra-fast delivery through DoorDash, Uber",
-    description: "Costco is expanding its same-day delivery network with DoorDash and Uber across 47 states and nearly 600 locations to compete with Walmart and Target.",
+    description: "Costco is expanding its same-day delivery network with DoorDash and Uber across 47 states and nearly 600 locations to compete with Walmart and Target in the last-mile space.",
     link: "https://www.freightwaves.com/news/costco-expands-ultra-fast-delivery-through-doordash-uber",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/05/costco-delivery-truck.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Q10-A-Kistos.jpg",
     pubDate: "2026-09-19T15:00:00Z",
-    source: "FreightWaves"
-  },
-  {
-    title: "Truck driver accused of trading $110K chicken load to pay drug debt",
-    description: "A Memphis police affidavit says a truck driver offered a $110,000 Koch Foods chicken shipment to settle a drug debt, leading to 12 arrests and recovery of the stolen cargo.",
-    link: "https://www.freightwaves.com/news/truck-driver-accused-of-trading-110k-chicken-load-to-pay-drug-debt",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/08/refrigerated-truck-reefer.jpg",
-    pubDate: "2026-09-19T13:00:00Z",
-    source: "FreightWaves"
-  },
-  {
-    title: "Burglary hits moving BNSF train as container catches fire in Riverside",
-    description: "A BNSF train carrying mixed freight from LA to Chicago caught fire during a burglary in Riverside, California. Firefighters extinguished the blaze and BNSF Police lead the investigation.",
-    link: "https://www.freightwaves.com/news/burglary-hits-moving-bnsf-train-as-container-catches-fire-in-riverside",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/07/bnsf-train-containers.jpg",
-    pubDate: "2026-09-19T11:00:00Z",
-    source: "FreightWaves"
-  },
-  {
-    title: "What's broken in freight tech right now?",
-    description: "What brokers, carriers and tech partners are still getting wrong in today's freight market. GLP-1 drugs estimated to cause 2% decline in food and beverage truckloads.",
-    link: "https://www.freightwaves.com/news/whats-broken-in-freight-tech-right-now",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2024/09/freight-tech-logistics.jpg",
-    pubDate: "2026-09-18T16:00:00Z",
     source: "FreightWaves"
   }
 ];
