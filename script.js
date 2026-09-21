@@ -3355,21 +3355,18 @@ async function fetchLogisticsNews() {
     // 1. Try Firestore first (fast path when backend is deployed)
     let firestoreArticles = await fetchFromFirestore();
     if (firestoreArticles && firestoreArticles.length > 0) {
-      // Check if Firestore data is stale (oldest article > 48 hours old)
+      // Check if Firestore data is stale (newest article > 48 hours old)
       const newestPubDate = new Date(firestoreArticles[0].pubDate);
       const ageMs = Date.now() - newestPubDate.getTime();
       
-      if (ageMs < STALENESS_THRESHOLD_MS) {
+      if (!isNaN(ageMs) && ageMs < STALENESS_THRESHOLD_MS) {
         // Fresh data — use it directly
         globalNewsCache = firestoreArticles;
         renderNews(firestoreArticles);
         console.log(`[NEWS] Loaded ${firestoreArticles.length} fresh articles from Firestore (newest: ${firestoreArticles[0].pubDate})`);
         return;
       } else {
-        // Stale data — render it immediately but try to get fresher data in the background
-        console.warn(`[NEWS] Firestore data is stale (newest article: ${firestoreArticles[0].pubDate}). Showing cached, trying RSS...`);
-        renderNews(firestoreArticles);
-        // Don't return — fall through to try RSS for fresher content
+        console.warn(`[NEWS] Firestore data is stale (newest article: ${firestoreArticles[0].pubDate}). Skipping stale cache in favor of RSS/Curated news.`);
       }
     }
   } catch (e) {
