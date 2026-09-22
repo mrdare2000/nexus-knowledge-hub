@@ -1271,6 +1271,293 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           explanation: "RFID (Radio Frequency Identification) enables automatic wireless scanning and data capture from cargo tags through radio signals."
         }
       ]
+    },
+    {
+      id: "week-7",
+      title: "Weekly Quiz 07",
+      description: "20 Questions • 20 Multiple Choice Questions (MCQs)",
+      questions: [
+        {
+          id: "w7-q1",
+          type: "mcq",
+          category: "Air Freight Operations",
+          question: "What is the maximum structural gross payload weight allowed for a standard 96\" x 125\" PMC air cargo pallet (P6P) in main-deck freighter operations?",
+          options: [
+            "~1,500 kg",
+            "~3,175 kg",
+            "~6,800 kg",
+            "~11,300 kg"
+          ],
+          answerIndex: 2,
+          explanation: "A standard PMC main-deck air cargo pallet (96\" x 125\") has a maximum structural gross weight limit of approximately 6,800 kg (15,000 lbs)."
+        },
+        {
+          id: "w7-q2",
+          type: "mcq",
+          category: "Maritime Law & Liability",
+          question: "Under Hague-Visby Rules, what is the legal liability limit per package for sea carriers in international ocean freight claims?",
+          options: [
+            "100 SDR",
+            "666.67 SDR",
+            "1,000 SDR",
+            "2,000 SDR"
+          ],
+          answerIndex: 1,
+          explanation: "Under Hague-Visby Rules, ocean carrier liability is limited to 666.67 SDR (Special Drawing Rights) per package or 2 SDR per kg, whichever is higher."
+        },
+        {
+          id: "w7-q3",
+          type: "mcq",
+          category: "Incoterms® Rules",
+          question: "Under Incoterms® 2020 CPT (Carriage Paid To), at what exact physical point does legal risk of loss transfer from seller to buyer?",
+          options: [
+            "Upon arrival at the destination port",
+            "When goods are handed over to the first carrier nominated by the seller",
+            "When import customs clearance is completed",
+            "When cargo is unloaded at the buyer's warehouse"
+          ],
+          answerIndex: 1,
+          explanation: "Under CPT, risk transfers when goods are delivered to the first carrier at origin, even though the seller pays transport costs to destination."
+        },
+        {
+          id: "w7-q4",
+          type: "mcq",
+          category: "Ocean Freight & Chartering",
+          question: "What does the maritime term 'Laytime' refer to in charter party agreements?",
+          options: [
+            "The voyage duration between loading and discharge ports",
+            "The contractually agreed period allowed for loading and unloading cargo at berth without incurring penalties",
+            "The period a vessel undergoes drydock repairs",
+            "The storage period inside port warehouses"
+          ],
+          answerIndex: 1,
+          explanation: "Laytime is the agreed time allowed to charterers for cargo operations. Exceeding laytime incurs demurrage charges."
+        },
+        {
+          id: "w7-q5",
+          type: "mcq",
+          category: "Customs & Regulatory Compliance",
+          question: "What is an AEO (Authorized Economic Operator) certification under the WCO SAFE Framework?",
+          options: [
+            "A license required to operate reefer trucks",
+            "A customs-accredited status granting simplified procedures, fast-track clearance, and reduced inspection rates",
+            "A mandatory insurance policy for high-value air cargo",
+            "An international maritime safety passport for vessel captains"
+          ],
+          answerIndex: 1,
+          explanation: "AEO is an accredited customs security partnership granting compliant traders simplified customs procedures and fast-track clearance."
+        },
+        {
+          id: "w7-q6",
+          type: "mcq",
+          category: "Cold Chain Logistics",
+          question: "What is the primary function of a Cold Chain Data Logger inside pharmaceutical or perishables containers?",
+          options: [
+            "To automatically adjust truck engine speed",
+            "To continuously monitor and record ambient temperature and humidity throughout transit",
+            "To calculate ocean freight charges automatically",
+            "To prevent physical theft of cargo boxes"
+          ],
+          answerIndex: 1,
+          explanation: "Data loggers record real-time temperature/humidity data to verify that temperature-sensitive cargo remained within required thermal limits."
+        },
+        {
+          id: "w7-q7",
+          type: "mcq",
+          category: "Container Terminal Operations",
+          question: "Which heavy terminal equipment straddles container rows to stack containers up to 4-5 high in port yards?",
+          options: [
+            "Reach Stacker",
+            "Rubber-Tyred Gantry (RTG) Crane / Straddle Carrier",
+            "Heavy Forklift",
+            "Side Loader Truck"
+          ],
+          answerIndex: 1,
+          explanation: "RTG cranes and Straddle Carriers operate across container yards to stack, retrieve, and load containers onto chassis trucks."
+        },
+        {
+          id: "w7-q8",
+          type: "mcq",
+          category: "Air Cargo Regulations",
+          question: "According to IATA DGR, what mandatory document must accompany all hazardous air shipments prepared by a certified shipper?",
+          options: [
+            "Bill of Lading",
+            "Shipper's Declaration for Dangerous Goods (DGD)",
+            "Commercial Invoice",
+            "Delivery Order"
+          ],
+          answerIndex: 1,
+          explanation: "A Shipper's Declaration for Dangerous Goods (DGD) is legally required for all dangerous goods transported by commercial aircraft."
+        },
+        {
+          id: "w7-q9",
+          type: "mcq",
+          category: "Supply Chain Dynamics",
+          question: "How is the 'Bullwhip Effect' defined in supply chain inventory management?",
+          options: [
+            "Physical damage caused to cargo by rough ocean waves",
+            "Amplification of demand variability as order signals travel upstream from consumer to manufacturer",
+            "Sudden sharp increases in jet fuel surcharges",
+            "Port congestion caused by dockworker strikes"
+          ],
+          answerIndex: 1,
+          explanation: "The Bullwhip Effect occurs when minor fluctuations in retail demand cause increasing swings in wholesale order volumes up the supply chain."
+        },
+        {
+          id: "w7-q10",
+          type: "mcq",
+          category: "Freight Forwarding & LCL",
+          question: "In LCL (Less than Container Load) shipping, what document is issued by the freight forwarder to the individual shipper?",
+          options: [
+            "Master Bill of Lading (MBL)",
+            "House Bill of Lading (HBL)",
+            "Sea Waybill",
+            "Customs Manifest"
+          ],
+          answerIndex: 1,
+          explanation: "Freight forwarders issue a House Bill of Lading (HBL) to individual cargo owners while receiving one Master Bill of Lading (MBL) from the ocean carrier."
+        },
+        {
+          id: "w7-q11",
+          type: "mcq",
+          category: "Maritime Geography & Strategic Routes",
+          question: "Which strategic maritime choke point connects the Persian Gulf to the Gulf of Oman, handling over 20% of global oil shipments?",
+          options: [
+            "Strait of Malacca",
+            "Strait of Hormuz",
+            "Bab-el-Mandeb Strait",
+            "Bosporus Strait"
+          ],
+          answerIndex: 1,
+          explanation: "The Strait of Hormuz is a critical narrow maritime passage for global oil tankers traveling from Persian Gulf producers to world markets."
+        },
+        {
+          id: "w7-q12",
+          type: "mcq",
+          category: "Warehousing & Inventory Control",
+          question: "Which inventory management policy dispatches the oldest received stock units before newer arrivals?",
+          options: [
+            "LIFO (Last-In, First-Out)",
+            "FIFO (First-In, First-Out)",
+            "FEFO (First-Expired, First-Out)",
+            "Weighted Average Cost"
+          ],
+          answerIndex: 1,
+          explanation: "FIFO (First-In, First-Out) ensures oldest inventory is dispatched first to minimize inventory degradation and obsolescence."
+        },
+        {
+          id: "w7-q13",
+          type: "mcq",
+          category: "Special Cargo & Oversized Freight",
+          question: "What container type is designed with collapsible end-frames to transport heavy out-of-gauge (OOG) machinery?",
+          options: [
+            "40ft Standard Dry Van",
+            "Flat Rack Container",
+            "Insulated Reefer Container",
+            "Flexitank Container"
+          ],
+          answerIndex: 1,
+          explanation: "Flat Rack containers have open sides and collapsible ends to accommodate oversized, heavy machinery exceeding standard container dimensions."
+        },
+        {
+          id: "w7-q14",
+          type: "mcq",
+          category: "Marine Cargo Insurance",
+          question: "Under Institute Cargo Clauses (ICC), which coverage tier offers the widest 'All Risks' coverage for ocean transit?",
+          options: [
+            "Institute Cargo Clauses (C)",
+            "Institute Cargo Clauses (B)",
+            "Institute Cargo Clauses (A)",
+            "Free of Particular Average (FPA)"
+          ],
+          answerIndex: 2,
+          explanation: "Institute Cargo Clauses (A) provides the broadest 'All Risks' protection subject only to explicitly listed exclusions."
+        },
+        {
+          id: "w7-q15",
+          type: "mcq",
+          category: "Multimodal Rail Transportation",
+          question: "What does TOFC ('Piggyback') service stand for in intermodal rail logistics?",
+          options: [
+            "Transport On Freight Craft",
+            "Trailer-on-Flatcar",
+            "Trucking Over Freight Corridors",
+            "Tonnage On Fast Carrier"
+          ],
+          answerIndex: 1,
+          explanation: "TOFC (Trailer-on-Flatcar), commonly called Piggyback, involves transporting highway semi-trailers on long-distance railway flatcars."
+        },
+        {
+          id: "w7-q16",
+          type: "mcq",
+          category: "Customs Documentation",
+          question: "What is an ATA Carnet in international trade logistics?",
+          options: [
+            "A vessel speed certificate",
+            "A 'Passport for Goods' enabling duty-free temporary import of commercial samples and exhibition equipment",
+            "A hazardous waste disposal permit",
+            "A foreign exchange control receipt"
+          ],
+          answerIndex: 1,
+          explanation: "An ATA Carnet acts as a passport for goods, allowing temporary duty-free import of commercial samples and equipment into participating countries."
+        },
+        {
+          id: "w7-q17",
+          type: "mcq",
+          category: "Ocean Vessel Chartering",
+          question: "Under a Time Charter agreement, who pays for operational expenses such as bunker fuel, port charges, and canal dues?",
+          options: [
+            "The Shipowner",
+            "The Charterer",
+            "The Port Authority",
+            "The Marine Insurance Underwriter"
+          ],
+          answerIndex: 1,
+          explanation: "Under a Time Charter, the shipowner supplies vessel and crew, while the charterer pays variable voyage costs including fuel (bunkers) and port fees."
+        },
+        {
+          id: "w7-q18",
+          type: "mcq",
+          category: "E-Commerce Fulfillment",
+          question: "What defines 'Micro-Fulfillment' in modern urban logistics networks?",
+          options: [
+            "Constructing mega-warehouses near seaport gates",
+            "Operating small, automated urban storage hubs located close to consumers for rapid 1-2 hour delivery",
+            "Shipping small parcels exclusively via ocean freight",
+            "Manual sorting of postal mail"
+          ],
+          answerIndex: 1,
+          explanation: "Micro-fulfillment centers (MFCs) leverage small urban facilities and automated picking systems to fulfill local e-commerce orders rapidly."
+        },
+        {
+          id: "w7-q19",
+          type: "mcq",
+          category: "Reverse Logistics",
+          question: "What process manages the movement of products from end-users back to sellers for return, repair, or recycling?",
+          options: [
+            "Inbound Logistics",
+            "Outbound Distribution",
+            "Reverse Logistics",
+            "Cross-Docking"
+          ],
+          answerIndex: 2,
+          explanation: "Reverse Logistics encompasses all operations related to the return, reuse, recycling, or disposal of products after consumer sale."
+        },
+        {
+          id: "w7-q20",
+          type: "mcq",
+          category: "Green & Sustainable Logistics",
+          question: "What global IMO environmental regulation went into effect on Jan 1, 2020, limiting marine fuel sulfur content to 0.50%?",
+          options: [
+            "SOLAS Container Weight Verification",
+            "IMO 2020 Low Sulfur Mandate",
+            "MARPOL Annex II Chemical Code",
+            "Kyoto Protocol Logistics Annex"
+          ],
+          answerIndex: 1,
+          explanation: "IMO 2020 enforced a global 0.50% mass-by-mass sulfur limit on marine fuel oil to reduce sulfur oxide emissions from ocean shipping."
+        }
+      ]
     }
   ]
 };
