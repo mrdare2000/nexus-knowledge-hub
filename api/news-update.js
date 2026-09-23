@@ -312,7 +312,7 @@ async function clearAndWriteNews(accessToken, articles) {
 
 export default async function handler(req, res) {
   // CORS
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.nexusknowledgehub.com');
+  res.setHeader('Access-Control-Allow-Origin', 'https://nexusknowledgehub.com');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 

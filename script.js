@@ -3259,87 +3259,87 @@ const CLIENT_RSS_FEEDS = [
 ];
 
 // Bulletproof Fallback: Verified real logistics news articles from top publishers with exact working article links & publisher CDN images
-// Last updated: 2026-09-21 — These are refreshed periodically and serve as the absolute last resort.
+// Last updated: 2026-09-23 — These are refreshed periodically and serve as the absolute last resort.
 const TODAYS_CURATED_NEWS = [
   {
-    title: "Trafigura rolls out VLCC venture Volare Shipping with Oslo IPO",
-    description: "Commodity trading giant Trafigura is opening its growing VLCC fleet to outside investors, launching a $500m private placement ahead of a planned Oslo listing of newly created Volare Shipping.",
-    link: "https://splash247.com/trafigura-rolls-out-vlcc-venture-volare-shipping-with-oslo-ipo/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Andrea-Olivi-Trafigura.jpg",
-    pubDate: "2026-09-21T07:47:28Z",
+    title: "MSC ship abandoned and adrift in South China Sea",
+    description: "The troubled MSC Hermes III remains afloat and drifting unmanned in the South China Sea after all 25 crew abandoned the vessel yesterday, described as a 'derelict' vessel adrift near Vietnam.",
+    link: "https://splash247.com/msc-ship-abandoned-and-adrift-in-south-china-sea/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/MSC-Hermes-3.jpg",
+    pubDate: "2026-09-23T03:20:04Z",
     source: "Splash 247"
   },
   {
-    title: "ClarkSea Index surges 27% above 2007 peak",
-    description: "Clarksons' cross-sector ClarkSea Index continues to record new all-time highs as strong conditions spread across gas carriers, bulkers, containerships and car carriers alongside extraordinary crude tanker earnings.",
-    link: "https://splash247.com/clarksea-index-surges-27-above-2007-peak/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/01/Dhalkut-VLCC-Asyad-Shipping.jpg",
-    pubDate: "2026-09-21T06:00:00Z",
+    title: "Boxship orderbook points to looming capacity showdown",
+    description: "Container shipping's extraordinary newbuilding binge has reached a point where several carriers now have more ships on order than they have in their entire existing fleets.",
+    link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/04/MSC-Migsan-MSC-Zivana-naming-ceremony.jpg",
+    pubDate: "2026-09-23T04:41:19Z",
     source: "Splash 247"
   },
   {
-    title: "Transpacific-Europe container rate gap blows out to record",
-    description: "The world's two great east-west container trades are moving in dramatically different directions, with the gap between transpacific and Asia-Europe spot rates widening to unprecedented levels.",
-    link: "https://splash247.com/transpacific-europe-rate-gap-blows-out-to-record/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2024/09/Port-Authority-of-New-York-New-Jersey-and-CMA-CGM.jpg",
-    pubDate: "2026-09-21T05:45:00Z",
+    title: "How long can the million-dollar VLCC market last?",
+    description: "The VLCC market has reached levels that would have sounded absurd only months ago. Middle East-China earnings have pushed beyond $1m a day, Atlantic routes have surged into the hundreds of thousands.",
+    link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/06/DHT-Antelope-VLCC.jpg",
+    pubDate: "2026-09-23T04:35:15Z",
     source: "Splash 247"
   },
   {
-    title: "Crew claims hackers seized control of LNG carrier safety systems",
-    description: "A US LNG cargo bound for Italy has been diverted after the crew of its carrier reported a systems failure as a suspected cyberattack, adding to growing concerns over attacks on shipboard digital systems.",
-    link: "https://splash247.com/crew-claims-hackers-seized-control-of-lng-carrier-safety-systems/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cydome-Cyber-Hack.jpg",
-    pubDate: "2026-09-21T05:30:00Z",
+    title: "Lars Kastrup stands down as PIL boss with Temasek exec lined up",
+    description: "Pacific International Lines chief executive Lars Kastrup will step down next April, bringing to a close a tenure that coincided with one of the most dramatic turnarounds in the Singapore liner's history.",
+    link: "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2022/07/Lars-Kastrup-CEO-PIL.jpg",
+    pubDate: "2026-09-23T04:26:50Z",
     source: "Splash 247"
   },
   {
-    title: "Is maritime neglecting AI?",
-    description: "Olga Boenigk, the founder of AI goes Maritime, challenges the shipping industry's cautious approach to artificial intelligence adoption, arguing that the window for careful waiting is closing fast.",
-    link: "https://splash247.com/is-maritime-neglecting-ai/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/AI-Containership-SplashTech.jpg",
-    pubDate: "2026-09-21T04:10:00Z",
-    source: "Splash 247"
-  },
-  {
-    title: "Qatar Energy Chief says Bessent 'wrong' about Hormuz future",
-    description: "Qatari Energy Minister Saad Al-Kaabi said Treasury Secretary Scott Bessent is 'wrong' about the strategic Strait of Hormuz, intensifying the geopolitical debate over global shipping chokepoints.",
-    link: "https://gcaptain.com/qatar-energy-chief-says-bessent-wrong-about-hormuz-future/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Sea-Leopard-VLCC-lewoszewski-Marine-Traffic.jpg",
-    pubDate: "2026-09-20T22:39:11Z",
+    title: "Trump Pushing for Diesel Export Ban Amid Surging Fuel Prices",
+    description: "President Donald Trump said he's encouraged his advisers to support a ban on US diesel exports, with wars in Iran and Ukraine driving fuel prices higher across the economy.",
+    link: "https://gcaptain.com/trump-pushing-for-diesel-export-ban-amid-surging-fuel-prices/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/MSC-Hermes-3.jpg",
+    pubDate: "2026-09-22T19:49:05Z",
     source: "gCaptain"
   },
   {
-    title: "Tesla plans massive Texas distribution center near Austin",
-    description: "Tesla is planning a 538,000+ sq ft distribution center near Austin, adding another logistics facility to its growing manufacturing and supply chain footprint in the region.",
-    link: "https://www.freightwaves.com/news/borderlands-mexico-tesla-plans-massive-texas-distribution-center",
-    imageUrl: "https://splash247.com/wp-content/uploads/2025/11/Ren-Yuanlin-Yangzijiang-Financial-Holding.jpg",
-    pubDate: "2026-09-21T12:00:00Z",
+    title: "The Other Hormuz: Black Sea Blockade Threatens a Food Supply Shock",
+    description: "The gap between two critical chokepoints widens as the Black Sea route remains closed due to Ukrainian drone attacks, threatening global food supply chains and wheat exports.",
+    link: "https://gcaptain.com/the-other-hormuz-black-sea-blockade-threatens-a-food-supply-shock/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Sea-Leopard-VLCC-lewoszewski-Marine-Traffic.jpg",
+    pubDate: "2026-09-22T16:55:14Z",
+    source: "gCaptain"
+  },
+  {
+    title: "The Fed Just Raised Rates Again: Here's What It Means for Freight",
+    description: "The FOMC raised the federal funds target range by 25 basis points to 3.75%–4.00%, its first hike after a run of cuts. Higher rates raise the cost of carrying inventory and financing fleet equipment.",
+    link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Option-A-%E2%80%93-Rate-staircase@1x.png",
+    pubDate: "2026-09-22T18:59:27Z",
     source: "FreightWaves"
   },
   {
-    title: "Fuel cost spike hits carrier margins as diesel surges",
-    description: "Retail diesel prices rose roughly 31% from July to September while wholesale climbed even faster, narrowing the retail-wholesale spread and squeezing carrier margins across the U.S.",
-    link: "https://www.freightwaves.com/news/fuel-cost-spike-hits-carrier-margins",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Lisca-Nera-M-tanker-Augusta-Due.jpg",
-    pubDate: "2026-09-20T18:00:00Z",
+    title: "New report: Just a third of container shipping on-time",
+    description: "Global container schedule reliability slipped in August as Far East–Europe disruptions drove performance toward pandemic-era lows, with just 29% of vessels arriving on time.",
+    link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/PortOfItajaifoto.jpg",
+    pubDate: "2026-09-22T18:23:09Z",
     source: "FreightWaves"
   },
   {
-    title: "Fake FedEx drivers steal $680K electronics load from Delaware warehouse",
-    description: "Delaware State Police arrested a California man after a $680,000 electronics shipment disappeared from a New Castle warehouse using fraudulent identification and shipping records.",
-    link: "https://www.freightwaves.com/news/fake-fedex-drivers-steal-680k-electronics-load-from-new-castle-de-warehouse",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Orient-Inspirer.jpg",
-    pubDate: "2026-09-20T15:30:00Z",
+    title: "New $100M inland rail terminal will handle 60,000 TEUs a year",
+    description: "Alabama's $100 million Montgomery inland container terminal will link central Alabama shippers to the Port of Mobile via CSX rail, with construction on schedule for early 2027 opening.",
+    link: "https://www.freightwaves.com/news/new-100m-inland-rail-terminal-will-handle-60000-teus-a-year",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Montgomery-ICTF-Rendering.jpeg-copy.jpg",
+    pubDate: "2026-09-22T16:37:34Z",
     source: "FreightWaves"
   },
   {
-    title: "Costco expands ultra-fast delivery through DoorDash, Uber",
-    description: "Costco is expanding its same-day delivery network with DoorDash and Uber across 47 states and nearly 600 locations to compete with Walmart and Target in the last-mile space.",
-    link: "https://www.freightwaves.com/news/costco-expands-ultra-fast-delivery-through-doordash-uber",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Q10-A-Kistos.jpg",
-    pubDate: "2026-09-19T15:00:00Z",
-    source: "FreightWaves"
+    title: "FMC Change Could Revive Older Detention and Demurrage Claims",
+    description: "The US Federal Maritime Commission confirmed there is no three-year statute of limitations on charge complaints relating to fees assessed on or after 16 June 2022, leaving carriers exposed to older claims.",
+    link: "https://gcaptain.com/fmc-change-could-revive-older-detention-and-demurrage-claims/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
+    pubDate: "2026-09-22T16:48:29Z",
+    source: "gCaptain"
   }
 ];
 
