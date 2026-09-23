@@ -3298,7 +3298,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Global Port Automation Market Projected to Reach $15 Billion by 2030",
     description: "Driven by labor shortages and efficiency demands, container terminals worldwide are rapidly expanding automated stacking cranes and autonomous AGV fleets.",
     link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2023/01/Guo-Yuan-8-Fujian-Guohang-Ocean-Shipping.jpg",
     pubDate: "2026-09-23T02:15:00Z",
     source: "Splash 247"
   },
@@ -3316,7 +3316,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Trump Pushing for Diesel Export Ban Amid Surging Fuel Prices",
     description: "President Donald Trump said he's encouraged his advisers to support a ban on US diesel exports, with wars in Iran and Ukraine driving fuel prices higher across the economy.",
     link: "https://gcaptain.com/trump-pushing-for-diesel-export-ban-amid-surging-fuel-prices/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/MSC-Hermes-3.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
     pubDate: "2026-09-22T19:49:05Z",
     source: "gCaptain"
   },
@@ -3324,7 +3324,7 @@ const TODAYS_CURATED_NEWS = [
     title: "The Other Hormuz: Black Sea Blockade Threatens a Food Supply Shock",
     description: "The gap between two critical chokepoints widens as the Black Sea route remains closed due to Ukrainian drone attacks, threatening global food supply chains and wheat exports.",
     link: "https://gcaptain.com/the-other-hormuz-black-sea-blockade-threatens-a-food-supply-shock/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Sea-Leopard-VLCC-lewoszewski-Marine-Traffic.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2023/03/Synergy-female-crew-PPE.jpg",
     pubDate: "2026-09-22T16:55:14Z",
     source: "gCaptain"
   },
@@ -3332,7 +3332,7 @@ const TODAYS_CURATED_NEWS = [
     title: "The Fed Just Raised Rates Again: Here's What It Means for Freight",
     description: "The FOMC raised the federal funds target range by 25 basis points to 3.75%–4.00%, its first hike after a run of cuts. Higher rates raise the cost of carrying inventory and financing fleet equipment.",
     link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Option-A-%E2%80%93-Rate-staircase@1x.png",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/image.png",
     pubDate: "2026-09-22T18:59:27Z",
     source: "FreightWaves"
   },
@@ -3356,7 +3356,7 @@ const TODAYS_CURATED_NEWS = [
     title: "FMC Change Could Revive Older Detention and Demurrage Claims",
     description: "The US Federal Maritime Commission confirmed there is no three-year statute of limitations on charge complaints relating to fees assessed on or after 16 June 2022, leaving carriers exposed to older claims.",
     link: "https://gcaptain.com/fmc-change-could-revive-older-detention-and-demurrage-claims/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2020/10/2020-Bulkers-Magnus-Halvorsen-e1603265659533.jpg",
     pubDate: "2026-09-22T16:48:29Z",
     source: "gCaptain"
   },
@@ -3366,7 +3366,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Panama Canal Increases Daily Booking Slots as Water Levels Recover",
     description: "The Panama Canal Authority has announced an increase in daily vessel transits from 34 to 36 ships following healthy seasonal rainfall across the Gatun Lake basin.",
     link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/04/MSC-Migsan-MSC-Zivana-naming-ceremony.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Jan-de-Nul-subsea-trencher.jpg",
     pubDate: "2026-09-21T17:30:00Z",
     source: "Splash 247"
   },
@@ -3374,7 +3374,7 @@ const TODAYS_CURATED_NEWS = [
     title: "US West Coast Ports See Record August Import Volumes",
     description: "Combined import container volumes at Los Angeles and Long Beach rose 8.5% year-over-year in August as retailers front-loaded holiday merchandise to hedge against potential East Coast strikes.",
     link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/PortOfItajaifoto.jpg",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Aryabhatt-1-under-previous-name.jpg",
     pubDate: "2026-09-21T15:45:12Z",
     source: "FreightWaves"
   },
@@ -3382,7 +3382,7 @@ const TODAYS_CURATED_NEWS = [
     title: "EU Carbon Tax Expansion Hits Short-Sea Shipping Operators",
     description: "Maritime operators navigating European feeder lines face increased operational surcharges as phase-in rules under the EU Emissions Trading System (ETS) tighten compliance thresholds.",
     link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/06/DHT-Antelope-VLCC.jpg",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/08/FW_GAL_T3-6.jpg",
     pubDate: "2026-09-21T14:10:00Z",
     source: "Splash 247"
   },
@@ -3390,7 +3390,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Singapore Maritime Authority Unveils $50M Green Shipping Fund",
     description: "Maritime and Port Authority of Singapore launches a dedicated innovation fund aimed at accelerating methanol and ammonia bunkering pilot projects across Asia-Pacific.",
     link: "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2022/07/Lars-Kastrup-CEO-PIL.jpg",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2023/03/30/AtoB_fleet_telematics.jpg",
     pubDate: "2026-09-21T11:25:30Z",
     source: "Splash 247"
   },
@@ -3398,7 +3398,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Air Freight Rates Surge 12% Ahead of Q4 Peak Retail Season",
     description: "Transpacific air freight spot rates jumped to $5.40/kg this week driven by high-tech product launches and cross-border e-commerce surges out of Southern China hubs.",
     link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Option-A-%E2%80%93-Rate-staircase@1x.png",
+    imageUrl: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-21T09:15:00Z",
     source: "FreightWaves"
   },
@@ -3406,7 +3406,7 @@ const TODAYS_CURATED_NEWS = [
     title: "ILA Strike Threat Looms Large as East Coast Port Contracts Expire",
     description: "Negotiations between the International Longshoremen's Association and US Maritime Alliance remain stalled over port automation clauses with less than ten days until contract expiration.",
     link: "https://gcaptain.com/fmc-change-could-revive-older-detention-and-demurrage-claims/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1618042164219-62c820f10723?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-21T08:00:00Z",
     source: "gCaptain"
   },
@@ -3416,7 +3416,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Qatar Energy Signs Long-Term LNG Carrier Charter Agreements",
     description: "State-owned QatarEnergy has finalized charter contracts for 15 next-generation conventional LNG carriers as part of its massive North Field expansion fleet program.",
     link: "https://gcaptain.com/the-other-hormuz-black-sea-blockade-threatens-a-food-supply-shock/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Sea-Leopard-VLCC-lewoszewski-Marine-Traffic.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1565891741441-6ad965554900?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-20T18:20:00Z",
     source: "gCaptain"
   },
@@ -3424,7 +3424,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Rail Freight Intermodal Spot Rates Rise in US Midwest Corridors",
     description: "Class I railroads report tightening domestic container availability across Chicago, Kansas City, and Dallas hubs as autumn agricultural exports ramp up.",
     link: "https://www.freightwaves.com/news/new-100m-inland-rail-terminal-will-handle-60000-teus-a-year",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Montgomery-ICTF-Rendering.jpeg-copy.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-20T16:10:00Z",
     source: "FreightWaves"
   },
@@ -3432,7 +3432,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Maersk Tests Hydrogen Fuel Cell Yard Tractors at Port of Los Angeles",
     description: "APM Terminals deploys zero-emission hydrogen fuel cell terminal tractors in Pier 400 trial, targeting full decarbonization of landside cargo handling equipment by 2030.",
     link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/04/MSC-Migsan-MSC-Zivana-naming-ceremony.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-20T14:40:00Z",
     source: "Splash 247"
   },
@@ -3440,7 +3440,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Baltic Dry Index Gains 45 Points Supported by Capesize Demand",
     description: "Strong iron ore chartering activity from Australia to China pushed Capesize rates above $24,000 per day, lifting the overall dry bulk market benchmark.",
     link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/06/DHT-Antelope-VLCC.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-20T12:05:00Z",
     source: "Splash 247"
   },
@@ -3448,7 +3448,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Global Semiconductor Supply Chain Normalizes Following Taiwan Disruptions",
     description: "Major automotive and electronics manufacturers report lead time reductions for critical microcontrollers following restored production yields across East Asian foundries.",
     link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Option-A-%E2%80%93-Rate-staircase@1x.png",
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-20T10:30:00Z",
     source: "FreightWaves"
   },
@@ -3456,7 +3456,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Rotterdam Container Throughput Up 4.2% Year-Over-Year",
     description: "Europe's largest seaport logged solid container throughput growth in Q3, buoyed by transshipment volumes and steady chemical imports.",
     link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/PortOfItajaifoto.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-20T08:15:00Z",
     source: "FreightWaves"
   },
@@ -3466,7 +3466,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Hapag-Lloyd Expands Intra-Asia Service Network with 4 New Routes",
     description: "German ocean carrier enhances regional connectivity between Vietnam, Thailand, Malaysia, and Japan with dedicated feeder loops starting October 1.",
     link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/04/MSC-Migsan-MSC-Zivana-naming-ceremony.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-19T17:50:00Z",
     source: "Splash 247"
   },
@@ -3474,7 +3474,7 @@ const TODAYS_CURATED_NEWS = [
     title: "US Trucking Capacity Tightens as Spot Market Volume Surges 8%",
     description: "National dry van spot rates gained 4 cents per mile as early harvest season freight and retail restocking absorbed excess driver capacity.",
     link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Option-A-%E2%80%93-Rate-staircase@1x.png",
+    imageUrl: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-19T15:20:00Z",
     source: "FreightWaves"
   },
@@ -3482,7 +3482,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Suez Canal Toll Discounts Extended for Transatlantic Container Ships",
     description: "The Suez Canal Authority prolongs rebate schemes offering up to 50% discount for container vessels returning from US East Coast ports to South Asia.",
     link: "https://gcaptain.com/fmc-change-could-revive-older-detention-and-demurrage-claims/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-19T13:45:00Z",
     source: "gCaptain"
   },
@@ -3490,7 +3490,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Port of Hamburg Automated Stacking Cranes Go Live in Phase 2 Expansion",
     description: "HHLA completes installation of 12 new high-efficiency electric stacking cranes at Container Terminal Altenwerder, boosting terminal throughput capacity.",
     link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/PortOfItajaifoto.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-19T11:10:00Z",
     source: "FreightWaves"
   },
@@ -3498,7 +3498,7 @@ const TODAYS_CURATED_NEWS = [
     title: "E-Commerce Giants Secure Warehouse Space Near Major US Hubs",
     description: "Industrial real estate demand spikes in Inland Empire and Dallas-Fort Worth markets as logistics providers prepare fulfillment centers for holiday shopping peak.",
     link: "https://www.freightwaves.com/news/new-100m-inland-rail-terminal-will-handle-60000-teus-a-year",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Montgomery-ICTF-Rendering.jpeg-copy.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1586528116493-a029325540fa?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-19T09:30:00Z",
     source: "FreightWaves"
   },
@@ -3506,7 +3506,7 @@ const TODAYS_CURATED_NEWS = [
     title: "Global Air Cargo Demand Outpaces Pre-Pandemic Levels in August",
     description: "IATA reports global air freight cargo tonne-kilometers (CTKs) grew 11.4% compared to 2023, driven by high demand for express cross-border shipping.",
     link: "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2022/07/Lars-Kastrup-CEO-PIL.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&auto=format&fit=crop&q=80",
     pubDate: "2026-09-19T07:15:00Z",
     source: "Splash 247"
   }
@@ -3524,18 +3524,31 @@ async function fetchLogisticsNews() {
     // 1. Try Firestore first (fast path when backend is deployed)
     let firestoreArticles = await fetchFromFirestore();
     if (firestoreArticles && firestoreArticles.length > 0) {
-      // Check if Firestore data is stale (newest article > 48 hours old)
+      // Check if Firestore data contains repeated/duplicate images from older cache
+      const imageCounts = {};
+      let hasDuplicateImages = false;
+      for (const art of firestoreArticles) {
+        if (art.imageUrl) {
+          imageCounts[art.imageUrl] = (imageCounts[art.imageUrl] || 0) + 1;
+          if (imageCounts[art.imageUrl] > 2) {
+            hasDuplicateImages = true;
+            break;
+          }
+        }
+      }
+
+      // Check if Firestore data is stale (newest article > 144 hours old)
       const newestPubDate = new Date(firestoreArticles[0].pubDate);
       const ageMs = Date.now() - newestPubDate.getTime();
       
-      if (!isNaN(ageMs) && ageMs < STALENESS_THRESHOLD_MS) {
-        // Fresh data — use it directly
+      if (!hasDuplicateImages && !isNaN(ageMs) && ageMs < STALENESS_THRESHOLD_MS) {
+        // Fresh data with unique images — use it directly
         globalNewsCache = firestoreArticles;
         renderNews(firestoreArticles);
         console.log(`[NEWS] Loaded ${firestoreArticles.length} fresh articles from Firestore (newest: ${firestoreArticles[0].pubDate})`);
         return;
       } else {
-        console.warn(`[NEWS] Firestore data is stale (newest article: ${firestoreArticles[0].pubDate}). Skipping stale cache in favor of RSS/Curated news.`);
+        console.warn(`[NEWS] Firestore cache bypassed (stale or contains duplicate images). Using curated/RSS news.`);
       }
     }
   } catch (e) {
