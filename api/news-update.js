@@ -460,9 +460,39 @@ export default async function handler(req, res) {
       const existingTitleSet = new Set(existingArticles.map(a => a.title.trim().toLowerCase()));
       const freshArticles = fetchedRssArticles.filter(a => !existingTitleSet.has(a.title.trim().toLowerCase()));
 
-      // Take top 6 newest fresh articles
-      const freshSix = freshArticles.slice(0, 6);
-      console.log(`[NEWS-UPDATE] Prepending ${freshSix.length} new daily articles to existing set of ${existingArticles.length}.`);
+      // Helper: Detect Aviation / Air Cargo articles
+      function isAviationArticle(art) {
+        const text = (art.title + ' ' + art.description + ' ' + art.source).toLowerCase();
+        const aviationKw = ['air cargo', 'aviation', 'airline', 'air freight', 'airways', 'freighter', 'boeing', 'airbus', 'flight', 'airport', 'iata', 'cargo plane'];
+        return aviationKw.some(kw => text.includes(kw));
+      }
+
+      // Select 6 fresh articles ensuring sector diversity (1-2 Aviation + Maritime, Land, Supply Chain)
+      function selectDiverseSix(articles) {
+        if (articles.length <= 6) return articles;
+
+        const aviation = articles.filter(isAviationArticle);
+        const nonAviation = articles.filter(a => !isAviationArticle(a));
+
+        const selected = [];
+        // Pick up to 2 fresh aviation articles if available
+        const aviationPick = aviation.slice(0, 2);
+        selected.push(...aviationPick);
+
+        // Fill remaining slots (up to 6) with newest non-aviation articles
+        for (const art of nonAviation) {
+          if (selected.length >= 6) break;
+          selected.push(art);
+        }
+
+        // Sort final 6 newest first
+        selected.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+        return selected;
+      }
+
+      // Take 6 fresh articles with sector balance (Aviation + Maritime + Land + Tech)
+      const freshSix = selectDiverseSix(freshArticles);
+      console.log(`[NEWS-UPDATE] Prepending ${freshSix.length} sector-balanced daily articles to existing set of ${existingArticles.length}.`);
 
       // Combine fresh 6 + existing, deduplicate, limit to MAX_ARTICLES (30)
       const combined = [...freshSix, ...existingArticles];
