@@ -3727,7 +3727,7 @@ function generateNewsHTML(articles) {
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
         <div class="news-card-image" style="position: relative;">
-          <img src="${imgUrl}" alt="${safeTitle}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <img src="${imgUrl}" alt="${safeTitle}" onerror="this.onerror=null; this.src='images/types_of_logistics.jpg';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           ${safeSource ? `<span class="news-source-badge">${safeSource}</span>` : ''}
         </div>
         <div class="news-card-content">

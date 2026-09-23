@@ -460,39 +460,84 @@ export default async function handler(req, res) {
       const existingTitleSet = new Set(existingArticles.map(a => a.title.trim().toLowerCase()));
       const freshArticles = fetchedRssArticles.filter(a => !existingTitleSet.has(a.title.trim().toLowerCase()));
 
-      // Helper: Detect Aviation / Air Cargo articles
-      function isAviationArticle(art) {
+      // 6 Sector Categories Classifier
+      const SECTOR_CATEGORIES = [
+        {
+          id: 'politics',
+          name: 'Geopolitics & Tariffs',
+          keywords: ['tariff', 'sanction', 'wto', 'trade war', 'brics', 'embargo', 'geopolitical', 'war', 'conflict', 'houthi', 'red sea', 'suez', 'panama', 'trump', 'biden', 'duties', 'cbp', 'policy', 'agreement', 'crisis', 'emergency', 'blockade']
+        },
+        {
+          id: 'aviation',
+          name: 'Aviation & Air Cargo',
+          keywords: ['air cargo', 'aviation', 'airline', 'air freight', 'airways', 'freighter', 'boeing', 'airbus', 'flight', 'airport', 'iata', 'cargo plane', 'belly-hold']
+        },
+        {
+          id: 'maritime',
+          name: 'Maritime & Ocean Freight',
+          keywords: ['maritime', 'shipping', 'vessel', 'container', 'carrier', 'ocean', 'bunker', 'tanker', 'teu', 'berth', 'vlcc', 'capesize', 'dry bulk', 'liner', 'maersk', 'msc', 'cosco', 'hapag', 'cma cgm', 'evergreen', 'yang ming', 'pil']
+        },
+        {
+          id: 'ports',
+          name: 'Ports & Infrastructure',
+          keywords: ['port', 'terminal', 'dockworker', 'ila', 'ilwu', 'strike', 'labor', 'labour', 'crane', 'automation', 'port congestion', 'anchorage', 'drayage']
+        },
+        {
+          id: 'land_rail',
+          name: 'Land & Rail Freight',
+          keywords: ['rail', 'intermodal', 'trucking', 'truck', 'fleet', 'road freight', 'multimodal', 'csx', 'union pacific', 'norfolk southern', 'bnsf', 'dry van', 'spot rate', 'highway']
+        },
+        {
+          id: 'tech_supplychain',
+          name: 'Supply Chain Tech & Retail',
+          keywords: ['supply chain', 'logistics', 'warehouse', 'customs', 'e-commerce', 'amazon', 'fulfillment', 'fulfilment', 'last mile', '3pl', 'demurrage', 'detention', 'bill of lading', 'freight quoting', 'telematics', 'semiconductor', 'chip']
+        }
+      ];
+
+      function classifyArticle(art) {
         const text = (art.title + ' ' + art.description + ' ' + art.source).toLowerCase();
-        const aviationKw = ['air cargo', 'aviation', 'airline', 'air freight', 'airways', 'freighter', 'boeing', 'airbus', 'flight', 'airport', 'iata', 'cargo plane'];
-        return aviationKw.some(kw => text.includes(kw));
+        for (const cat of SECTOR_CATEGORIES) {
+          if (cat.keywords.some(kw => text.includes(kw))) {
+            return cat.id;
+          }
+        }
+        return 'other';
       }
 
-      // Select 6 fresh articles ensuring sector diversity (1-2 Aviation + Maritime, Land, Supply Chain)
+      // Select 6 fresh articles spanning all 6 sector categories (1 per sector)
       function selectDiverseSix(articles) {
         if (articles.length <= 6) return articles;
 
-        const aviation = articles.filter(isAviationArticle);
-        const nonAviation = articles.filter(a => !isAviationArticle(a));
-
         const selected = [];
-        // Pick up to 2 fresh aviation articles if available
-        const aviationPick = aviation.slice(0, 2);
-        selected.push(...aviationPick);
+        const selectedTitles = new Set();
 
-        // Fill remaining slots (up to 6) with newest non-aviation articles
-        for (const art of nonAviation) {
-          if (selected.length >= 6) break;
-          selected.push(art);
+        // 1. Pick 1 newest article from each of the 6 categories
+        for (const cat of SECTOR_CATEGORIES) {
+          const match = articles.find(art => classifyArticle(art) === cat.id && !selectedTitles.has(art.title.trim().toLowerCase()));
+          if (match) {
+            selected.push(match);
+            selectedTitles.add(match.title.trim().toLowerCase());
+          }
         }
 
-        // Sort final 6 newest first
+        // 2. Fill remaining slots up to 6 with newest unselected articles
+        for (const art of articles) {
+          if (selected.length >= 6) break;
+          const titleKey = art.title.trim().toLowerCase();
+          if (!selectedTitles.has(titleKey)) {
+            selected.push(art);
+            selectedTitles.add(titleKey);
+          }
+        }
+
+        // 3. Sort final 6 newest first
         selected.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
         return selected;
       }
 
-      // Take 6 fresh articles with sector balance (Aviation + Maritime + Land + Tech)
+      // Take 6 fresh articles with 6-sector diversity (Geopolitics/Tariffs + Aviation + Maritime + Ports + Land/Rail + Tech)
       const freshSix = selectDiverseSix(freshArticles);
-      console.log(`[NEWS-UPDATE] Prepending ${freshSix.length} sector-balanced daily articles to existing set of ${existingArticles.length}.`);
+      console.log(`[NEWS-UPDATE] Prepending ${freshSix.length} 6-sector balanced daily articles to existing set of ${existingArticles.length}.`);
 
       // Combine fresh 6 + existing, deduplicate, limit to MAX_ARTICLES (30)
       const combined = [...freshSix, ...existingArticles];
