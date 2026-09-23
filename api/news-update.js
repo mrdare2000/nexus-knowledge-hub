@@ -251,6 +251,36 @@ function toFirestoreValue(val) {
   return { stringValue: String(val) };
 }
 
+async function fetchExistingNews(accessToken) {
+  try {
+    const baseUrl = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents`;
+    const headers = { 'Authorization': `Bearer ${accessToken}` };
+    const res = await fetch(`${baseUrl}/${FIRESTORE_COLLECTION}?pageSize=100`, { headers });
+    if (!res.ok) return [];
+    const data = await res.json();
+    if (!data.documents) return [];
+
+    const articles = data.documents.map(doc => {
+      const fields = doc.fields || {};
+      return {
+        title: fields.title?.stringValue || '',
+        description: fields.description?.stringValue || '',
+        link: fields.link?.stringValue || '',
+        imageUrl: fields.imageUrl?.stringValue || '',
+        pubDate: fields.pubDate?.stringValue || new Date().toISOString(),
+        source: fields.source?.stringValue || 'News',
+        sortOrder: fields.sortOrder ? (fields.sortOrder.integerValue !== undefined ? Number(fields.sortOrder.integerValue) : Number(fields.sortOrder.doubleValue)) : 999
+      };
+    });
+
+    articles.sort((a, b) => a.sortOrder - b.sortOrder);
+    return articles;
+  } catch (err) {
+    console.warn('[NEWS-UPDATE] Could not fetch existing news from Firestore:', err.message);
+    return [];
+  }
+}
+
 async function clearAndWriteNews(accessToken, articles) {
   const baseUrl = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT}/databases/(default)/documents`;
   const headers = {
@@ -350,10 +380,16 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Invalid FIREBASE_SERVICE_ACCOUNT JSON.' });
   }
 
-  console.log(`[NEWS-UPDATE] Starting news feed update at ${new Date().toISOString()}`);
+  console.log(`[NEWS-UPDATE] Starting rolling news update at ${new Date().toISOString()}`);
 
   try {
-    // ── Step 1: Fetch all RSS feeds in parallel (with retry) ──
+    const accessToken = await getAccessToken(serviceAccount);
+
+    // ── Step 1: Fetch existing Firestore articles ──
+    const existingArticles = await fetchExistingNews(accessToken);
+    console.log(`[NEWS-UPDATE] Found ${existingArticles.length} existing articles in Firestore.`);
+
+    // ── Step 2: Fetch all RSS feeds in parallel (with retry) ──
     const MAX_RETRIES = 2;
     const RETRY_DELAY_MS = 1500;
 
@@ -386,12 +422,11 @@ export default async function handler(req, res) {
     }
 
     const fetchPromises = RSS_FEEDS.map(feedUrl => fetchFeedWithRetry(feedUrl));
-
     const results = await Promise.all(fetchPromises);
 
-    // ── Step 2: Merge, deduplicate, sort ──
+    // Merge & deduplicate fetched RSS articles
     const seenTitles = new Set();
-    const allArticles = [];
+    const fetchedRssArticles = [];
     let feedsSucceeded = 0;
     let feedsFailed = 0;
 
@@ -405,40 +440,65 @@ export default async function handler(req, res) {
         const normTitle = article.title.trim().toLowerCase();
         if (seenTitles.has(normTitle)) return;
         seenTitles.add(normTitle);
-        allArticles.push(article);
+        fetchedRssArticles.push(article);
       });
     });
 
-    // Sort newest first
-    allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+    // Sort RSS articles newest first
+    fetchedRssArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
-    // Take top MAX_ARTICLES
-    const topArticles = allArticles.slice(0, MAX_ARTICLES);
+    console.log(`[NEWS-UPDATE] Feeds: ${feedsSucceeded} OK, ${feedsFailed} failed. Total RSS articles fetched: ${fetchedRssArticles.length}`);
 
-    console.log(`[NEWS-UPDATE] Feeds: ${feedsSucceeded} OK, ${feedsFailed} failed. Total articles: ${allArticles.length}, storing top ${topArticles.length}`);
+    // ── Step 3: Rolling window calculation ──
+    let finalArticles = [];
 
-    if (topArticles.length === 0) {
-      console.warn('[NEWS-UPDATE] No articles found from any feed. Skipping Firestore write.');
+    if (existingArticles.length === 0) {
+      // First run or empty DB: Seed with top MAX_ARTICLES from RSS
+      finalArticles = fetchedRssArticles.slice(0, MAX_ARTICLES);
+    } else {
+      // Find fresh articles that are not already in Firestore
+      const existingTitleSet = new Set(existingArticles.map(a => a.title.trim().toLowerCase()));
+      const freshArticles = fetchedRssArticles.filter(a => !existingTitleSet.has(a.title.trim().toLowerCase()));
+
+      // Take top 6 newest fresh articles
+      const freshSix = freshArticles.slice(0, 6);
+      console.log(`[NEWS-UPDATE] Prepending ${freshSix.length} new daily articles to existing set of ${existingArticles.length}.`);
+
+      // Combine fresh 6 + existing, deduplicate, limit to MAX_ARTICLES (30)
+      const combined = [...freshSix, ...existingArticles];
+      const dedupSet = new Set();
+
+      for (const item of combined) {
+        const key = item.title.trim().toLowerCase();
+        if (!dedupSet.has(key)) {
+          dedupSet.add(key);
+          finalArticles.push(item);
+        }
+        if (finalArticles.length >= MAX_ARTICLES) break;
+      }
+    }
+
+    if (finalArticles.length === 0) {
+      console.warn('[NEWS-UPDATE] No articles to write. Preserving Firestore state.');
       return res.status(200).json({
         success: true,
-        message: 'No new articles found. Existing news preserved.',
-        totalFetched: 0,
-        stored: 0
+        message: 'No news updates applied. Existing news preserved.',
+        totalFetched: fetchedRssArticles.length,
+        stored: existingArticles.length
       });
     }
 
-    // ── Step 3: Write to Firestore ──
-    const accessToken = await getAccessToken(serviceAccount);
-    await clearAndWriteNews(accessToken, topArticles);
+    // ── Step 4: Write to Firestore ──
+    await clearAndWriteNews(accessToken, finalArticles);
 
-    console.log(`[NEWS-UPDATE] Successfully stored ${topArticles.length} articles in Firestore.`);
+    console.log(`[NEWS-UPDATE] Successfully updated Firestore with ${finalArticles.length} rolling articles.`);
 
     return res.status(200).json({
       success: true,
-      message: `News feed updated with ${topArticles.length} articles.`,
-      totalFetched: allArticles.length,
-      stored: topArticles.length,
-      sources: [...new Set(topArticles.map(a => a.source))],
+      message: `Rolling news feed updated with ${finalArticles.length} total articles (6 daily auto-added at noon IST).`,
+      totalFetched: fetchedRssArticles.length,
+      stored: finalArticles.length,
+      sources: [...new Set(finalArticles.map(a => a.source))],
       updatedAt: new Date().toISOString()
     });
 
