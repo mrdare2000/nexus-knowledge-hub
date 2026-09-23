@@ -3295,39 +3295,23 @@ const TODAYS_CURATED_NEWS = [
     source: "Splash 247"
   },
   {
-    title: "Global Port Automation Market Projected to Reach $15 Billion by 2030",
-    description: "Driven by labor shortages and efficiency demands, container terminals worldwide are rapidly expanding automated stacking cranes and autonomous AGV fleets.",
-    link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2023/01/Guo-Yuan-8-Fujian-Guohang-Ocean-Shipping.jpg",
-    pubDate: "2026-09-23T02:15:00Z",
+    title: "Union Maritime spreads nine-ship order across five segments",
+    description: "Laurent Cadji-led Union Maritime has added nine newbuildings across five vessel classes, pushing one of shipping's fastest-growing orderbooks to close to 80 ships.",
+    link: "https://splash247.com/union-maritime-spreads-nine-ship-order-across-five-segments/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
+    pubDate: "2026-09-23T04:16:17Z",
     source: "Splash 247"
   },
   {
-    title: "Red Sea Tanker Transits Drop 45% Amid Escalating Drone Threats",
-    description: "Major oil traders continue rerouting crude tankers around the Cape of Good Hope, adding up to 14 sailing days and boosting bunker fuel demand across West Africa.",
-    link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Sea-Leopard-VLCC-lewoszewski-Marine-Traffic.jpg",
-    pubDate: "2026-09-23T01:10:00Z",
-    source: "Splash 247"
+    title: "Should AI literacy become mandatory for seafarers?",
+    description: "The STCW review is a rare chance to define how seafarers should use, question and, when necessary, override AI-enabled systems on modern commercial vessels.",
+    link: "https://www.seatrade-maritime.com/crewing/should-ai-literacy-become-mandatory-for-seafarers-",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8dd6d17037394572/6ab33f5809bf6b10b0c9bbe6/Capt_Pradeep_Chawla_CEO_of_MarinePALS.jpg?width=720&quality=80",
+    pubDate: "2026-09-23T02:47:59Z",
+    source: "Seatrade Maritime"
   },
 
   // ─── SEP 22, 2026 (6 Articles) ───
-  {
-    title: "Trump Pushing for Diesel Export Ban Amid Surging Fuel Prices",
-    description: "President Donald Trump said he's encouraged his advisers to support a ban on US diesel exports, with wars in Iran and Ukraine driving fuel prices higher across the economy.",
-    link: "https://gcaptain.com/trump-pushing-for-diesel-export-ban-amid-surging-fuel-prices/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
-    pubDate: "2026-09-22T19:49:05Z",
-    source: "gCaptain"
-  },
-  {
-    title: "The Other Hormuz: Black Sea Blockade Threatens a Food Supply Shock",
-    description: "The gap between two critical chokepoints widens as the Black Sea route remains closed due to Ukrainian drone attacks, threatening global food supply chains and wheat exports.",
-    link: "https://gcaptain.com/the-other-hormuz-black-sea-blockade-threatens-a-food-supply-shock/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2023/03/Synergy-female-crew-PPE.jpg",
-    pubDate: "2026-09-22T16:55:14Z",
-    source: "gCaptain"
-  },
   {
     title: "The Fed Just Raised Rates Again: Here's What It Means for Freight",
     description: "The FOMC raised the federal funds target range by 25 basis points to 3.75%–4.00%, its first hike after a run of cuts. Higher rates raise the cost of carrying inventory and financing fleet equipment.",
@@ -3353,162 +3337,178 @@ const TODAYS_CURATED_NEWS = [
     source: "FreightWaves"
   },
   {
-    title: "FMC Change Could Revive Older Detention and Demurrage Claims",
-    description: "The US Federal Maritime Commission confirmed there is no three-year statute of limitations on charge complaints relating to fees assessed on or after 16 June 2022, leaving carriers exposed to older claims.",
-    link: "https://gcaptain.com/fmc-change-could-revive-older-detention-and-demurrage-claims/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2020/10/2020-Bulkers-Magnus-Halvorsen-e1603265659533.jpg",
-    pubDate: "2026-09-22T16:48:29Z",
-    source: "gCaptain"
+    title: "Tabi Connect, Kleinschmidt partner to automate freight quoting",
+    description: "Tabi Connect and Kleinschmidt are integrating automated freight pricing with predictive capacity data, giving brokers another signal to consider when setting rates.",
+    link: "https://www.freightwaves.com/news/tabi-connect-kleinschmidt-partner-to-automate-freight-quoting",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/08/FW_GAL_T3-6.jpg",
+    pubDate: "2026-09-22T17:41:05Z",
+    source: "FreightWaves"
+  },
+  {
+    title: "Piston raises $15M to expand cardless fuel payments network",
+    description: "Piston has raised $15 million in Series A funding as the cardless fuel payments startup expands its network across the U.S. and adds AI-powered tools for fraud prevention.",
+    link: "https://www.freightwaves.com/news/piston-raises-15m-to-expand-cardless-fuel-payments-network",
+    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2023/03/30/AtoB_fleet_telematics.jpg",
+    pubDate: "2026-09-22T17:21:34Z",
+    source: "FreightWaves"
+  },
+  {
+    title: "Half of seafarers say crewing levels put safe working at risk",
+    description: "Just 49% of seafarers say their ships carried enough crew to work safely without excessive fatigue or breaching agreed rest hours, according to new maritime rights report.",
+    link: "https://www.seatrade-maritime.com/crewing/half-of-seafarers-say-crewing-levels-put-safe-working-at-risk",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltf21b88da9078d6fb/6ab29092ae19fc2f5003d998/Seafarers-Rights-Report-Credit-IHRB.jpg?width=720&quality=80",
+    pubDate: "2026-09-22T14:24:04Z",
+    source: "Seatrade Maritime"
   },
 
   // ─── SEP 21, 2026 (6 Articles) ───
   {
-    title: "Panama Canal Increases Daily Booking Slots as Water Levels Recover",
-    description: "The Panama Canal Authority has announced an increase in daily vessel transits from 34 to 36 ships following healthy seasonal rainfall across the Gatun Lake basin.",
-    link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Jan-de-Nul-subsea-trencher.jpg",
-    pubDate: "2026-09-21T17:30:00Z",
+    title: "Fujian Guohang plots $370m move into tankers and heavylift",
+    description: "Fujian Guohang Ocean Shipping is lining up six newbuildings worth RMB2.49bn ($372m) as the Chinese dry bulk owner sets out plans to move into LR2 tankers and heavylift.",
+    link: "https://splash247.com/fujian-guohang-plots-370m-move-into-tankers-and-heavylift/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2023/01/Guo-Yuan-8-Fujian-Guohang-Ocean-Shipping.jpg",
+    pubDate: "2026-09-21T18:07:19Z",
     source: "Splash 247"
   },
   {
-    title: "US West Coast Ports See Record August Import Volumes",
-    description: "Combined import container volumes at Los Angeles and Long Beach rose 8.5% year-over-year in August as retailers front-loaded holiday merchandise to hedge against potential East Coast strikes.",
-    link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
-    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Aryabhatt-1-under-previous-name.jpg",
-    pubDate: "2026-09-21T15:45:12Z",
-    source: "FreightWaves"
+    title: "PSA and Temasek veteran lined up as next chief of PIL",
+    description: "Pacific International Lines has announced succession plans for current CEO Lars Kastrup who will leave the top role with group next April.",
+    link: "https://www.seatrade-maritime.com/containers/psa-and-temasek-veteran-lined-up-as-next-chief-of-pil",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8a25c89db4389092/6ab27f86bdd2952b2137657f/PIL_(L-R)_Wan_Chee_Foong_and_Lars_Kastrup_-_Seated_2.jpg?width=720&quality=80",
+    pubDate: "2026-09-21T13:11:29Z",
+    source: "Seatrade Maritime"
   },
   {
-    title: "EU Carbon Tax Expansion Hits Short-Sea Shipping Operators",
-    description: "Maritime operators navigating European feeder lines face increased operational surcharges as phase-in rules under the EU Emissions Trading System (ETS) tighten compliance thresholds.",
-    link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/08/FW_GAL_T3-6.jpg",
+    title: "Foreign expertise driving Indian yard expansion",
+    description: "New Delhi is providing an injection of funds to kickstart Indian shipbuilding, with technical knowhow shared by foreign experts from Europe and Asia.",
+    link: "https://www.seatrade-maritime.com/shipyards/foreign-expertise-driving-indian-yard-expansion",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt2075661102b5be45/6ab27f2f80fa673fe47abb10/SDHI-Courtsey-SDHI.jpg?width=720&quality=80",
+    pubDate: "2026-09-21T12:50:33Z",
+    source: "Seatrade Maritime"
+  },
+  {
+    title: "DAB Group makes shipowning foray with bulker order at Chinese yard",
+    description: "European company DAB Group places order for dry bulk carriers at China's Soho Innovation & Technology, marking its formal entry into vessel ownership.",
+    link: "https://www.seatrade-maritime.com/dry-bulk/dab-group-makes-shipowning-foray-with-bulker-order-at-chinese-yard",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltc0eda07c04d8b390/6ab267f2e759af0da9d3990b/DAB_SOHO.jpg?width=720&quality=80",
+    pubDate: "2026-09-21T11:31:24Z",
+    source: "Seatrade Maritime"
+  },
+  {
+    title: "What are Panama's future plans for Balboa and Cristobal ports?",
+    description: "Panama is in the unique position of having port terminals serving two different oceans, but structural change and strategic investments are needed.",
+    link: "https://www.seatrade-maritime.com/ports-logistics/what-are-panama-s-future-plans-balboa-and-cristobal-ports-",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0e4204bf5864ede2/6ab25f6381d60e93cefd76a1/ALBERTO_ALEMAN-_LA_PRENSA.jpg?width=720&quality=80",
+    pubDate: "2026-09-21T10:44:47Z",
+    source: "Seatrade Maritime"
+  },
+  {
+    title: "FBI, Coast Guard probe suspected cyberattacks on ships entering US waters",
+    description: "Federal authorities escalate investigation into cyber incidents targeting commercial vessel navigation and maritime port infrastructure.",
+    link: "https://www.supplychaindive.com/news/fbi-coast-guard-probe-suspected-cyberattacks-on-ships-entering-us-waters/830774/",
+    imageUrl: "https://imgproxy.divecdn.com/Z6CdC_OsXvC99docslnfTCbDlIhgLDkvnG4JQwNgS8w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90ZXJtaW5hbC1kb2Nrd29ya2Vyc183WjRrUUlGLmpwZw==.webp",
     pubDate: "2026-09-21T14:10:00Z",
-    source: "Splash 247"
-  },
-  {
-    title: "Singapore Maritime Authority Unveils $50M Green Shipping Fund",
-    description: "Maritime and Port Authority of Singapore launches a dedicated innovation fund aimed at accelerating methanol and ammonia bunkering pilot projects across Asia-Pacific.",
-    link: "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
-    imageUrl: "https://www.freightwaves.com/wp-content/uploads/2023/03/30/AtoB_fleet_telematics.jpg",
-    pubDate: "2026-09-21T11:25:30Z",
-    source: "Splash 247"
-  },
-  {
-    title: "Air Freight Rates Surge 12% Ahead of Q4 Peak Retail Season",
-    description: "Transpacific air freight spot rates jumped to $5.40/kg this week driven by high-tech product launches and cross-border e-commerce surges out of Southern China hubs.",
-    link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-    imageUrl: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-21T09:15:00Z",
-    source: "FreightWaves"
-  },
-  {
-    title: "ILA Strike Threat Looms Large as East Coast Port Contracts Expire",
-    description: "Negotiations between the International Longshoremen's Association and US Maritime Alliance remain stalled over port automation clauses with less than ten days until contract expiration.",
-    link: "https://gcaptain.com/fmc-change-could-revive-older-detention-and-demurrage-claims/",
-    imageUrl: "https://images.unsplash.com/photo-1618042164219-62c820f10723?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-21T08:00:00Z",
-    source: "gCaptain"
+    source: "Supply Chain Dive"
   },
 
   // ─── SEP 20, 2026 (6 Articles) ───
   {
-    title: "Qatar Energy Signs Long-Term LNG Carrier Charter Agreements",
-    description: "State-owned QatarEnergy has finalized charter contracts for 15 next-generation conventional LNG carriers as part of its massive North Field expansion fleet program.",
-    link: "https://gcaptain.com/the-other-hormuz-black-sea-blockade-threatens-a-food-supply-shock/",
-    imageUrl: "https://images.unsplash.com/photo-1565891741441-6ad965554900?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-20T18:20:00Z",
-    source: "gCaptain"
-  },
-  {
-    title: "Rail Freight Intermodal Spot Rates Rise in US Midwest Corridors",
-    description: "Class I railroads report tightening domestic container availability across Chicago, Kansas City, and Dallas hubs as autumn agricultural exports ramp up.",
-    link: "https://www.freightwaves.com/news/new-100m-inland-rail-terminal-will-handle-60000-teus-a-year",
-    imageUrl: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-20T16:10:00Z",
-    source: "FreightWaves"
-  },
-  {
-    title: "Maersk Tests Hydrogen Fuel Cell Yard Tractors at Port of Los Angeles",
-    description: "APM Terminals deploys zero-emission hydrogen fuel cell terminal tractors in Pier 400 trial, targeting full decarbonization of landside cargo handling equipment by 2030.",
-    link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-20T14:40:00Z",
+    title: "Shipping can no longer afford to make women feel like guests at sea",
+    description: "Dr Katherine Sinclaire writes on gender inclusion and medical challenges facing female seafarers in the global maritime workforce.",
+    link: "https://splash247.com/shipping-can-no-longer-afford-to-make-women-feel-like-guests-at-sea/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2023/03/Synergy-female-crew-PPE.jpg",
+    pubDate: "2026-09-20T18:00:00Z",
     source: "Splash 247"
   },
   {
-    title: "Baltic Dry Index Gains 45 Points Supported by Capesize Demand",
-    description: "Strong iron ore chartering activity from Australia to China pushed Capesize rates above $24,000 per day, lifting the overall dry bulk market benchmark.",
-    link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
-    imageUrl: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-20T12:05:00Z",
+    title: "2020 Bulkers seals 15-ship AHTS roll-up",
+    description: "2020 Bulkers signs binding agreement for dramatic move into offshore shipping, assembling up to 15 large anchor handling tug supply (AHTS) vessels.",
+    link: "https://splash247.com/2020-bulkers-seals-15-ship-ahts-roll-up/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2020/10/2020-Bulkers-Magnus-Halvorsen-e1603265659533.jpg",
+    pubDate: "2026-09-20T16:40:59Z",
     source: "Splash 247"
   },
   {
-    title: "Global Semiconductor Supply Chain Normalizes Following Taiwan Disruptions",
-    description: "Major automotive and electronics manufacturers report lead time reductions for critical microcontrollers following restored production yields across East Asian foundries.",
-    link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-20T10:30:00Z",
-    source: "FreightWaves"
+    title: "Jan De Nul doubles up on subsea cable trenchers",
+    description: "Belgian marine contractor Jan De Nul orders second trenching support vessel at China Merchants Heavy Industry to expand offshore cable installation capacity.",
+    link: "https://splash247.com/jan-de-nul-doubles-up-on-subsea-cable-trenchers/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Jan-de-Nul-subsea-trencher.jpg",
+    pubDate: "2026-09-20T14:30:00Z",
+    source: "Splash 247"
   },
   {
-    title: "Rotterdam Container Throughput Up 4.2% Year-Over-Year",
-    description: "Europe's largest seaport logged solid container throughput growth in Q3, buoyed by transshipment volumes and steady chemical imports.",
-    link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
-    imageUrl: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-20T08:15:00Z",
-    source: "FreightWaves"
+    title: "PTTEP hands two jackup deals to Foresight Offshore Drilling",
+    description: "Thailand's PTTEP awards two long-term offshore drilling contracts for Aryabhatt 1 and Vivekanand 1 jackup rigs in Gulf of Thailand.",
+    link: "https://splash247.com/pttep-hands-two-jackup-deals-to-foresight-offshore-drilling/",
+    imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Aryabhatt-1-under-previous-name.jpg",
+    pubDate: "2026-09-20T12:10:00Z",
+    source: "Splash 247"
+  },
+  {
+    title: "Electronics manufacturers fret over extreme heat disruptions",
+    description: "High temperatures are delaying supplier deliveries and hobbling productivity in semiconductor and electronics assembly plants worldwide.",
+    link: "https://www.supplychaindive.com/news/electronics-manufacturers-fret-over-extreme-heat-disruptions/830938/",
+    imageUrl: "https://imgproxy.divecdn.com/5RIMomjbs0K2dznb5Tv2Wnd2mKrgcuZllUYgNGu4gBc/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMTYxNDE3NTYxLmpwZw==.webp",
+    pubDate: "2026-09-20T10:34:00Z",
+    source: "Supply Chain Dive"
+  },
+  {
+    title: "Wegmans invests $110M in its supply chain",
+    description: "The grocer is building a new distribution facility in upstate New York and consolidating logistics operations to limit third-party reliance.",
+    link: "https://www.supplychaindive.com/news/wegmans-invests-110m-in-its-supply-chain/830887/",
+    imageUrl: "https://imgproxy.divecdn.com/agvVxmoleUAAezK8jEqubMfUk6sTllLVvIcU5dl1H_w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xMzI3OTA3NzM4LmpwZw==.webp",
+    pubDate: "2026-09-20T08:33:22Z",
+    source: "Supply Chain Dive"
   },
 
   // ─── SEP 19, 2026 (6 Articles) ───
   {
-    title: "Hapag-Lloyd Expands Intra-Asia Service Network with 4 New Routes",
-    description: "German ocean carrier enhances regional connectivity between Vietnam, Thailand, Malaysia, and Japan with dedicated feeder loops starting October 1.",
-    link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-    imageUrl: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-19T17:50:00Z",
-    source: "Splash 247"
+    title: "Seafarers live the consequences of boardroom high-risk decisions",
+    description: "Crew safety should be the cornerstone of all decisions when it comes to sailing in high-risk conflict zones, Columbia Shipmanagement executives warn.",
+    link: "https://www.seatrade-maritime.com/crewing/seafarers-live-the-consequences-of-boardroom-high-risk-decisions",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0c5f2fc893ba51b5/6ab2262e4e44f00904ad8ecd/mm-panel-csm.jpg?width=720&quality=80",
+    pubDate: "2026-09-19T16:46:36Z",
+    source: "Seatrade Maritime"
   },
   {
-    title: "US Trucking Capacity Tightens as Spot Market Volume Surges 8%",
-    description: "National dry van spot rates gained 4 cents per mile as early harvest season freight and retail restocking absorbed excess driver capacity.",
-    link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-    imageUrl: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-19T15:20:00Z",
-    source: "FreightWaves"
+    title: "MARAD seeks to overhaul US-fleet funding rules",
+    description: "Proposed changes by the US Maritime Administration target $2.56 billion in capital construction funds for US-flagged commercial vessels.",
+    link: "https://www.seatrade-maritime.com/shipping-finance/marad-seeks-to-overhaul-us-fleet-funding-rules",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8e1ab413971c4a3d/670f75bec4a37b3409135821/Dollars-Credit-Filip-Filipovic-Pixabay.jpg?width=720&quality=80",
+    pubDate: "2026-09-19T13:44:10Z",
+    source: "Seatrade Maritime"
   },
   {
-    title: "Suez Canal Toll Discounts Extended for Transatlantic Container Ships",
-    description: "The Suez Canal Authority prolongs rebate schemes offering up to 50% discount for container vessels returning from US East Coast ports to South Asia.",
-    link: "https://gcaptain.com/fmc-change-could-revive-older-detention-and-demurrage-claims/",
-    imageUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-19T13:45:00Z",
-    source: "gCaptain"
+    title: "Yangzijiang Maritime expands fleet with 24 newbuilding orders",
+    description: "Yangzijiang Shipbuilding secures major newbuilding order program spanning five vessel types to capture dry bulk and container market upside.",
+    link: "https://www.seatrade-maritime.com/dry-bulk/yangzijiang-maritime-expands-fleet-with-24-newbuilding-orders",
+    imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltb784961d61dea917/69a172602853109a4dab6b71/Yangzijiang_Shipbuilding-credit-Yangzijiang.jpg?width=720&quality=80",
+    pubDate: "2026-09-19T11:00:30Z",
+    source: "Seatrade Maritime"
   },
   {
-    title: "Port of Hamburg Automated Stacking Cranes Go Live in Phase 2 Expansion",
-    description: "HHLA completes installation of 12 new high-efficiency electric stacking cranes at Container Terminal Altenwerder, boosting terminal throughput capacity.",
-    link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
-    imageUrl: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-19T11:10:00Z",
-    source: "FreightWaves"
+    title: "Coca-Cola to spend $10B on US manufacturing by 2030",
+    description: "The beverage giant and its bottling partners plan massive expansion of US production facilities and regional distribution networks.",
+    link: "https://www.supplychaindive.com/news/coca-cola-to-spend-10b-on-us-manufacturing-by-2030/830535/",
+    imageUrl: "https://imgproxy.divecdn.com/BuHm8_LvtUmXjAEZzfOcJLWqQaXeUD0j1mkq8srt4B8/g:nowe:0:130/c:1920:1084/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90aHVtYm5haWxfSU1HXzQ2MjcuanBn.webp",
+    pubDate: "2026-09-19T09:27:00Z",
+    source: "Supply Chain Dive"
   },
   {
-    title: "E-Commerce Giants Secure Warehouse Space Near Major US Hubs",
-    description: "Industrial real estate demand spikes in Inland Empire and Dallas-Fort Worth markets as logistics providers prepare fulfillment centers for holiday shopping peak.",
-    link: "https://www.freightwaves.com/news/new-100m-inland-rail-terminal-will-handle-60000-teus-a-year",
-    imageUrl: "https://images.unsplash.com/photo-1586528116493-a029325540fa?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-19T09:30:00Z",
-    source: "FreightWaves"
+    title: "UP, NS merger: STB denies shippers' calls for dismissal",
+    description: "Surface Transportation Board rejects shipper trade association petitions seeking summary dismissal of Union Pacific and Norfolk Southern merger application.",
+    link: "https://www.supplychaindive.com/news/up-ns-merger-stb-denies-shippers-calls-for-dismissal/830906/",
+    imageUrl: "https://imgproxy.divecdn.com/8qyw-nbBtpgXfK7CSxRfIURsLrAmKT9s84FFXdvNfQ4/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjk1ODA0NzgyLmpwZw==.webp",
+    pubDate: "2026-09-19T08:59:48Z",
+    source: "Supply Chain Dive"
   },
   {
-    title: "Global Air Cargo Demand Outpaces Pre-Pandemic Levels in August",
-    description: "IATA reports global air freight cargo tonne-kilometers (CTKs) grew 11.4% compared to 2023, driven by high demand for express cross-border shipping.",
-    link: "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
-    imageUrl: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&auto=format&fit=crop&q=80",
-    pubDate: "2026-09-19T07:15:00Z",
-    source: "Splash 247"
+    title: "FedEx preps 5.9% rate hike, surcharge increases for 2027",
+    description: "Standard U.S. parcel freight shipping rates will increase starting January, with additional fuel and oversized package surcharges taking effect.",
+    link: "https://www.supplychaindive.com/news/fedex-preps-59-rate-hike-surcharge-increases-for-2027/830903/",
+    imageUrl: "https://imgproxy.divecdn.com/b4426jrapKwQEQhj38HQgmuevoqs_LGrQ_gC2yBYuhM/g:nowe:0:0/c:1024:578/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjgyOTkzODgxLmpwZw==.webp",
+    pubDate: "2026-09-19T07:12:00Z",
+    source: "Supply Chain Dive"
   }
 ];
 
@@ -3524,14 +3524,18 @@ async function fetchLogisticsNews() {
     // 1. Try Firestore first (fast path when backend is deployed)
     let firestoreArticles = await fetchFromFirestore();
     if (firestoreArticles && firestoreArticles.length > 0) {
-      // Check if Firestore data contains repeated/duplicate images from older cache
+      // Check if Firestore data contains unsplash stock photos or repeated/duplicate images
       const imageCounts = {};
-      let hasDuplicateImages = false;
+      let hasDuplicateOrUnsplash = false;
       for (const art of firestoreArticles) {
         if (art.imageUrl) {
+          if (art.imageUrl.includes('unsplash.com')) {
+            hasDuplicateOrUnsplash = true;
+            break;
+          }
           imageCounts[art.imageUrl] = (imageCounts[art.imageUrl] || 0) + 1;
           if (imageCounts[art.imageUrl] > 2) {
-            hasDuplicateImages = true;
+            hasDuplicateOrUnsplash = true;
             break;
           }
         }
@@ -3541,14 +3545,14 @@ async function fetchLogisticsNews() {
       const newestPubDate = new Date(firestoreArticles[0].pubDate);
       const ageMs = Date.now() - newestPubDate.getTime();
       
-      if (!hasDuplicateImages && !isNaN(ageMs) && ageMs < STALENESS_THRESHOLD_MS) {
-        // Fresh data with unique images — use it directly
+      if (!hasDuplicateOrUnsplash && !isNaN(ageMs) && ageMs < STALENESS_THRESHOLD_MS) {
+        // Fresh data with unique publisher images — use it directly
         globalNewsCache = firestoreArticles;
         renderNews(firestoreArticles);
         console.log(`[NEWS] Loaded ${firestoreArticles.length} fresh articles from Firestore (newest: ${firestoreArticles[0].pubDate})`);
         return;
       } else {
-        console.warn(`[NEWS] Firestore cache bypassed (stale or contains duplicate images). Using curated/RSS news.`);
+        console.warn(`[NEWS] Firestore cache bypassed (contains stock/duplicate images). Using real publisher CDN news.`);
       }
     }
   } catch (e) {
