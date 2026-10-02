@@ -3048,33 +3048,248 @@ function updateDGIdentifier() {
   container.innerHTML = html;
 }
 
-// Tool 7: Temperature / Reefer Cargo Simulator
+// Tool 7: Temperature / Reefer Cargo Simulator — Full Interactive Engine
+const reeferCommodityDB = {
+  frozen: {
+    label: 'Deep Frozen', tempMin: -25, tempMax: -18, zone: 'DEEP FREEZE ZONE', zoneColor: '#1E40AF',
+    items: [
+      { id:'frozen_meat', name:'Frozen Meat (Beef/Lamb)', emoji:'🥩', temp:-20, vent:'Closed', humidity:'Off', o2:'N/A', co2:'N/A', defrost:'Every 6 hrs', logger:'Required', ctnr:"40' RF HC", desc:'Bone-in or boneless cuts — beef, lamb, pork quarters vacuum-packed for export.', shelfLife:'12-18 months', preCool:'Yes — container must reach -20°C before loading', maxDoorOpen:'30 min max', packaging:'Vacuum-sealed cartons on pallets', alerts:[{type:'danger',icon:'🚨',title:'Thaw Risk',text:'If temp rises above -15°C for more than 2 hours, surface bacteria multiplication begins. Cargo is rejected at destination.'},{type:'warning',icon:'⏱️',title:'Loading Speed',text:'All pallets must be loaded within 30 minutes. Dock levellers must be sealed to prevent warm air ingress.'},{type:'info',icon:'📋',title:'Halal/Kosher Docs',text:'Many Middle East and EU importers require Halal or Kosher certification attached to each carton and declared on the BL.'}] },
+      { id:'frozen_seafood', name:'Frozen Seafood (Shrimp/Fish)', emoji:'🦐', temp:-22, vent:'Closed', humidity:'Off', o2:'N/A', co2:'N/A', defrost:'Every 6 hrs', logger:'Required', ctnr:"40' RF HC", desc:'IQF (Individually Quick Frozen) shrimp, fish fillets, squid rings for retail and HoReCa markets.', shelfLife:'18-24 months', preCool:'Yes — -22°C minimum', maxDoorOpen:'20 min max', packaging:'IQF bags in master cartons, block-stacked', alerts:[{type:'danger',icon:'🧊',title:'Glaze Melt',text:'IQF products have a protective ice glaze. Temperature fluctuation above -18°C causes glaze to melt, leading to dehydration and freezer burn.'},{type:'warning',icon:'🐟',title:'Odour Cross-contamination',text:'Never mix raw seafood reefers with fruit or dairy. Residual odour can taint co-loaded cargo even in separate containers.'},{type:'info',icon:'📊',title:'HACCP Compliance',text:'Full HACCP traceability from catch/harvest to port of loading must be documented. EU requires health certificate per consignment.'}] },
+      { id:'ice_cream', name:'Ice Cream & Frozen Desserts', emoji:'🍦', temp:-25, vent:'Closed', humidity:'Off', o2:'N/A', co2:'N/A', defrost:'Every 4 hrs', logger:'Required', ctnr:"40' RF HC", desc:'Premium ice cream tubs, novelty bars, and frozen desserts requiring ultra-low temperatures.', shelfLife:'12 months', preCool:'Yes — -25°C for 4+ hours before loading', maxDoorOpen:'15 min max', packaging:'Insulated cartons, dry ice boosters optional', alerts:[{type:'danger',icon:'🌡️',title:'Ultra-Sensitive',text:'Even a brief spike to -20°C causes partial melt-refreeze resulting in icy crystal texture. Product becomes unsellable.'},{type:'warning',icon:'🔌',title:'Power Gap Risk',text:'During vessel-to-terminal power transfer (genset swap), ensure zero power gap. Ice cream is the most temperature-sensitive frozen commodity.'},{type:'info',icon:'💰',title:'High-Value Cargo',text:'Premium ice cream shipments can exceed $200,000 per 40RF container. Marine cargo insurance with temperature clause is essential.'}] },
+      { id:'frozen_veg', name:'Frozen Vegetables (Peas/Corn)', emoji:'🥦', temp:-18, vent:'Closed', humidity:'Off', o2:'N/A', co2:'N/A', defrost:'Every 6 hrs', logger:'Required', ctnr:"40' RF HC", desc:'IQF green peas, sweet corn, mixed vegetables for retail frozen food sections.', shelfLife:'24 months', preCool:'Yes — -18°C standard', maxDoorOpen:'30 min max', packaging:'Retail bags in master cartons', alerts:[{type:'warning',icon:'📦',title:'Stacking Height',text:'Frozen vegetable cartons are lighter than meat. Do not exceed 8-high stacking to prevent crush damage and airflow blockage.'},{type:'info',icon:'✅',title:'Simpler Requirements',text:'Frozen vegetables are among the most forgiving frozen commodities. Standard -18°C with no atmosphere control needed.'}] }
+    ]
+  },
+  chilled: {
+    label: 'Chilled', tempMin: -2, tempMax: 5, zone: 'CHILLED ZONE', zoneColor: '#0E7490',
+    items: [
+      { id:'fresh_meat', name:'Fresh Chilled Meat (Beef)', emoji:'🥩', temp:0, vent:'Closed', humidity:'85-90%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"40' RF HC", desc:'Vacuum-packed chilled beef primals with 60-90 day shelf life for premium export markets (EU, Japan, Middle East).', shelfLife:'60-90 days (vacuum)', preCool:'Yes — container at 0°C before loading', maxDoorOpen:'30 min max', packaging:'Vacuum-sealed, bone guard, packed in wax-lined cartons', alerts:[{type:'danger',icon:'🦠',title:'Pathogen Growth',text:'Above +4°C, Salmonella and E.coli begin rapid multiplication. Container must never exceed +2°C. Real-time IoT monitoring recommended.'},{type:'warning',icon:'💧',title:'Humidity Critical',text:'Too low humidity causes surface drying (dark discoloration). Too high causes condensation and mould. Maintain 85-90% RH.'},{type:'info',icon:'📝',title:'Health Certificate',text:'Each chilled meat shipment requires a government-issued Veterinary Health Certificate specific to the destination country.'}] },
+      { id:'dairy', name:'Dairy Products (Cheese/Yogurt)', emoji:'🧀', temp:4, vent:'Closed', humidity:'75-85%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"40' RF HC", desc:'Hard/soft cheeses, yogurt, cream, and cultured dairy for retail distribution.', shelfLife:'3-12 months (varies by type)', preCool:'Yes — +4°C stable', maxDoorOpen:'30 min max', packaging:'Shrink-wrapped on food-grade pallets', alerts:[{type:'warning',icon:'🧀',title:'Odour Absorption',text:'Cheese readily absorbs surrounding odours. Never co-load with strong-smelling commodities. Use a clean, odour-free container.'},{type:'info',icon:'🌡️',title:'Narrow Tolerance',text:'Dairy products must remain between +2°C and +6°C. Freezing damages texture irreversibly in soft cheeses and yogurt.'}] },
+      { id:'fresh_fish', name:'Fresh Fish (Sashimi Grade)', emoji:'🐟', temp:-1, vent:'Closed', humidity:'90-95%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"20' RF", desc:'Premium sashimi-grade tuna, salmon, and sea bass — air-freighted or fast-vessel for Japanese and premium markets.', shelfLife:'7-14 days', preCool:'Yes — -1°C (just above freeze point)', maxDoorOpen:'15 min max', packaging:'Gel ice packs, styrofoam boxes, wet-lock absorbent pads', alerts:[{type:'danger',icon:'⏰',title:'Ultra-Short Shelf Life',text:'Fresh sashimi-grade fish has 7-14 day total shelf life from catch. Transit must be under 48-72 hours for air freight, or use super-cooled containers.'},{type:'danger',icon:'🧊',title:'Cannot Freeze',text:'Freezing destroys cell structure and downgrades sashimi-grade to standard. Temperature must stay at precisely -1°C to +1°C.'},{type:'info',icon:'🇯🇵',title:'Japanese Market Standards',text:'Japan requires individual lot traceability, mercury testing certificates, and Ministry of Health import notification for all fresh fish.'}] }
+    ]
+  },
+  fruits: {
+    label: 'Fruits & Vegetables', tempMin: 2, tempMax: 14, zone: 'PRODUCE ZONE', zoneColor: '#15803D',
+    items: [
+      { id:'bananas', name:'Bananas (Green/Ripening)', emoji:'🍌', temp:13.3, vent:'Open (25 CBM/hr)', humidity:'85-90%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"40' RF HC", desc:'Green bananas shipped at 13.3°C to delay ripening. Ethylene management is critical during transit.', shelfLife:'3-4 weeks (green)', preCool:'Pulp temp pre-cooled to 13.3°C', maxDoorOpen:'60 min max', packaging:'Perforated poly bags in ventilated cartons', alerts:[{type:'danger',icon:'🍌',title:'Ethylene Sensitivity',text:'Bananas produce ethylene as they ripen. If ventilation fails and ethylene accumulates, entire container ripens prematurely and arrives yellow/overripe.'},{type:'warning',icon:'🌡️',title:'Chilling Injury',text:'Below 12°C, banana skin turns grey-black (chilling injury). This makes the fruit unsellable even though internal quality may be fine.'},{type:'info',icon:'🌬️',title:'Ventilation Essential',text:'25 CBM/hr fresh air exchange removes ethylene and CO₂ buildup. Ventilation must remain open throughout the voyage.'}] },
+      { id:'avocados', name:'Avocados (Hass)', emoji:'🥑', temp:5, vent:'Open (15 CBM/hr)', humidity:'85-90%', o2:'2-5%', co2:'3-10%', defrost:'Off', logger:'Required', ctnr:"40' RF HC (CA)", desc:'Hass avocados from Peru, Chile, Kenya — shipped in Controlled Atmosphere containers to extend shelf life.', shelfLife:'4-6 weeks (CA)', preCool:'Yes — pulp temp 5°C', maxDoorOpen:'30 min max', packaging:'Single-layer trays in telescoping boxes', alerts:[{type:'danger',icon:'🫁',title:'Controlled Atmosphere Critical',text:'Avocados require CA (Controlled Atmosphere) with reduced O₂ and elevated CO₂ to slow ripening. Without CA, shelf life drops from 6 weeks to 2 weeks.'},{type:'warning',icon:'🤕',title:'Pressure Bruising',text:'Avocados bruise easily. Never stack more than 5 cartons high. Use corner protectors and anti-slip sheets between layers.'},{type:'info',icon:'🌍',title:'CA Container Premium',text:'CA-equipped reefers cost 30-50% more than standard reefers. The investment is justified by the extended shelf life and reduced waste.'}] },
+      { id:'grapes', name:'Table Grapes', emoji:'🍇', temp:0, vent:'Open (10 CBM/hr)', humidity:'90-95%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required + SO₂ pads', ctnr:"40' RF HC", desc:'Seedless table grapes (Thompson, Crimson, Red Globe) from India, South Africa, Chile — requiring SO₂ pad fumigation.', shelfLife:'6-8 weeks', preCool:'Forced-air pre-cooling to 0°C', maxDoorOpen:'30 min max', packaging:'SO₂ pads inside poly-lined cartons, pallet wrap with venting holes', alerts:[{type:'danger',icon:'🍄',title:'Botrytis (Grey Mould)',text:'Grapes are highly susceptible to Botrytis cinerea. SO₂ generator pads must be placed inside every carton. Without them, mould appears within 3-4 days.'},{type:'warning',icon:'❄️',title:'Freeze Point Close to Set Point',text:'Grapes freeze at -1.5°C. Set temp is 0°C. Thermostat calibration must be precise — a 2°C overshoot means frozen, cracked berries.'},{type:'info',icon:'🧪',title:'SO₂ Residue Limits',text:'SO₂ residue on arrival must be below 10 ppm (EU/US limits). Excessive SO₂ causes bleaching. Use dual-release (fast + slow) pads.'}] },
+      { id:'citrus', name:'Citrus Fruits (Oranges/Lemons)', emoji:'🍊', temp:4, vent:'Open (15 CBM/hr)', humidity:'85-90%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"40' RF HC", desc:'Navel oranges, Valencia oranges, lemons, and limes for wholesale fruit markets.', shelfLife:'6-10 weeks', preCool:'Yes — degreened and pre-cooled', maxDoorOpen:'45 min max', packaging:'Waxed cartons, nested or tray-packed', alerts:[{type:'warning',icon:'🍊',title:'Oleocellosis Risk',text:'If citrus fruit is handled when wet or cold, essential oil glands rupture causing brown sunken spots (oleocellosis). Allow fruit to warm to ambient before packing.'},{type:'info',icon:'🌬️',title:'Ethylene Sensitivity',text:'Citrus is a low ethylene producer but moderate sensitivity. Keep ventilation open to prevent CO₂ buildup and off-flavors.'}] }
+    ]
+  },
+  pharma: {
+    label: 'Pharmaceuticals', tempMin: 2, tempMax: 8, zone: 'PHARMA COLD CHAIN', zoneColor: '#7C3AED',
+    items: [
+      { id:'vaccines', name:'Vaccines (2-8°C)', emoji:'💉', temp:5, vent:'Closed', humidity:'Off', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required (GDP)', ctnr:"20' RF + Envirotainer", desc:'Temperature-sensitive vaccines (COVID-19, influenza, polio) requiring strict GDP-compliant cold chain from manufacturer to clinic.', shelfLife:'6-24 months (varies)', preCool:'Yes — +5°C stable for 4+ hours', maxDoorOpen:'10 min max', packaging:'Pre-qualified thermal shippers (Envirotainer, va-Q-tec), PCM phase-change materials', alerts:[{type:'danger',icon:'💀',title:'Life-Critical Cargo',text:'Vaccine temperature excursion above +8°C or below +2°C can render entire batches ineffective. Some vaccines are destroyed by freezing. Lives depend on compliance.'},{type:'danger',icon:'📋',title:'GDP Compliance',text:'WHO GDP (Good Distribution Practice) requires continuous temperature monitoring with calibrated data loggers. Any gap in records = cargo rejection.'},{type:'warning',icon:'🔐',title:'Security & Chain of Custody',text:'High-value pharmaceutical cargo requires tamper-evident seals, GPS tracking, and documented chain of custody at every handover point.'},{type:'info',icon:'🏥',title:'Last-Mile Challenge',text:'The most critical risk is in last-mile delivery from port to clinic. Reefer trucks must maintain +2-8°C with backup cooling systems.'}] },
+      { id:'biologics', name:'Biologics & Biotech Products', emoji:'🧬', temp:5, vent:'Closed', humidity:'Off', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required (GDP)', ctnr:"20' RF", desc:'Monoclonal antibodies, insulin, blood plasma products — extremely high-value temperature-sensitive biologics.', shelfLife:'Variable (6-36 months)', preCool:'Yes — +5°C', maxDoorOpen:'10 min max', packaging:'Validated thermal packaging, redundant cooling, Phase Change Materials', alerts:[{type:'danger',icon:'💰',title:'Extreme Value',text:'A single reefer of biologics can be worth $2-10 million. Marine cargo insurance with temperature deviation clause and consequential loss cover is essential.'},{type:'warning',icon:'🌡️',title:'Zero Tolerance',text:'Biologics have zero tolerance for temperature excursion. Even 30 minutes outside +2-8°C range triggers a formal deviation investigation and potential batch destruction.'}] }
+    ]
+  },
+  ambient: {
+    label: 'Controlled Ambient', tempMin: 12, tempMax: 25, zone: 'CONTROLLED AMBIENT', zoneColor: '#B45309',
+    items: [
+      { id:'chocolate', name:'Chocolate & Confectionery', emoji:'🍫', temp:18, vent:'Closed', humidity:'Dehumidification On', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Recommended', ctnr:"40' RF HC", desc:'Premium chocolate bars, pralines, and confectionery — sensitive to heat and humidity causing bloom and melting.', shelfLife:'12-18 months', preCool:'Yes — +18°C', maxDoorOpen:'30 min max', packaging:'Insulated inner liners, thermal blankets for last-mile', alerts:[{type:'warning',icon:'🍫',title:'Chocolate Bloom',text:'Fat bloom (white streaks) occurs when chocolate exceeds 28°C then re-cools. Sugar bloom occurs from humidity condensation. Both make product unsellable.'},{type:'warning',icon:'💧',title:'Condensation Risk',text:'When moving from cold reefer to warm tropical air, condensation forms on chocolate surfaces. Dehumidification must run throughout transit.'},{type:'info',icon:'🌡️',title:'Not Frozen, Not Chilled',text:'Chocolate should never be frozen or chilled below 15°C. This is a controlled ambient shipment requiring consistent 16-20°C range.'}] },
+      { id:'wine', name:'Fine Wine & Spirits', emoji:'🍷', temp:14, vent:'Closed', humidity:'60-70%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"40' RF HC", desc:'Premium wines, champagnes, and aged spirits requiring temperature stability to prevent heat damage and cork failure.', shelfLife:'Years (stable)', preCool:'Yes — +14°C', maxDoorOpen:'30 min max', packaging:'Individual bottle separators in reinforced cartons, horizontal stacking for cork wines', alerts:[{type:'danger',icon:'🍷',title:'Heat Damage (Cooked Wine)',text:'Wine exposed to temperatures above 25°C undergoes accelerated ageing and "cooked" off-flavours. Premium bottles worth $50-500+ each become worthless.'},{type:'warning',icon:'🔄',title:'Temperature Cycling',text:'Repeated temperature fluctuations cause cork expansion/contraction leading to micro-leaks ("weeping"). Wine must remain at a stable temperature throughout.'},{type:'info',icon:'📦',title:'Vibration Sensitivity',text:'Extended vibration during ocean transit stirs sediment in aged wines. Importers may require 2-4 weeks of rest post-arrival before distribution.'}] },
+      { id:'cosmetics', name:'Cosmetics & Personal Care', emoji:'💄', temp:20, vent:'Closed', humidity:'Dehumidification On', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Recommended', ctnr:"40' RF HC", desc:'Luxury cosmetics, perfumes, skincare creams — temperature-sensitive formulations that separate or degrade in heat.', shelfLife:'24-36 months', preCool:'Yes — +20°C', maxDoorOpen:'30 min max', packaging:'Individual boxes, foam inserts, upright orientation for liquids', alerts:[{type:'warning',icon:'💄',title:'Emulsion Separation',text:'Creams and lotions are oil-in-water emulsions. Temperatures above 35°C or below 5°C cause irreversible separation.'},{type:'info',icon:'☀️',title:'Tropical Route Risk',text:'Shipments transiting through hot zones (Red Sea, Persian Gulf) during summer need reefer protection even for "ambient" cosmetics.'}] }
+    ]
+  },
+  flowers: {
+    label: 'Cut Flowers', tempMin: 0.5, tempMax: 4, zone: 'FLORAL COLD CHAIN', zoneColor: '#DB2777',
+    items: [
+      { id:'roses', name:'Cut Roses', emoji:'🌹', temp:1, vent:'Open (10 CBM/hr)', humidity:'90-95%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"40' RF HC", desc:'Long-stem roses from Kenya, Ecuador, Colombia — the world\'s most traded cut flower by volume.', shelfLife:'7-12 days', preCool:'Forced-air pre-cool to 1°C within 2 hours of harvest', maxDoorOpen:'15 min max', packaging:'Bunched in sleeves, packed in Procona buckets or dry cartons', alerts:[{type:'danger',icon:'🌹',title:'Ethylene Kills Flowers',text:'Even trace ethylene (as low as 0.1 ppm) causes petal drop, yellowing, and accelerated senescence. Never transport flowers near fruit, vegetables, or engine exhaust.'},{type:'warning',icon:'⏰',title:'Time is Everything',text:'From harvest to consumer vase, total cold chain is 5-7 days max. Any delay at airport, customs, or port directly reduces consumer vase life.'},{type:'info',icon:'💧',title:'Hydration Critical',text:'Roses shipped in Procona water buckets have 30% longer vase life than dry-packed. Wet shipping adds weight but dramatically improves quality.'}] },
+      { id:'mixed_flowers', name:'Mixed Bouquet Flowers', emoji:'💐', temp:2, vent:'Open (10 CBM/hr)', humidity:'90-95%', o2:'N/A', co2:'N/A', defrost:'Off', logger:'Required', ctnr:"40' RF HC", desc:'Carnations, chrysanthemums, lilies, gerberas, and mixed assortments for wholesale auction markets.', shelfLife:'7-14 days (species-dependent)', preCool:'Forced-air pre-cool to 2°C', maxDoorOpen:'15 min max', packaging:'Mixed bunches in cartons, hydration tubes for sensitive varieties', alerts:[{type:'warning',icon:'🌸',title:'Mixed Temperature Needs',text:'Different flower species have different optimal temperatures. Lilies prefer 1°C while tropical orchids need 8-12°C. Mixed loads require compromise settings.'},{type:'info',icon:'🏪',title:'Auction Clock System',text:'Most flowers transit to Dutch auction houses (Aalsmeer, Flora Holland). Arrival timing is critical — late arrivals miss the auction clock and sell at significant discount.'}] }
+    ]
+  }
+};
+
+let reeferCurrentCategory = 'frozen';
+
+function reeferSelectCategory(cat) {
+  reeferCurrentCategory = cat;
+  
+  // Update active button
+  document.querySelectorAll('.reefer-cat-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  
+  // Populate commodity dropdown
+  const select = document.getElementById('reefer-commodity-select');
+  const catData = reeferCommodityDB[cat];
+  select.innerHTML = '<option value="" disabled selected>-- Choose a commodity --</option>';
+  catData.items.forEach(item => {
+    const opt = document.createElement('option');
+    opt.value = item.id;
+    opt.textContent = `${item.emoji} ${item.name}`;
+    select.appendChild(opt);
+  });
+  
+  // Hide dashboard until commodity is selected
+  document.getElementById('reefer-dashboard').style.display = 'none';
+}
+
+function reeferSelectCommodity() {
+  const select = document.getElementById('reefer-commodity-select');
+  const itemId = select.value;
+  if (!itemId) return;
+  
+  const catData = reeferCommodityDB[reeferCurrentCategory];
+  const item = catData.items.find(i => i.id === itemId);
+  if (!item) return;
+  
+  // Show dashboard
+  document.getElementById('reefer-dashboard').style.display = 'block';
+  
+  // 1. Update thermometer
+  updateReeferThermometer(item.temp, catData);
+  
+  // 2. Update temperature readout
+  document.getElementById('reefer-temp-big').textContent = `${item.temp > 0 ? '+' : ''}${item.temp}°C`;
+  document.getElementById('reefer-temp-range-label').textContent = `Range: ${catData.tempMin > 0 ? '+' : ''}${catData.tempMin}°C to ${catData.tempMax > 0 ? '+' : ''}${catData.tempMax}°C`;
+  const badge = document.getElementById('reefer-temp-zone-badge');
+  badge.textContent = catData.zone;
+  badge.style.background = `linear-gradient(135deg, ${catData.zoneColor}, ${catData.zoneColor}CC)`;
+  
+  // Update temp display color based on temperature
+  const tempBig = document.getElementById('reefer-temp-big');
+  if (item.temp <= -15) tempBig.style.color = '#1E40AF';
+  else if (item.temp <= 0) tempBig.style.color = '#0284C7';
+  else if (item.temp <= 8) tempBig.style.color = '#0E7490';
+  else if (item.temp <= 15) tempBig.style.color = '#15803D';
+  else tempBig.style.color = '#B45309';
+  
+  // 3. Update container visual
+  const ctnrBox = document.getElementById('reefer-container-box');
+  ctnrBox.classList.remove('frozen-bg', 'chilled-bg', 'warm-bg');
+  if (item.temp <= -10) ctnrBox.classList.add('frozen-bg');
+  else if (item.temp <= 8) ctnrBox.classList.add('chilled-bg');
+  else ctnrBox.classList.add('warm-bg');
+  
+  document.getElementById('reefer-cargo-emoji').textContent = item.emoji;
+  document.getElementById('reefer-ctnr-type').textContent = item.ctnr.toUpperCase();
+  document.getElementById('reefer-commodity-title').textContent = item.name;
+  document.getElementById('reefer-commodity-desc').textContent = item.desc;
+  
+  // Show/hide frost particles based on temperature
+  const frostContainer = document.getElementById('reefer-frost-particles');
+  if (item.temp <= 5) {
+    frostContainer.style.display = 'block';
+    frostContainer.querySelectorAll('.frost-p').forEach(p => {
+      p.textContent = item.temp <= -10 ? '❄' : '·';
+      p.style.color = item.temp <= -10 ? 'rgba(186,230,253,0.8)' : 'rgba(186,230,253,0.5)';
+    });
+  } else {
+    frostContainer.style.display = 'none';
+  }
+  
+  // 4. Update PTI parameters
+  document.getElementById('pti-temp').textContent = `${item.temp > 0 ? '+' : ''}${item.temp}°C`;
+  document.getElementById('pti-vent').textContent = item.vent;
+  document.getElementById('pti-humidity').textContent = item.humidity;
+  document.getElementById('pti-o2').textContent = item.o2;
+  document.getElementById('pti-co2').textContent = item.co2;
+  document.getElementById('pti-defrost').textContent = item.defrost;
+  document.getElementById('pti-logger').textContent = item.logger;
+  document.getElementById('pti-ctnr-type').textContent = item.ctnr;
+  
+  // 5. Update cold chain timeline text
+  document.getElementById('tl-precool-text').textContent = `Container pre-cooled to ${item.temp > 0 ? '+' : ''}${item.temp}°C before cargo loading. ${item.preCool}`;
+  document.getElementById('tl-loading-text').textContent = `Cargo loaded within max door-open time: ${item.maxDoorOpen}. Packaging: ${item.packaging}.`;
+  document.getElementById('tl-voyage-text').textContent = `Connected to vessel power grid. ${item.logger === 'Required' || item.logger === 'Required (GDP)' ? 'Data logger records every 15 min.' : 'Temperature spot-checked periodically.'} Defrost: ${item.defrost}.`;
+  
+  // 6. Populate alerts
+  const alertsGrid = document.getElementById('reefer-alerts-grid');
+  alertsGrid.innerHTML = '';
+  (item.alerts || []).forEach(alert => {
+    alertsGrid.innerHTML += `
+      <div class="reefer-alert-card ${alert.type}">
+        <span class="alert-icon">${alert.icon}</span>
+        <div class="alert-text">
+          <strong>${alert.title}</strong>
+          ${alert.text}
+        </div>
+      </div>`;
+  });
+  
+  // 7. Populate cargo profile card
+  const profileCard = document.getElementById('reefer-profile-card');
+  profileCard.innerHTML = `
+    <div class="reefer-profile-grid">
+      <div class="reefer-profile-stat">
+        <div class="profile-stat-label">Shelf Life</div>
+        <div class="profile-stat-value">${item.shelfLife}</div>
+      </div>
+      <div class="reefer-profile-stat">
+        <div class="profile-stat-label">Pre-Cooling</div>
+        <div class="profile-stat-value">${item.preCool}</div>
+      </div>
+      <div class="reefer-profile-stat">
+        <div class="profile-stat-label">Max Door-Open</div>
+        <div class="profile-stat-value">${item.maxDoorOpen}</div>
+      </div>
+      <div class="reefer-profile-stat">
+        <div class="profile-stat-label">Container Type</div>
+        <div class="profile-stat-value">${item.ctnr}</div>
+      </div>
+      <div class="reefer-profile-stat">
+        <div class="profile-stat-label">Packaging</div>
+        <div class="profile-stat-value">${item.packaging}</div>
+      </div>
+      <div class="reefer-profile-stat">
+        <div class="profile-stat-label">Data Logger</div>
+        <div class="profile-stat-value">${item.logger}</div>
+      </div>
+    </div>
+    <div class="reefer-profile-note">
+      <strong>💡 Industry Note:</strong> ${item.desc} Recommended set point: <strong>${item.temp > 0 ? '+' : ''}${item.temp}°C</strong>. Always verify carrier-specific PTI requirements and destination country phytosanitary/veterinary regulations before booking.
+    </div>`;
+  
+  // Smooth scroll to dashboard
+  document.getElementById('reefer-dashboard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateReeferThermometer(tempC, catData) {
+  // Map temperature (-30 to +40) to SVG Y position (210 to 20)
+  // -30°C = y:210 (bottom), +40°C = y:20 (top)
+  const minTemp = -30, maxTemp = 40;
+  const minY = 210, maxY = 20;
+  const clampedTemp = Math.max(minTemp, Math.min(maxTemp, tempC));
+  const ratio = (clampedTemp - minTemp) / (maxTemp - minTemp);
+  const targetY = minY - (ratio * (minY - maxY));
+  const fillHeight = 210 - targetY;
+  
+  const fill = document.getElementById('reefer-thermo-fill');
+  fill.setAttribute('y', targetY);
+  fill.setAttribute('height', fillHeight);
+  
+  // Move arrow indicator
+  const arrow = document.getElementById('reefer-thermo-arrow');
+  arrow.setAttribute('points', `58,${targetY} 68,${targetY - 5} 68,${targetY + 5}`);
+  
+  // Update bulb color
+  const bulb = document.getElementById('reefer-thermo-bulb');
+  if (tempC <= -15) bulb.setAttribute('fill', '#1E40AF');
+  else if (tempC <= 0) bulb.setAttribute('fill', '#0284C7');
+  else if (tempC <= 8) bulb.setAttribute('fill', '#0E7490');
+  else if (tempC <= 20) bulb.setAttribute('fill', '#F59E0B');
+  else bulb.setAttribute('fill', '#EF4444');
+}
+
+// Backward compatibility wrapper for old function name
 function updateReeferSimulator(type) {
-  const container = document.getElementById('reefer-result-container');
-  const temp = document.getElementById('reefer-temp-display');
-  const name = document.getElementById('reefer-cargo-name');
-  const vent = document.getElementById('reefer-ventilation');
-  const hum = document.getElementById('reefer-humidity');
-  
-  container.style.display = 'block';
-  
-  if (type === 'frozen') {
-    temp.textContent = "-20°C";
-    name.textContent = "Deep Frozen: Ice Cream, Frozen Seafood, Meat";
-    vent.textContent = "Closed";
-    hum.textContent = "Off";
-  } else if (type === 'chilled') {
-    temp.textContent = "+2°C to +8°C";
-    name.textContent = "Chilled: Fresh Fruits, Vegetables, Dairy";
-    vent.textContent = "Open (15-25 CBM/hr)";
-    hum.textContent = "On (85%-95%)";
-  } else if (type === 'ambient') {
-    temp.textContent = "+15°C to +25°C";
-    name.textContent = "Controlled Ambient: Chocolate, Pharmaceuticals, Wine";
-    vent.textContent = "Closed";
-    hum.textContent = "Dehumidification On";
+  reeferSelectCategory(type);
+  // Auto-select first item
+  const catData = reeferCommodityDB[type];
+  if (catData && catData.items.length > 0) {
+    const select = document.getElementById('reefer-commodity-select');
+    select.value = catData.items[0].id;
+    reeferSelectCommodity();
   }
 }
+
+// Initialize reefer commodity dropdown on page load
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('reefer-commodity-select')) {
+    reeferSelectCategory('frozen');
+  }
+});
 
 // Tool 8: HS Code & Duty Structure Explainer
 const hsDictionary = {

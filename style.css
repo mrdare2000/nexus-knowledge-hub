@@ -5667,3 +5667,648 @@ body {
   color: #166534;
   font-size: 0.78rem;
 }
+
+/* ==========================================================================
+   REEFER SIMULATOR — INTERACTIVE COLD CHAIN TOOL
+   ========================================================================== */
+
+.reefer-sim-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Category Strip */
+.reefer-category-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.reefer-cat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  background: var(--bg-white);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-align: center;
+}
+
+.reefer-cat-btn:hover {
+  border-color: #3B82F6;
+  background: #EFF6FF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.12);
+}
+
+.reefer-cat-btn.active {
+  border-color: #2563EB;
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+}
+
+.reefer-cat-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.reefer-cat-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  line-height: 1.2;
+}
+
+.reefer-cat-range {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Commodity Selector Bar */
+.reefer-commodity-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding: 16px 20px;
+  background: #F8FAFC;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.reefer-commodity-bar select {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  font-size: 0.92rem;
+  font-family: var(--font-body);
+  color: var(--primary-navy);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.reefer-commodity-bar select:focus {
+  outline: none;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Dashboard */
+.reefer-dashboard {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Top Row: Thermometer + Container */
+.reefer-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+/* Thermometer Card */
+.reefer-thermo-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 24px;
+  background: linear-gradient(145deg, #F0F9FF 0%, #E0F2FE 100%);
+  border-radius: 16px;
+  border: 1px solid #BAE6FD;
+}
+
+.reefer-thermo-column {
+  flex-shrink: 0;
+  width: 80px;
+}
+
+.reefer-thermo-svg {
+  width: 80px;
+  height: auto;
+}
+
+#reefer-thermo-fill {
+  transition: y 0.8s cubic-bezier(0.16, 1, 0.3, 1), height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#reefer-thermo-arrow {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#reefer-thermo-bulb {
+  transition: fill 0.5s ease;
+}
+
+.reefer-temp-readout {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reefer-temp-set-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #0369A1;
+}
+
+.reefer-temp-big {
+  font-size: 3rem;
+  font-weight: 800;
+  font-family: var(--font-title);
+  color: #0284C7;
+  line-height: 1;
+  text-shadow: 1px 2px 0px rgba(255,255,255,0.6);
+  transition: color 0.4s ease;
+}
+
+.reefer-temp-range-label {
+  font-size: 0.78rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.reefer-temp-zone-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 50px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #1E40AF, #3B82F6);
+  color: #fff;
+  width: fit-content;
+  transition: background 0.4s ease;
+}
+
+/* Container Visual Card */
+.reefer-container-visual-card {
+  text-align: center;
+}
+
+.reefer-container-box {
+  position: relative;
+  height: 200px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1E3A5F 0%, #0F172A 100%);
+  border: 2px solid #334155;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.5s ease;
+}
+
+.reefer-container-box.frozen-bg {
+  background: linear-gradient(135deg, #0C4A6E 0%, #082F49 100%);
+}
+.reefer-container-box.chilled-bg {
+  background: linear-gradient(135deg, #164E63 0%, #0E3546 100%);
+}
+.reefer-container-box.warm-bg {
+  background: linear-gradient(135deg, #78350F 0%, #451A03 100%);
+}
+
+/* Frost particles */
+.reefer-frost-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.frost-p {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  font-size: 0.9rem;
+  opacity: 0;
+  animation: frostFloat 3s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes frostFloat {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.7); }
+  30% { opacity: 0.7; }
+  50% { opacity: 0.9; transform: translateY(-12px) scale(1); }
+  70% { opacity: 0.5; }
+}
+
+.reefer-ctnr-label {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 2;
+}
+
+.reefer-ctnr-label span {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  font-family: var(--font-title);
+}
+
+.reefer-cargo-emoji {
+  font-size: 3.5rem;
+  z-index: 2;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  animation: cargoBob 3s ease-in-out infinite;
+}
+
+@keyframes cargoBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.reefer-status-light {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.green {
+  background: #22C55E;
+  box-shadow: 0 0 6px #22C55E, 0 0 12px rgba(34, 197, 94, 0.4);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 6px #22C55E, 0 0 12px rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 10px #22C55E, 0 0 20px rgba(34, 197, 94, 0.6); }
+}
+
+.status-text {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #22C55E;
+  text-transform: uppercase;
+}
+
+.reefer-commodity-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 4px;
+}
+
+.reefer-commodity-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* PTI Section */
+.reefer-pti-section {
+  background: #FAFBFC;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.reefer-pti-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.reefer-pti-icon {
+  font-size: 1.8rem;
+}
+
+.reefer-pti-header h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin: 0;
+}
+
+.reefer-pti-header p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+.reefer-pti-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.reefer-pti-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 14px;
+  text-align: center;
+  border: 1px solid #E2E8F0;
+  transition: var(--transition-smooth);
+}
+
+.reefer-pti-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  border-color: #93C5FD;
+}
+
+.pti-item-icon {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.pti-item-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 6px;
+}
+
+.pti-item-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  transition: color 0.3s ease;
+}
+
+/* Section Titles */
+.reefer-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 18px;
+}
+
+/* Cold Chain Timeline */
+.reefer-timeline-section {
+  background: #FAFBFC;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.reefer-timeline {
+  position: relative;
+  padding-left: 30px;
+}
+
+.reefer-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: #CBD5E1;
+}
+
+.reefer-tl-step {
+  position: relative;
+  padding-bottom: 22px;
+  padding-left: 10px;
+}
+
+.reefer-tl-step:last-child {
+  padding-bottom: 0;
+}
+
+.tl-dot {
+  position: absolute;
+  left: -26px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #CBD5E1;
+  border: 3px solid #F8FAFC;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.reefer-tl-step.completed .tl-dot {
+  background: #22C55E;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+.reefer-tl-step.active .tl-dot {
+  background: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  animation: tlPulse 2s infinite;
+}
+
+@keyframes tlPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.15); }
+}
+
+.tl-content strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--primary-navy);
+  margin-bottom: 2px;
+}
+
+.tl-content span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.reefer-tl-step.completed .tl-content strong {
+  color: #166534;
+}
+
+/* Alerts Section */
+.reefer-alerts-section {
+  margin-bottom: 28px;
+}
+
+.reefer-alerts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.reefer-alert-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid;
+  animation: fadeIn 0.4s ease;
+}
+
+.reefer-alert-card.danger {
+  background: #FEF2F2;
+  border-color: #FECACA;
+}
+
+.reefer-alert-card.warning {
+  background: #FFFBEB;
+  border-color: #FDE68A;
+}
+
+.reefer-alert-card.info {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+}
+
+.reefer-alert-card .alert-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.reefer-alert-card .alert-text {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: #1E293B;
+}
+
+.reefer-alert-card .alert-text strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.82rem;
+}
+
+/* Cargo Profile Card */
+.reefer-profile-section {
+  margin-bottom: 10px;
+}
+
+.reefer-profile-card {
+  background: linear-gradient(145deg, #F8FAFC 0%, #F0F9FF 100%);
+  border-radius: 16px;
+  border: 1px solid #E0E7FF;
+  padding: 28px;
+}
+
+.reefer-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.reefer-profile-stat {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #E2E8F0;
+}
+
+.profile-stat-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 6px;
+}
+
+.profile-stat-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+}
+
+.reefer-profile-note {
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: rgba(59, 130, 246, 0.06);
+  border-radius: 10px;
+  border-left: 4px solid #3B82F6;
+  font-size: 0.8rem;
+  color: #1E3A5F;
+  line-height: 1.6;
+}
+
+/* Responsive: Tablet */
+@media (max-width: 900px) {
+  .reefer-category-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .reefer-top-row {
+    grid-template-columns: 1fr;
+  }
+  .reefer-pti-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .reefer-profile-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive: Mobile */
+@media (max-width: 600px) {
+  .reefer-category-strip {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .reefer-cat-btn {
+    padding: 10px 6px;
+  }
+  .reefer-cat-icon {
+    font-size: 1.3rem;
+  }
+  .reefer-cat-label {
+    font-size: 0.65rem;
+  }
+  .reefer-commodity-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .reefer-thermo-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .reefer-temp-big {
+    font-size: 2.4rem;
+  }
+  .reefer-temp-zone-badge {
+    margin: 0 auto;
+  }
+  .reefer-pti-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .reefer-profile-grid {
+    grid-template-columns: 1fr;
+  }
+  .reefer-container-box {
+    height: 160px;
+  }
+  .reefer-alerts-grid {
+    grid-template-columns: 1fr;
+  }
+}
