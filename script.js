@@ -451,6 +451,9 @@ window.toggleToolPanel = function(panelId) {
   panels.forEach(panel => {
     if (panel.id === `panel-${panelId}`) {
       panel.classList.add("active");
+      if (panelId === 'dg') {
+        setTimeout(updateDGIdentifier, 50);
+      }
     } else {
       panel.classList.remove("active");
     }
@@ -2965,87 +2968,304 @@ function printDocChecklist() {
 }
 
 // Tool 6: Dangerous Goods (DG) Class Identifier
+// Tool 6: Dangerous Goods (DG) Class & Segregation Master Suite Engine
+let currentDGSelectedClass = '';
+
 const dgDictionary = {
   // Class 1
-  fireworks: { un: "UN0336", cls: "Class 1.4G", label: "💥", desc: "Fireworks, non-mass explosion hazard.", restrict: "Strictly regulated. Often forbidden on passenger aircraft." },
-  flares: { un: "UN0092", cls: "Class 1.3G", label: "💥", desc: "Flares, surface. Pyrotechnic signalling devices.", restrict: "Forbidden on passenger aircraft. CAO restricted." },
-  ammunition: { un: "UN0012", cls: "Class 1.4S", label: "💥", desc: "Cartridges for weapons, inert projectile.", restrict: "May be permitted in limited quantities with airline approval." },
+  fireworks: { un: "UN0336", cls: "Class 1.4G", label: "💥", desc: "Fireworks, non-mass explosion hazard.", restrict: "Strictly regulated. Forbidden on passenger aircraft. Cargo Aircraft Only (CAO).", erg: "Guide 114" },
+  flares: { un: "UN0092", cls: "Class 1.3G", label: "💥", desc: "Flares, surface. Pyrotechnic signalling devices.", restrict: "Forbidden on passenger aircraft. CAO restricted under IATA DGR.", erg: "Guide 114" },
+  ammunition: { un: "UN0012", cls: "Class 1.4S", label: "💥", desc: "Cartridges for weapons, inert projectile.", restrict: "Permitted in limited quantities with written carrier approval.", erg: "Guide 114" },
   // Class 2
-  aerosols: { un: "UN1950", cls: "Class 2.1", label: "🔥💨", desc: "Aerosols, flammable (e.g. spray paint, hairspray).", restrict: "Limited quantity exceptions may apply, but strictly regulated in bulk." },
-  oxygen: { un: "UN1072", cls: "Class 2.2 / 5.1", label: "💨", desc: "Oxygen, compressed. Non-flammable gas but strongly oxidising.", restrict: "Requires rigid outer packaging for air transport." },
-  nitrogen: { un: "UN1066", cls: "Class 2.2", label: "💨", desc: "Nitrogen, compressed. Asphyxiant gas.", restrict: "Ventilation required if leaked." },
-  lpg: { un: "UN1075", cls: "Class 2.1", label: "🔥💨", desc: "Petroleum gases, liquefied.", restrict: "Forbidden on passenger aircraft. Strict volume limits on CAO." },
+  aerosols: { un: "UN1950", cls: "Class 2.1", label: "🔥💨", desc: "Aerosols, flammable (e.g. spray paint, hairspray, butane).", restrict: "Limited Quantity (LQ) exceptions apply up to 1L per inner container.", erg: "Guide 126" },
+  oxygen: { un: "UN1072", cls: "Class 2.2 / 5.1", label: "💨⚡", desc: "Oxygen, compressed. Non-flammable gas but strongly oxidising.", restrict: "Requires rigid outer packaging for air transport. Keep free of oil/grease.", erg: "Guide 122" },
+  nitrogen: { un: "UN1066", cls: "Class 2.2", label: "💨", desc: "Nitrogen, compressed. Asphyxiant gas.", restrict: "Requires adequate cargo hold ventilation if leaked.", erg: "Guide 121" },
+  lpg: { un: "UN1075", cls: "Class 2.1", label: "🔥💨", desc: "Petroleum gases, liquefied (LPG / Propane / Butane).", restrict: "Forbidden on passenger aircraft. Strict volume limits on CAO.", erg: "Guide 115" },
+  ammonia: { un: "UN1005", cls: "Class 2.3", label: "☣️💨", desc: "Anhydrous ammonia. Toxic and corrosive gas.", restrict: "Forbidden on passenger aircraft. Toxic hazard label mandatory.", erg: "Guide 125" },
   // Class 3
-  paint: { un: "UN1263", cls: "Class 3", label: "🔥", desc: "Paint or paint related material (flammable liquids).", restrict: "Allowed on Passenger (PAX) and CAO, subject to volume limits per inner packaging." },
-  perfume: { un: "UN1266", cls: "Class 3", label: "🔥", desc: "Perfumery products with flammable solvents.", restrict: "Consumer commodity exceptions may apply if quantities are very small." },
-  gasoline: { un: "UN1203", cls: "Class 3", label: "🔥", desc: "Motor spirit or gasoline.", restrict: "Highly restricted. Very low volume limits." },
-  alcohol: { un: "UN1170", cls: "Class 3", label: "🔥", desc: "Ethanol (Ethyl alcohol) or ethanol solution.", restrict: "Regulated based on alcohol concentration percentage." },
+  paint: { un: "UN1263", cls: "Class 3", label: "🔥", desc: "Paint or paint related material (flammable liquids).", restrict: "Allowed on PAX & CAO subject to volume limits per inner packaging.", erg: "Guide 128" },
+  perfume: { un: "UN1266", cls: "Class 3", label: "🔥", desc: "Perfumery products with flammable solvents.", restrict: "Consumer commodity exceptions apply if inner volume <= 500ml.", erg: "Guide 127" },
+  gasoline: { un: "UN1203", cls: "Class 3", label: "🔥", desc: "Motor spirit, petrol or gasoline.", restrict: "Highly restricted. Very low volume limits. Flash point < -40°C.", erg: "Guide 128" },
+  alcohol: { un: "UN1170", cls: "Class 3", label: "🔥", desc: "Ethanol (Ethyl alcohol) or ethanol solution.", restrict: "Regulated based on alcohol concentration percentage (> 24% ABV).", erg: "Guide 127" },
   // Class 4
-  matches: { un: "UN1331", cls: "Class 4.1", label: "🔥", desc: "Matches, 'strike anywhere'.", restrict: "Forbidden on all aircraft. Must travel by ocean/road." },
-  sodium: { un: "UN1428", cls: "Class 4.3", label: "🔥💧", desc: "Sodium. Dangerous when wet; emits flammable gases on contact with water.", restrict: "Must be kept hermetically sealed." },
-  camphor: { un: "UN2717", cls: "Class 4.1", label: "🔥", desc: "Camphor, synthetic. Flammable solid.", restrict: "Regulated, keep away from heat sources." },
+  matches: { un: "UN1331", cls: "Class 4.1", label: "🔥", desc: "Matches, 'strike anywhere'. Flammable solid.", restrict: "Forbidden on all passenger and cargo aircraft. Ocean/Road only.", erg: "Guide 133" },
+  sodium: { un: "UN1428", cls: "Class 4.3", label: "🔥💧", desc: "Sodium metal. Dangerous when wet; emits flammable gases with water.", restrict: "Must be kept hermetically sealed under mineral oil or argon gas.", erg: "Guide 138" },
+  camphor: { un: "UN2717", cls: "Class 4.1", label: "🔥", desc: "Camphor, synthetic. Flammable solid.", restrict: "Regulated. Keep away from heat sources and oxidizers.", erg: "Guide 133" },
   // Class 5
-  hydrogen_peroxide: { un: "UN2014", cls: "Class 5.1 / 8", label: "🔥🧪", desc: "Hydrogen peroxide, aqueous solution. Oxidizing and corrosive.", restrict: "Strictly regulated. Vented packaging may be required." },
-  ammonium_nitrate: { un: "UN1942", cls: "Class 5.1", label: "🔥", desc: "Ammonium nitrate. Oxidizing substance.", restrict: "Highly regulated due to mass explosion potential if contaminated." },
+  hydrogen_peroxide: { un: "UN2014", cls: "Class 5.1 / 8", label: "⚡🧪", desc: "Hydrogen peroxide, aqueous solution. Oxidizing and corrosive.", restrict: "Strictly regulated. Vented packaging required to release oxygen pressure.", erg: "Guide 140" },
+  ammonium_nitrate: { un: "UN1942", cls: "Class 5.1", label: "⚡", desc: "Ammonium nitrate. Strong oxidizing agent.", restrict: "Highly regulated due to mass explosion potential if contaminated.", erg: "Guide 140" },
   // Class 6
-  pesticides: { un: "UN2588", cls: "Class 6.1", label: "☠️", desc: "Pesticide, solid, toxic, n.o.s.", restrict: "Must not be loaded next to food or feedstuffs." },
-  cyanide: { un: "UN1588", cls: "Class 6.1", label: "☠️", desc: "Cyanides, inorganic, solid, n.o.s.", restrict: "Highly toxic. Strict packaging requirements." },
-  infectious_human: { un: "UN2814", cls: "Class 6.2", label: "☣️", desc: "Infectious substance, affecting humans (e.g. virus cultures).", restrict: "Strict triple-packaging required (P620). Very specialized handling." },
-  clinical_waste: { un: "UN3291", cls: "Class 6.2", label: "☣️", desc: "Clinical waste, unspecified, n.o.s.", restrict: "Requires rigid, leak-proof, puncture-resistant packaging." },
+  pesticides: { un: "UN2588", cls: "Class 6.1", label: "☠️", desc: "Pesticide, solid, toxic, n.o.s.", restrict: "Forbidden next to foodstuffs or animal feeds under IMDG Chapter 7.2.", erg: "Guide 151" },
+  cyanide: { un: "UN1588", cls: "Class 6.1", label: "☠️", desc: "Cyanides, inorganic, solid, n.o.s.", restrict: "Extremely toxic. Requires UN-tested specification packaging.", erg: "Guide 157" },
+  infectious_human: { un: "UN2814", cls: "Class 6.2", label: "☣️", desc: "Infectious substance, affecting humans (Category A virus/bacteria).", restrict: "Strict triple-packaging required (IATA P620 / UN 4GU).", erg: "Guide 158" },
+  clinical_waste: { un: "UN3291", cls: "Class 6.2", label: "☣️", desc: "Clinical waste, unspecified, n.o.s.", restrict: "Requires rigid, leak-proof, puncture-resistant biohazard packaging.", erg: "Guide 158" },
   // Class 7
-  radioactive_excepted: { un: "UN2910", cls: "Class 7", label: "☢️", desc: "Radioactive material, excepted package.", restrict: "Permitted subject to strict dose limits and declaration." },
-  uranium: { un: "UN2979", cls: "Class 7", label: "☢️", desc: "Uranium metal.", restrict: "Highly regulated. Requires special permits and shielding." },
+  radioactive_excepted: { un: "UN2910", cls: "Class 7", label: "☢️", desc: "Radioactive material, excepted package.", restrict: "Permitted subject to strict surface radiation dose limits.", erg: "Guide 161" },
+  uranium: { un: "UN2979", cls: "Class 7", label: "☢️", desc: "Uranium metal, pyrophoric.", restrict: "Highly regulated. Requires radiation shielding and IAEA approval.", erg: "Guide 162" },
   // Class 8
-  sulfuric_acid: { un: "UN2796", cls: "Class 8", label: "🧪", desc: "Sulphuric acid with not more than 51% acid.", restrict: "Corrosive to tissue and metals. Must be in resistant packaging." },
-  batteries_wet: { un: "UN2794", cls: "Class 8", label: "🧪⚡", desc: "Batteries, wet, filled with acid.", restrict: "Must be packed upright, protected against short circuits." },
-  bleach: { un: "UN1791", cls: "Class 8", label: "🧪", desc: "Hypochlorite solutions (Bleach).", restrict: "Corrosive. Keep away from acids to prevent toxic gas release." },
+  sulfuric_acid: { un: "UN2796", cls: "Class 8", label: "🧪", desc: "Sulphuric acid with not more than 51% acid.", restrict: "Corrosive to human skin and metals. Acid-resistant packaging required.", erg: "Guide 157" },
+  batteries_wet: { un: "UN2794", cls: "Class 8", label: "🧪⚡", desc: "Batteries, wet, filled with acid.", restrict: "Must be packed upright, protected against short circuits and acid leaks.", erg: "Guide 154" },
+  bleach: { un: "UN1791", cls: "Class 8", label: "🧪", desc: "Hypochlorite solutions (Sodium Bleach).", restrict: "Corrosive. Keep away from acids to prevent toxic chlorine gas release.", erg: "Guide 154" },
   // Class 9
-  lithium_ion: { un: "UN3480", cls: "Class 9", label: "🔋", desc: "Lithium ion batteries (including lithium ion polymer batteries). High risk of thermal runaway.", restrict: "Cargo Aircraft Only (CAO) heavily restricted. Max 30% state of charge." },
-  lithium_metal: { un: "UN3090", cls: "Class 9", label: "🔋", desc: "Lithium metal batteries (non-rechargeable).", restrict: "Strictly forbidden on passenger aircraft." },
-  dry_ice: { un: "UN1845", cls: "Class 9", label: "💨", desc: "Carbon dioxide, solid. Sublimes into gas, displacing oxygen.", restrict: "Requires adequate ventilation. Pilot in command must be notified." },
-  magnetized: { un: "UN2807", cls: "Class 9", label: "🧲", desc: "Magnetized material.", restrict: "Can interfere with aircraft compasses. Regulated if field strength is high." },
-  vehicles: { un: "UN3166", cls: "Class 9", label: "🚗", desc: "Vehicle, flammable gas/liquid powered.", restrict: "Fuel tanks must be drained to 1/4 full or less." }
+  lithium_ion: { un: "UN3480", cls: "Class 9", label: "🔋", desc: "Lithium ion batteries. High risk of thermal runaway and fire.", restrict: "Forbidden on Passenger Aircraft. CAO restricted. Max 30% state of charge (SoC).", erg: "Guide 147" },
+  lithium_metal: { un: "UN3090", cls: "Class 9", label: "🔋", desc: "Lithium metal batteries (non-rechargeable).", restrict: "Forbidden on Passenger Aircraft. Special Provision A88 / A99 applies.", erg: "Guide 147" },
+  dry_ice: { un: "UN1845", cls: "Class 9", label: "💨🧊", desc: "Carbon dioxide, solid (Dry Ice). Sublimes into gas displacing oxygen.", restrict: "Requires gas-venting outer packaging. Pilot notification mandatory.", erg: "Guide 120" },
+  magnetized: { un: "UN2807", cls: "Class 9", label: "🧲", desc: "Magnetized material.", restrict: "May interfere with aircraft compasses. Regulated if field > 0.418 A/m at 4.6m.", erg: "Guide 171" },
+  vehicles: { un: "UN3166", cls: "Class 9", label: "🚗", desc: "Vehicle, flammable gas/liquid powered.", restrict: "Fuel tanks must be drained to 1/4 full or less.", erg: "Guide 128" }
 };
 
-function updateDGIdentifier() {
-  const classVal = document.getElementById('dg-class-select').value;
-  if (!classVal) return;
+function switchDGSubTab(tabName) {
+  const secId = document.getElementById('dg-sec-identifier');
+  const secSeg = document.getElementById('dg-sec-segregation');
+  const secEval = document.getElementById('dg-sec-evaluator');
 
+  const btn1 = document.getElementById('dg-tab-1');
+  const btn2 = document.getElementById('dg-tab-2');
+  const btn3 = document.getElementById('dg-tab-3');
+
+  if (secId) secId.style.display = tabName === 'identifier' ? 'block' : 'none';
+  if (secSeg) secSeg.style.display = tabName === 'segregation' ? 'block' : 'none';
+  if (secEval) secEval.style.display = tabName === 'evaluator' ? 'block' : 'none';
+
+  [btn1, btn2, btn3].forEach(b => {
+    if (b) {
+      b.style.background = 'var(--bg-light)';
+      b.style.color = 'var(--text-color)';
+      b.style.border = '1px solid var(--border-color)';
+      b.classList.remove('active');
+    }
+  });
+
+  if (tabName === 'identifier' && btn1) {
+    btn1.style.background = 'var(--primary-navy)';
+    btn1.style.color = '#fff';
+    btn1.style.border = 'none';
+    btn1.classList.add('active');
+    updateDGIdentifier();
+  } else if (tabName === 'segregation' && btn2) {
+    btn2.style.background = 'var(--primary-navy)';
+    btn2.style.color = '#fff';
+    btn2.style.border = 'none';
+    btn2.classList.add('active');
+    calculateDGSegregation();
+  } else if (tabName === 'evaluator' && btn3) {
+    btn3.style.background = 'var(--primary-navy)';
+    btn3.style.color = '#fff';
+    btn3.style.border = 'none';
+    btn3.classList.add('active');
+    calculateDGEvaluation();
+  }
+}
+
+function selectDGClass(classVal) {
+  currentDGSelectedClass = classVal;
+  
+  const buttons = document.querySelectorAll('#dg-placard-grid .dg-placard-btn');
+  buttons.forEach(btn => {
+    btn.style.opacity = '0.7';
+    btn.style.boxShadow = 'none';
+  });
+
+  const activeBtn = Array.from(buttons).find(b => b.getAttribute('onclick')?.includes(`'${classVal}'`));
+  if (activeBtn) {
+    activeBtn.style.opacity = '1';
+    activeBtn.style.boxShadow = '0 0 0 2px var(--accent-orange)';
+  }
+
+  updateDGIdentifier();
+}
+
+function updateDGIdentifier() {
   const container = document.getElementById('dg-result-container');
+  if (!container) return;
+
+  const searchQuery = (document.getElementById('dg-search-input')?.value || '').toLowerCase().trim();
+  const selectedClass = currentDGSelectedClass;
+
   container.style.display = 'block';
-  
-  let html = `<h4 style="color: var(--primary-navy); margin-bottom: 25px; font-size: 1.2rem;">Common items in Class ${classVal}</h4>`;
-  html += `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">`;
-  
-  // Find all items matching the selected class (e.g., "Class 1", "Class 2.1")
-  let hasItems = false;
+
+  let itemsFound = [];
+
   for (const key in dgDictionary) {
-    const data = dgDictionary[key];
-    // Check if the class string starts with "Class X"
-    if (data.cls.startsWith(`Class ${classVal}`)) {
-      hasItems = true;
-      html += `
-        <div style="background: var(--bg-gray); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <div style="font-size: 3.5rem; margin-bottom: 15px;">${data.label}</div>
-            <h5 style="color: var(--primary-navy); font-size: 1.3rem; margin-bottom: 5px;">${data.un}</h5>
-            <div style="font-weight: 700; color: var(--accent-orange); margin-bottom: 15px;">${data.cls}</div>
-            <p style="color: var(--text-color); font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5;">${data.desc}</p>
-          </div>
-          <div style="background: rgba(255,255,255,0.8); padding: 10px; border-radius: 6px; border-left: 3px solid var(--primary-navy); font-size: 0.85rem; text-align: left;">
-            <strong>Restrictions:</strong> ${data.restrict}
-          </div>
-        </div>
-      `;
+    const item = dgDictionary[key];
+
+    // Filter by class if selected
+    let matchesClass = true;
+    if (selectedClass) {
+      matchesClass = item.cls.includes(`Class ${selectedClass}`);
+    }
+
+    // Filter by search query (UN number, description, class, restrict)
+    let matchesSearch = true;
+    if (searchQuery) {
+      const textToSearch = `${item.un} ${item.cls} ${item.desc} ${item.restrict} ${key}`.toLowerCase();
+      matchesSearch = textToSearch.includes(searchQuery);
+    }
+
+    if (matchesClass && matchesSearch) {
+      itemsFound.push(item);
     }
   }
-  
-  if (!hasItems) {
-    html += `<p style="grid-column: 1 / -1; color: var(--text-muted);">No common examples listed for this class.</p>`;
+
+  if (itemsFound.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 40px; background: var(--bg-light); border-radius: 12px; margin-top: 15px;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🔍</div>
+        <h5 style="color: var(--primary-navy); margin-bottom: 8px; font-size: 1.1rem;">No Dangerous Goods Found</h5>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">No Hazmat item matches your filter/search. Try searching "UN3480", "Lithium", "Paint", or "Acid".</p>
+      </div>
+    `;
+    return;
   }
-  
+
+  let html = `
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+      <h5 style="color: var(--primary-navy); font-weight: 700; font-size: 1.1rem; margin: 0;">
+        Showing ${itemsFound.length} Hazardous Commodity Item(s)
+      </h5>
+      ${selectedClass ? `<span style="background: var(--accent-orange); color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700;">Class ${selectedClass} Selected</span>` : ''}
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+  `;
+
+  itemsFound.forEach(data => {
+    html += `
+      <div style="background: var(--bg-white); border-radius: 12px; padding: 22px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <span style="font-size: 2.8rem;">${data.label}</span>
+            <span style="background: #FEF3C7; color: #92400E; border: 1px solid #F59E0B; padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 0.85rem;">${data.erg}</span>
+          </div>
+          <h5 style="color: var(--primary-navy); font-size: 1.25rem; margin-bottom: 4px; font-weight: 800; font-family: monospace;">${data.un}</h5>
+          <div style="font-weight: 700; color: var(--accent-orange); margin-bottom: 12px; font-size: 0.95rem;">${data.cls}</div>
+          <p style="color: var(--text-color); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.5;">${data.desc}</p>
+        </div>
+        <div style="background: rgba(255, 90, 31, 0.05); padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-orange); font-size: 0.85rem; color: var(--primary-navy);">
+          <strong>Transport Restriction:</strong> ${data.restrict}
+        </div>
+      </div>
+    `;
+  });
+
   html += `</div>`;
   container.innerHTML = html;
+}
+
+// IMDG Segregation Matrix Rule Engine
+function calculateDGSegregation() {
+  const c1 = document.getElementById('dg-seg-class1')?.value || '3';
+  const c2 = document.getElementById('dg-seg-class2')?.value || '5.1';
+  const resultDiv = document.getElementById('dg-segregation-result');
+
+  if (!resultDiv) return;
+
+  if (c1 === c2) {
+    resultDiv.innerHTML = `
+      <div style="text-align: center; background: #ECFDF5; border: 1px solid #10B981; border-radius: 10px; padding: 20px; color: #065F46;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">✅</div>
+        <h5 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Same Class Co-Loading Permitted</h5>
+        <p style="font-size: 0.9rem; margin: 0;">Class ${c1} and Class ${c2} belong to the same hazard class. Standard packaging & stowage requirements apply under IMDG Code Chapter 7.2.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Define Segregation Matrix Rules (IMDG Code Table 7.2.4)
+  // Segregation Codes:
+  // 1 = Away From (At least 3 metres separation)
+  // 2 = Separated From (At least 6 metres separation / bulkhead)
+  // 3 = Separated by a complete compartment or hold from
+  // 4 = Separated longitudinally by an intervening complete compartment or hold from
+  // X = No specific segregation required by general table (check individual UN entries)
+
+  let rule = { code: "1", title: "Away From", color: "#F59E0B", bg: "#FEF3C7", desc: "At least 3 metres horizontal separation required." };
+
+  const pairKey = [c1, c2].sort().join('_');
+
+  if (c1.startsWith('1') || c2.startsWith('1')) {
+    rule = { code: "4", title: "🚫 Forbidden in Same Container (Separated Longitudinally)", color: "#DC2626", bg: "#FEE2E2", desc: "Class 1 Explosives must NEVER be co-loaded in the same freight container or vehicle with other hazard classes under IMDG Code 7.2." };
+  } else if (pairKey === '3_5.1' || pairKey === '3_5.2' || pairKey === '2.1_5.1' || pairKey === '4.1_5.1') {
+    rule = { code: "2", title: "🛑 Separated From (Strict Distance Required)", color: "#DC2626", bg: "#FEE2E2", desc: "Oxidizers (Class 5) supply oxygen and react violently with Flammables (Class 3 / 2.1). Co-loading in the same container is STRICTLY FORBIDDEN." };
+  } else if (pairKey === '6.1_8' || pairKey === '3_8') {
+    rule = { code: "1", title: "⚠️ Away From (Min 3m Separation)", color: "#D97706", bg: "#FEF3C7", desc: "Corrosives (Class 8) and Flammables/Toxics must be stowed away from each other to prevent container wall corrosion and toxic chemical reactions." };
+  } else if (pairKey === '5.1_8' || pairKey === '5.2_8') {
+    rule = { code: "2", title: "🛑 Separated From (Corrosive & Oxidizer Risk)", color: "#DC2626", bg: "#FEE2E2", desc: "Corrosive liquid leak contacting oxidizing agent can trigger spontaneous combustion or explosion. Separate by bulkhead." };
+  } else if (c1 === '9' || c2 === '9') {
+    rule = { code: "X", title: "✅ No General IMDG Segregation Restriction", color: "#059669", bg: "#D1FAE5", desc: "Class 9 Miscellaneous Goods (e.g. Dry Ice, Li-Ion batteries) have no general segregation conflict with Class " + (c1 === '9' ? c2 : c1) + ", subject to specific UN Special Provisions." };
+  }
+
+  resultDiv.innerHTML = `
+    <div style="background: ${rule.bg}; border: 2px solid ${rule.color}; border-radius: 12px; padding: 22px;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <span style="font-size: 2rem;">⚡</span>
+        <div>
+          <h5 style="color: ${rule.color}; font-size: 1.15rem; font-weight: 800; margin: 0;">${rule.title}</h5>
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary-navy);">IMDG Code 7.2 Rule between Class ${c1} &amp; Class ${c2}</span>
+        </div>
+      </div>
+      <p style="color: var(--primary-navy); font-size: 0.95rem; line-height: 1.6; margin: 0;">${rule.desc}</p>
+    </div>
+  `;
+}
+
+// Transport Mode & Packing Group Evaluator
+function calculateDGEvaluation() {
+  const mode = document.getElementById('dg-eval-mode')?.value || 'cao';
+  const pg = document.getElementById('dg-eval-pg')?.value || 'II';
+  const pkg = document.getElementById('dg-eval-pkg')?.value || 'un_spec';
+  const resultDiv = document.getElementById('dg-evaluator-result');
+
+  if (!resultDiv) return;
+
+  let modeText = "Cargo Aircraft Only (CAO)";
+  if (mode === 'pax') modeText = "Passenger Aircraft (PAX)";
+  if (mode === 'ocean') modeText = "Ocean Freight Container (IMDG)";
+  if (mode === 'road') modeText = "Road / Rail Transport (ADR)";
+
+  let pgHazard = "Medium Hazard";
+  let pgColor = "#D97706";
+  if (pg === 'I') { pgHazard = "High Hazard (Great Danger)"; pgColor = "#DC2626"; }
+  if (pg === 'III') { pgHazard = "Low Hazard (Minor Danger)"; pgColor = "#059669"; }
+
+  let specMarking = `UN 4G/${pg === 'I' ? 'X' : (pg === 'II' ? 'Y' : 'Z')}15/S/26/USA/+AA1234`;
+
+  let paxAlert = "";
+  if (mode === 'pax' && pg === 'I') {
+    paxAlert = `<div style="background: #FEE2E2; color: #991B1B; padding: 10px; border-radius: 6px; font-weight: 700; margin-bottom: 12px;">⚠️ WARNING: Packing Group I high hazard dangerous goods are generally FORBIDDEN on Passenger Aircraft under IATA DGR.</div>`;
+  }
+
+  resultDiv.innerHTML = `
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+      ${paxAlert}
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Selected Transport Mode</span>
+          <h5 style="color: var(--primary-navy); font-weight: 800; margin: 0; font-size: 1.1rem;">${modeText}</h5>
+        </div>
+        <span style="background: ${pgColor}; color: #fff; padding: 6px 12px; border-radius: 20px; font-weight: 800; font-size: 0.85rem;">Packing Group ${pg} (${pgHazard})</span>
+      </div>
+
+      <div style="background: var(--bg-white); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+        <label style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 4px;">Mandatory UN Packaging Specification Marking:</label>
+        <code style="font-size: 1.1rem; color: var(--accent-orange); font-weight: 800; font-family: monospace;">${specMarking}</code>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+        <div style="background: var(--bg-white); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color);">
+          <strong style="color: var(--primary-navy); display: block; margin-bottom: 4px; font-size: 0.9rem;">📄 Documentation:</strong>
+          <span style="font-size: 0.85rem; color: var(--text-color);">Shipper's Declaration for Dangerous Goods (DGD) Mandatory</span>
+        </div>
+        <div style="background: var(--bg-white); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color);">
+          <strong style="color: var(--primary-navy); display: block; margin-bottom: 4px; font-size: 0.9rem;">🏷️ Labeling Requirement:</strong>
+          <span style="font-size: 0.85rem; color: var(--text-color);">Primary Hazard Diamond Label + Cargo Aircraft Only Label (if CAO)</span>
+        </div>
+        <div style="background: var(--bg-white); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color);">
+          <strong style="color: var(--primary-navy); display: block; margin-bottom: 4px; font-size: 0.9rem;">🚨 Emergency Response:</strong>
+          <span style="font-size: 0.85rem; color: var(--text-color);">24/7 Emergency Telephone Number Mandatory on Waybill</span>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 // Tool 7: Temperature / Reefer Cargo Simulator - Full Interactive Engine
