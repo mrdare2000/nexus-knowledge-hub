@@ -3472,26 +3472,16 @@ const CLIENT_RSS_FEEDS = [
   { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive' }
 ];
 
-// Helper: Generate a date string N days ago from now at a specific hour
-function _newsDate(daysAgo, hour, minute) {
-  const d = new Date();
-  d.setDate(d.getDate() - daysAgo);
-  d.setHours(hour, minute, 0, 0);
-  return d.toISOString();
-}
-
-// Curated real logistics articles — dates are dynamically set relative to TODAY
-// so news never looks stale, no matter when users visit.
-// 30 articles: 6 per day x 5 days (today, yesterday, 2/3/4 days ago)
+// Curated real logistics articles (stored with their TRUE original publication dates)
+// Never generates fake relative dates - date shown ALWAYS matches the real source article date.
 function getCuratedNews() {
   return [
-    // ─── TODAY (6 Articles) ───
     {
       title: "MSC ship abandoned and adrift in South China Sea",
       description: "The troubled MSC Hermes III remains afloat and drifting unmanned in the South China Sea after all 25 crew abandoned the vessel, described as a 'derelict' vessel adrift near Vietnam.",
       link: "https://splash247.com/msc-ship-abandoned-and-adrift-in-south-china-sea/",
       imageUrl: "https://splash247.com/wp-content/uploads/2026/09/MSC-Hermes-3.jpg",
-      pubDate: _newsDate(0, 11, 20),
+      pubDate: "2026-09-30T11:20:00Z",
       source: "Splash 247"
     },
     {
@@ -3499,7 +3489,7 @@ function getCuratedNews() {
       description: "Container shipping's extraordinary newbuilding binge has reached a point where several carriers now have more ships on order than they have in their entire existing fleets.",
       link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
       imageUrl: "https://splash247.com/wp-content/uploads/2026/04/MSC-Migsan-MSC-Zivana-naming-ceremony.jpg",
-      pubDate: _newsDate(0, 10, 41),
+      pubDate: "2026-09-29T10:41:00Z",
       source: "Splash 247"
     },
     {
@@ -3507,7 +3497,7 @@ function getCuratedNews() {
       description: "The VLCC market has reached levels that would have sounded absurd only months ago. Middle East-China earnings have pushed beyond $1m a day, Atlantic routes have surged into the hundreds of thousands.",
       link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
       imageUrl: "https://splash247.com/wp-content/uploads/2026/06/DHT-Antelope-VLCC.jpg",
-      pubDate: _newsDate(0, 9, 35),
+      pubDate: "2026-09-29T09:35:00Z",
       source: "Splash 247"
     },
     {
@@ -3515,7 +3505,7 @@ function getCuratedNews() {
       description: "The STCW review is a rare chance to define how seafarers should use, question and, when necessary, override AI-enabled systems on modern commercial vessels.",
       link: "https://www.seatrade-maritime.com/crewing/should-ai-literacy-become-mandatory-for-seafarers-",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8dd6d17037394572/6ab33f5809bf6b10b0c9bbe6/Capt_Pradeep_Chawla_CEO_of_MarinePALS.jpg?width=720&quality=80",
-      pubDate: _newsDate(0, 8, 47),
+      pubDate: "2026-09-28T08:47:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3523,7 +3513,7 @@ function getCuratedNews() {
       description: "Pacific International Lines chief executive Lars Kastrup will step down next April, bringing to a close a tenure that coincided with one of the most dramatic turnarounds in the Singapore liner's history.",
       link: "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
       imageUrl: "https://splash247.com/wp-content/uploads/2022/07/Lars-Kastrup-CEO-PIL.jpg",
-      pubDate: _newsDate(0, 7, 26),
+      pubDate: "2026-09-28T07:26:00Z",
       source: "Splash 247"
     },
     {
@@ -3531,17 +3521,15 @@ function getCuratedNews() {
       description: "Laurent Cadji-led Union Maritime has added nine newbuildings across five vessel classes, pushing one of shipping's fastest-growing orderbooks to close to 80 ships.",
       link: "https://splash247.com/union-maritime-spreads-nine-ship-order-across-five-segments/",
       imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
-      pubDate: _newsDate(0, 6, 16),
+      pubDate: "2026-09-27T06:16:00Z",
       source: "Splash 247"
     },
-
-    // ─── YESTERDAY (6 Articles) ───
     {
       title: "The Fed Just Raised Rates Again: Here's What It Means for Freight",
       description: "The FOMC raised the federal funds target range by 25 basis points to 3.75%–4.00%, its first hike after a run of cuts. Higher rates raise the cost of carrying inventory and financing fleet equipment.",
       link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
       imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/image.png",
-      pubDate: _newsDate(1, 18, 59),
+      pubDate: "2026-09-26T18:59:00Z",
       source: "FreightWaves"
     },
     {
@@ -3549,7 +3537,7 @@ function getCuratedNews() {
       description: "Global container schedule reliability slipped in August as Far East–Europe disruptions drove performance toward pandemic-era lows, with just 29% of vessels arriving on time.",
       link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
       imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/PortOfItajaifoto.jpg",
-      pubDate: _newsDate(1, 16, 23),
+      pubDate: "2026-09-26T16:23:00Z",
       source: "FreightWaves"
     },
     {
@@ -3557,7 +3545,7 @@ function getCuratedNews() {
       description: "Alabama's $100 million Montgomery inland container terminal will link central Alabama shippers to the Port of Mobile via CSX rail, with construction on schedule for early 2027 opening.",
       link: "https://www.freightwaves.com/news/new-100m-inland-rail-terminal-will-handle-60000-teus-a-year",
       imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Montgomery-ICTF-Rendering.jpeg-copy.jpg",
-      pubDate: _newsDate(1, 14, 37),
+      pubDate: "2026-09-26T14:37:00Z",
       source: "FreightWaves"
     },
     {
@@ -3565,7 +3553,7 @@ function getCuratedNews() {
       description: "Tabi Connect and Kleinschmidt are integrating automated freight pricing with predictive capacity data, giving brokers another signal to consider when setting rates.",
       link: "https://www.freightwaves.com/news/tabi-connect-kleinschmidt-partner-to-automate-freight-quoting",
       imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/08/FW_GAL_T3-6.jpg",
-      pubDate: _newsDate(1, 12, 41),
+      pubDate: "2026-09-25T12:41:00Z",
       source: "FreightWaves"
     },
     {
@@ -3573,7 +3561,7 @@ function getCuratedNews() {
       description: "Piston has raised $15 million in Series A funding as the cardless fuel payments startup expands its network across the U.S. and adds AI-powered tools for fraud prevention.",
       link: "https://www.freightwaves.com/news/piston-raises-15m-to-expand-cardless-fuel-payments-network",
       imageUrl: "https://www.freightwaves.com/wp-content/uploads/2023/03/30/AtoB_fleet_telematics.jpg",
-      pubDate: _newsDate(1, 10, 21),
+      pubDate: "2026-09-25T10:21:00Z",
       source: "FreightWaves"
     },
     {
@@ -3581,17 +3569,15 @@ function getCuratedNews() {
       description: "Just 49% of seafarers say their ships carried enough crew to work safely without excessive fatigue or breaching agreed rest hours, according to new maritime rights report.",
       link: "https://www.seatrade-maritime.com/crewing/half-of-seafarers-say-crewing-levels-put-safe-working-at-risk",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltf21b88da9078d6fb/6ab29092ae19fc2f5003d998/Seafarers-Rights-Report-Credit-IHRB.jpg?width=720&quality=80",
-      pubDate: _newsDate(1, 8, 24),
+      pubDate: "2026-09-25T08:24:00Z",
       source: "Seatrade Maritime"
     },
-
-    // ─── 2 DAYS AGO (6 Articles) ───
     {
       title: "Fujian Guohang plots $370m move into tankers and heavylift",
       description: "Fujian Guohang Ocean Shipping is lining up six newbuildings worth RMB2.49bn ($372m) as the Chinese dry bulk owner sets out plans to move into LR2 tankers and heavylift.",
       link: "https://splash247.com/fujian-guohang-plots-370m-move-into-tankers-and-heavylift/",
       imageUrl: "https://splash247.com/wp-content/uploads/2023/01/Guo-Yuan-8-Fujian-Guohang-Ocean-Shipping.jpg",
-      pubDate: _newsDate(2, 18, 7),
+      pubDate: "2026-09-24T18:07:00Z",
       source: "Splash 247"
     },
     {
@@ -3599,7 +3585,7 @@ function getCuratedNews() {
       description: "Pacific International Lines has announced succession plans for current CEO Lars Kastrup who will leave the top role with group next April.",
       link: "https://www.seatrade-maritime.com/containers/psa-and-temasek-veteran-lined-up-as-next-chief-of-pil",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8a25c89db4389092/6ab27f86bdd2952b2137657f/PIL_(L-R)_Wan_Chee_Foong_and_Lars_Kastrup_-_Seated_2.jpg?width=720&quality=80",
-      pubDate: _newsDate(2, 15, 11),
+      pubDate: "2026-09-24T15:11:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3607,7 +3593,7 @@ function getCuratedNews() {
       description: "New Delhi is providing an injection of funds to kickstart Indian shipbuilding, with technical knowhow shared by foreign experts from Europe and Asia.",
       link: "https://www.seatrade-maritime.com/shipyards/foreign-expertise-driving-indian-yard-expansion",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt2075661102b5be45/6ab27f2f80fa673fe47abb10/SDHI-Courtsey-SDHI.jpg?width=720&quality=80",
-      pubDate: _newsDate(2, 12, 50),
+      pubDate: "2026-09-24T12:50:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3615,7 +3601,7 @@ function getCuratedNews() {
       description: "European company DAB Group places order for dry bulk carriers at China's Soho Innovation & Technology, marking its formal entry into vessel ownership.",
       link: "https://www.seatrade-maritime.com/dry-bulk/dab-group-makes-shipowning-foray-with-bulker-order-at-chinese-yard",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltc0eda07c04d8b390/6ab267f2e759af0da9d3990b/DAB_SOHO.jpg?width=720&quality=80",
-      pubDate: _newsDate(2, 11, 31),
+      pubDate: "2026-09-24T11:31:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3623,7 +3609,7 @@ function getCuratedNews() {
       description: "Panama is in the unique position of having port terminals serving two different oceans, but structural change and strategic investments are needed.",
       link: "https://www.seatrade-maritime.com/ports-logistics/what-are-panama-s-future-plans-balboa-and-cristobal-ports-",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0e4204bf5864ede2/6ab25f6381d60e93cefd76a1/ALBERTO_ALEMAN-_LA_PRENSA.jpg?width=720&quality=80",
-      pubDate: _newsDate(2, 10, 44),
+      pubDate: "2026-09-24T10:44:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3631,17 +3617,15 @@ function getCuratedNews() {
       description: "Federal authorities escalate investigation into cyber incidents targeting commercial vessel navigation and maritime port infrastructure.",
       link: "https://www.supplychaindive.com/news/fbi-coast-guard-probe-suspected-cyberattacks-on-ships-entering-us-waters/830774/",
       imageUrl: "https://imgproxy.divecdn.com/Z6CdC_OsXvC99docslnfTCbDlIhgLDkvnG4JQwNgS8w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90ZXJtaW5hbC1kb2Nrd29ya2Vyc183WjRrUUlGLmpwZw==.webp",
-      pubDate: _newsDate(2, 8, 10),
+      pubDate: "2026-09-23T18:10:00Z",
       source: "Supply Chain Dive"
     },
-
-    // ─── 3 DAYS AGO (6 Articles) ───
     {
       title: "Shipping can no longer afford to make women feel like guests at sea",
       description: "Dr Katherine Sinclaire writes on gender inclusion and medical challenges facing female seafarers in the global maritime workforce.",
       link: "https://splash247.com/shipping-can-no-longer-afford-to-make-women-feel-like-guests-at-sea/",
       imageUrl: "https://splash247.com/wp-content/uploads/2023/03/Synergy-female-crew-PPE.jpg",
-      pubDate: _newsDate(3, 18, 0),
+      pubDate: "2026-09-23T16:00:00Z",
       source: "Splash 247"
     },
     {
@@ -3649,7 +3633,7 @@ function getCuratedNews() {
       description: "2020 Bulkers signs binding agreement for dramatic move into offshore shipping, assembling up to 15 large anchor handling tug supply (AHTS) vessels.",
       link: "https://splash247.com/2020-bulkers-seals-15-ship-ahts-roll-up/",
       imageUrl: "https://splash247.com/wp-content/uploads/2020/10/2020-Bulkers-Magnus-Halvorsen-e1603265659533.jpg",
-      pubDate: _newsDate(3, 16, 40),
+      pubDate: "2026-09-23T14:40:00Z",
       source: "Splash 247"
     },
     {
@@ -3657,7 +3641,7 @@ function getCuratedNews() {
       description: "Belgian marine contractor Jan De Nul orders second trenching support vessel at China Merchants Heavy Industry to expand offshore cable installation capacity.",
       link: "https://splash247.com/jan-de-nul-doubles-up-on-subsea-cable-trenchers/",
       imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Jan-de-Nul-subsea-trencher.jpg",
-      pubDate: _newsDate(3, 14, 30),
+      pubDate: "2026-09-23T12:30:00Z",
       source: "Splash 247"
     },
     {
@@ -3665,7 +3649,7 @@ function getCuratedNews() {
       description: "Thailand's PTTEP awards two long-term offshore drilling contracts for Aryabhatt 1 and Vivekanand 1 jackup rigs in Gulf of Thailand.",
       link: "https://splash247.com/pttep-hands-two-jackup-deals-to-foresight-offshore-drilling/",
       imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Aryabhatt-1-under-previous-name.jpg",
-      pubDate: _newsDate(3, 12, 10),
+      pubDate: "2026-09-23T10:10:00Z",
       source: "Splash 247"
     },
     {
@@ -3673,7 +3657,7 @@ function getCuratedNews() {
       description: "High temperatures are delaying supplier deliveries and hobbling productivity in semiconductor and electronics assembly plants worldwide.",
       link: "https://www.supplychaindive.com/news/electronics-manufacturers-fret-over-extreme-heat-disruptions/830938/",
       imageUrl: "https://imgproxy.divecdn.com/5RIMomjbs0K2dznb5Tv2Wnd2mKrgcuZllUYgNGu4gBc/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMTYxNDE3NTYxLmpwZw==.webp",
-      pubDate: _newsDate(3, 10, 34),
+      pubDate: "2026-09-23T08:34:00Z",
       source: "Supply Chain Dive"
     },
     {
@@ -3681,17 +3665,15 @@ function getCuratedNews() {
       description: "The grocer is building a new distribution facility in upstate New York and consolidating logistics operations to limit third-party reliance.",
       link: "https://www.supplychaindive.com/news/wegmans-invests-110m-in-its-supply-chain/830887/",
       imageUrl: "https://imgproxy.divecdn.com/agvVxmoleUAAezK8jEqubMfUk6sTllLVvIcU5dl1H_w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xMzI3OTA3NzM4LmpwZw==.webp",
-      pubDate: _newsDate(3, 8, 33),
+      pubDate: "2026-09-22T18:33:00Z",
       source: "Supply Chain Dive"
     },
-
-    // ─── 4 DAYS AGO (6 Articles) ───
     {
       title: "Seafarers live the consequences of boardroom high-risk decisions",
       description: "Crew safety should be the cornerstone of all decisions when it comes to sailing in high-risk conflict zones, Columbia Shipmanagement executives warn.",
       link: "https://www.seatrade-maritime.com/crewing/seafarers-live-the-consequences-of-boardroom-high-risk-decisions",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0c5f2fc893ba51b5/6ab2262e4e44f00904ad8ecd/mm-panel-csm.jpg?width=720&quality=80",
-      pubDate: _newsDate(4, 16, 46),
+      pubDate: "2026-09-22T16:46:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3699,7 +3681,7 @@ function getCuratedNews() {
       description: "Proposed changes by the US Maritime Administration target $2.56 billion in capital construction funds for US-flagged commercial vessels.",
       link: "https://www.seatrade-maritime.com/shipping-finance/marad-seeks-to-overhaul-us-fleet-funding-rules",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8e1ab413971c4a3d/670f75bec4a37b3409135821/Dollars-Credit-Filip-Filipovic-Pixabay.jpg?width=720&quality=80",
-      pubDate: _newsDate(4, 13, 44),
+      pubDate: "2026-09-22T13:44:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3707,7 +3689,7 @@ function getCuratedNews() {
       description: "Yangzijiang Shipbuilding secures major newbuilding order program spanning five vessel types to capture dry bulk and container market upside.",
       link: "https://www.seatrade-maritime.com/dry-bulk/yangzijiang-maritime-expands-fleet-with-24-newbuilding-orders",
       imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltb784961d61dea917/69a172602853109a4dab6b71/Yangzijiang_Shipbuilding-credit-Yangzijiang.jpg?width=720&quality=80",
-      pubDate: _newsDate(4, 11, 0),
+      pubDate: "2026-09-22T11:00:00Z",
       source: "Seatrade Maritime"
     },
     {
@@ -3715,7 +3697,7 @@ function getCuratedNews() {
       description: "The beverage giant and its bottling partners plan massive expansion of US production facilities and regional distribution networks.",
       link: "https://www.supplychaindive.com/news/coca-cola-to-spend-10b-on-us-manufacturing-by-2030/830535/",
       imageUrl: "https://imgproxy.divecdn.com/BuHm8_LvtUmXjAEZzfOcJLWqQaXeUD0j1mkq8srt4B8/g:nowe:0:130/c:1920:1084/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90aHVtYm5haWxfSU1HXzQ2MjcuanBn.webp",
-      pubDate: _newsDate(4, 9, 27),
+      pubDate: "2026-09-22T09:27:00Z",
       source: "Supply Chain Dive"
     },
     {
@@ -3723,7 +3705,7 @@ function getCuratedNews() {
       description: "Standard U.S. parcel freight shipping rates will increase starting January, with additional fuel and oversized package surcharges taking effect.",
       link: "https://www.supplychaindive.com/news/fedex-preps-59-rate-hike-surcharge-increases-for-2027/830903/",
       imageUrl: "https://imgproxy.divecdn.com/b4426jrapKwQEQhj38HQgmuevoqs_LGrQ_gC2yBYuhM/g:nowe:0:0/c:1024:578/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjgyOTkzODgxLmpwZw==.webp",
-      pubDate: _newsDate(4, 8, 12),
+      pubDate: "2026-09-22T08:12:00Z",
       source: "Supply Chain Dive"
     },
     {
@@ -3731,7 +3713,7 @@ function getCuratedNews() {
       description: "Surface Transportation Board rejects shipper trade association petitions seeking summary dismissal of Union Pacific and Norfolk Southern merger application.",
       link: "https://www.supplychaindive.com/news/up-ns-merger-stb-denies-shippers-calls-for-dismissal/830906/",
       imageUrl: "https://imgproxy.divecdn.com/8qyw-nbBtpgXfK7CSxRfIURsLrAmKT9s84FFXdvNfQ4/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjk1ODA0NzgyLmpwZw==.webp",
-      pubDate: _newsDate(4, 7, 0),
+      pubDate: "2026-09-22T07:00:00Z",
       source: "Supply Chain Dive"
     }
   ];
@@ -3783,20 +3765,76 @@ async function fetchLogisticsNews() {
 
 async function fetchFromRSSFeeds() {
   const allArticles = [];
-  const rss2jsonBase = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
   const feedPromises = CLIENT_RSS_FEEDS.map(async (feed) => {
     try {
-      const resp = await fetch(rss2jsonBase + encodeURIComponent(feed.url));
-      if (!resp.ok) return [];
-      const data = await resp.json();
-      if (data.status !== 'ok' || !data.items) return [];
+      // Multi-proxy approach: try rss2json first, fall back to allorigins / corsproxy with DOMParser
+      let items = [];
 
-      return data.items
+      // Method 1: rss2json API
+      try {
+        const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url));
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data.status === 'ok' && Array.isArray(data.items)) {
+            items = data.items;
+          }
+        }
+      } catch (e) {
+        // Fallback to Method 2 below
+      }
+
+      // Method 2: Raw RSS fetch via allorigins proxy + DOMParser (gives true original <pubDate>)
+      if (!items || items.length === 0) {
+        try {
+          const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed.url);
+          const resp = await fetch(proxyUrl);
+          if (resp.ok) {
+            const xmlText = await resp.text();
+            if (xmlText && xmlText.includes('<item')) {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(xmlText, 'text/xml');
+              const xmlItems = doc.querySelectorAll('item');
+              xmlItems.forEach(item => {
+                const title = item.querySelector('title')?.textContent?.trim() || '';
+                const link = item.querySelector('link')?.textContent?.trim() || '';
+                const pubDate = item.querySelector('pubDate')?.textContent?.trim() || '';
+                const description = item.querySelector('description')?.textContent?.trim() || '';
+                
+                let imageUrl = '';
+                const mediaContent = item.querySelector('content, thumbnail');
+                if (mediaContent) imageUrl = mediaContent.getAttribute('url') || '';
+                if (!imageUrl) {
+                  const enclosure = item.querySelector('enclosure');
+                  if (enclosure) imageUrl = enclosure.getAttribute('url') || '';
+                }
+                if (!imageUrl && description) {
+                  const match = description.match(/<img[^>]+src=["']([^"']+)["']/i);
+                  if (match && match[1]) imageUrl = match[1];
+                }
+
+                if (title && link) {
+                  items.push({
+                    title,
+                    link,
+                    pubDate,
+                    description,
+                    thumbnail: imageUrl
+                  });
+                }
+              });
+            }
+          }
+        } catch (e) {
+          // Both methods failed
+        }
+      }
+
+      if (!items || items.length === 0) return [];
+
+      return items
         .filter(item => item.title && item.link)
         .map(item => {
-          // Extract REAL image from the article source (no stock photo fallbacks)
-          // Priority: thumbnail > enclosure.link > img tag in content
           let imageUrl = item.thumbnail || '';
           if (!imageUrl && item.enclosure && item.enclosure.link) {
             imageUrl = item.enclosure.link;
@@ -3808,13 +3846,11 @@ async function fetchFromRSSFeeds() {
               imageUrl = imgMatch[1];
             }
           }
-          // Normalize URL
           if (imageUrl) {
             imageUrl = imageUrl.replace(/&amp;/g, '&');
             if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
             if (imageUrl.startsWith('http://')) imageUrl = imageUrl.replace('http://', 'https://');
           }
-          // SKIP articles without a real image (no stock photo substitution)
           if (!imageUrl || imageUrl.length < 10 || !imageUrl.startsWith('https://')) {
             return null;
           }
@@ -3822,12 +3858,16 @@ async function fetchFromRSSFeeds() {
           const rawDesc = item.description || item.content || '';
           const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, '').trim().substring(0, 220);
 
+          // Extract true publication date
+          let parsedDate = item.pubDate ? new Date(item.pubDate) : null;
+          const pubDateIso = (parsedDate && !isNaN(parsedDate.getTime())) ? parsedDate.toISOString() : new Date().toISOString();
+
           return {
             title: item.title,
             description: cleanDesc,
             link: item.link,
             imageUrl: imageUrl,
-            pubDate: item.pubDate || new Date().toISOString(),
+            pubDate: pubDateIso,
             source: feed.source
           };
         })
