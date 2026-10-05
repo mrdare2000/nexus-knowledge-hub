@@ -3454,24 +3454,22 @@ function filterHSOptions() {
 }
 
 /* ==========================================
-   10. GLOBAL INDUSTRY NEWS (DATABASE-FREE — DIRECT RSS + CURATED FALLBACK)
+   10. GLOBAL INDUSTRY NEWS (FIRESTORE-FIRST + RSS FALLBACK + CURATED FALLBACK)
    ==========================================
-   This news system has ZERO database dependency. All users see identical news.
+   Priority 1: Fetch from /api/news-feed (reads Firestore where cron stored proper images)
+   Priority 2: Client-side RSS via rss2json.com (skip articles without real images)
+   Priority 3: Curated real logistics articles (dates auto-adjusted to today)
    
-   Priority 1: Fetch live RSS feeds from 4 top logistics sources via rss2json.com
-   Priority 2: Fall back to curated real logistics articles (dates auto-adjusted to today)
-   
-   All images come directly from the original news source (article thumbnails/CDN).
    Home page shows 6 latest, News Hub shows 30 latest.
    ========================================== */
 let globalNewsCache = null;
 
-// Verified high-yielding logistics & maritime RSS feeds (client-side, no database)
+// Client-side RSS feeds (fallback only - no stock photo defaults)
 const CLIENT_RSS_FEEDS = [
-  { url: 'https://www.freightwaves.com/feed', source: 'FreightWaves', defaultImg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80' },
-  { url: 'https://www.seatrade-maritime.com/rss.xml', source: 'Seatrade Maritime', defaultImg: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=600&q=80' },
-  { url: 'https://splash247.com/feed/', source: 'Splash247', defaultImg: 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=600&q=80' },
-  { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive', defaultImg: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80' }
+  { url: 'https://www.freightwaves.com/feed', source: 'FreightWaves' },
+  { url: 'https://www.seatrade-maritime.com/rss.xml', source: 'Seatrade Maritime' },
+  { url: 'https://splash247.com/feed/', source: 'Splash247' },
+  { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive' }
 ];
 
 // Helper: Generate a date string N days ago from now at a specific hour
@@ -3745,8 +3743,25 @@ async function fetchLogisticsNews() {
     return;
   }
 
-  // 1. Try live RSS feeds first (real-time, no database needed)
-  console.log('[NEWS] Fetching live RSS feeds (no database)...');
+  // PRIORITY 1: Fetch from Firestore API (backend cron stores articles with real images)
+  console.log('[NEWS] Fetching from Firestore API (proper article images)...');
+  try {
+    const resp = await fetch('/api/news-feed');
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data.articles && data.articles.length > 0) {
+        globalNewsCache = data.articles;
+        renderNews(data.articles);
+        console.log(`[NEWS] ✅ Loaded ${data.articles.length} articles from Firestore API (real images)`);
+        return;
+      }
+    }
+  } catch (e) {
+    console.warn('[NEWS] Firestore API fetch failed:', e.message);
+  }
+
+  // PRIORITY 2: Client-side RSS via rss2json.com (only articles with real images)
+  console.log('[NEWS] Falling back to live RSS feeds...');
   try {
     const rssArticles = await fetchFromRSSFeeds();
     if (rssArticles && rssArticles.length > 0) {
@@ -3759,7 +3774,7 @@ async function fetchLogisticsNews() {
     console.warn('[NEWS] Live RSS fetch failed:', e.message);
   }
 
-  // 2. Guaranteed Fallback: Curated news with auto-adjusted dates (NEVER shows an error!)
+  // PRIORITY 3: Curated news (guaranteed fallback, dates auto-adjusted)
   console.log('[NEWS] Using curated news fallback (dates auto-adjusted to today)...');
   const curated = getCuratedNews();
   globalNewsCache = curated;
@@ -3780,8 +3795,8 @@ async function fetchFromRSSFeeds() {
       return data.items
         .filter(item => item.title && item.link)
         .map(item => {
-          // Extract REAL image from the article source (never use stock photos)
-          // Priority: thumbnail > enclosure.link > img tag in content > feed default
+          // Extract REAL image from the article source (no stock photo fallbacks)
+          // Priority: thumbnail > enclosure.link > img tag in content
           let imageUrl = item.thumbnail || '';
           if (!imageUrl && item.enclosure && item.enclosure.link) {
             imageUrl = item.enclosure.link;
@@ -3789,13 +3804,19 @@ async function fetchFromRSSFeeds() {
           if (!imageUrl) {
             const html = (item.description || '') + ' ' + (item.content || '');
             const imgMatch = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-            if (imgMatch && imgMatch[1] && !imgMatch[1].includes('gravatar')) {
+            if (imgMatch && imgMatch[1] && !imgMatch[1].includes('gravatar') && !imgMatch[1].includes('data:')) {
               imageUrl = imgMatch[1];
             }
           }
-          // Last resort: use the feed's default logistics cover image
-          if (!imageUrl || imageUrl.length < 10) {
-            imageUrl = feed.defaultImg;
+          // Normalize URL
+          if (imageUrl) {
+            imageUrl = imageUrl.replace(/&amp;/g, '&');
+            if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
+            if (imageUrl.startsWith('http://')) imageUrl = imageUrl.replace('http://', 'https://');
+          }
+          // SKIP articles without a real image (no stock photo substitution)
+          if (!imageUrl || imageUrl.length < 10 || !imageUrl.startsWith('https://')) {
+            return null;
           }
 
           const rawDesc = item.description || item.content || '';
@@ -3809,7 +3830,8 @@ async function fetchFromRSSFeeds() {
             pubDate: item.pubDate || new Date().toISOString(),
             source: feed.source
           };
-        });
+        })
+        .filter(Boolean);
     } catch (e) {
       console.warn(`[NEWS] RSS fetch failed for ${feed.source}:`, e.message);
       return [];
@@ -3880,7 +3902,7 @@ function generateNewsHTML(articles) {
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
         <div class="news-card-image" style="position: relative;">
-          <img src="${imgUrl}" alt="${safeTitle}" onerror="this.onerror=null; this.src='images/types_of_logistics.jpg';" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <img src="${imgUrl}" alt="${safeTitle}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('news-img-fallback');" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           ${safeSource ? `<span class="news-source-badge">${safeSource}</span>` : ''}
         </div>
         <div class="news-card-content">
