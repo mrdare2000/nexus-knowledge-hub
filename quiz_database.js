@@ -1285,10 +1285,10 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           options: [
             "~1,500 kg",
             "~3,175 kg",
-            "~6,800 kg",
-            "~11,300 kg"
+            "~11,300 kg",
+            "~6,800 kg"
           ],
-          answerIndex: 2,
+          answerIndex: 3,
           explanation: "A standard PMC main-deck air cargo pallet (96\" x 125\") has a maximum structural gross weight limit of approximately 6,800 kg (15,000 lbs)."
         },
         {
@@ -1297,12 +1297,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Maritime Law & Liability",
           question: "Under Hague-Visby Rules, what is the legal liability limit per package for sea carriers in international ocean freight claims?",
           options: [
-            "100 SDR",
             "666.67 SDR",
+            "100 SDR",
             "1,000 SDR",
             "2,000 SDR"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Under Hague-Visby Rules, ocean carrier liability is limited to 666.67 SDR (Special Drawing Rights) per package or 2 SDR per kg, whichever is higher."
         },
         {
@@ -1312,11 +1312,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "Under Incoterms® 2020 CPT (Carriage Paid To), at what exact physical point does legal risk of loss transfer from seller to buyer?",
           options: [
             "Upon arrival at the destination port",
-            "When goods are handed over to the first carrier nominated by the seller",
             "When import customs clearance is completed",
+            "When goods are handed over to the first carrier nominated by the seller",
             "When cargo is unloaded at the buyer's warehouse"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "Under CPT, risk transfers when goods are delivered to the first carrier at origin, even though the seller pays transport costs to destination."
         },
         {
@@ -1340,11 +1340,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "What is an AEO (Authorized Economic Operator) certification under the WCO SAFE Framework?",
           options: [
             "A license required to operate reefer trucks",
-            "A customs-accredited status granting simplified procedures, fast-track clearance, and reduced inspection rates",
             "A mandatory insurance policy for high-value air cargo",
-            "An international maritime safety passport for vessel captains"
+            "An international maritime safety passport for vessel captains",
+            "A customs-accredited status granting simplified procedures, fast-track clearance, and reduced inspection rates"
           ],
-          answerIndex: 1,
+          answerIndex: 3,
           explanation: "AEO is an accredited customs security partnership granting compliant traders simplified customs procedures and fast-track clearance."
         },
         {
@@ -1353,12 +1353,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Cold Chain Logistics",
           question: "What is the primary function of a Cold Chain Data Logger inside pharmaceutical or perishables containers?",
           options: [
-            "To automatically adjust truck engine speed",
             "To continuously monitor and record ambient temperature and humidity throughout transit",
+            "To automatically adjust truck engine speed",
             "To calculate ocean freight charges automatically",
             "To prevent physical theft of cargo boxes"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Data loggers record real-time temperature/humidity data to verify that temperature-sensitive cargo remained within required thermal limits."
         },
         {
@@ -1368,11 +1368,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "Which heavy terminal equipment straddles container rows to stack containers up to 4-5 high in port yards?",
           options: [
             "Reach Stacker",
-            "Rubber-Tyred Gantry (RTG) Crane / Straddle Carrier",
             "Heavy Forklift",
+            "Rubber-Tyred Gantry (RTG) Crane / Straddle Carrier",
             "Side Loader Truck"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "RTG cranes and Straddle Carriers operate across container yards to stack, retrieve, and load containers onto chassis trucks."
         },
         {
@@ -1396,11 +1396,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "How is the 'Bullwhip Effect' defined in supply chain inventory management?",
           options: [
             "Physical damage caused to cargo by rough ocean waves",
-            "Amplification of demand variability as order signals travel upstream from consumer to manufacturer",
             "Sudden sharp increases in jet fuel surcharges",
-            "Port congestion caused by dockworker strikes"
+            "Port congestion caused by dockworker strikes",
+            "Amplification of demand variability as order signals travel upstream from consumer to manufacturer"
           ],
-          answerIndex: 1,
+          answerIndex: 3,
           explanation: "The Bullwhip Effect occurs when minor fluctuations in retail demand cause increasing swings in wholesale order volumes up the supply chain."
         },
         {
@@ -1409,12 +1409,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Freight Forwarding & LCL",
           question: "In LCL (Less than Container Load) shipping, what document is issued by the freight forwarder to the individual shipper?",
           options: [
-            "Master Bill of Lading (MBL)",
             "House Bill of Lading (HBL)",
+            "Master Bill of Lading (MBL)",
             "Sea Waybill",
             "Customs Manifest"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Freight forwarders issue a House Bill of Lading (HBL) to individual cargo owners while receiving one Master Bill of Lading (MBL) from the ocean carrier."
         },
         {
@@ -1424,11 +1424,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "Which strategic maritime choke point connects the Persian Gulf to the Gulf of Oman, handling over 20% of global oil shipments?",
           options: [
             "Strait of Malacca",
-            "Strait of Hormuz",
             "Bab-el-Mandeb Strait",
+            "Strait of Hormuz",
             "Bosporus Strait"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "The Strait of Hormuz is a critical narrow maritime passage for global oil tankers traveling from Persian Gulf producers to world markets."
         },
         {
@@ -1452,11 +1452,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "What container type is designed with collapsible end-frames to transport heavy out-of-gauge (OOG) machinery?",
           options: [
             "40ft Standard Dry Van",
-            "Flat Rack Container",
             "Insulated Reefer Container",
-            "Flexitank Container"
+            "Flexitank Container",
+            "Flat Rack Container"
           ],
-          answerIndex: 1,
+          answerIndex: 3,
           explanation: "Flat Rack containers have open sides and collapsible ends to accommodate oversized, heavy machinery exceeding standard container dimensions."
         },
         {
@@ -1465,12 +1465,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Marine Cargo Insurance",
           question: "Under Institute Cargo Clauses (ICC), which coverage tier offers the widest 'All Risks' coverage for ocean transit?",
           options: [
-            "Institute Cargo Clauses (C)",
-            "Institute Cargo Clauses (B)",
             "Institute Cargo Clauses (A)",
+            "Institute Cargo Clauses (B)",
+            "Institute Cargo Clauses (C)",
             "Free of Particular Average (FPA)"
           ],
-          answerIndex: 2,
+          answerIndex: 0,
           explanation: "Institute Cargo Clauses (A) provides the broadest 'All Risks' protection subject only to explicitly listed exclusions."
         },
         {
@@ -1480,11 +1480,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "What does TOFC ('Piggyback') service stand for in intermodal rail logistics?",
           options: [
             "Transport On Freight Craft",
-            "Trailer-on-Flatcar",
             "Trucking Over Freight Corridors",
+            "Trailer-on-Flatcar",
             "Tonnage On Fast Carrier"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "TOFC (Trailer-on-Flatcar), commonly called Piggyback, involves transporting highway semi-trailers on long-distance railway flatcars."
         },
         {
@@ -1508,11 +1508,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "Under a Time Charter agreement, who pays for operational expenses such as bunker fuel, port charges, and canal dues?",
           options: [
             "The Shipowner",
-            "The Charterer",
             "The Port Authority",
-            "The Marine Insurance Underwriter"
+            "The Marine Insurance Underwriter",
+            "The Charterer"
           ],
-          answerIndex: 1,
+          answerIndex: 3,
           explanation: "Under a Time Charter, the shipowner supplies vessel and crew, while the charterer pays variable voyage costs including fuel (bunkers) and port fees."
         },
         {
@@ -1521,12 +1521,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "E-Commerce Fulfillment",
           question: "What defines 'Micro-Fulfillment' in modern urban logistics networks?",
           options: [
-            "Constructing mega-warehouses near seaport gates",
             "Operating small, automated urban storage hubs located close to consumers for rapid 1-2 hour delivery",
+            "Constructing mega-warehouses near seaport gates",
             "Shipping small parcels exclusively via ocean freight",
             "Manual sorting of postal mail"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Micro-fulfillment centers (MFCs) leverage small urban facilities and automated picking systems to fulfill local e-commerce orders rapidly."
         },
         {
@@ -1572,10 +1572,10 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           options: [
             "Computed Value Method",
             "Deductive Value Method",
-            "Transaction Value of the Imported Goods",
-            "Fallback / Reasonable Means Method"
+            "Fallback / Reasonable Means Method",
+            "Transaction Value of the Imported Goods"
           ],
-          answerIndex: 2,
+          answerIndex: 3,
           explanation: "The WTO Customs Valuation Agreement establishes the 'Transaction Value' (the price actually paid or payable for the goods) as the primary basis for customs valuation."
         },
         {
@@ -1584,12 +1584,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Ocean Freight & Maritime Law",
           question: "Which maritime regulations reserve domestic coastal maritime shipping trade exclusively to national-flagged, locally built, and domestically crewed vessels?",
           options: [
-            "General Average Doctrine",
             "Cabotage Laws (such as the US Jones Act)",
+            "General Average Doctrine",
             "UNCTAD Liner Code",
             "Flag of Convenience Exemption"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Cabotage laws (e.g. the US Merchant Marine Act of 1920 / Jones Act) govern coastal maritime shipping within a nation's territory, restricting foreign-flagged vessel operations."
         },
         {
@@ -1599,11 +1599,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "In air cargo chartering and ULD rating, what is the 'Pivot Weight'?",
           options: [
             "The empty tare weight of an aircraft pallet",
-            "The baseline minimum billable weight assigned to a ULD, above which additional over-pivot per-kilo rates apply",
             "The maximum structural payload limit of the aircraft belly cargo door",
+            "The baseline minimum billable weight assigned to a ULD, above which additional over-pivot per-kilo rates apply",
             "The dimensional weight ratio of hazardous cargo"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "Pivot Weight is the agreed flat-rate threshold weight for a ULD; any weight exceeding this threshold is charged at an additional over-pivot rate per kg."
         },
         {
@@ -1628,10 +1628,10 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           options: [
             "Class 2",
             "Class 3",
-            "Class 4",
-            "Class 5"
+            "Class 5",
+            "Class 4"
           ],
-          answerIndex: 2,
+          answerIndex: 3,
           explanation: "UN Class 4 covers Flammable Solids (4.1), Substances Liable to Spontaneous Combustion (4.2), and Substances emitting flammable gases when in contact with water (4.3)."
         },
         {
@@ -1640,12 +1640,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Inventory & Warehouse Strategy",
           question: "In warehouse inventory management, what characterizes 'Class A' inventory items under an ABC Inventory Analysis (Pareto 80/20 Rule)?",
           options: [
-            "High-volume, low-value items requiring minimal security",
             "The small percentage (~15-20%) of inventory items accounting for ~70-80% of total annual consumption value",
+            "High-volume, low-value items requiring minimal security",
             "Damaged goods pending supplier return",
             "Seasonal promotional items shipped exclusively via air freight"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Class A items represent top-tier, high-value inventory requiring tight control and frequent stock monitoring despite comprising a small fraction of total SKU count."
         },
         {
@@ -1655,11 +1655,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "Which standardized international rules published by the ICC govern the issuance and operation of Letters of Credit (L/C) in international trade?",
           options: [
             "Incoterms® 2020",
-            "UCP 600 (Uniform Customs and Practice for Documentary Credits)",
             "SOLAS Chapter VI",
+            "UCP 600 (Uniform Customs and Practice for Documentary Credits)",
             "FIATA Model Rules"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "UCP 600 (ICC Publication No. 600) provides globally recognized rules governing commercial Letters of Credit used by banks and traders worldwide."
         },
         {
@@ -1683,11 +1683,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "Which container type features removable top roof bows and a tarpaulin cover for loading heavy or tall machinery from above with an overhead crane?",
           options: [
             "High Cube Container",
-            "Open Top Container",
             "ISO Tank Container",
-            "Side-Door Container"
+            "Side-Door Container",
+            "Open Top Container"
           ],
-          answerIndex: 1,
+          answerIndex: 3,
           explanation: "Open Top containers are designed for over-height cargo or heavy machinery that cannot be easily loaded through standard end doors."
         },
         {
@@ -1696,12 +1696,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Port Terminal Operations",
           question: "What is the primary operational role of a Reach Stacker in port container yards?",
           options: [
-            "Towing ocean freighters into port docks",
             "Lifting, transport, and stacking of containers up to 5-6 rows deep in yard bays",
+            "Towing ocean freighters into port docks",
             "Loading containers directly onto ocean vessels over water",
             "Scanning customs paperwork at port gates"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Reach Stackers are heavy-duty container handlers equipped with flexible boom arms capable of lifting, maneuvering, and stacking containers across multiple yard rows."
         },
         {
@@ -1711,11 +1711,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "What is the primary legal distinction between a Sea Waybill and a negotiable Bill of Lading (B/L)?",
           options: [
             "A Sea Waybill can only be used for air cargo",
-            "A Sea Waybill is non-negotiable and does not confer title, allowing cargo release without surrendering physical paper originals",
             "A negotiable B/L does not require carrier endorsement",
+            "A Sea Waybill is non-negotiable and does not confer title, allowing cargo release without surrendering physical paper originals",
             "A Sea Waybill is issued exclusively by customs officials"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "A Sea Waybill serves as receipt of goods and evidence of contract, but unlike a negotiable B/L, it is not a document of title and does not require physical surrender for destination delivery."
         },
         {
@@ -1738,12 +1738,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Ocean Freight Pricing",
           question: "What ocean freight surcharge is billed by shipping lines to offset fuel costs associated with using compliant Low Sulfur Marine Fuel Oil?",
           options: [
-            "LSS (Low Sulfur Surcharge)",
             "DTHC (Destination Terminal Handling Charge)",
             "ISPS (International Ship and Port Facility Security Fee)",
-            "PSS (Peak Season Surcharge)"
+            "PSS (Peak Season Surcharge)",
+            "LSS (Low Sulfur Surcharge)"
           ],
-          answerIndex: 0,
+          answerIndex: 3,
           explanation: "LSS (Low Sulfur Surcharge) compensates ocean carriers for the price premium of ultra-low sulfur fuel oils mandated by IMO environmental regulations."
         },
         {
@@ -1766,12 +1766,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Aviation Cargo Security",
           question: "In air cargo security frameworks, what designation is given to a shipper whose facilities and procedures are certified to originate secure cargo for commercial flights?",
           options: [
-            "Known Consignor / Regulated Agent",
             "Authorized Customs Broker",
             "Bonded Drayage Provider",
+            "Known Consignor / Regulated Agent",
             "Accredited Freight Forwarder"
           ],
-          answerIndex: 0,
+          answerIndex: 2,
           explanation: "Known Consignor status verifies that a shipper maintains strict security controls, allowing cargo to bypass additional airport screening before aircraft loading."
         },
         {
@@ -1795,11 +1795,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "Which major IMO safety convention was initially adopted in 1914 in response to the RMS Titanic disaster to establish international vessel safety standards?",
           options: [
             "MARPOL Convention",
-            "SOLAS (Safety of Life at Sea)",
             "STCW Convention",
-            "MLC (Maritime Labour Convention)"
+            "MLC (Maritime Labour Convention)",
+            "SOLAS (Safety of Life at Sea)"
           ],
-          answerIndex: 1,
+          answerIndex: 3,
           explanation: "SOLAS (Safety of Life at Sea) was created in 1914 following the Titanic catastrophe, mandating lifeboats, structural fire protection, and navigational safety."
         },
         {
@@ -1808,12 +1808,12 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Reefer & Perishable Logistics",
           question: "What advanced reefer technology dynamically controls oxygen (O2), carbon dioxide (CO2), and nitrogen gas concentrations to slow fruit respiration during transit?",
           options: [
-            "Passive Thermal Insulation",
             "Controlled Atmosphere (CA) Technology",
+            "Passive Thermal Insulation",
             "Cryogenic Nitrogen Injection",
             "Dehumidified Air Blast Cooling"
           ],
-          answerIndex: 1,
+          answerIndex: 0,
           explanation: "Controlled Atmosphere (CA) technology modifies internal container air composition to put perishable produce into 'dormancy', extending shelf life over long ocean voyages."
         },
         {
@@ -1823,11 +1823,11 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           question: "In freight trucking operations, what does the term 'Deadheading' describe?",
           options: [
             "Operating a truck beyond legally allowable driver shift limits",
-            "Driving a commercial vehicle or trailer back without carrying revenue-generating cargo",
             "Parking a chassis inside a customs bonded yard",
+            "Driving a commercial vehicle or trailer back without carrying revenue-generating cargo",
             "Transporting hazardous chemicals without placard tags"
           ],
-          answerIndex: 1,
+          answerIndex: 2,
           explanation: "Deadheading refers to running an empty truck or container chassis on a leg where no paid freight is being transported, resulting in uncompensated fuel and labor expense."
         },
         {
