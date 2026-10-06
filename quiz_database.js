@@ -402,10 +402,10 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           id: "w2-q12",
           type: "short",
           category: "Customs Clearance",
-          question: "What tax identification number must Sri Lankan exporters declare on customs entry documents?",
+          question: "What mandatory Inland Revenue registration number must Sri Lankan traders declare on customs entry declarations (CUSDEC)?",
           modelAnswer: "TIN (Tax Identification Number)",
           keywords: ["tin", "tax identification number"],
-          explanation: "TIN is mandatory for IRD & Sri Lanka Customs registration."
+          explanation: "TIN (Tax Identification Number) issued by IRD is mandatory for Sri Lanka Customs CUSDEC processing."
         },
         {
           id: "w2-q13",
