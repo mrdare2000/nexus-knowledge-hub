@@ -293,7 +293,13 @@
             const correctText = q.options[correctIdx];
             r.correctAnswer = correctText;
 
-            if (r.userAnswer === correctText || (typeof r.userChoiceIdx !== 'undefined' && r.userChoiceIdx === correctIdx)) {
+            const uText = (r.userAnswer || '').trim();
+            const cText = (correctText || '').trim();
+
+            if (uText && uText !== 'No Answer' && uText === cText) {
+              r.isCorrect = true;
+              mcqScore++;
+            } else if (typeof r.userChoiceIdx !== 'undefined' && r.userChoiceIdx === correctIdx) {
               r.isCorrect = true;
               mcqScore++;
             } else {
@@ -771,6 +777,10 @@
       return renderCrosswordQuizForm(activeQuiz);
     }
 
+    const hasShortQuestions = activeQuiz.questions.some(q => q.type === 'short');
+    const mcqQuestions = activeQuiz.questions.filter(q => q.type === 'mcq');
+    const shortQuestions = activeQuiz.questions.filter(q => q.type === 'short');
+
     let html = `
       <div class="quiz-questions-view" style="max-width: 900px; margin: 0 auto; font-family: 'Inter', sans-serif;">
         
@@ -785,14 +795,24 @@
         </div>
 
         <form id="quiz-attempt-form" style="display: flex; flex-direction: column; gap: 25px;">
-          
-          <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 10px; font-size: 1.25rem;">
-            SECTION 1: Multiple Choice Questions (10 Marks)
-          </h3>
     `;
 
-    // Render 10 MCQs
-    activeQuiz.questions.filter(q => q.type === 'mcq').forEach((q, idx) => {
+    if (hasShortQuestions) {
+      html += `
+          <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 10px; font-size: 1.25rem;">
+            SECTION 1: Multiple Choice Questions (${mcqQuestions.length} Marks)
+          </h3>
+      `;
+    } else {
+      html += `
+          <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 10px; font-size: 1.25rem;">
+            Multiple Choice Questions (${mcqQuestions.length} MCQs)
+          </h3>
+      `;
+    }
+
+    // Render MCQs
+    mcqQuestions.forEach((q, idx) => {
       html += `
         <div class="quiz-question-card" style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -814,27 +834,28 @@
       `;
     });
 
-    html += `
-      <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 20px; font-size: 1.25rem;">
-        SECTION 2: Short Answer Questions (10 Marks)
-      </h3>
-    `;
-
-    // Render 10 Short Answer Questions
-    activeQuiz.questions.filter(q => q.type === 'short').forEach((q, idx) => {
+    if (hasShortQuestions && shortQuestions.length > 0) {
       html += `
-        <div class="quiz-question-card" style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span style="font-size: 0.78rem; font-weight: 800; background: #F0FDF4; color: #166534; padding: 4px 12px; border-radius: 8px;">
-              Q${idx + 11} • ${q.category}
-            </span>
-            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Short Answer (1 Mark)</span>
-          </div>
-          <h4 style="font-size: 1.05rem; color: var(--primary-navy); margin: 0 0 12px 0; line-height: 1.5; font-weight: 700;">${q.question}</h4>
-          <input type="text" name="q_${q.id}" required placeholder="Type your answer here..." style="width: 100%; padding: 14px 18px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
-        </div>
+        <h3 style="font-family:'Outfit', sans-serif; color: var(--primary-navy); border-bottom: 2.5px solid var(--accent-orange); padding-bottom: 8px; margin-top: 20px; font-size: 1.25rem;">
+          SECTION 2: Short Answer Questions (${shortQuestions.length} Marks)
+        </h3>
       `;
-    });
+
+      shortQuestions.forEach((q, idx) => {
+        html += `
+          <div class="quiz-question-card" style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 0.78rem; font-weight: 800; background: #F0FDF4; color: #166534; padding: 4px 12px; border-radius: 8px;">
+                Q${mcqQuestions.length + idx + 1} • ${q.category}
+              </span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Short Answer (1 Mark)</span>
+            </div>
+            <h4 style="font-size: 1.05rem; color: var(--primary-navy); margin: 0 0 12px 0; line-height: 1.5; font-weight: 700;">${q.question}</h4>
+            <input type="text" name="q_${q.id}" required placeholder="Type your answer here..." style="width: 100%; padding: 14px 18px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem;">
+          </div>
+        `;
+      });
+    }
 
     html += `
           <div style="text-align: center; margin: 35px 0 20px 0;">
@@ -845,6 +866,8 @@
         </form>
       </div>
     `;
+
+    return html;
 
     return html;
   }
@@ -1468,6 +1491,12 @@
               <span>Correct Words: <strong>${attempt.mcqScore}/${results.length || 10}</strong></span>
               <span>•</span>
               <span>Total Marks: <strong>${attempt.totalScore}/100</strong></span>
+            </div>
+          ` : (attempt.shortScore === 0 && results.length >= 20) ? `
+            <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.9rem; color: #CBD5E1; margin-bottom: 25px;">
+              <span>MCQ Score: <strong>${attempt.mcqScore}/20</strong></span>
+              <span>•</span>
+              <span>Accuracy: <strong>${attempt.percentage}%</strong></span>
             </div>
           ` : `
             <div style="display: flex; gap: 20px; justify-content: center; font-size: 0.9rem; color: #CBD5E1; margin-bottom: 25px;">
