@@ -504,21 +504,30 @@
 
       <!-- GLOBAL INDUSTRY NEWS -->
       <section class="home-featured-section" style="background-color: var(--bg-gray);" aria-labelledby="global-news-title">
-        <h2 class="home-section-title reveal-on-scroll" id="global-news-title">Latest Global Logistics News</h2>
-        <p class="reveal-on-scroll" style="text-align: center; color: var(--text-muted); margin-top: -30px; margin-bottom: 40px; font-size: 1.1rem;">
-          The latest supply chain and freight forwarding headlines worldwide.</p>
+        <div class="home-news-header-flex">
+          <div>
+            <h2 class="home-section-title reveal-on-scroll" id="global-news-title">Latest World Logistics News</h2>
+            <p class="reveal-on-scroll" style="color: var(--text-muted); font-size: 1.05rem; margin-top: -15px; margin-bottom: 30px;">
+              Real-time supply chain, maritime & freight forwarding headlines updated automatically.
+            </p>
+          </div>
+          <div class="home-news-live-actions">
+            <span class="news-live-badge"><span class="pulse-dot"></span> LIVE FEED</span>
+            <button class="news-mini-refresh-btn" onclick="manualRefreshNews(true)" title="Refresh Live News">🔄 Refresh</button>
+          </div>
+        </div>
         
         <div id="news-loading-state" style="text-align: center; padding: 40px; color: var(--text-muted);">
           <div class="news-spinner"></div>
-          <p style="margin-top: 15px;">Fetching latest global news...</p>
+          <p style="margin-top: 15px; font-weight: 500;">Fetching live world logistics news...</p>
         </div>
 
         <div id="news-feed-container" class="news-grid" style="display: none;">
-          <!-- News cards will be dynamically injected here via JS -->
+          <!-- Top 6 News cards will be dynamically injected here via JS -->
         </div>
 
         <div style="text-align: center; margin-top: 35px;" class="reveal-on-scroll">
-          <button class="btn btn-primary" onclick="switchPage('news')" style="padding: 12px 30px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(255, 90, 31, 0.25);">More News &rarr;</button>
+          <button class="btn btn-primary" onclick="switchPage('news')" style="padding: 12px 30px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(255, 90, 31, 0.25);">Explore Full News Hub &rarr;</button>
         </div>
       </section>
 
@@ -585,14 +594,45 @@
   <!-- NEWS FEED PAGE -->
   <section id="news-page" class="page-section">
     <div class="section-header">
-      <h2><span style="color: var(--primary-navy);">News</span> <span
-          style="color: var(--accent-orange);">Feed</span></h2>
-      <p>Stay updated with a continuous stream of the latest global logistics and supply chain headlines.</p>
+      <h2><span style="color: var(--primary-navy);">World Logistics</span> <span style="color: var(--accent-orange);">News Hub</span></h2>
+      <p>Real-time continuous intelligence & live news from leading ocean, air cargo, supply chain & trade news channels worldwide.</p>
+    </div>
+
+    <!-- NEWS HUB CONTROLS & TABS -->
+    <div class="news-hub-controls">
+      <div class="news-controls-header">
+        <div class="news-search-box">
+          <span class="news-search-icon">🔍</span>
+          <input type="text" id="news-search-input" class="news-search-field" placeholder="Search logistics headlines, ports, carriers, tariffs..." oninput="handleNewsSearch(this.value)">
+          <button id="news-search-clear" class="news-clear-btn" onclick="clearNewsSearch()" style="display: none;">✕</button>
+        </div>
+        <div class="news-actions">
+          <span class="news-live-badge" id="news-live-status"><span class="pulse-dot"></span> Auto-updating</span>
+          <button class="news-refresh-action-btn" onclick="manualRefreshNews(true)">
+            <span class="refresh-icon" id="news-refresh-spinner">🔄</span> Refresh Live News
+          </button>
+        </div>
+      </div>
+
+      <!-- CATEGORY FILTER TABS -->
+      <div class="news-tabs-container" id="news-category-tabs">
+        <button class="news-tab-btn active" data-category="ALL" onclick="filterNewsCategory('ALL', this)">🌐 All News</button>
+        <button class="news-tab-btn" data-category="MARITIME" onclick="filterNewsCategory('MARITIME', this)">🚢 Ocean & Maritime</button>
+        <button class="news-tab-btn" data-category="AIR" onclick="filterNewsCategory('AIR', this)">✈️ Air Cargo & Aviation</button>
+        <button class="news-tab-btn" data-category="SUPPLY_CHAIN" onclick="filterNewsCategory('SUPPLY_CHAIN', this)">📦 Supply Chain & Tech</button>
+        <button class="news-tab-btn" data-category="PORTS" onclick="filterNewsCategory('PORTS', this)">⚓ Ports & Logistics</button>
+        <button class="news-tab-btn" data-category="TRADE" onclick="filterNewsCategory('TRADE', this)">🏛️ Customs & Trade</button>
+      </div>
+
+      <div class="news-meta-info-bar">
+        <span id="news-count-badge" class="news-count-pill">Loading live articles...</span>
+        <span id="news-last-updated-text" class="news-updated-timestamp"></span>
+      </div>
     </div>
     
-    <div id="full-news-loading-state" style="text-align: center; padding: 40px; color: var(--text-muted);">
+    <div id="full-news-loading-state" style="text-align: center; padding: 50px; color: var(--text-muted);">
       <div class="news-spinner"></div>
-      <p style="margin-top: 15px;">Loading full news archive...</p>
+      <p style="margin-top: 15px; font-weight: 500;">Connecting to global logistics news channels...</p>
     </div>
 
     <div id="full-news-feed-container" class="news-grid" style="display: none;">

@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLogisticsGrid();
   initNexusAIChat();
   initContactForm();
-  fetchLogisticsNews();
+  initLiveNewsEngine();
   initScrollAnimations();
   initAuth();
 });
@@ -3677,322 +3677,126 @@ function filterHSOptions() {
    10. GLOBAL INDUSTRY NEWS (FIRESTORE-FIRST + RSS FALLBACK + CURATED FALLBACK)
    ==========================================
    Priority 1: Fetch from /api/news-feed (reads Firestore where cron stored proper images)
-   Priority 2: Client-side RSS via rss2json.com (skip articles without real images)
-   Priority 3: Curated real logistics articles (dates auto-adjusted to today)
-   
-   Home page shows 6 latest, News Hub shows 30 latest.
+/* ==========================================
+   10. LIVE WORLD LOGISTICS NEWS HUB ENGINE
+   ==========================================
+   Fetches live RSS feeds from top global logistics news channels.
+   Features:
+   - Real thumbnail extraction (item.thumbnail, enclosure, media:content, <img> regex)
+   - Category filtering tabs (All, Ocean & Maritime, Air Cargo, Supply Chain & Tech, Ports, Customs & Trade)
+   - Search input filter
+   - Auto-updating background loop & manual refresh
+   - Top 6 latest live news rendered on Home Page
    ========================================== */
-let globalNewsCache = null;
 
-// Method 1: Direct Client-Side Live RSS Feeds (6 Domain-Specific Logistics Channels)
-// 1. Aviation | 2. Maritime | 3. Weather & Climate | 4. Global Politics & Tariffs | 5. Emergency News | 6. Tech & AI
-const CLIENT_RSS_FEEDS = [
-  { url: 'https://www.aircargonews.net/feed/', source: 'Air Cargo News', category: 'Aviation' },
-  { url: 'https://splash247.com/feed/', source: 'Splash247', category: 'Maritime' },
-  { url: 'https://www.offshore-energy.biz/feed/', source: 'Offshore Energy', category: 'Weather & Climate' },
-  { url: 'https://theloadstar.com/feed/', source: 'The Loadstar', category: 'Politics & Tariffs' },
-  { url: 'https://gcaptain.com/feed/', source: 'gCaptain', category: 'Emergency & Security' },
-  { url: 'https://www.supplychaindive.com/feeds/news/', source: 'Supply Chain Dive', category: 'Tech & AI' }
+const LOGISTICS_NEWS_FEEDS = [
+  {
+    url: 'https://splash247.com/feed/',
+    source: 'Splash247',
+    category: 'MARITIME',
+    categoryLabel: 'Ocean & Maritime',
+    icon: '🚢',
+    fallbackImg: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    url: 'https://www.supplychaindive.com/feeds/news/',
+    source: 'Supply Chain Dive',
+    category: 'SUPPLY_CHAIN',
+    categoryLabel: 'Supply Chain & Tech',
+    icon: '📦',
+    fallbackImg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    url: 'https://www.aircargonews.net/feed/',
+    source: 'Air Cargo News',
+    category: 'AIR',
+    categoryLabel: 'Air Cargo & Aviation',
+    icon: '✈️',
+    fallbackImg: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    url: 'https://gcaptain.com/feed/',
+    source: 'gCaptain',
+    category: 'PORTS',
+    categoryLabel: 'Ports & Logistics',
+    icon: '⚓',
+    fallbackImg: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    url: 'https://theloadstar.com/feed/',
+    source: 'The Loadstar',
+    category: 'TRADE',
+    categoryLabel: 'Customs & Trade',
+    icon: '🏛️',
+    fallbackImg: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    url: 'https://www.hellenicshippingnews.com/feed/',
+    source: 'Hellenic Shipping News',
+    category: 'MARITIME',
+    categoryLabel: 'Ocean & Maritime',
+    icon: '🚢',
+    fallbackImg: 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    url: 'https://www.porttechnology.org/feed/',
+    source: 'Port Technology',
+    category: 'PORTS',
+    categoryLabel: 'Ports & Logistics',
+    icon: '⚓',
+    fallbackImg: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
+  }
 ];
 
-// Curated real logistics articles (stored with their TRUE original publication dates)
-// Never generates fake relative dates - date shown ALWAYS matches the real source article date.
-function getCuratedNews() {
-  return [
-    {
-      title: "MSC ship abandoned and adrift in South China Sea",
-      description: "The troubled MSC Hermes III remains afloat and drifting unmanned in the South China Sea after all 25 crew abandoned the vessel, described as a 'derelict' vessel adrift near Vietnam.",
-      link: "https://splash247.com/msc-ship-abandoned-and-adrift-in-south-china-sea/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2026/09/MSC-Hermes-3.jpg",
-      pubDate: "2026-09-30T11:20:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "Boxship orderbook points to looming capacity showdown",
-      description: "Container shipping's extraordinary newbuilding binge has reached a point where several carriers now have more ships on order than they have in their entire existing fleets.",
-      link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2026/04/MSC-Migsan-MSC-Zivana-naming-ceremony.jpg",
-      pubDate: "2026-09-29T10:41:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "How long can the million-dollar VLCC market last?",
-      description: "The VLCC market has reached levels that would have sounded absurd only months ago. Middle East-China earnings have pushed beyond $1m a day, Atlantic routes have surged into the hundreds of thousands.",
-      link: "https://splash247.com/how-long-can-the-million-dollar-vlcc-market-last/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2026/06/DHT-Antelope-VLCC.jpg",
-      pubDate: "2026-09-29T09:35:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "Should AI literacy become mandatory for seafarers?",
-      description: "The STCW review is a rare chance to define how seafarers should use, question and, when necessary, override AI-enabled systems on modern commercial vessels.",
-      link: "https://www.seatrade-maritime.com/crewing/should-ai-literacy-become-mandatory-for-seafarers-",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8dd6d17037394572/6ab33f5809bf6b10b0c9bbe6/Capt_Pradeep_Chawla_CEO_of_MarinePALS.jpg?width=720&quality=80",
-      pubDate: "2026-09-28T08:47:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "Lars Kastrup stands down as PIL boss with Temasek exec lined up",
-      description: "Pacific International Lines chief executive Lars Kastrup will step down next April, bringing to a close a tenure that coincided with one of the most dramatic turnarounds in the Singapore liner's history.",
-      link: "https://splash247.com/lars-kastrup-stands-down-as-pil-boss-with-temasek-exec-lined-up/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2022/07/Lars-Kastrup-CEO-PIL.jpg",
-      pubDate: "2026-09-28T07:26:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "Union Maritime spreads nine-ship order across five segments",
-      description: "Laurent Cadji-led Union Maritime has added nine newbuildings across five vessel classes, pushing one of shipping's fastest-growing orderbooks to close to 80 ships.",
-      link: "https://splash247.com/union-maritime-spreads-nine-ship-order-across-five-segments/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2026/03/Cape-Rigi-Union-Maritime-newcastlemax.jpg",
-      pubDate: "2026-09-27T06:16:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "The Fed Just Raised Rates Again: Here's What It Means for Freight",
-      description: "The FOMC raised the federal funds target range by 25 basis points to 3.75%–4.00%, its first hike after a run of cuts. Higher rates raise the cost of carrying inventory and financing fleet equipment.",
-      link: "https://www.freightwaves.com/news/the-fed-just-raised-rates-again-heres-what-it-means-for-freight",
-      imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/image.png",
-      pubDate: "2026-09-26T18:59:00Z",
-      source: "FreightWaves"
-    },
-    {
-      title: "New report: Just a third of container shipping on-time",
-      description: "Global container schedule reliability slipped in August as Far East–Europe disruptions drove performance toward pandemic-era lows, with just 29% of vessels arriving on time.",
-      link: "https://www.freightwaves.com/news/new-report-just-a-third-of-container-shipping-on-time",
-      imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/PortOfItajaifoto.jpg",
-      pubDate: "2026-09-26T16:23:00Z",
-      source: "FreightWaves"
-    },
-    {
-      title: "New $100M inland rail terminal will handle 60,000 TEUs a year",
-      description: "Alabama's $100 million Montgomery inland container terminal will link central Alabama shippers to the Port of Mobile via CSX rail, with construction on schedule for early 2027 opening.",
-      link: "https://www.freightwaves.com/news/new-100m-inland-rail-terminal-will-handle-60000-teus-a-year",
-      imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/09/22/Montgomery-ICTF-Rendering.jpeg-copy.jpg",
-      pubDate: "2026-09-26T14:37:00Z",
-      source: "FreightWaves"
-    },
-    {
-      title: "Tabi Connect, Kleinschmidt partner to automate freight quoting",
-      description: "Tabi Connect and Kleinschmidt are integrating automated freight pricing with predictive capacity data, giving brokers another signal to consider when setting rates.",
-      link: "https://www.freightwaves.com/news/tabi-connect-kleinschmidt-partner-to-automate-freight-quoting",
-      imageUrl: "https://www.freightwaves.com/wp-content/uploads/2026/08/FW_GAL_T3-6.jpg",
-      pubDate: "2026-09-25T12:41:00Z",
-      source: "FreightWaves"
-    },
-    {
-      title: "Piston raises $15M to expand cardless fuel payments network",
-      description: "Piston has raised $15 million in Series A funding as the cardless fuel payments startup expands its network across the U.S. and adds AI-powered tools for fraud prevention.",
-      link: "https://www.freightwaves.com/news/piston-raises-15m-to-expand-cardless-fuel-payments-network",
-      imageUrl: "https://www.freightwaves.com/wp-content/uploads/2023/03/30/AtoB_fleet_telematics.jpg",
-      pubDate: "2026-09-25T10:21:00Z",
-      source: "FreightWaves"
-    },
-    {
-      title: "Half of seafarers say crewing levels put safe working at risk",
-      description: "Just 49% of seafarers say their ships carried enough crew to work safely without excessive fatigue or breaching agreed rest hours, according to new maritime rights report.",
-      link: "https://www.seatrade-maritime.com/crewing/half-of-seafarers-say-crewing-levels-put-safe-working-at-risk",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltf21b88da9078d6fb/6ab29092ae19fc2f5003d998/Seafarers-Rights-Report-Credit-IHRB.jpg?width=720&quality=80",
-      pubDate: "2026-09-25T08:24:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "Fujian Guohang plots $370m move into tankers and heavylift",
-      description: "Fujian Guohang Ocean Shipping is lining up six newbuildings worth RMB2.49bn ($372m) as the Chinese dry bulk owner sets out plans to move into LR2 tankers and heavylift.",
-      link: "https://splash247.com/fujian-guohang-plots-370m-move-into-tankers-and-heavylift/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2023/01/Guo-Yuan-8-Fujian-Guohang-Ocean-Shipping.jpg",
-      pubDate: "2026-09-24T18:07:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "PSA and Temasek veteran lined up as next chief of PIL",
-      description: "Pacific International Lines has announced succession plans for current CEO Lars Kastrup who will leave the top role with group next April.",
-      link: "https://www.seatrade-maritime.com/containers/psa-and-temasek-veteran-lined-up-as-next-chief-of-pil",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8a25c89db4389092/6ab27f86bdd2952b2137657f/PIL_(L-R)_Wan_Chee_Foong_and_Lars_Kastrup_-_Seated_2.jpg?width=720&quality=80",
-      pubDate: "2026-09-24T15:11:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "Foreign expertise driving Indian yard expansion",
-      description: "New Delhi is providing an injection of funds to kickstart Indian shipbuilding, with technical knowhow shared by foreign experts from Europe and Asia.",
-      link: "https://www.seatrade-maritime.com/shipyards/foreign-expertise-driving-indian-yard-expansion",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt2075661102b5be45/6ab27f2f80fa673fe47abb10/SDHI-Courtsey-SDHI.jpg?width=720&quality=80",
-      pubDate: "2026-09-24T12:50:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "DAB Group makes shipowning foray with bulker order at Chinese yard",
-      description: "European company DAB Group places order for dry bulk carriers at China's Soho Innovation & Technology, marking its formal entry into vessel ownership.",
-      link: "https://www.seatrade-maritime.com/dry-bulk/dab-group-makes-shipowning-foray-with-bulker-order-at-chinese-yard",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltc0eda07c04d8b390/6ab267f2e759af0da9d3990b/DAB_SOHO.jpg?width=720&quality=80",
-      pubDate: "2026-09-24T11:31:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "What are Panama's future plans for Balboa and Cristobal ports?",
-      description: "Panama is in the unique position of having port terminals serving two different oceans, but structural change and strategic investments are needed.",
-      link: "https://www.seatrade-maritime.com/ports-logistics/what-are-panama-s-future-plans-balboa-and-cristobal-ports-",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0e4204bf5864ede2/6ab25f6381d60e93cefd76a1/ALBERTO_ALEMAN-_LA_PRENSA.jpg?width=720&quality=80",
-      pubDate: "2026-09-24T10:44:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "FBI, Coast Guard probe suspected cyberattacks on ships entering US waters",
-      description: "Federal authorities escalate investigation into cyber incidents targeting commercial vessel navigation and maritime port infrastructure.",
-      link: "https://www.supplychaindive.com/news/fbi-coast-guard-probe-suspected-cyberattacks-on-ships-entering-us-waters/830774/",
-      imageUrl: "https://imgproxy.divecdn.com/Z6CdC_OsXvC99docslnfTCbDlIhgLDkvnG4JQwNgS8w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90ZXJtaW5hbC1kb2Nrd29ya2Vyc183WjRrUUlGLmpwZw==.webp",
-      pubDate: "2026-09-23T18:10:00Z",
-      source: "Supply Chain Dive"
-    },
-    {
-      title: "Shipping can no longer afford to make women feel like guests at sea",
-      description: "Dr Katherine Sinclaire writes on gender inclusion and medical challenges facing female seafarers in the global maritime workforce.",
-      link: "https://splash247.com/shipping-can-no-longer-afford-to-make-women-feel-like-guests-at-sea/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2023/03/Synergy-female-crew-PPE.jpg",
-      pubDate: "2026-09-23T16:00:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "2020 Bulkers seals 15-ship AHTS roll-up",
-      description: "2020 Bulkers signs binding agreement for dramatic move into offshore shipping, assembling up to 15 large anchor handling tug supply (AHTS) vessels.",
-      link: "https://splash247.com/2020-bulkers-seals-15-ship-ahts-roll-up/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2020/10/2020-Bulkers-Magnus-Halvorsen-e1603265659533.jpg",
-      pubDate: "2026-09-23T14:40:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "Jan De Nul doubles up on subsea cable trenchers",
-      description: "Belgian marine contractor Jan De Nul orders second trenching support vessel at China Merchants Heavy Industry to expand offshore cable installation capacity.",
-      link: "https://splash247.com/jan-de-nul-doubles-up-on-subsea-cable-trenchers/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Jan-de-Nul-subsea-trencher.jpg",
-      pubDate: "2026-09-23T12:30:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "PTTEP hands two jackup deals to Foresight Offshore Drilling",
-      description: "Thailand's PTTEP awards two long-term offshore drilling contracts for Aryabhatt 1 and Vivekanand 1 jackup rigs in Gulf of Thailand.",
-      link: "https://splash247.com/pttep-hands-two-jackup-deals-to-foresight-offshore-drilling/",
-      imageUrl: "https://splash247.com/wp-content/uploads/2026/09/Aryabhatt-1-under-previous-name.jpg",
-      pubDate: "2026-09-23T10:10:00Z",
-      source: "Splash 247"
-    },
-    {
-      title: "Electronics manufacturers fret over extreme heat disruptions",
-      description: "High temperatures are delaying supplier deliveries and hobbling productivity in semiconductor and electronics assembly plants worldwide.",
-      link: "https://www.supplychaindive.com/news/electronics-manufacturers-fret-over-extreme-heat-disruptions/830938/",
-      imageUrl: "https://imgproxy.divecdn.com/5RIMomjbs0K2dznb5Tv2Wnd2mKrgcuZllUYgNGu4gBc/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMTYxNDE3NTYxLmpwZw==.webp",
-      pubDate: "2026-09-23T08:34:00Z",
-      source: "Supply Chain Dive"
-    },
-    {
-      title: "Wegmans invests $110M in its supply chain",
-      description: "The grocer is building a new distribution facility in upstate New York and consolidating logistics operations to limit third-party reliance.",
-      link: "https://www.supplychaindive.com/news/wegmans-invests-110m-in-its-supply-chain/830887/",
-      imageUrl: "https://imgproxy.divecdn.com/agvVxmoleUAAezK8jEqubMfUk6sTllLVvIcU5dl1H_w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xMzI3OTA3NzM4LmpwZw==.webp",
-      pubDate: "2026-09-22T18:33:00Z",
-      source: "Supply Chain Dive"
-    },
-    {
-      title: "Seafarers live the consequences of boardroom high-risk decisions",
-      description: "Crew safety should be the cornerstone of all decisions when it comes to sailing in high-risk conflict zones, Columbia Shipmanagement executives warn.",
-      link: "https://www.seatrade-maritime.com/crewing/seafarers-live-the-consequences-of-boardroom-high-risk-decisions",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0c5f2fc893ba51b5/6ab2262e4e44f00904ad8ecd/mm-panel-csm.jpg?width=720&quality=80",
-      pubDate: "2026-09-22T16:46:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "MARAD seeks to overhaul US-fleet funding rules",
-      description: "Proposed changes by the US Maritime Administration target $2.56 billion in capital construction funds for US-flagged commercial vessels.",
-      link: "https://www.seatrade-maritime.com/shipping-finance/marad-seeks-to-overhaul-us-fleet-funding-rules",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt8e1ab413971c4a3d/670f75bec4a37b3409135821/Dollars-Credit-Filip-Filipovic-Pixabay.jpg?width=720&quality=80",
-      pubDate: "2026-09-22T13:44:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "Yangzijiang Maritime expands fleet with 24 newbuilding orders",
-      description: "Yangzijiang Shipbuilding secures major newbuilding order program spanning five vessel types to capture dry bulk and container market upside.",
-      link: "https://www.seatrade-maritime.com/dry-bulk/yangzijiang-maritime-expands-fleet-with-24-newbuilding-orders",
-      imageUrl: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/bltb784961d61dea917/69a172602853109a4dab6b71/Yangzijiang_Shipbuilding-credit-Yangzijiang.jpg?width=720&quality=80",
-      pubDate: "2026-09-22T11:00:00Z",
-      source: "Seatrade Maritime"
-    },
-    {
-      title: "Coca-Cola to spend $10B on US manufacturing by 2030",
-      description: "The beverage giant and its bottling partners plan massive expansion of US production facilities and regional distribution networks.",
-      link: "https://www.supplychaindive.com/news/coca-cola-to-spend-10b-on-us-manufacturing-by-2030/830535/",
-      imageUrl: "https://imgproxy.divecdn.com/BuHm8_LvtUmXjAEZzfOcJLWqQaXeUD0j1mkq8srt4B8/g:nowe:0:130/c:1920:1084/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90aHVtYm5haWxfSU1HXzQ2MjcuanBn.webp",
-      pubDate: "2026-09-22T09:27:00Z",
-      source: "Supply Chain Dive"
-    },
-    {
-      title: "FedEx preps 5.9% rate hike, surcharge increases for 2027",
-      description: "Standard U.S. parcel freight shipping rates will increase starting January, with additional fuel and oversized package surcharges taking effect.",
-      link: "https://www.supplychaindive.com/news/fedex-preps-59-rate-hike-surcharge-increases-for-2027/830903/",
-      imageUrl: "https://imgproxy.divecdn.com/b4426jrapKwQEQhj38HQgmuevoqs_LGrQ_gC2yBYuhM/g:nowe:0:0/c:1024:578/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjgyOTkzODgxLmpwZw==.webp",
-      pubDate: "2026-09-22T08:12:00Z",
-      source: "Supply Chain Dive"
-    },
-    {
-      title: "UP, NS merger: STB denies shippers' calls for dismissal",
-      description: "Surface Transportation Board rejects shipper trade association petitions seeking summary dismissal of Union Pacific and Norfolk Southern merger application.",
-      link: "https://www.supplychaindive.com/news/up-ns-merger-stb-denies-shippers-calls-for-dismissal/830906/",
-      imageUrl: "https://imgproxy.divecdn.com/8qyw-nbBtpgXfK7CSxRfIURsLrAmKT9s84FFXdvNfQ4/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjk1ODA0NzgyLmpwZw==.webp",
-      pubDate: "2026-09-22T07:00:00Z",
-      source: "Supply Chain Dive"
-    }
-  ];
+let liveNewsArticles = [];
+let activeNewsCategory = 'ALL';
+let currentNewsSearchQuery = '';
+let newsAutoUpdateTimer = null;
+let lastNewsFetchTimestamp = null;
+
+async function initLiveNewsEngine() {
+  await fetchLiveLogisticsNews(true);
+  
+  // Auto-refresh every 5 minutes in background
+  if (!newsAutoUpdateTimer) {
+    newsAutoUpdateTimer = setInterval(() => {
+      fetchLiveLogisticsNews(false);
+    }, 300000);
+  }
 }
 
-async function fetchLogisticsNews() {
-  if (globalNewsCache) {
-    renderNews(globalNewsCache);
-    return;
+async function fetchLiveLogisticsNews(showLoadingSpinner = true) {
+  const homeLoading = document.getElementById('news-loading-state');
+  const fullLoading = document.getElementById('full-news-loading-state');
+  const refreshSpinner = document.getElementById('news-refresh-spinner');
+  
+  if (showLoadingSpinner) {
+    if (homeLoading && (!liveNewsArticles || liveNewsArticles.length === 0)) homeLoading.style.display = 'block';
+    if (fullLoading && (!liveNewsArticles || liveNewsArticles.length === 0)) fullLoading.style.display = 'block';
   }
+  if (refreshSpinner) refreshSpinner.classList.add('spinning');
 
-  // METHOD 1 (PRIMARY): Direct Client-Side Live RSS across 6 domain channels
-  // Works identically on local host AND live production - 100% real-time news with original dates!
-  console.log('[NEWS] Fetching Direct Client-Side Live RSS (Method 1)...');
-  try {
-    const rssArticles = await fetchFromRSSFeeds();
-    if (rssArticles && rssArticles.length > 0) {
-      globalNewsCache = rssArticles;
-      renderNews(rssArticles);
-      console.log(`[NEWS] ✅ Loaded ${rssArticles.length} live articles from 6 global logistics channels`);
-      return;
-    }
-  } catch (e) {
-    console.warn('[NEWS] Direct Live RSS fetch failed:', e.message);
-  }
+  const fetchedItems = [];
 
-  // FALLBACK: Curated news (only if user network is completely offline)
-  console.log('[NEWS] Network offline: Using curated news fallback...');
-  const curated = getCuratedNews();
-  globalNewsCache = curated;
-  renderNews(curated);
-}
-
-async function fetchFromRSSFeeds() {
-  const allArticles = [];
-
-  const feedPromises = CLIENT_RSS_FEEDS.map(async (feed) => {
+  const feedPromises = LOGISTICS_NEWS_FEEDS.map(async (feed) => {
     try {
-      // Multi-proxy approach: try rss2json first, fall back to allorigins / corsproxy with DOMParser
-      let items = [];
+      let rawItems = [];
 
-      // Method 1: rss2json API
+      // Primary Attempt: rss2json API
       try {
         const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url));
         if (resp.ok) {
           const data = await resp.json();
           if (data.status === 'ok' && Array.isArray(data.items)) {
-            items = data.items;
+            rawItems = data.items;
           }
         }
       } catch (e) {
-        // Fallback to Method 2 below
+        // Fallback below
       }
 
-      // Method 2: Raw RSS fetch via allorigins proxy + DOMParser (gives true original <pubDate>)
-      if (!items || items.length === 0) {
+      // Secondary Attempt: Raw RSS via allorigins proxy
+      if (!rawItems || rawItems.length === 0) {
         try {
           const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed.url);
           const resp = await fetch(proxyUrl);
@@ -4001,13 +3805,14 @@ async function fetchFromRSSFeeds() {
             if (xmlText && xmlText.includes('<item')) {
               const parser = new DOMParser();
               const doc = parser.parseFromString(xmlText, 'text/xml');
-              const xmlItems = doc.querySelectorAll('item');
-              xmlItems.forEach(item => {
+              const itemsNode = doc.querySelectorAll('item');
+              itemsNode.forEach(item => {
                 const title = item.querySelector('title')?.textContent?.trim() || '';
                 const link = item.querySelector('link')?.textContent?.trim() || '';
                 const pubDate = item.querySelector('pubDate')?.textContent?.trim() || '';
                 const description = item.querySelector('description')?.textContent?.trim() || '';
-                
+                const content = item.querySelector('encoded, content')?.textContent?.trim() || '';
+
                 let imageUrl = '';
                 const mediaContent = item.querySelector('content, thumbnail');
                 if (mediaContent) imageUrl = mediaContent.getAttribute('url') || '';
@@ -4015,163 +3820,189 @@ async function fetchFromRSSFeeds() {
                   const enclosure = item.querySelector('enclosure');
                   if (enclosure) imageUrl = enclosure.getAttribute('url') || '';
                 }
-                if (!imageUrl && description) {
-                  const match = description.match(/<img[^>]+src=["']([^"']+)["']/i);
+                if (!imageUrl && (description || content)) {
+                  const match = (description + ' ' + content).match(/<img[^>]+src=["']([^"']+)["']/i);
                   if (match && match[1]) imageUrl = match[1];
                 }
 
                 if (title && link) {
-                  items.push({
-                    title,
-                    link,
-                    pubDate,
-                    description,
-                    thumbnail: imageUrl
-                  });
+                  rawItems.push({ title, link, pubDate, description, content, thumbnail: imageUrl });
                 }
               });
             }
           }
         } catch (e) {
-          // Both methods failed
+          // Both failed
         }
       }
 
-      if (!items || items.length === 0) return [];
+      if (!rawItems || rawItems.length === 0) return [];
 
-      return items
+      return rawItems
         .filter(item => item.title && item.link)
         .map(item => {
-          let imageUrl = item.thumbnail || '';
-          if (!imageUrl && item.enclosure && item.enclosure.link) {
-            imageUrl = item.enclosure.link;
-          }
-          if (!imageUrl) {
+          let thumb = item.thumbnail || (item.enclosure && item.enclosure.link) || '';
+          if (!thumb) {
             const html = (item.description || '') + ' ' + (item.content || '');
-            const imgMatch = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-            if (imgMatch && imgMatch[1] && !imgMatch[1].includes('gravatar') && !imgMatch[1].includes('data:')) {
-              imageUrl = imgMatch[1];
+            const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if (match && match[1] && !match[1].includes('gravatar') && !match[1].includes('data:')) {
+              thumb = match[1];
             }
           }
-          if (imageUrl) {
-            imageUrl = imageUrl.replace(/&amp;/g, '&');
-            if (imageUrl.startsWith('//')) imageUrl = 'https:' + imageUrl;
-            if (imageUrl.startsWith('http://')) imageUrl = imageUrl.replace('http://', 'https://');
-          }
-          if (!imageUrl || imageUrl.length < 10 || !imageUrl.startsWith('https://')) {
-            return null;
+
+          if (thumb) {
+            thumb = thumb.replace(/&amp;/g, '&');
+            if (thumb.startsWith('//')) thumb = 'https:' + thumb;
+            if (thumb.startsWith('http://')) thumb = thumb.replace('http://', 'https://');
           }
 
           const rawDesc = item.description || item.content || '';
-          const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, '').trim().substring(0, 220);
+          const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, '').trim().substring(0, 180);
 
-          // Extract true publication date
-          let parsedDate = item.pubDate ? new Date(item.pubDate) : null;
-          const pubDateIso = (parsedDate && !isNaN(parsedDate.getTime())) ? parsedDate.toISOString() : new Date().toISOString();
+          let parsedDate = item.pubDate ? new Date(item.pubDate) : new Date();
+          if (isNaN(parsedDate.getTime())) parsedDate = new Date();
 
           return {
             title: item.title,
             description: cleanDesc,
             link: item.link,
-            imageUrl: imageUrl,
-            pubDate: pubDateIso,
+            thumbnail: thumb || feed.fallbackImg,
+            fallbackImg: feed.fallbackImg,
+            pubDate: parsedDate,
             source: feed.source,
-            category: feed.category || 'Logistics'
+            category: feed.category,
+            categoryLabel: feed.categoryLabel,
+            icon: feed.icon
           };
-        })
-        .filter(Boolean);
+        });
     } catch (e) {
-      console.warn(`[NEWS] RSS fetch failed for ${feed.source}:`, e.message);
+      console.warn(`[NEWS HUB] Feed fetch error for ${feed.source}:`, e.message);
       return [];
     }
   });
 
   const results = await Promise.allSettled(feedPromises);
-  results.forEach(result => {
-    if (result.status === 'fulfilled' && Array.isArray(result.value)) {
-      allArticles.push(...result.value);
+  results.forEach(res => {
+    if (res.status === 'fulfilled' && Array.isArray(res.value)) {
+      fetchedItems.push(...res.value);
     }
   });
 
-  // Sort newest first
-  allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-  return allArticles.slice(0, 30);
-}
-
-function showNewsError() {
-  const homeLoading = document.getElementById('news-loading-state');
-  const fullLoading = document.getElementById('full-news-loading-state');
-  
-  const errorHTML = '<p style="text-align:center; color: var(--text-muted); padding: 30px;">Unable to load news at the moment. Please try again later.</p>';
-  
-  if (homeLoading) homeLoading.innerHTML = errorHTML;
-  if (fullLoading) fullLoading.innerHTML = errorHTML;
-}
-
-function renderNews(allArticles) {
-  const homeContainer = document.getElementById('news-feed-container');
-  const fullContainer = document.getElementById('full-news-feed-container');
-  const homeLoading = document.getElementById('news-loading-state');
-  const fullLoading = document.getElementById('full-news-loading-state');
-
-  // Homepage: Pick 6 featured articles (1 from each category: Aviation, Maritime, Weather, Politics & Tariffs, Emergency, Tech & AI)
-  let homeArticles = [];
-  const categories = ['Aviation', 'Maritime', 'Weather & Climate', 'Politics & Tariffs', 'Emergency & Security', 'Tech & AI'];
-
-  categories.forEach(cat => {
-    const match = allArticles.find(a => a.category === cat && !homeArticles.includes(a));
-    if (match) homeArticles.push(match);
-  });
-
-  // Fill up to 6 if any category had no items
-  if (homeArticles.length < 6) {
-    allArticles.forEach(a => {
-      if (homeArticles.length < 6 && !homeArticles.includes(a)) {
-        homeArticles.push(a);
+  if (fetchedItems.length > 0) {
+    // De-duplicate by title & sort newest first
+    const uniqueMap = new Map();
+    fetchedItems.forEach(item => {
+      const key = item.title.toLowerCase().trim();
+      if (!uniqueMap.has(key)) {
+        uniqueMap.set(key, item);
       }
     });
+    
+    liveNewsArticles = Array.from(uniqueMap.values());
+    liveNewsArticles.sort((a, b) => b.pubDate - a.pubDate);
+    lastNewsFetchTimestamp = new Date();
+
+    renderHomePageNews();
+    renderNewsHubPage();
+  } else {
+    showNewsErrorMessage();
   }
 
-  // Render Homepage (6 category-spanning live articles)
-  if (homeContainer) {
-    homeContainer.innerHTML = generateNewsHTML(homeArticles);
-    if (homeLoading) homeLoading.style.display = 'none';
-    homeContainer.style.display = 'grid';
-  }
-
-  // Render Full News Hub Page (Top 30 latest live news)
-  if (fullContainer) {
-    const articles = allArticles.slice(0, 30);
-    fullContainer.innerHTML = generateNewsHTML(articles);
-    if (fullLoading) fullLoading.style.display = 'none';
-    fullContainer.style.display = 'grid';
-  }
+  if (refreshSpinner) refreshSpinner.classList.remove('spinning');
 }
 
-function generateNewsHTML(articles) {
-  let html = '';
-  articles.forEach((article) => {
-    const imgUrl = article.imageUrl;
-    if (!imgUrl) return;
-    
-    const pubDate = new Date(article.pubDate);
-    const dateString = isNaN(pubDate.getTime()) ? '' : pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    
-    const rawDesc = article.description || '';
-    const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, "");
+function renderHomePageNews() {
+  const homeContainer = document.getElementById('news-feed-container');
+  const homeLoading = document.getElementById('news-loading-state');
+  if (!homeContainer) return;
 
-    const safeTitle = escapeHTML(article.title || '');
-    const safeDesc = escapeHTML(cleanDesc);
-    const safeSource = escapeHTML(article.source || '');
+  // Pick top 6 latest live articles spanning different categories if possible
+  const top6 = liveNewsArticles.slice(0, 6);
+
+  if (top6.length === 0) {
+    if (homeLoading) homeLoading.innerHTML = '<p style="padding:20px;">No news available at the moment.</p>';
+    return;
+  }
+
+  homeContainer.innerHTML = buildNewsCardsHTML(top6);
+  if (homeLoading) homeLoading.style.display = 'none';
+  homeContainer.style.display = 'grid';
+}
+
+function renderNewsHubPage() {
+  const fullContainer = document.getElementById('full-news-feed-container');
+  const fullLoading = document.getElementById('full-news-loading-state');
+  const countBadge = document.getElementById('news-count-badge');
+  const updatedText = document.getElementById('news-last-updated-text');
+
+  if (!fullContainer) return;
+
+  // Filter by category & search query
+  let filtered = liveNewsArticles;
+
+  if (activeNewsCategory !== 'ALL') {
+    filtered = filtered.filter(a => a.category === activeNewsCategory);
+  }
+
+  if (currentNewsSearchQuery.trim() !== '') {
+    const q = currentNewsSearchQuery.toLowerCase().trim();
+    filtered = filtered.filter(a => 
+      a.title.toLowerCase().includes(q) || 
+      a.description.toLowerCase().includes(q) ||
+      a.source.toLowerCase().includes(q)
+    );
+  }
+
+  if (countBadge) {
+    countBadge.textContent = `Showing ${filtered.length} of ${liveNewsArticles.length} Live Articles`;
+  }
+
+  if (updatedText && lastNewsFetchTimestamp) {
+    const timeStr = lastNewsFetchTimestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    updatedText.textContent = `Updated at ${timeStr}`;
+  }
+
+  if (filtered.length === 0) {
+    fullContainer.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🔍</div>
+        <h3 style="color: var(--primary-navy); margin-bottom: 8px;">No matching articles found</h3>
+        <p>Try searching for a different term or select another category tab above.</p>
+      </div>
+    `;
+  } else {
+    fullContainer.innerHTML = buildNewsCardsHTML(filtered);
+  }
+
+  if (fullLoading) fullLoading.style.display = 'none';
+  fullContainer.style.display = 'grid';
+}
+
+function buildNewsCardsHTML(articles) {
+  let html = '';
+  articles.forEach(article => {
+    const safeTitle = escapeHTML(article.title);
+    const safeDesc = escapeHTML(article.description);
+    const safeSource = escapeHTML(article.source);
+    const safeCatLabel = escapeHTML(article.categoryLabel);
+    
+    const dateStr = article.pubDate.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
 
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
-        <div class="news-card-image" style="position: relative;">
-          <img src="${imgUrl}" alt="${safeTitle}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('news-img-fallback');" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          ${safeSource ? `<span class="news-source-badge">${safeSource}</span>` : ''}
+        <div class="news-card-image">
+          <img src="${article.thumbnail}" alt="${safeTitle}" loading="lazy" referrerpolicy="no-referrer"
+               onerror="this.onerror=null; this.src='${article.fallbackImg}';"
+               style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          <span class="news-source-badge">${safeSource}</span>
+          <span class="news-category-pill">${article.icon} ${safeCatLabel}</span>
         </div>
         <div class="news-card-content">
-          <span class="news-date">${dateString}</span>
+          <div class="news-date">📅 ${dateStr}</div>
           <h3 class="news-title">${safeTitle}</h3>
           <div class="news-desc">${safeDesc}</div>
           <div class="news-read-more">Read Full Article &rarr;</div>
@@ -4180,6 +4011,60 @@ function generateNewsHTML(articles) {
     `;
   });
   return html;
+}
+
+function filterNewsCategory(categoryKey, btnElement) {
+  activeNewsCategory = categoryKey;
+
+  // Update tab buttons active state
+  const tabs = document.querySelectorAll('.news-tab-btn');
+  tabs.forEach(t => t.classList.remove('active'));
+  if (btnElement) {
+    btnElement.classList.add('active');
+  }
+
+  renderNewsHubPage();
+}
+
+function handleNewsSearch(query) {
+  currentNewsSearchQuery = query;
+  
+  const clearBtn = document.getElementById('news-search-clear');
+  if (clearBtn) {
+    clearBtn.style.display = query.length > 0 ? 'block' : 'none';
+  }
+
+  renderNewsHubPage();
+}
+
+function clearNewsSearch() {
+  const input = document.getElementById('news-search-input');
+  if (input) input.value = '';
+  currentNewsSearchQuery = '';
+
+  const clearBtn = document.getElementById('news-search-clear');
+  if (clearBtn) clearBtn.style.display = 'none';
+
+  renderNewsHubPage();
+}
+
+async function manualRefreshNews(showToast = false) {
+  await fetchLiveLogisticsNews(true);
+}
+
+function showNewsErrorMessage() {
+  const homeLoading = document.getElementById('news-loading-state');
+  const fullLoading = document.getElementById('full-news-loading-state');
+  
+  const err = `
+    <div style="text-align: center; padding: 30px; color: var(--text-muted);">
+      <p>Unable to fetch live news stream at this moment.</p>
+      <button class="btn btn-secondary" onclick="manualRefreshNews(true)" style="margin-top: 10px; padding: 8px 16px;">🔄 Try Again</button>
+    </div>
+  `;
+  
+  if (homeLoading) homeLoading.innerHTML = err;
+  if (fullLoading) fullLoading.innerHTML = err;
 }
 
 
