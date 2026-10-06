@@ -662,7 +662,7 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           category: "Ocean Freight Pricing",
           question: "What rating standard unit equals 1 CBM or 1,000 kg (whichever yields higher freight revenue) for LCL cargo?",
           modelAnswer: "Revenue Ton (W/M - Weight or Measurement)",
-          keywords: ["revenue ton", "w/m", "weight or measure"],
+          keywords: ["revenue ton", "revenue tons", "revenue tonne", "revenue tonnes", "rev ton", "w/m", "w m", "wm", "rt", "r.t.", "r/t", "weight or measure", "weight or measurement"],
           explanation: "Revenue Ton (W/M) charges LCL freight based on volume (CBM) or weight (metric ton), whichever is greater."
         },
         {

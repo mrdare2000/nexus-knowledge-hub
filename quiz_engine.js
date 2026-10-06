@@ -214,6 +214,7 @@
     if (hasWord('asycuda')) return true;
     if (hasWord('transship') || hasWord('tranship')) return true;
     if (hasWord('ispm') && (userLower.includes('15') || hasWord('fifteen'))) return true;
+    if (alphaUser === 'rt' || alphaUser === 'wm' || userLower.includes('w/m') || userLower.includes('r/t') || (hasWord('revenue') && (hasWord('ton') || hasWord('tonnes') || hasWord('tonne')))) return true;
 
     return false;
   }
