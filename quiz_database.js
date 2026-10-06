@@ -1558,6 +1558,293 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           explanation: "IMO 2020 enforced a global 0.50% mass-by-mass sulfur limit on marine fuel oil to reduce sulfur oxide emissions from ocean shipping."
         }
       ]
+    },
+    {
+      id: "week-8",
+      title: "Weekly Quiz 08",
+      description: "20 Questions • 20 Multiple Choice Questions (MCQs)",
+      questions: [
+        {
+          id: "w8-q1",
+          type: "mcq",
+          category: "Customs Clearance & Valuation",
+          question: "What is the primary method of customs valuation prescribed by the WTO Customs Valuation Agreement for calculating import duties?",
+          options: [
+            "Computed Value Method",
+            "Deductive Value Method",
+            "Transaction Value of the Imported Goods",
+            "Fallback / Reasonable Means Method"
+          ],
+          answerIndex: 2,
+          explanation: "The WTO Customs Valuation Agreement establishes the 'Transaction Value' (the price actually paid or payable for the goods) as the primary basis for customs valuation."
+        },
+        {
+          id: "w8-q2",
+          type: "mcq",
+          category: "Ocean Freight & Maritime Law",
+          question: "Which maritime regulations reserve domestic coastal maritime shipping trade exclusively to national-flagged, locally built, and domestically crewed vessels?",
+          options: [
+            "General Average Doctrine",
+            "Cabotage Laws (such as the US Jones Act)",
+            "UNCTAD Liner Code",
+            "Flag of Convenience Exemption"
+          ],
+          answerIndex: 1,
+          explanation: "Cabotage laws (e.g. the US Merchant Marine Act of 1920 / Jones Act) govern coastal maritime shipping within a nation's territory, restricting foreign-flagged vessel operations."
+        },
+        {
+          id: "w8-q3",
+          type: "mcq",
+          category: "Air Freight Rating",
+          question: "In air cargo chartering and ULD rating, what is the 'Pivot Weight'?",
+          options: [
+            "The empty tare weight of an aircraft pallet",
+            "The baseline minimum billable weight assigned to a ULD, above which additional over-pivot per-kilo rates apply",
+            "The maximum structural payload limit of the aircraft belly cargo door",
+            "The dimensional weight ratio of hazardous cargo"
+          ],
+          answerIndex: 1,
+          explanation: "Pivot Weight is the agreed flat-rate threshold weight for a ULD; any weight exceeding this threshold is charged at an additional over-pivot rate per kg."
+        },
+        {
+          id: "w8-q4",
+          type: "mcq",
+          category: "Incoterms® 2020 Rules",
+          question: "Under Incoterms® 2020 DAP (Delivered at Place), who is responsible for customs import clearance and paying import tariffs or taxes at destination?",
+          options: [
+            "The Seller",
+            "The Buyer",
+            "The Ocean Shipping Carrier",
+            "Divided equally 50/50 between Buyer and Seller"
+          ],
+          answerIndex: 1,
+          explanation: "Under DAP terms, the seller delivers goods ready for unloading at destination, while the buyer is responsible for import customs clearance, duties, and local taxes."
+        },
+        {
+          id: "w8-q5",
+          type: "mcq",
+          category: "Dangerous Goods & Hazmat",
+          question: "Under the IMDG Code and UN Hazard Classification, which DG Class covers Flammable Solids, Self-Reactive Substances, and Solid Desensitized Explosives?",
+          options: [
+            "Class 2",
+            "Class 3",
+            "Class 4",
+            "Class 5"
+          ],
+          answerIndex: 2,
+          explanation: "UN Class 4 covers Flammable Solids (4.1), Substances Liable to Spontaneous Combustion (4.2), and Substances emitting flammable gases when in contact with water (4.3)."
+        },
+        {
+          id: "w8-q6",
+          type: "mcq",
+          category: "Inventory & Warehouse Strategy",
+          question: "In warehouse inventory management, what characterizes 'Class A' inventory items under an ABC Inventory Analysis (Pareto 80/20 Rule)?",
+          options: [
+            "High-volume, low-value items requiring minimal security",
+            "The small percentage (~15-20%) of inventory items accounting for ~70-80% of total annual consumption value",
+            "Damaged goods pending supplier return",
+            "Seasonal promotional items shipped exclusively via air freight"
+          ],
+          answerIndex: 1,
+          explanation: "Class A items represent top-tier, high-value inventory requiring tight control and frequent stock monitoring despite comprising a small fraction of total SKU count."
+        },
+        {
+          id: "w8-q7",
+          type: "mcq",
+          category: "Trade Finance & Banking",
+          question: "Which standardized international rules published by the ICC govern the issuance and operation of Letters of Credit (L/C) in international trade?",
+          options: [
+            "Incoterms® 2020",
+            "UCP 600 (Uniform Customs and Practice for Documentary Credits)",
+            "SOLAS Chapter VI",
+            "FIATA Model Rules"
+          ],
+          answerIndex: 1,
+          explanation: "UCP 600 (ICC Publication No. 600) provides globally recognized rules governing commercial Letters of Credit used by banks and traders worldwide."
+        },
+        {
+          id: "w8-q8",
+          type: "mcq",
+          category: "Maritime Trade Corridors",
+          question: "Which narrow natural maritime passage connects the Black Sea to the Sea of Marmara, serving as a critical export route for regional grain and energy cargoes?",
+          options: [
+            "Kiel Canal",
+            "Bosporus Strait",
+            "Strait of Gibraltar",
+            "Strait of Hormuz"
+          ],
+          answerIndex: 1,
+          explanation: "The Bosporus Strait in Turkey connects the Black Sea to the Sea of Marmara and Aegean, forming a key maritime bottleneck for Black Sea international trade."
+        },
+        {
+          id: "w8-q9",
+          type: "mcq",
+          category: "Container Fleet Equipment",
+          question: "Which container type features removable top roof bows and a tarpaulin cover for loading heavy or tall machinery from above with an overhead crane?",
+          options: [
+            "High Cube Container",
+            "Open Top Container",
+            "ISO Tank Container",
+            "Side-Door Container"
+          ],
+          answerIndex: 1,
+          explanation: "Open Top containers are designed for over-height cargo or heavy machinery that cannot be easily loaded through standard end doors."
+        },
+        {
+          id: "w8-q10",
+          type: "mcq",
+          category: "Port Terminal Operations",
+          question: "What is the primary operational role of a Reach Stacker in port container yards?",
+          options: [
+            "Towing ocean freighters into port docks",
+            "Lifting, transport, and stacking of containers up to 5-6 rows deep in yard bays",
+            "Loading containers directly onto ocean vessels over water",
+            "Scanning customs paperwork at port gates"
+          ],
+          answerIndex: 1,
+          explanation: "Reach Stackers are heavy-duty container handlers equipped with flexible boom arms capable of lifting, maneuvering, and stacking containers across multiple yard rows."
+        },
+        {
+          id: "w8-q11",
+          type: "mcq",
+          category: "Maritime Documentation",
+          question: "What is the primary legal distinction between a Sea Waybill and a negotiable Bill of Lading (B/L)?",
+          options: [
+            "A Sea Waybill can only be used for air cargo",
+            "A Sea Waybill is non-negotiable and does not confer title, allowing cargo release without surrendering physical paper originals",
+            "A negotiable B/L does not require carrier endorsement",
+            "A Sea Waybill is issued exclusively by customs officials"
+          ],
+          answerIndex: 1,
+          explanation: "A Sea Waybill serves as receipt of goods and evidence of contract, but unlike a negotiable B/L, it is not a document of title and does not require physical surrender for destination delivery."
+        },
+        {
+          id: "w8-q12",
+          type: "mcq",
+          category: "Lean Logistics & Routing",
+          question: "In automotive and lean supply chains, what does 'Milk Run' logistics routing mean?",
+          options: [
+            "Transporting refrigerated dairy products under cold-chain SOPs",
+            "A scheduled routing method where one transport vehicle collects consolidated component shipments from multiple local suppliers on a fixed loop route",
+            "Shipping cargo on empty returning ocean vessels",
+            "Transferring air cargo directly to passenger aircraft bellies"
+          ],
+          answerIndex: 1,
+          explanation: "A Milk Run is a lean logistics routing pattern where a single vehicle visits multiple supplier sites to gather smaller shipments, minimizing total transport distance and stock levels."
+        },
+        {
+          id: "w8-q13",
+          type: "mcq",
+          category: "Ocean Freight Pricing",
+          question: "What ocean freight surcharge is billed by shipping lines to offset fuel costs associated with using compliant Low Sulfur Marine Fuel Oil?",
+          options: [
+            "LSS (Low Sulfur Surcharge)",
+            "DTHC (Destination Terminal Handling Charge)",
+            "ISPS (International Ship and Port Facility Security Fee)",
+            "PSS (Peak Season Surcharge)"
+          ],
+          answerIndex: 0,
+          explanation: "LSS (Low Sulfur Surcharge) compensates ocean carriers for the price premium of ultra-low sulfur fuel oils mandated by IMO environmental regulations."
+        },
+        {
+          id: "w8-q14",
+          type: "mcq",
+          category: "Customs Regulations",
+          question: "What customs provision grants importers a full or partial refund of paid import duties when raw materials are subsequently processed and re-exported?",
+          options: [
+            "Duty Drawback",
+            "Anti-Dumping Duty",
+            "Countervailing Duty",
+            "Value-Added Tax (VAT) Exemption"
+          ],
+          answerIndex: 0,
+          explanation: "Duty Drawback is a customs mechanism allowing businesses to reclaim previously paid import duties on components incorporated into goods exported abroad."
+        },
+        {
+          id: "w8-q15",
+          type: "mcq",
+          category: "Aviation Cargo Security",
+          question: "In air cargo security frameworks, what designation is given to a shipper whose facilities and procedures are certified to originate secure cargo for commercial flights?",
+          options: [
+            "Known Consignor / Regulated Agent",
+            "Authorized Customs Broker",
+            "Bonded Drayage Provider",
+            "Accredited Freight Forwarder"
+          ],
+          answerIndex: 0,
+          explanation: "Known Consignor status verifies that a shipper maintains strict security controls, allowing cargo to bypass additional airport screening before aircraft loading."
+        },
+        {
+          id: "w8-q16",
+          type: "mcq",
+          category: "Supply Chain Financial Metrics",
+          question: "What supply chain metric measures the time elapsed between cash payment to suppliers for inventory materials and cash collection from customers for sales?",
+          options: [
+            "Order Lead Time",
+            "Cash-to-Cash Cycle Time",
+            "Terminal Dwell Time",
+            "Days Sales of Inventory (DSI)"
+          ],
+          answerIndex: 1,
+          explanation: "Cash-to-Cash Cycle Time measures working capital efficiency by calculating how long cash is tied up in operating inventory before customer payment recovery."
+        },
+        {
+          id: "w8-q17",
+          type: "mcq",
+          category: "Maritime Safety History",
+          question: "Which major IMO safety convention was initially adopted in 1914 in response to the RMS Titanic disaster to establish international vessel safety standards?",
+          options: [
+            "MARPOL Convention",
+            "SOLAS (Safety of Life at Sea)",
+            "STCW Convention",
+            "MLC (Maritime Labour Convention)"
+          ],
+          answerIndex: 1,
+          explanation: "SOLAS (Safety of Life at Sea) was created in 1914 following the Titanic catastrophe, mandating lifeboats, structural fire protection, and navigational safety."
+        },
+        {
+          id: "w8-q18",
+          type: "mcq",
+          category: "Reefer & Perishable Logistics",
+          question: "What advanced reefer technology dynamically controls oxygen (O2), carbon dioxide (CO2), and nitrogen gas concentrations to slow fruit respiration during transit?",
+          options: [
+            "Passive Thermal Insulation",
+            "Controlled Atmosphere (CA) Technology",
+            "Cryogenic Nitrogen Injection",
+            "Dehumidified Air Blast Cooling"
+          ],
+          answerIndex: 1,
+          explanation: "Controlled Atmosphere (CA) technology modifies internal container air composition to put perishable produce into 'dormancy', extending shelf life over long ocean voyages."
+        },
+        {
+          id: "w8-q19",
+          type: "mcq",
+          category: "Trucking & Carrier Operations",
+          question: "In freight trucking operations, what does the term 'Deadheading' describe?",
+          options: [
+            "Operating a truck beyond legally allowable driver shift limits",
+            "Driving a commercial vehicle or trailer back without carrying revenue-generating cargo",
+            "Parking a chassis inside a customs bonded yard",
+            "Transporting hazardous chemicals without placard tags"
+          ],
+          answerIndex: 1,
+          explanation: "Deadheading refers to running an empty truck or container chassis on a leg where no paid freight is being transported, resulting in uncompensated fuel and labor expense."
+        },
+        {
+          id: "w8-q20",
+          type: "mcq",
+          category: "E-Commerce Fulfillment",
+          question: "In modern retail e-commerce logistics, what is a 'Dark Store'?",
+          options: [
+            "A warehouse operating without indoor lights to save energy",
+            "A commercial retail unit converted exclusively into an automated order picking/fulfillment center with no walk-in shoppers",
+            "A customs warehouse holding seized contraband",
+            "A refrigerated storage vault operating exclusively at night"
+          ],
+          answerIndex: 1,
+          explanation: "Dark Stores are strategically located fulfillment hubs formatted like supermarkets but closed to foot traffic, optimized purely for rapid online order picking and packing."
+        }
+      ]
     }
   ]
 };
