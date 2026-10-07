@@ -3953,6 +3953,69 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
   const refreshSpinner = document.getElementById('news-refresh-spinner');
   if (refreshSpinner) refreshSpinner.classList.add('spinning');
 
+  // Priority 1: Serverless API endpoint /api/news-feed (Zero CORS/CSP issues on Vercel)
+  try {
+    const apiResp = await fetch('/api/news-feed');
+    if (apiResp.ok) {
+      const data = await apiResp.json();
+      if (Array.isArray(data.articles) && data.articles.length > 0) {
+        const parsedArticles = data.articles.map(item => {
+          let category = item.category || 'MARITIME';
+          let categoryLabel = item.categoryLabel || 'Ocean & Maritime';
+          let icon = item.icon || '🚢';
+
+          if (!item.category) {
+            const txt = (item.title + ' ' + (item.description || '')).toLowerCase();
+            if (txt.includes('air') || txt.includes('flight') || txt.includes('aviation')) {
+              category = 'AIR'; categoryLabel = 'Air Cargo & Aviation'; icon = '✈️';
+            } else if (txt.includes('port') || txt.includes('terminal') || txt.includes('dock')) {
+              category = 'PORTS'; categoryLabel = 'Ports & Logistics'; icon = '⚓';
+            } else if (txt.includes('customs') || txt.includes('tariff') || txt.includes('trade')) {
+              category = 'TRADE'; categoryLabel = 'Customs & Trade'; icon = '🏛️';
+            } else if (txt.includes('supply chain') || txt.includes('tech') || txt.includes('warehouse')) {
+              category = 'SUPPLY_CHAIN'; categoryLabel = 'Supply Chain & Tech'; icon = '📦';
+            }
+          }
+
+          let thumb = item.imageUrl || item.thumbnail || '';
+          if (thumb) {
+            thumb = thumb.replace(/&amp;/g, '&');
+            if (thumb.startsWith('//')) thumb = 'https:' + thumb;
+            if (thumb.startsWith('http://')) thumb = thumb.replace('http://', 'https://');
+          }
+
+          let parsedDate = item.pubDate ? new Date(item.pubDate) : new Date();
+          if (isNaN(parsedDate.getTime())) parsedDate = new Date();
+
+          return {
+            title: item.title,
+            description: item.description || '',
+            link: item.link,
+            thumbnail: thumb || getUniqueLogisticsImage(item.title, category),
+            fallbackImg: getUniqueLogisticsImage(item.title, category),
+            pubDate: parsedDate,
+            source: item.source || 'Logistics News',
+            category,
+            categoryLabel,
+            icon
+          };
+        });
+
+        if (parsedArticles.length > 0) {
+          liveNewsArticles = parsedArticles;
+          lastNewsFetchTimestamp = new Date();
+          renderHomePageNews();
+          renderNewsHubPage();
+          if (refreshSpinner) refreshSpinner.classList.remove('spinning');
+          return;
+        }
+      }
+    }
+  } catch (apiErr) {
+    console.warn('[NEWS HUB] /api/news-feed fetch note:', apiErr.message);
+  }
+
+  // Priority 2: Client-side Fallback RSS logic
   const fetchedItems = [];
 
   const feedPromises = LOGISTICS_NEWS_FEEDS.map(async (feed) => {
@@ -4066,7 +4129,6 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
   });
 
   if (fetchedItems.length > 0) {
-    // Merge fetched RSS items into existing list, de-duplicate by title & sort newest first
     const uniqueMap = new Map();
     fetchedItems.concat(liveNewsArticles).forEach(item => {
       const key = item.title.toLowerCase().trim();
