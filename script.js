@@ -3678,58 +3678,16 @@ function filterHSOptions() {
    ==========================================
    Priority 1: Fetch from /api/news-feed (reads Firestore where cron stored proper images)
 /* ==========================================
-   10. LIVE WORLD LOGISTICS NEWS HUB ENGINE (BULLETPROOF & ZERO-FAIL)
+   10. LIVE WORLD LOGISTICS NEWS HUB ENGINE (STRICT REAL-IMAGES ONLY)
    ========================================== */
 
-const UNIQUE_LOGISTICS_IMAGE_POOL = {
-  MARITIME: [
-    'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1505705694340-019e1e335916?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1574689049597-7e6df3ca2b04?auto=format&fit=crop&w=800&q=80'
-  ],
-  AIR: [
-    'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1521967906867-14ec9d64bee8?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1519074069444-1ba4efe1677a?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1559297434-fae8a1916a79?auto=format&fit=crop&w=800&q=80'
-  ],
-  SUPPLY_CHAIN: [
-    'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&w=800&q=80'
-  ],
-  PORTS: [
-    'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1524522173746-f628baad3644?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1505705694340-019e1e335916?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
-  ],
-  TRADE: [
-    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
-  ]
-};
-
-function getUniqueLogisticsImage(title, category) {
-  const pool = UNIQUE_LOGISTICS_IMAGE_POOL[category] || UNIQUE_LOGISTICS_IMAGE_POOL.MARITIME;
-  let hash = 0;
-  for (let i = 0; i < title.length; i++) {
-    hash = (hash << 5) - hash + title.charCodeAt(i);
-    hash |= 0;
-  }
-  const index = Math.abs(hash) % pool.length;
-  return pool[index];
+function isValidImageURL(url) {
+  if (!url || typeof url !== 'string') return false;
+  const lower = url.toLowerCase().trim();
+  if (!lower.startsWith('http://') && !lower.startsWith('https://')) return false;
+  if (lower.includes('unsplash.com')) return false; // Reject all stock photos
+  if (lower.includes('gravatar') || lower.includes('avatar') || lower.includes('1x1') || lower.includes('spacer') || lower.includes('tracking') || lower.includes('pixel') || lower.includes('logo') || lower.includes('favicon') || lower.includes('data:')) return false;
+  return true;
 }
 
 const LOGISTICS_NEWS_FEEDS = [
@@ -3774,13 +3732,6 @@ const LOGISTICS_NEWS_FEEDS = [
     category: 'MARITIME',
     categoryLabel: 'Ocean & Maritime',
     icon: '🚢'
-  },
-  {
-    url: 'https://www.porttechnology.org/feed/',
-    source: 'Port Technology',
-    category: 'PORTS',
-    categoryLabel: 'Ports & Logistics',
-    icon: '⚓'
   }
 ];
 
@@ -3801,22 +3752,11 @@ function getInitialLogisticsArticles() {
       icon: "🚢"
     },
     {
-      title: "Global Air Freight Capacity Surges 8% as Peak Season Demand Accelerates",
-      description: "International air cargo carriers expand transpacific and Europe-Asia freighter flights ahead of fourth-quarter e-commerce and retail inventory shipping peaks.",
-      link: "https://www.aircargonews.net/freight-forwarder/air-freight-capacity-surges-peak-season/",
-      thumbnail: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
-      pubDate: hoursAgo(5),
-      source: "Air Cargo News",
-      category: "AIR",
-      categoryLabel: "Air Cargo & Aviation",
-      icon: "✈️"
-    },
-    {
       title: "US East Coast Container Ports Report Record September Import Volumes",
       description: "Major maritime gateways including New York-New Jersey and Savannah handled over 750,000 TEUs last month as shippers frontload peak season inventory.",
       link: "https://www.supplychaindive.com/news/us-east-coast-ports-record-september-imports/830950/",
       thumbnail: "https://imgproxy.divecdn.com/Z6CdC_OsXvC99docslnfTCbDlIhgLDkvnG4JQwNgS8w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90ZXJtaW5hbC1kb2Nrd29ya2Vyc183WjRrUUlGLmpwZw==.webp",
-      pubDate: hoursAgo(7),
+      pubDate: hoursAgo(4),
       source: "Supply Chain Dive",
       category: "PORTS",
       categoryLabel: "Ports & Logistics",
@@ -3827,7 +3767,7 @@ function getInitialLogisticsArticles() {
       description: "Container shipping line orderbooks now exceed 8.4 million TEU, representing over 28% of the global operating fleet with methanol dual-fuel engines leading new orders.",
       link: "https://splash247.com/boxship-orderbook-points-to-looming-capacity-showdown/",
       thumbnail: "https://splash247.com/wp-content/uploads/2026/04/MSC-Migsan-MSC-Zivana-naming-ceremony.jpg",
-      pubDate: hoursAgo(10),
+      pubDate: hoursAgo(6),
       source: "Splash247",
       category: "MARITIME",
       categoryLabel: "Ocean & Maritime",
@@ -3838,85 +3778,30 @@ function getInitialLogisticsArticles() {
       description: "Logistics technology providers integrate predictive freight rates with real-time telematics data to streamline spot market quoting for 3PL providers.",
       link: "https://www.supplychaindive.com/news/electronics-manufacturers-fret-over-extreme-heat-disruptions/830938/",
       thumbnail: "https://imgproxy.divecdn.com/5RIMomjbs0K2dznb5Tv2Wnd2mKrgcuZllUYgNGu4gBc/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMTYxNDE3NTYxLmpwZw==.webp",
-      pubDate: hoursAgo(14),
+      pubDate: hoursAgo(8),
       source: "Supply Chain Dive",
       category: "SUPPLY_CHAIN",
       categoryLabel: "Supply Chain & Tech",
       icon: "📦"
     },
     {
-      title: "Red Sea Maritime Rerouting Pushes Global Container Schedule Reliability Down to 32%",
-      description: "Sea-Intelligence report highlights Far East to Europe transit delays as Cape of Good Hope diversions add 12 to 14 days per vessel round-trip voyage.",
-      link: "https://gcaptain.com/red-sea-rerouting-container-schedule-reliability-drops/",
-      thumbnail: "https://images.unsplash.com/photo-1505705694340-019e1e335916?auto=format&fit=crop&w=800&q=80",
-      pubDate: hoursAgo(18),
-      source: "gCaptain",
-      category: "MARITIME",
-      categoryLabel: "Ocean & Maritime",
-      icon: "🚢"
-    },
-    {
-      title: "Global Supply Chain Congestion Index Eases as Asian Port Turnaround Times Improve",
-      description: "Turnaround delays across major hubs in Shanghai, Ningbo, and Singapore decreased by 15% this week due to optimized berth allocation algorithms.",
-      link: "https://theloadstar.com/asian-port-turnaround-times-improve-congestion-eases/",
-      thumbnail: "https://images.unsplash.com/photo-1524522173746-f628baad3644?auto=format&fit=crop&w=800&q=80",
-      pubDate: hoursAgo(22),
-      source: "The Loadstar",
-      category: "PORTS",
-      categoryLabel: "Ports & Logistics",
-      icon: "⚓"
-    },
-    {
       title: "FedEx and UPS Introduce Updated Freight Surcharges for Heavy & Oversized Shipments",
       description: "Express parcel carriers announce updated rate cards with revised peak season demand surcharges taking effect across U.S. and European domestic networks.",
       link: "https://www.supplychaindive.com/news/fedex-preps-59-rate-hike-surcharge-increases-for-2027/830903/",
       thumbnail: "https://imgproxy.divecdn.com/agvVxmoleUAAezK8jEqubMfUk6sTllLVvIcU5dl1H_w/g:ce/rs:fill:1600:900:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xMzI3OTA3NzM4LmpwZw==.webp",
-      pubDate: hoursAgo(26),
+      pubDate: hoursAgo(10),
       source: "Supply Chain Dive",
       category: "TRADE",
       categoryLabel: "Customs & Trade",
       icon: "🏛️"
     },
     {
-      title: "Singapore Changi Air Cargo Terminal Expands Automated Cold Chain Handling Facility",
-      description: "Changi Airport Group unveils a 10,000 sq m climate-controlled pharma logistics centre designed for rapid transit of temperature-sensitive medical shipments.",
-      link: "https://www.aircargonews.net/airports/singapore-changi-expands-cold-chain-facility/",
-      thumbnail: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80",
-      pubDate: hoursAgo(30),
-      source: "Air Cargo News",
-      category: "AIR",
-      categoryLabel: "Air Cargo & Aviation",
-      icon: "✈️"
-    },
-    {
       title: "Panama Canal Authority Increases Daily Transit Slots as Gatun Lake Water Levels Normalize",
       description: "The Panama Canal administrator has raised maximum draught limits for Neopanamax vessels to 48 feet following sustained rainfall across the watershed.",
       link: "https://www.seatrade-maritime.com/ports-logistics/what-are-panama-s-future-plans-balboa-and-cristobal-ports-",
       thumbnail: "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0e4204bf5864ede2/6ab25f6381d60e93cefd76a1/ALBERTO_ALEMAN-_LA_PRENSA.jpg?width=720&quality=80",
-      pubDate: hoursAgo(36),
+      pubDate: hoursAgo(12),
       source: "Seatrade Maritime",
-      category: "MARITIME",
-      categoryLabel: "Ocean & Maritime",
-      icon: "🚢"
-    },
-    {
-      title: "European Customs Union Prepares New Import Control System (ICS2) Release 3 for Maritime Cargo",
-      description: "Shippers and ocean freight forwarders bound for EU ports face mandatory advance cargo information filings prior to loading at foreign origin ports.",
-      link: "https://theloadstar.com/eu-ics2-release-3-maritime-cargo-compliance/",
-      thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
-      pubDate: hoursAgo(42),
-      source: "The Loadstar",
-      category: "TRADE",
-      categoryLabel: "Customs & Trade",
-      icon: "🏛️"
-    },
-    {
-      title: "Indian Subcontinent Ocean Freight Rates Surge Amid Transshipment Bottlenecks in Colombo & Port Klang",
-      description: "Feeder vessel congestion across regional transshipment hubs pushes spot container rates up 18% on Far East to Middle East and South Asia lanes.",
-      link: "https://www.hellenicshippingnews.com/indian-subcontinent-freight-rates-surge/",
-      thumbnail: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=80",
-      pubDate: hoursAgo(48),
-      source: "Hellenic Shipping News",
       category: "MARITIME",
       categoryLabel: "Ocean & Maritime",
       icon: "🚢"
@@ -3931,17 +3816,14 @@ let newsAutoUpdateTimer = null;
 let lastNewsFetchTimestamp = null;
 
 async function initLiveNewsEngine() {
-  // Step 1: Instantly hydrate with rich authentic articles (0ms latency, zero failure risk)
   liveNewsArticles = getInitialLogisticsArticles();
   lastNewsFetchTimestamp = new Date();
   
   renderHomePageNews();
   renderNewsHubPage();
 
-  // Step 2: Try background live RSS sync without blocking or failing UI
   fetchLiveLogisticsNews(false);
   
-  // Auto-refresh every 5 minutes in background
   if (!newsAutoUpdateTimer) {
     newsAutoUpdateTimer = setInterval(() => {
       fetchLiveLogisticsNews(false);
@@ -3953,13 +3835,13 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
   const refreshSpinner = document.getElementById('news-refresh-spinner');
   if (refreshSpinner) refreshSpinner.classList.add('spinning');
 
-  // Priority 1: Serverless API endpoint /api/news-feed (Zero CORS/CSP issues on Vercel)
   try {
     const apiResp = await fetch('/api/news-feed');
     if (apiResp.ok) {
       const data = await apiResp.json();
       if (Array.isArray(data.articles) && data.articles.length > 0) {
-        const parsedArticles = data.articles.map(item => {
+        const parsedArticles = [];
+        data.articles.forEach(item => {
           let category = item.category || 'MARITIME';
           let categoryLabel = item.categoryLabel || 'Ocean & Maritime';
           let icon = item.icon || '🚢';
@@ -3984,21 +3866,23 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
             if (thumb.startsWith('http://')) thumb = thumb.replace('http://', 'https://');
           }
 
+          // STRICT: Drop article if no valid real image URL
+          if (!thumb || !isValidImageURL(thumb)) return;
+
           let parsedDate = item.pubDate ? new Date(item.pubDate) : new Date();
           if (isNaN(parsedDate.getTime())) parsedDate = new Date();
 
-          return {
+          parsedArticles.push({
             title: item.title,
             description: item.description || '',
             link: item.link,
-            thumbnail: thumb || getUniqueLogisticsImage(item.title, category),
-            fallbackImg: getUniqueLogisticsImage(item.title, category),
+            thumbnail: thumb,
             pubDate: parsedDate,
             source: item.source || 'Logistics News',
             category,
             categoryLabel,
             icon
-          };
+          });
         });
 
         if (parsedArticles.length > 0) {
@@ -4015,14 +3899,13 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
     console.warn('[NEWS HUB] /api/news-feed fetch note:', apiErr.message);
   }
 
-  // Priority 2: Client-side Fallback RSS logic
+  // Client-side Fallback RSS logic
   const fetchedItems = [];
 
   const feedPromises = LOGISTICS_NEWS_FEEDS.map(async (feed) => {
     try {
       let rawItems = [];
 
-      // Primary Attempt: rss2json API
       try {
         const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url));
         if (resp.ok) {
@@ -4031,11 +3914,8 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
             rawItems = data.items;
           }
         }
-      } catch (e) {
-        // Fallback below
-      }
+      } catch (e) {}
 
-      // Secondary Attempt: Raw RSS via allorigins proxy
       if (!rawItems || rawItems.length === 0) {
         try {
           const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(feed.url);
@@ -4071,50 +3951,53 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
               });
             }
           }
-        } catch (e) {
-          // Both failed
-        }
+        } catch (e) {}
       }
 
       if (!rawItems || rawItems.length === 0) return [];
 
-      return rawItems
-        .filter(item => item.title && item.link)
-        .map(item => {
-          let thumb = item.thumbnail || (item.enclosure && item.enclosure.link) || '';
-          if (!thumb) {
-            const html = (item.description || '') + ' ' + (item.content || '');
-            const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-            if (match && match[1] && !match[1].includes('gravatar') && !match[1].includes('data:')) {
-              thumb = match[1];
-            }
+      const validParsed = [];
+      rawItems.forEach(item => {
+        if (!item.title || !item.link) return;
+
+        let thumb = item.thumbnail || (item.enclosure && item.enclosure.link) || '';
+        if (!thumb) {
+          const html = (item.description || '') + ' ' + (item.content || '');
+          const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+          if (match && match[1] && !match[1].includes('gravatar') && !match[1].includes('data:')) {
+            thumb = match[1];
           }
+        }
 
-          if (thumb) {
-            thumb = thumb.replace(/&amp;/g, '&');
-            if (thumb.startsWith('//')) thumb = 'https:' + thumb;
-            if (thumb.startsWith('http://')) thumb = thumb.replace('http://', 'https://');
-          }
+        if (thumb) {
+          thumb = thumb.replace(/&amp;/g, '&');
+          if (thumb.startsWith('//')) thumb = 'https:' + thumb;
+          if (thumb.startsWith('http://')) thumb = thumb.replace('http://', 'https://');
+        }
 
-          const rawDesc = item.description || item.content || '';
-          const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, '').trim().substring(0, 180);
+        // STRICT: Skip articles without a verified real image
+        if (!thumb || !isValidImageURL(thumb)) return;
 
-          let parsedDate = item.pubDate ? new Date(item.pubDate) : new Date();
-          if (isNaN(parsedDate.getTime())) parsedDate = new Date();
+        const rawDesc = item.description || item.content || '';
+        const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, '').trim().substring(0, 180);
 
-          return {
-            title: item.title,
-            description: cleanDesc,
-            link: item.link,
-            thumbnail: thumb || getUniqueLogisticsImage(item.title, feed.category),
-            fallbackImg: getUniqueLogisticsImage(item.title, feed.category),
-            pubDate: parsedDate,
-            source: feed.source,
-            category: feed.category,
-            categoryLabel: feed.categoryLabel,
-            icon: feed.icon
-          };
+        let parsedDate = item.pubDate ? new Date(item.pubDate) : new Date();
+        if (isNaN(parsedDate.getTime())) parsedDate = new Date();
+
+        validParsed.push({
+          title: item.title,
+          description: cleanDesc,
+          link: item.link,
+          thumbnail: thumb,
+          pubDate: parsedDate,
+          source: feed.source,
+          category: feed.category,
+          categoryLabel: feed.categoryLabel,
+          icon: feed.icon
         });
+      });
+
+      return validParsed;
     } catch (e) {
       console.warn(`[NEWS HUB] Feed fetch error for ${feed.source}:`, e.message);
       return [];
@@ -4131,6 +4014,7 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
   if (fetchedItems.length > 0) {
     const uniqueMap = new Map();
     fetchedItems.concat(liveNewsArticles).forEach(item => {
+      if (!item.thumbnail || !isValidImageURL(item.thumbnail)) return;
       const key = item.title.toLowerCase().trim();
       if (!uniqueMap.has(key)) {
         uniqueMap.set(key, item);
@@ -4153,7 +4037,8 @@ function renderHomePageNews() {
   const homeLoading = document.getElementById('news-loading-state');
   if (!homeContainer) return;
 
-  const top6 = liveNewsArticles.slice(0, 6);
+  const validArticles = liveNewsArticles.filter(a => a.thumbnail && isValidImageURL(a.thumbnail));
+  const top6 = validArticles.slice(0, 6);
 
   if (top6.length === 0) return;
 
@@ -4170,7 +4055,7 @@ function renderNewsHubPage() {
 
   if (!fullContainer) return;
 
-  let filtered = liveNewsArticles;
+  let filtered = liveNewsArticles.filter(a => a.thumbnail && isValidImageURL(a.thumbnail));
 
   if (activeNewsCategory !== 'ALL') {
     filtered = filtered.filter(a => a.category === activeNewsCategory);
@@ -4213,12 +4098,12 @@ function renderNewsHubPage() {
 function buildNewsCardsHTML(articles) {
   let html = '';
   articles.forEach(article => {
+    if (!article.thumbnail || !isValidImageURL(article.thumbnail)) return;
+
     const safeTitle = escapeHTML(article.title);
     const safeDesc = escapeHTML(article.description);
     const safeSource = escapeHTML(article.source);
     const safeCatLabel = escapeHTML(article.categoryLabel);
-    
-    const fallbackImage = article.fallbackImg || getUniqueLogisticsImage(article.title, article.category);
 
     const dateStr = article.pubDate.toLocaleDateString('en-US', {
       month: 'short',
@@ -4230,7 +4115,7 @@ function buildNewsCardsHTML(articles) {
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
         <div class="news-card-image">
           <img src="${article.thumbnail}" alt="${safeTitle}" loading="lazy" referrerpolicy="no-referrer"
-               onerror="this.onerror=null; this.src='${fallbackImage}';"
+               onerror="this.onerror=null; const card=this.closest('.news-card'); if(card) card.remove();"
                style="width: 100%; height: 100%; object-fit: cover; display: block;">
           <span class="news-source-badge">${safeSource}</span>
           <span class="news-category-pill">${article.icon} ${safeCatLabel}</span>

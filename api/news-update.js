@@ -83,43 +83,56 @@ function extractAttr(xml, tag, attr) {
   return match ? match[1].trim() : '';
 }
 
+function isValidImageURL(url) {
+  if (!url || typeof url !== 'string') return false;
+  const lower = url.toLowerCase().trim();
+  if (!lower.startsWith('http://') && !lower.startsWith('https://')) return false;
+  if (lower.includes('unsplash.com')) return false; // Reject stock/dummy images
+  if (lower.includes('gravatar') || lower.includes('avatar') || lower.includes('1x1') || lower.includes('spacer') || lower.includes('tracking') || lower.includes('pixel') || lower.includes('logo') || lower.includes('favicon') || lower.includes('data:')) return false;
+  return true;
+}
+
 function extractImageFromHTML(html) {
   if (!html) return '';
-  const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-  return match ? match[1] : '';
+  const matches = html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi);
+  for (const m of matches) {
+    if (m[1] && isValidImageURL(m[1])) return m[1];
+  }
+  return '';
 }
 
 function extractArticleImage(itemXml) {
   // 1. <media:content url="...">
   let img = extractAttr(itemXml, 'media:content', 'url');
-  if (img) return img;
+  if (img && isValidImageURL(img)) return img;
 
   // 2. <media:thumbnail url="...">
   img = extractAttr(itemXml, 'media:thumbnail', 'url');
-  if (img) return img;
+  if (img && isValidImageURL(img)) return img;
 
   // 3. <enclosure url="..." type="image/...">
   const enclosureMatch = itemXml.match(/<enclosure[^>]*?url=["']([^"']+)["'][^>]*?type=["']image\/[^"']+["']/i);
-  if (enclosureMatch) return enclosureMatch[1];
+  if (enclosureMatch && isValidImageURL(enclosureMatch[1])) return enclosureMatch[1];
+  
   // Also try enclosure without type restriction but check if it ends in image extension
   const enclosureAny = extractAttr(itemXml, 'enclosure', 'url');
-  if (enclosureAny && /\.(jpg|jpeg|png|webp|gif)/i.test(enclosureAny)) return enclosureAny;
+  if (enclosureAny && /\.(jpg|jpeg|png|webp|gif|avif)/i.test(enclosureAny) && isValidImageURL(enclosureAny)) return enclosureAny;
 
   // 4. <image><url>...</url></image>
   const imageBlock = itemXml.match(/<image>([\s\S]*?)<\/image>/i);
   if (imageBlock) {
     img = extractTag(imageBlock[1], 'url');
-    if (img) return img;
+    if (img && isValidImageURL(img)) return img;
   }
 
   // 5. Extract <img src="..."> from description/content:encoded
   const contentEncoded = extractTag(itemXml, 'content:encoded');
   img = extractImageFromHTML(contentEncoded);
-  if (img) return img;
+  if (img && isValidImageURL(img)) return img;
 
   const description = extractTag(itemXml, 'description');
   img = extractImageFromHTML(description);
-  if (img) return img;
+  if (img && isValidImageURL(img)) return img;
 
   return '';
 }
@@ -180,8 +193,9 @@ function parseRSSFeed(xmlText, feedUrl) {
       if (imageUrl.startsWith('http://')) imageUrl = imageUrl.replace('http://', 'https://');
     }
 
-    // SKIP articles without a real image — this is a core requirement
-    if (!imageUrl || !imageUrl.startsWith('https://')) continue;
+    // STRICT: SKIP articles without a verified real image — mandatory user requirement
+    if (!imageUrl || !isValidImageURL(imageUrl)) continue;
+    if (!title || !link) continue;
     if (!title || !link) continue;
 
     // Check keyword relevance
@@ -273,8 +287,10 @@ async function fetchExistingNews(accessToken) {
       };
     });
 
-    articles.sort((a, b) => a.sortOrder - b.sortOrder);
-    return articles;
+    // STRICT: Only keep existing articles that have verified real image URLs (no stock/dummy images)
+    const validArticles = articles.filter(a => a.imageUrl && isValidImageURL(a.imageUrl));
+    validArticles.sort((a, b) => a.sortOrder - b.sortOrder);
+    return validArticles;
   } catch (err) {
     console.warn('[NEWS-UPDATE] Could not fetch existing news from Firestore:', err.message);
     return [];

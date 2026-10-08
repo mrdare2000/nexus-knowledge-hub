@@ -32,16 +32,27 @@ function extractAttr(xml, tag, attr) {
   return match ? match[1].trim() : '';
 }
 
+function isValidImageURL(url) {
+  if (!url || typeof url !== 'string') return false;
+  const lower = url.toLowerCase().trim();
+  if (!lower.startsWith('http://') && !lower.startsWith('https://')) return false;
+  if (lower.includes('unsplash.com')) return false;
+  if (lower.includes('gravatar') || lower.includes('avatar') || lower.includes('1x1') || lower.includes('spacer') || lower.includes('tracking') || lower.includes('pixel') || lower.includes('logo') || lower.includes('favicon') || lower.includes('data:')) return false;
+  return true;
+}
+
 function extractArticleImage(itemXml) {
   let img = extractAttr(itemXml, 'media:content', 'url') || extractAttr(itemXml, 'media:thumbnail', 'url');
-  if (img) return img;
+  if (img && isValidImageURL(img)) return img;
 
   const enc = itemXml.match(/<enclosure[^>]*?url=["']([^"']+)["']/i);
-  if (enc && enc[1]) return enc[1];
+  if (enc && enc[1] && isValidImageURL(enc[1])) return enc[1];
 
   const html = (extractTag(itemXml, 'content:encoded') || '') + ' ' + (extractTag(itemXml, 'description') || '');
-  const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
-  if (match && match[1] && !match[1].includes('gravatar') && !match[1].includes('data:')) return match[1];
+  const matches = html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi);
+  for (const m of matches) {
+    if (m[1] && isValidImageURL(m[1])) return m[1];
+  }
 
   return '';
 }
@@ -86,19 +97,20 @@ async function fetchLiveRSSArticles() {
           if (imageUrl.startsWith('http://')) imageUrl = imageUrl.replace('http://', 'https://');
         }
 
-        if (title && link) {
-          items.push({
-            title,
-            description: cleanDesc,
-            link,
-            imageUrl: imageUrl || '',
-            pubDate: pubDate || new Date().toISOString(),
-            source: feed.source,
-            category: feed.category,
-            categoryLabel: feed.label,
-            icon: feed.icon
-          });
-        }
+        // STRICT: Skip articles without a verified real image
+        if (!title || !link || !imageUrl || !isValidImageURL(imageUrl)) continue;
+
+        items.push({
+          title,
+          description: cleanDesc,
+          link,
+          imageUrl,
+          pubDate: pubDate || new Date().toISOString(),
+          source: feed.source,
+          category: feed.category,
+          categoryLabel: feed.label,
+          icon: feed.icon
+        });
       }
       return items;
     } catch (e) {
@@ -175,7 +187,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method Not Allowed' });
 
-  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=300');
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 
   try {
     const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT;
@@ -208,7 +220,7 @@ export default async function handler(req, res) {
             });
 
             articles.sort((a, b) => a.sortOrder - b.sortOrder);
-            const validArticles = articles.filter(a => a.title && a.link);
+            const validArticles = articles.filter(a => a.title && a.link && a.imageUrl && isValidImageURL(a.imageUrl));
 
             if (validArticles.length > 0) {
               return res.status(200).json({
