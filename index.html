@@ -592,37 +592,7 @@
       <p>Real-time continuous intelligence & live news from leading ocean, air cargo, supply chain & trade news channels worldwide.</p>
     </div>
 
-    <!-- NEWS HUB CONTROLS & TABS -->
-    <div class="news-hub-controls">
-      <div class="news-controls-header">
-        <div class="news-search-box">
-          <span class="news-search-icon">🔍</span>
-          <input type="text" id="news-search-input" class="news-search-field" placeholder="Search logistics headlines, ports, carriers, tariffs..." oninput="handleNewsSearch(this.value)">
-          <button id="news-search-clear" class="news-clear-btn" onclick="clearNewsSearch()" style="display: none;">✕</button>
-        </div>
-        <div class="news-actions">
-          <span class="news-live-badge" id="news-live-status"><span class="pulse-dot"></span> Auto-updating</span>
-          <button class="news-refresh-action-btn" onclick="manualRefreshNews(true)">
-            <span class="refresh-icon" id="news-refresh-spinner">🔄</span> Refresh Live News
-          </button>
-        </div>
-      </div>
 
-      <!-- CATEGORY FILTER TABS -->
-      <div class="news-tabs-container" id="news-category-tabs">
-        <button class="news-tab-btn active" data-category="ALL" onclick="filterNewsCategory('ALL', this)">🌐 All News</button>
-        <button class="news-tab-btn" data-category="MARITIME" onclick="filterNewsCategory('MARITIME', this)">🚢 Ocean & Maritime</button>
-        <button class="news-tab-btn" data-category="AIR" onclick="filterNewsCategory('AIR', this)">✈️ Air Cargo & Aviation</button>
-        <button class="news-tab-btn" data-category="SUPPLY_CHAIN" onclick="filterNewsCategory('SUPPLY_CHAIN', this)">📦 Supply Chain & Tech</button>
-        <button class="news-tab-btn" data-category="PORTS" onclick="filterNewsCategory('PORTS', this)">⚓ Ports & Logistics</button>
-        <button class="news-tab-btn" data-category="TRADE" onclick="filterNewsCategory('TRADE', this)">🏛️ Customs & Trade</button>
-      </div>
-
-      <div class="news-meta-info-bar">
-        <span id="news-count-badge" class="news-count-pill">Loading live articles...</span>
-        <span id="news-last-updated-text" class="news-updated-timestamp"></span>
-      </div>
-    </div>
     
     <div id="full-news-loading-state" style="text-align: center; padding: 50px; color: var(--text-muted);">
       <div class="news-spinner"></div>

@@ -4032,12 +4032,36 @@ async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
   if (refreshSpinner) refreshSpinner.classList.remove('spinning');
 }
 
+function formatProxyImage(url) {
+  if (!url || typeof url !== 'string') return '';
+  let cleanUrl = url.trim().replace(/&amp;/g, '&');
+  if (cleanUrl.startsWith('//')) cleanUrl = 'https:' + cleanUrl;
+  if (cleanUrl.startsWith('http://')) cleanUrl = cleanUrl.replace('http://', 'https://');
+  if (cleanUrl.includes('wsrv.nl')) return cleanUrl;
+  return `https://wsrv.nl/?url=${encodeURIComponent(cleanUrl)}&w=600&output=webp`;
+}
+
+function trimToMaxArticles(articles, maxLimit = 30) {
+  if (!Array.isArray(articles)) return [];
+  const uniqueMap = new Map();
+  articles.forEach(item => {
+    if (!item || !item.title) return;
+    const key = item.title.trim().toLowerCase();
+    if (!uniqueMap.has(key)) {
+      uniqueMap.set(key, item);
+    }
+  });
+  const list = Array.from(uniqueMap.values());
+  list.sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
+  return list.slice(0, maxLimit);
+}
+
 function renderHomePageNews() {
   const homeContainer = document.getElementById('news-feed-container');
   const homeLoading = document.getElementById('news-loading-state');
   if (!homeContainer) return;
 
-  const validArticles = liveNewsArticles.filter(a => a.thumbnail && isValidImageURL(a.thumbnail));
+  const validArticles = trimToMaxArticles(liveNewsArticles, 30);
   const top6 = validArticles.slice(0, 6);
 
   if (top6.length === 0) return;
@@ -4055,7 +4079,7 @@ function renderNewsHubPage() {
 
   if (!fullContainer) return;
 
-  let filtered = liveNewsArticles.filter(a => a.thumbnail && isValidImageURL(a.thumbnail));
+  let filtered = trimToMaxArticles(liveNewsArticles, 30);
 
   if (activeNewsCategory !== 'ALL') {
     filtered = filtered.filter(a => a.category === activeNewsCategory);
@@ -4071,7 +4095,7 @@ function renderNewsHubPage() {
   }
 
   if (countBadge) {
-    countBadge.textContent = `Showing ${filtered.length} of ${liveNewsArticles.length} Live Articles`;
+    countBadge.textContent = `Showing ${filtered.length} Live Articles`;
   }
 
   if (updatedText && lastNewsFetchTimestamp) {
@@ -4084,7 +4108,7 @@ function renderNewsHubPage() {
       <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
         <div style="font-size: 3rem; margin-bottom: 10px;">🔍</div>
         <h3 style="color: var(--primary-navy); margin-bottom: 8px;">No matching articles found</h3>
-        <p>Try searching for a different term or select another category tab above.</p>
+        <p>Try refreshing the feed or checking back later.</p>
       </div>
     `;
   } else {
@@ -4098,14 +4122,17 @@ function renderNewsHubPage() {
 function buildNewsCardsHTML(articles) {
   let html = '';
   articles.forEach(article => {
-    if (!article.thumbnail || !isValidImageURL(article.thumbnail)) return;
+    if (!article.thumbnail) return;
 
     const safeTitle = escapeHTML(article.title);
     const safeDesc = escapeHTML(article.description);
     const safeSource = escapeHTML(article.source);
-    const safeCatLabel = escapeHTML(article.categoryLabel);
+    const safeCatLabel = escapeHTML(article.categoryLabel || 'Logistics');
+    const proxyImg = formatProxyImage(article.thumbnail);
+    const rawImg = article.thumbnail.replace(/&amp;/g, '&');
 
-    const dateStr = article.pubDate.toLocaleDateString('en-US', {
+    const dateObj = article.pubDate instanceof Date ? article.pubDate : new Date(article.pubDate);
+    const dateStr = isNaN(dateObj.getTime()) ? '' : dateObj.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
@@ -4114,11 +4141,11 @@ function buildNewsCardsHTML(articles) {
     html += `
       <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="news-card">
         <div class="news-card-image">
-          <img src="${article.thumbnail}" alt="${safeTitle}" loading="lazy" referrerpolicy="no-referrer"
-               onerror="this.onerror=null; const card=this.closest('.news-card'); if(card) card.remove();"
+          <img src="${proxyImg}" data-raw-src="${rawImg}" alt="${safeTitle}" loading="lazy" referrerpolicy="no-referrer"
+               onerror="if(this.getAttribute('data-tried') !== 'true'){ this.setAttribute('data-tried','true'); this.src=this.getAttribute('data-raw-src'); } else { this.style.opacity='0.2'; }"
                style="width: 100%; height: 100%; object-fit: cover; display: block;">
           <span class="news-source-badge">${safeSource}</span>
-          <span class="news-category-pill">${article.icon} ${safeCatLabel}</span>
+          <span class="news-category-pill">${article.icon || '🚢'} ${safeCatLabel}</span>
         </div>
         <div class="news-card-content">
           <div class="news-date">📅 ${dateStr}</div>
