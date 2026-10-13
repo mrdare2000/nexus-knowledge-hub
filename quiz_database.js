@@ -1845,6 +1845,293 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           explanation: "Dark Stores are strategically located fulfillment hubs formatted like supermarkets but closed to foot traffic, optimized purely for rapid online order picking and packing."
         }
       ]
+    },
+    {
+      id: "week-9",
+      title: "Weekly Quiz 09",
+      description: "20 Questions • 20 Multiple Choice Questions (MCQs)",
+      questions: [
+        {
+          id: "w9-q1",
+          type: "mcq",
+          category: "Incoterms® Rules",
+          question: "Under Incoterms® 2020, which rule is the ONLY one that can be used for all modes of transport including multimodal, road, air, and rail — but NOT recommended for traditional ocean shipments where goods are sold at port?",
+          options: [
+            "FOB (Free On Board)",
+            "FCA (Free Carrier)",
+            "CIF (Cost, Insurance & Freight)",
+            "FAS (Free Alongside Ship)"
+          ],
+          answerIndex: 1,
+          explanation: "FCA (Free Carrier) is suitable for all transport modes. It is particularly recommended over FOB when containers are used, as risk transfers at the named inland point rather than at the ship's rail."
+        },
+        {
+          id: "w9-q2",
+          type: "mcq",
+          category: "Ocean Freight & Container Operations",
+          question: "What is the standard maximum payload weight (cargo + packing) for a 20-foot General Purpose (20GP) ISO shipping container?",
+          options: [
+            "~10,000 kg",
+            "~18,000 kg",
+            "~28,200 kg",
+            "~40,000 kg"
+          ],
+          answerIndex: 2,
+          explanation: "A standard 20GP ISO container has a maximum payload weight of approximately 28,200 kg (28.2 metric tons), with a tare weight of ~2,200 kg and a gross weight limit of ~30,400 kg."
+        },
+        {
+          id: "w9-q3",
+          type: "mcq",
+          category: "Customs & Trade Compliance",
+          question: "What is 'Anti-Dumping Duty' (ADD) in international trade customs regulation?",
+          options: [
+            "A tax on goods dumped into landfills near ports",
+            "A punitive tariff imposed on imported goods sold below their home-market fair value to protect domestic industry",
+            "A surcharge on container overweight violations",
+            "A penalty for incorrect Harmonized System (HS) code declarations"
+          ],
+          answerIndex: 1,
+          explanation: "Anti-Dumping Duty is levied by importing countries on foreign goods sold below their normal value (dumped), protecting domestic manufacturers from unfair foreign competition under WTO Agreement on Anti-Dumping."
+        },
+        {
+          id: "w9-q4",
+          type: "mcq",
+          category: "Air Freight & IATA",
+          question: "What IATA classification designates cargo that must be transported in the passenger aircraft cabin rather than the belly hold due to size, value, or special handling requirements?",
+          options: [
+            "AVI (Live Animals)",
+            "BIG (Outsized Baggage)",
+            "CAO (Cargo Aircraft Only)",
+            "Cabin Baggage (hand carry)"
+          ],
+          answerIndex: 2,
+          explanation: "CAO (Cargo Aircraft Only) is the IATA designation for dangerous goods or cargo that is too hazardous or sensitive to fly on passenger aircraft and must ship on dedicated freighter aircraft only."
+        },
+        {
+          id: "w9-q5",
+          type: "mcq",
+          category: "Maritime Law & Documentation",
+          question: "What is a 'Letter of Indemnity' (LOI) in ocean freight operations?",
+          options: [
+            "A certificate confirming vessel seaworthiness issued by flag state",
+            "A written guarantee indemnifying a carrier for releasing cargo without production of original Bills of Lading",
+            "A mandatory insurance renewal document",
+            "A government-issued export license for restricted goods"
+          ],
+          answerIndex: 1,
+          explanation: "A Letter of Indemnity (LOI) is issued by a shipper or consignee to induce an ocean carrier to release cargo at destination without presentation of the original negotiable Bill of Lading, at the issuer's financial risk."
+        },
+        {
+          id: "w9-q6",
+          type: "mcq",
+          category: "Supply Chain Risk Management",
+          question: "What supply chain resilience strategy involves maintaining a buffer stock of critical inventory above normal safety stock levels specifically to absorb unexpected supply disruptions?",
+          options: [
+            "Cross-Docking",
+            "Nearshoring",
+            "Strategic Reserve / Buffer Stock",
+            "Drop Shipping"
+          ],
+          answerIndex: 2,
+          explanation: "Strategic Reserve / Buffer Stock is excess inventory held deliberately above the safety stock threshold to protect against extreme supply disruptions, port shutdowns, or demand spikes — a lesson reinforced by COVID-19 supply chain shocks."
+        },
+        {
+          id: "w9-q7",
+          type: "mcq",
+          category: "Freight Technology & Digitalization",
+          question: "What decentralized digital ledger technology enables immutable, tamper-proof recording of supply chain transactions, shipment milestones, and document verification across multiple trading parties?",
+          options: [
+            "Cloud ERP (Enterprise Resource Planning)",
+            "WMS (Warehouse Management System)",
+            "Blockchain Technology",
+            "RFID Tag Network"
+          ],
+          answerIndex: 2,
+          explanation: "Blockchain creates a shared, distributed ledger where each transaction block is cryptographically linked, making it ideal for transparent and tamper-resistant tracking of cargo events, documentation, and multi-party trade finance."
+        },
+        {
+          id: "w9-q8",
+          type: "mcq",
+          category: "Port & Terminal Operations",
+          question: "What is the function of a 'Vessel Traffic Service' (VTS) system operated by port authorities?",
+          options: [
+            "Automatically loading containers onto vessels",
+            "Monitoring and managing maritime traffic in busy port approaches and channels to ensure safe navigation",
+            "Processing import customs declarations electronically",
+            "Collecting ocean freight payments from shipping lines"
+          ],
+          answerIndex: 1,
+          explanation: "Vessel Traffic Service (VTS) is the maritime equivalent of air traffic control — port authorities use radar, AIS, and VHF communication to monitor vessel movements and prevent collisions in ports and restricted waterways."
+        },
+        {
+          id: "w9-q9",
+          type: "mcq",
+          category: "Ocean Freight Rates & Surcharges",
+          question: "What does PSS stand for in ocean freight rate structures, and when is it typically applied?",
+          options: [
+            "Port Security Surcharge — applied after cargo is seized by customs",
+            "Peak Season Surcharge — applied during high-demand shipping seasons (e.g. pre-Chinese New Year, pre-Christmas)",
+            "Pilotage Staging Surcharge — applied at anchorage waiting areas",
+            "Reefer Power Supply Surcharge — applied to refrigerated containers"
+          ],
+          answerIndex: 1,
+          explanation: "PSS (Peak Season Surcharge) is levied by ocean carriers during high-volume shipping periods when vessel space demand significantly exceeds supply, typically June–October (Asia–US/Europe pre-holiday peak)."
+        },
+        {
+          id: "w9-q10",
+          type: "mcq",
+          category: "Trade Finance",
+          question: "Under a Documentary Collection arrangement, what is the key difference between D/P (Documents against Payment) and D/A (Documents against Acceptance)?",
+          options: [
+            "D/P requires cargo insurance; D/A does not",
+            "D/P releases documents only upon immediate cash payment; D/A releases documents against buyer's acceptance of a time draft for future payment",
+            "D/P uses Letters of Credit; D/A uses Open Account",
+            "D/P is for air cargo; D/A is for ocean freight only"
+          ],
+          answerIndex: 1,
+          explanation: "In D/P (Documents against Payment), the buyer must pay immediately to receive shipping documents. In D/A (Documents against Acceptance), the buyer accepts a bill of exchange (time draft) promising future payment, giving them credit terms to collect the goods now."
+        },
+        {
+          id: "w9-q11",
+          type: "mcq",
+          category: "Warehousing & Distribution",
+          question: "What is 'Slotting Optimization' in warehouse management operations?",
+          options: [
+            "Programming robotic arms to disassemble cargo pallets",
+            "Assigning products to specific storage locations based on velocity, weight, and ergonomics to minimize travel time and labor costs",
+            "Scheduling docking bays for inbound truck arrivals",
+            "Allocating container slots on a vessel by weight class"
+          ],
+          answerIndex: 1,
+          explanation: "Slotting Optimization strategically positions inventory within a warehouse based on order frequency (velocity), product characteristics, and pick-path efficiency to dramatically reduce picker travel distance and order cycle time."
+        },
+        {
+          id: "w9-q12",
+          type: "mcq",
+          category: "Dangerous Goods & IMDG",
+          question: "Which UN Dangerous Goods Class covers Toxic (poisonous) and Infectious Substances such as pesticides and biological specimens?",
+          options: [
+            "Class 3",
+            "Class 5",
+            "Class 6",
+            "Class 8"
+          ],
+          answerIndex: 2,
+          explanation: "UN Class 6 encompasses Division 6.1 (Toxic Substances — materials causing death or injury by inhalation, skin absorption, or ingestion) and Division 6.2 (Infectious Substances — biological agents posing disease risk to humans or animals)."
+        },
+        {
+          id: "w9-q13",
+          type: "mcq",
+          category: "Customs Procedures",
+          question: "What is an 'In-Bond' shipment in US customs operations?",
+          options: [
+            "A shipment fully cleared through customs before arrival",
+            "Cargo moving under customs control through the US without paying duties, destined for another port or a bonded warehouse",
+            "A shipment requiring mandatory fumigation treatment",
+            "An express courier shipment with pre-paid import duties"
+          ],
+          answerIndex: 1,
+          explanation: "An In-Bond (IT — Immediate Transportation) shipment allows cargo to move through US territory under customs bond without paying duties, typically to reach the intended final port of entry or a bonded warehouse for deferred clearance."
+        },
+        {
+          id: "w9-q14",
+          type: "mcq",
+          category: "Green & Sustainable Logistics",
+          question: "What emission reduction strategy involves shipping cargo on slower vessels to significantly reduce fuel consumption and CO2 emissions per voyage?",
+          options: [
+            "Cabotage Routing",
+            "Slow Steaming",
+            "Deadheading",
+            "Port Omission"
+          ],
+          answerIndex: 1,
+          explanation: "Slow Steaming reduces vessel engine speed below designed optimum, cutting fuel consumption by up to 50% and CO2 emissions significantly, though it extends transit times. Widely adopted post-2008 fuel price crisis as a cost and environmental tool."
+        },
+        {
+          id: "w9-q15",
+          type: "mcq",
+          category: "Air Cargo & Belly Freight",
+          question: "What is 'Belly Freight' in air cargo operations?",
+          options: [
+            "Oversized cargo strapped to aircraft landing gear",
+            "Dangerous goods stored in pressurized upper deck compartments",
+            "Revenue-generating cargo transported in the lower deck holds of passenger aircraft alongside passenger baggage",
+            "Cargo flown on military transport aircraft under contract"
+          ],
+          answerIndex: 2,
+          explanation: "Belly Freight refers to commercial cargo loaded in the lower hold (belly) compartments of passenger aircraft. Airlines monetize unused belly space by accepting general cargo, mail, and express parcels alongside checked passenger baggage."
+        },
+        {
+          id: "w9-q16",
+          type: "mcq",
+          category: "Logistics Process & SOPs",
+          question: "What does the logistics term 'Proof of Delivery' (POD) refer to and why is it critical in freight operations?",
+          options: [
+            "A certificate of origin proving goods were manufactured domestically",
+            "A document signed by the consignee acknowledging physical receipt of goods, serving as legal confirmation of successful delivery",
+            "A customs release stamp issued at port gates",
+            "An IATA regulated cargo weight confirmation note"
+          ],
+          answerIndex: 1,
+          explanation: "Proof of Delivery (POD) is a signed delivery receipt confirming the consignee received the shipment. It is critical for settling freight claims, invoicing disputes, customer service issues, and supply chain audit trails."
+        },
+        {
+          id: "w9-q17",
+          type: "mcq",
+          category: "Carrier Liability & Insurance",
+          question: "Under the Montreal Convention 1999, what is the air carrier's liability limit for cargo loss or damage in international air freight (in Special Drawing Rights per kilogram)?",
+          options: [
+            "8.33 SDR/kg",
+            "19 SDR/kg",
+            "666.67 SDR/kg",
+            "22 SDR/kg"
+          ],
+          answerIndex: 3,
+          explanation: "The Montreal Convention 1999 sets the air carrier liability limit at 22 SDR (Special Drawing Rights) per kilogram of cargo lost, damaged, or delayed in international air transport — updated from the original Warsaw Convention limit."
+        },
+        {
+          id: "w9-q18",
+          type: "mcq",
+          category: "Container Equipment Types",
+          question: "What type of ISO tank container is designed to transport bulk liquid chemicals, foodstuffs, or gases under pressure in a cylindrical vessel mounted within a standard ISO frame?",
+          options: [
+            "Flat Rack Container",
+            "Open Top Container",
+            "ISO Tank Container (Tanktainer)",
+            "Flexitank Container"
+          ],
+          answerIndex: 2,
+          explanation: "ISO Tank Containers (Tanktainers) feature a cylindrical stainless steel pressure vessel enclosed within a standard ISO outer frame, enabling bulk liquid or gas transport via sea, road, or rail without cargo transhipment."
+        },
+        {
+          id: "w9-q19",
+          type: "mcq",
+          category: "Maritime Trade & Economics",
+          question: "What index, published daily by the Baltic Exchange in London, is the most widely used benchmark for measuring global dry bulk ocean freight rates?",
+          options: [
+            "World Container Index (WCI)",
+            "SCFI (Shanghai Containerized Freight Index)",
+            "BDI (Baltic Dry Index)",
+            "Drewry Freight Rate Benchmark"
+          ],
+          answerIndex: 2,
+          explanation: "The Baltic Dry Index (BDI) tracks daily freight rates across major dry bulk shipping routes (Capesize, Panamax, Supramax) and is a leading economic indicator of global trade volume and commodity demand."
+        },
+        {
+          id: "w9-q20",
+          type: "mcq",
+          category: "Logistics & Supply Chain Strategy",
+          question: "What procurement and supply chain strategy involves relocating manufacturing or sourcing operations to geographically closer countries to reduce lead times, geopolitical risk, and carbon footprint?",
+          options: [
+            "Offshoring",
+            "Nearshoring / Friendshoring",
+            "Drop Shipping",
+            "Vertical Integration"
+          ],
+          answerIndex: 1,
+          explanation: "Nearshoring (shifting production to nearby countries) and Friendshoring (sourcing from geopolitically allied nations) are post-pandemic supply chain resilience strategies to reduce dependency on distant single-source suppliers."
+        }
+      ]
     }
   ]
 };
