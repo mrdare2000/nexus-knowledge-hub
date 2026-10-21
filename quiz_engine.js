@@ -919,7 +919,7 @@
           <div class="cw-banner-info">
             <h2>
               <span>🧩 ${quiz.title}</span>
-              <span class="cw-badge-special">Special Edition 01</span>
+              <span class="cw-badge-special">Special Edition ${quiz.id === 'week-10' ? '02' : '01'}</span>
             </h2>
             <p>Fill in the ${words.length}-word logistics crossword puzzle using clues and hints! Click any clue to highlight its cells.</p>
           </div>

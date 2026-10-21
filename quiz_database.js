@@ -2132,6 +2132,119 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
           explanation: "Nearshoring (shifting production to nearby countries) and Friendshoring (sourcing from geopolitically allied nations) are post-pandemic supply chain resilience strategies to reduce dependency on distant single-source suppliers."
         }
       ]
+    },
+    {
+      id: "week-10",
+      title: "Weekly Quiz 10",
+      description: "🧩 Special Edition • Logistics Crossword Puzzle • 10 Words",
+      quizType: "crossword",
+      crosswordData: {
+        gridRows: 15,
+        gridCols: 14,
+        words: [
+          {
+            id: "cw10-w1",
+            number: 1,
+            word: "LASHING",
+            direction: "down",
+            row: 0,
+            col: 2,
+            clue: "The process of securing cargo inside containers or on vessels using straps, ropes, chains or bars to prevent shifting or damage during transit",
+            hint: "Cargo must be properly _____ to survive rough seas"
+          },
+          {
+            id: "cw10-w2",
+            number: 2,
+            word: "INCOTERMS",
+            direction: "down",
+            row: 0,
+            col: 5,
+            clue: "A globally standardized set of 11 trade terms published by the ICC that define responsibilities, risks and costs between buyers and sellers in international commercial contracts",
+            hint: "FOB, CIF, DDP, EXW are examples of these trade rules"
+          },
+          {
+            id: "cw10-w3",
+            number: 3,
+            word: "CUSTOMS",
+            direction: "across",
+            row: 2,
+            col: 5,
+            clue: "The government authority and process responsible for regulating and controlling goods that enter or leave a country, collecting import duties, and enforcing trade compliance",
+            hint: "Every international shipment must clear through this authority"
+          },
+          {
+            id: "cw10-w4",
+            number: 4,
+            word: "DEMURRAGE",
+            direction: "down",
+            row: 3,
+            col: 0,
+            clue: "The penalty fee charged by shipping lines when an importer retains a container beyond the agreed free-time period at the destination port terminal",
+            hint: "Free days exceeded at the port terminal triggers this daily charge"
+          },
+          {
+            id: "cw10-w5",
+            number: 5,
+            word: "BONDED",
+            direction: "across",
+            row: 3,
+            col: 4,
+            clue: "A type of licensed warehouse or customs-supervised zone where dutiable imported goods are stored without payment of import duty until released for local sale or re-export",
+            hint: "_____ warehouse allows duty-deferred storage of imported goods"
+          },
+          {
+            id: "cw10-w6",
+            number: 6,
+            word: "MANIFEST",
+            direction: "across",
+            row: 5,
+            col: 0,
+            clue: "The official cargo document or electronic filing listing all goods, containers, shipper details, and consignee information aboard a vessel or aircraft, submitted to port and customs authorities before arrival",
+            hint: "Shipping lines must file this document to customs before vessel arrival"
+          },
+          {
+            id: "cw10-w7",
+            number: 7,
+            word: "FUMIGATION",
+            direction: "down",
+            row: 5,
+            col: 4,
+            clue: "A mandatory phytosanitary treatment using approved chemical gases such as methyl bromide or phosphine applied to wooden packaging materials and agricultural cargo to eliminate pests under ISPM-15 regulations",
+            hint: "Wooden pallets must have the IPPC mark after this treatment"
+          },
+          {
+            id: "cw10-w8",
+            number: 8,
+            word: "TRANSSHIP",
+            direction: "down",
+            row: 5,
+            col: 7,
+            clue: "The transfer of cargo from one vessel to another at an intermediate port hub before the shipment continues its onward journey to the final destination port",
+            hint: "Colombo and Singapore are major _______ hubs in Asia"
+          },
+          {
+            id: "cw10-w9",
+            number: 9,
+            word: "FREIGHT",
+            direction: "across",
+            row: 6,
+            col: 6,
+            clue: "The commercial transportation of goods by sea, air, road or rail; also refers to the charge or cost paid to a carrier for transporting cargo from the port or place of origin to the destination",
+            hint: "In CIF pricing: FOB + _______ + Insurance = CIF"
+          },
+          {
+            id: "cw10-w10",
+            number: 10,
+            word: "PACKING",
+            direction: "across",
+            row: 13,
+            col: 7,
+            clue: "The process of preparing, wrapping and placing goods into suitable containers, cartons or protective materials for safe transportation, with details documented in a Packing List submitted to customs",
+            hint: "The _______ List accompanies every commercial shipment"
+          }
+        ]
+      },
+      questions: []
     }
   ]
 };
