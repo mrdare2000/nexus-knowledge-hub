@@ -4126,8 +4126,6 @@ function buildNewsCardsHTML(articles) {
 
     const safeTitle = escapeHTML(article.title);
     const safeDesc = escapeHTML(article.description);
-    const safeSource = escapeHTML(article.source);
-    const safeCatLabel = escapeHTML(article.categoryLabel || 'Logistics');
     const proxyImg = formatProxyImage(article.thumbnail);
     const rawImg = article.thumbnail.replace(/&amp;/g, '&');
 
@@ -4144,8 +4142,6 @@ function buildNewsCardsHTML(articles) {
           <img src="${proxyImg}" data-raw-src="${rawImg}" alt="${safeTitle}" loading="lazy" referrerpolicy="no-referrer"
                onerror="if(this.getAttribute('data-tried') !== 'true'){ this.setAttribute('data-tried','true'); this.src=this.getAttribute('data-raw-src'); } else { this.style.opacity='0.2'; }"
                style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          <span class="news-source-badge">${safeSource}</span>
-          <span class="news-category-pill">${article.icon || '🚢'} ${safeCatLabel}</span>
         </div>
         <div class="news-card-content">
           <div class="news-date">📅 ${dateStr}</div>
