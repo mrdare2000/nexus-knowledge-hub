@@ -572,18 +572,7 @@
               ? `<span style="background: linear-gradient(135deg, #F26938 0%, #E11D48 100%); color: #FFFFFF; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 6px; box-shadow: 0 2px 8px rgba(242,105,56,0.35);">🔥 SPECIAL EDITION #${originalSetNum}</span>`
               : `<span style="background: #EFF6FF; color: #1E40AF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">SET #${originalSetNum}</span>`;
 
-            let titleHtml = `<h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">${w.title}</h4>`;
-            if (isSpecial && w.title.includes(' — ')) {
-              const parts = w.title.split(' — ');
-              titleHtml = `
-                <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">
-                  <span>${parts[0]}</span>
-                  <span style="display: block; margin-top: 6px; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); color: #F26938; border: 1.5px solid rgba(242, 105, 56, 0.4); padding: 6px 12px; border-radius: 10px; font-size: 0.95rem; font-weight: 900; box-shadow: 0 4px 12px rgba(242, 105, 56, 0.15);">
-                    🧩 ${parts[1]}
-                  </span>
-                </h4>
-              `;
-            }
+            const titleHtml = `<h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">${w.title}</h4>`;
 
             const btnHtml = attempt
               ? `<button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5; cursor: pointer;">

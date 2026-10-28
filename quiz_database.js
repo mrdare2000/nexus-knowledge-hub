@@ -963,8 +963,8 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
     },
     {
       id: "week-5",
-      title: "Weekly Quiz 05 — Special Edition 01: Crossword Puzzle 🧩",
-      description: "Logistics Word Crossword Puzzle • 10 Words • 5 Across + 5 Down Clues • 100 Marks",
+      title: "Weekly Quiz 05",
+      description: "🧩 Special Edition • Logistics Crossword Puzzle • 10 Words",
       quizType: "crossword",
       totalMarks: 100,
       crosswordData: {
