@@ -2245,6 +2245,294 @@ var NEXUS_QUIZ_DATABASE = window.NEXUS_QUIZ_DATABASE = {
         ]
       },
       questions: []
+    },
+    {
+      id: "week-11",
+      title: "Weekly Quiz 11",
+      description: "20 Questions • 20 Multiple Choice Questions (MCQs) • 100 Marks",
+      totalMarks: 100,
+      questions: [
+        {
+          id: "w11-q1",
+          type: "mcq",
+          category: "Freight Consolidation & Groupage",
+          question: "What logistics service combines multiple smaller LCL shipments from different shippers into a single full container load (FCL) at a consolidation warehouse before ocean dispatch?",
+          options: [
+            "Direct FCL Booking",
+            "Buyer's Consolidation (Groupage)",
+            "Drayage Service",
+            "Vessel Chartering"
+          ],
+          answerIndex: 1,
+          explanation: "Buyer's Consolidation (Groupage) is a freight forwarder service that groups multiple small LCL shipments into one FCL container to reduce per-unit ocean freight costs and streamline customs clearance at destination."
+        },
+        {
+          id: "w11-q2",
+          type: "mcq",
+          category: "Maritime Insurance & P&I Clubs",
+          question: "What type of mutual marine insurance association provides shipowners with third-party liability coverage for crew injuries, oil spill pollution, cargo damage claims, and wreck removal?",
+          options: [
+            "Lloyd's of London Syndicate",
+            "Protection & Indemnity (P&I) Club",
+            "Institute Cargo Clauses Underwriter",
+            "Marine Hull & Machinery Insurer"
+          ],
+          answerIndex: 1,
+          explanation: "P&I Clubs are mutual (non-profit) insurance associations where shipowners collectively pool third-party liability risks including crew illness/death, pollution, collision liability, and cargo claims. The International Group of P&I Clubs covers ~90% of world ocean tonnage."
+        },
+        {
+          id: "w11-q3",
+          type: "mcq",
+          category: "Supply Chain KPIs & Analytics",
+          question: "What logistics performance metric, expressed as a ratio, measures how many times a company's entire inventory stock is sold and replenished within a given accounting period?",
+          options: [
+            "Freight Cost per Ton-Kilometer",
+            "Warehouse Throughput Rate",
+            "Inventory Turnover Ratio",
+            "Order Fill Rate"
+          ],
+          answerIndex: 2,
+          explanation: "Inventory Turnover Ratio = Cost of Goods Sold / Average Inventory Value. A higher ratio indicates efficient inventory management with faster sell-through and lower holding costs."
+        },
+        {
+          id: "w11-q4",
+          type: "mcq",
+          category: "Digital Freight & Technology",
+          question: "What technology platform uses algorithms to digitally match available truck capacity with shipper cargo loads in real-time, reducing empty miles and improving utilization?",
+          options: [
+            "Warehouse Management System (WMS)",
+            "Digital Freight Matching Platform (Digital Brokerage)",
+            "Container Booking System (CBS)",
+            "Port Community System (PCS)"
+          ],
+          answerIndex: 1,
+          explanation: "Digital Freight Matching platforms (e.g. Uber Freight, Convoy, Loadsmart) use AI algorithms and real-time data to connect available truck capacity with cargo loads, reducing empty-mile deadhead runs and improving fleet asset utilization."
+        },
+        {
+          id: "w11-q5",
+          type: "mcq",
+          category: "Warehouse Automation & Robotics",
+          question: "What automated warehouse storage and retrieval technology uses computer-controlled cranes operating within high-density racking systems to store and pick pallets or totes without human intervention?",
+          options: [
+            "Conveyor Belt Sortation",
+            "AS/RS (Automated Storage & Retrieval System)",
+            "Voice-Directed Picking",
+            "Manual Pallet Racking"
+          ],
+          answerIndex: 1,
+          explanation: "AS/RS (Automated Storage and Retrieval Systems) are robotic warehouse solutions using computer-controlled stacker cranes or shuttles to automatically place and retrieve loads from high-bay racking, maximizing vertical space and throughput."
+        },
+        {
+          id: "w11-q6",
+          type: "mcq",
+          category: "Free Trade Zones & Special Economic Areas",
+          question: "What is the primary customs distinction between a Free Trade Zone (FTZ) and a standard Bonded Warehouse?",
+          options: [
+            "FTZs only handle air cargo; Bonded Warehouses only handle sea cargo",
+            "FTZs allow manufacturing, assembly, and value-added processing of goods without duty payment; Bonded Warehouses primarily allow storage only",
+            "Bonded Warehouses are tax-free; FTZs require full duty payment on entry",
+            "There is no difference — they are the same facility"
+          ],
+          answerIndex: 1,
+          explanation: "Free Trade Zones permit manufacturing, assembly, re-labeling, and value-added processing of imported goods duty-free, while Bonded Warehouses are primarily restricted to secure storage and minor handling of dutiable goods pending customs clearance."
+        },
+        {
+          id: "w11-q7",
+          type: "mcq",
+          category: "Freight Forwarding Licensing & Regulation",
+          question: "What Federal Maritime Commission (FMC) license is required for a freight forwarder operating as a non-vessel-owning carrier to issue their own ocean Bills of Lading in the United States?",
+          options: [
+            "IATA Cargo Agent License",
+            "AEO Certification",
+            "OTI-NVOCC License (Ocean Transportation Intermediary - Non-Vessel Operating Common Carrier)",
+            "Customs Broker License (CBL)"
+          ],
+          answerIndex: 2,
+          explanation: "An OTI-NVOCC License from the FMC authorizes freight forwarders to act as ocean carriers by issuing their own House Bills of Lading, publishing tariffs, and assuming carrier liability without owning vessels."
+        },
+        {
+          id: "w11-q8",
+          type: "mcq",
+          category: "Air Freight Digitalization",
+          question: "What IATA industry initiative aims to replace traditional paper Air Waybills (AWB) with fully electronic, paperless cargo documentation across the global air freight supply chain?",
+          options: [
+            "IATA NDC (New Distribution Capability)",
+            "IATA e-AWB (Electronic Air Waybill)",
+            "IATA BSP (Billing & Settlement Plan)",
+            "IATA CASS (Cargo Accounts Settlement System)"
+          ],
+          answerIndex: 1,
+          explanation: "IATA's e-AWB initiative eliminates paper Air Waybills by creating a single electronic contract of carriage record, reducing processing costs, speeding customs clearance, and minimizing document errors in air freight."
+        },
+        {
+          id: "w11-q9",
+          type: "mcq",
+          category: "Port Operations & Technology",
+          question: "What centralized digital platform connects and coordinates electronic information exchange among all port stakeholders — shipping lines, terminal operators, customs, freight forwarders, and truckers?",
+          options: [
+            "TOS (Terminal Operating System)",
+            "ERP (Enterprise Resource Planning)",
+            "PCS (Port Community System)",
+            "AIS (Automatic Identification System)"
+          ],
+          answerIndex: 2,
+          explanation: "A Port Community System (PCS) is a neutral electronic platform that connects multiple port stakeholder systems, enabling single-window data exchange for vessel calls, cargo clearance, truck appointments, and trade documentation."
+        },
+        {
+          id: "w11-q10",
+          type: "mcq",
+          category: "Special Economic Zones & Trade Policy",
+          question: "What is the primary economic purpose of a Special Economic Zone (SEZ) established by developing countries?",
+          options: [
+            "To restrict all foreign direct investment within national borders",
+            "To create designated geographic areas offering tax incentives, duty exemptions, and relaxed regulations to attract foreign investment and boost exports",
+            "To ban the export of locally manufactured goods",
+            "To increase import tariffs on raw materials entering the zone"
+          ],
+          answerIndex: 1,
+          explanation: "Special Economic Zones (SEZs) are government-designated areas offering preferential tax rates, customs duty exemptions, and simplified business regulations to attract foreign direct investment (FDI), promote manufacturing, and generate export revenue."
+        },
+        {
+          id: "w11-q11",
+          type: "mcq",
+          category: "Smart Containers & IoT Technology",
+          question: "What Internet of Things (IoT) technology enables real-time remote monitoring of container location (GPS), internal temperature, humidity, door open/close status, and shock events throughout transit?",
+          options: [
+            "RFID Tag Scanning",
+            "Barcode Label Printing",
+            "Smart Container Tracking Devices (IoT Telemetry Sensors)",
+            "Manual Container Inspection at Port Gates"
+          ],
+          answerIndex: 2,
+          explanation: "Smart container IoT devices use cellular, satellite, or Bluetooth sensors attached to containers to transmit real-time GPS position, temperature, humidity, light (door intrusion), and shock/tilt data to cloud platforms throughout the supply chain."
+        },
+        {
+          id: "w11-q12",
+          type: "mcq",
+          category: "Cargo Surveying & Claims",
+          question: "What independent professional is appointed by insurers or cargo interests to inspect, assess, and document the nature and extent of cargo damage for marine insurance claims?",
+          options: [
+            "Customs Broker",
+            "Marine Cargo Surveyor (Loss Adjuster)",
+            "Ship Classification Inspector",
+            "Port Health Officer"
+          ],
+          answerIndex: 1,
+          explanation: "A Marine Cargo Surveyor (or Loss Adjuster) is an independent professional who inspects damaged cargo, determines the cause and extent of loss, and prepares survey reports used to settle insurance claims between cargo interests and underwriters."
+        },
+        {
+          id: "w11-q13",
+          type: "mcq",
+          category: "International Trade Agreements",
+          question: "What mega-regional Free Trade Agreement, signed in November 2020, is the world's largest trade bloc covering 15 Asia-Pacific nations including China, Japan, South Korea, Australia, and all 10 ASEAN members?",
+          options: [
+            "USMCA (United States-Mexico-Canada Agreement)",
+            "CPTPP (Comprehensive and Progressive Trans-Pacific Partnership)",
+            "RCEP (Regional Comprehensive Economic Partnership)",
+            "AfCFTA (African Continental Free Trade Area)"
+          ],
+          answerIndex: 2,
+          explanation: "RCEP (Regional Comprehensive Economic Partnership) is the world's largest FTA by GDP and population, covering ~30% of global GDP across 15 signatory nations, reducing tariffs and harmonizing rules of origin across the Asia-Pacific region."
+        },
+        {
+          id: "w11-q14",
+          type: "mcq",
+          category: "Customs Valuation Methods",
+          question: "When the primary Transaction Value method cannot be used for customs duty calculation, which alternative WTO valuation method uses the selling price of identical or similar imported goods as the customs value basis?",
+          options: [
+            "Computed Value Method",
+            "Deductive Value Method (Resale Minus)",
+            "Transaction Value of Identical or Similar Goods",
+            "Fallback / Reasonable Means Method"
+          ],
+          answerIndex: 2,
+          explanation: "The WTO Customs Valuation Agreement prescribes a sequential hierarchy: if Transaction Value fails, customs may use the Transaction Value of Identical Goods (Method 2) or Similar Goods (Method 3) as alternative bases for duty assessment."
+        },
+        {
+          id: "w11-q15",
+          type: "mcq",
+          category: "Maritime Environmental Regulations",
+          question: "Which MARPOL Annex specifically regulates the prevention of pollution by garbage from ships, prohibiting the discharge of all plastics and restricting disposal of other waste materials at sea?",
+          options: [
+            "MARPOL Annex I (Oil Pollution)",
+            "MARPOL Annex II (Noxious Liquid Substances)",
+            "MARPOL Annex V (Garbage)",
+            "MARPOL Annex VI (Air Pollution)"
+          ],
+          answerIndex: 2,
+          explanation: "MARPOL Annex V governs the disposal of garbage from ships, completely banning the discharge of all plastics at sea, and setting strict distance and Special Area restrictions for disposing food waste, cargo residues, and other ship-generated garbage."
+        },
+        {
+          id: "w11-q16",
+          type: "mcq",
+          category: "Alternative Marine Fuels & Decarbonization",
+          question: "What alternative marine fuel, stored at approximately -162°C, is increasingly adopted by ocean carriers as a transitional lower-emission fuel to meet IMO decarbonization targets?",
+          options: [
+            "Heavy Fuel Oil (HFO)",
+            "Marine Diesel Oil (MDO)",
+            "LNG (Liquefied Natural Gas)",
+            "Methanol Blend"
+          ],
+          answerIndex: 2,
+          explanation: "LNG (Liquefied Natural Gas) produces approximately 25% less CO2, 90% less NOx, and virtually zero SOx compared to traditional Heavy Fuel Oil (HFO), making it a transitional marine fuel toward IMO 2050 decarbonization goals."
+        },
+        {
+          id: "w11-q17",
+          type: "mcq",
+          category: "Autonomous Logistics & Future Technology",
+          question: "What emerging logistics technology uses self-driving trucks equipped with LiDAR, cameras, and AI navigation systems to operate long-haul highway freight corridors without a human driver?",
+          options: [
+            "Electric Vehicle (EV) Delivery Vans",
+            "Autonomous Trucking (Self-Driving Trucks / Level 4+ Autonomy)",
+            "Drone Last-Mile Delivery",
+            "Hyperloop Cargo Transport"
+          ],
+          answerIndex: 1,
+          explanation: "Autonomous trucking (Level 4/5 SAE) uses LiDAR, radar, cameras, and AI algorithms to enable trucks to navigate highway corridors without human intervention, targeting long-haul 'middle mile' routes to address driver shortage and reduce operating costs."
+        },
+        {
+          id: "w11-q18",
+          type: "mcq",
+          category: "Supply Chain Digital Twins",
+          question: "What advanced digital technology creates a virtual replica of an entire physical supply chain network, allowing companies to simulate scenarios, predict disruptions, and optimize logistics decisions in real-time?",
+          options: [
+            "Blockchain Smart Contract",
+            "Digital Twin (Supply Chain Simulation Model)",
+            "RFID Tag Cloud",
+            "Automated Manifest System (AMS)"
+          ],
+          answerIndex: 1,
+          explanation: "A Digital Twin is a virtual, real-time replica of a physical supply chain that uses IoT data, AI, and machine learning to simulate what-if scenarios, predict bottlenecks, optimize inventory positioning, and improve resilience planning."
+        },
+        {
+          id: "w11-q19",
+          type: "mcq",
+          category: "Trade Credit Insurance & Risk",
+          question: "What type of commercial insurance protects exporters against the risk of buyer non-payment due to insolvency, bankruptcy, protracted default, or political risk in the buyer's country?",
+          options: [
+            "Marine Cargo Insurance (ICC Clause A)",
+            "Trade Credit Insurance (Export Credit Insurance)",
+            "Professional Indemnity Insurance",
+            "Warehouse Keeper's Liability Insurance"
+          ],
+          answerIndex: 1,
+          explanation: "Trade Credit Insurance protects sellers/exporters from financial losses when foreign buyers fail to pay due to commercial risks (insolvency, protracted default) or political risks (war, currency inconvertibility, government payment moratorium)."
+        },
+        {
+          id: "w11-q20",
+          type: "mcq",
+          category: "Maritime Crew & Training Standards",
+          question: "Which IMO convention establishes minimum international standards for the training, certification, and watchkeeping of seafarers aboard commercial vessels to ensure maritime safety?",
+          options: [
+            "MLC 2006 (Maritime Labour Convention)",
+            "SOLAS (Safety of Life at Sea)",
+            "STCW Convention (Standards of Training, Certification and Watchkeeping for Seafarers)",
+            "ISM Code (International Safety Management)"
+          ],
+          answerIndex: 2,
+          explanation: "The STCW Convention (1978, revised 2010) sets global minimum standards for merchant navy officer and rating qualifications, watchkeeping hours, competency assessments, and mandatory safety training certificates required aboard all commercial vessels."
+        }
+      ]
     }
   ]
 };
