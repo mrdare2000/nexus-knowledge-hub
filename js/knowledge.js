@@ -18,13 +18,40 @@ function getKBData() {
 }
 window.getKBData = getKBData;
 
+function getSkeletonKnowledgeHTML(count = 6) {
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    html += `
+      <div class="skeleton-kb-card">
+        <div class="skeleton-kb-header">
+          <div class="skeleton skeleton-circle"></div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text-line short"></div>
+          </div>
+        </div>
+        <div class="skeleton-kb-list">
+          <div class="skeleton skeleton-kb-item"></div>
+          <div class="skeleton skeleton-kb-item"></div>
+          <div class="skeleton skeleton-kb-item"></div>
+        </div>
+      </div>
+    `;
+  }
+  return html;
+}
+window.getSkeletonKnowledgeHTML = getSkeletonKnowledgeHTML;
+
 function renderLearningHub() {
   const grid = document.getElementById("learning-grid");
   if (!grid) return;
   
   const kbData = getKBData();
   if (!kbData) {
-    setTimeout(renderLearningHub, 100);
+    if (!grid.innerHTML.trim()) {
+      grid.innerHTML = getSkeletonKnowledgeHTML(6);
+    }
+    setTimeout(renderLearningHub, 120);
     return;
   }
   

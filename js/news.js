@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Nexus Knowledge Hub - Live Logistics News Feed Engine (js/news.js)
  */
 /* ==========================================
@@ -159,9 +159,48 @@ async function initLiveNewsEngine() {
   }
 }
 
+function getSkeletonNewsHTML(count = 6) {
+  let html = '<div class="skeleton-news-grid">';
+  for (let i = 0; i < count; i++) {
+    html += `
+      <div class="skeleton-news-card">
+        <div class="skeleton skeleton-news-img"></div>
+        <div class="skeleton-news-content">
+          <div class="skeleton skeleton-pill"></div>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-title-sub"></div>
+          <div class="skeleton skeleton-text-line"></div>
+          <div class="skeleton skeleton-text-line short"></div>
+          <div class="skeleton-meta-row">
+            <div class="skeleton" style="width: 80px; height: 14px;"></div>
+            <div class="skeleton" style="width: 50px; height: 14px;"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  html += '</div>';
+  return html;
+}
+window.getSkeletonNewsHTML = getSkeletonNewsHTML;
+
 async function fetchLiveLogisticsNews(showLoadingSpinner = false) {
   const refreshSpinner = document.getElementById('news-refresh-spinner');
   if (refreshSpinner) refreshSpinner.classList.add('spinning');
+
+  // Display rich skeleton shimmer loading states if content not yet loaded
+  const homeLoading = document.getElementById('news-loading-state');
+  if (homeLoading && !homeLoading.dataset.hydrated) {
+    homeLoading.innerHTML = getSkeletonNewsHTML(6);
+    homeLoading.style.display = 'block';
+    homeLoading.dataset.hydrated = 'true';
+  }
+  const fullLoading = document.getElementById('full-news-loading-state');
+  if (fullLoading && !fullLoading.dataset.hydrated) {
+    fullLoading.innerHTML = getSkeletonNewsHTML(6);
+    fullLoading.style.display = 'block';
+    fullLoading.dataset.hydrated = 'true';
+  }
 
   try {
     const apiResp = await fetch('/api/news-feed');

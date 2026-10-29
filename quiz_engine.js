@@ -40,8 +40,22 @@
     return null;
   }
 
+  function renderQuizSkeletonUI() {
+    return `
+      <div class="skeleton-quiz-container">
+        <div class="skeleton skeleton-quiz-strip"></div>
+        <div class="skeleton skeleton-quiz-dashboard"></div>
+      </div>
+    `;
+  }
+
   // Initialize Quiz Hub
   function initQuizHub() {
+    const container = document.getElementById('quiz-hub-container');
+    if (container && !container.innerHTML.trim()) {
+      container.innerHTML = renderQuizSkeletonUI();
+    }
+
     activeWeekIndex = calculateActiveWeekIndex();
     if (window.NEXUS_QUIZ_DATABASE && window.NEXUS_QUIZ_DATABASE.weeks) {
       activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[activeWeekIndex];
