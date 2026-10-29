@@ -8434,3 +8434,129 @@ html, body {
   height: 340px;
   border-radius: 24px;
 }
+
+/* ==========================================================================
+   MICRO-ANIMATIONS & INTERACTIVE TRANSITIONS
+   ========================================================================== */
+
+/* 1. Cards Micro-Interactions */
+.category-card,
+.feature-pillar-card,
+.news-card,
+.featured-board-card,
+.tool-panel,
+.tools-page-tab-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease !important;
+  will-change: transform, box-shadow;
+}
+
+.featured-board-card:hover,
+.news-card:hover,
+.feature-pillar-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(10, 37, 64, 0.08), 0 4px 12px rgba(10, 37, 64, 0.03);
+}
+
+.featured-board-card .board-img-container,
+.news-card .news-card-img-wrapper {
+  overflow: hidden;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+}
+
+.featured-board-card img,
+.news-card-img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.featured-board-card:hover img,
+.news-card:hover .news-card-img {
+  transform: scale(1.04);
+}
+
+/* 2. Buttons Micro-Interactions */
+.btn,
+button.btn-primary,
+button.btn-secondary,
+.glass-auth-btn,
+.mobile-hamburger-btn,
+.mobile-theme-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.2s ease, 
+              border-color 0.2s ease !important;
+}
+
+.btn:active,
+button.btn-primary:active,
+button.btn-secondary:active,
+.glass-auth-btn:active,
+.mobile-hamburger-btn:active,
+.mobile-theme-btn:active {
+  transform: translateY(1px) scale(0.97) !important;
+}
+
+/* 3. Navigation Items Micro-Interactions */
+.sidebar-nav-item {
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.sidebar-nav-item:hover {
+  transform: translateX(4px);
+}
+
+.sidebar-nav-item:hover .sidebar-nav-icon {
+  transform: scale(1.18);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-nav-item .sidebar-nav-badge {
+  transition: transform 0.2s ease;
+}
+
+.sidebar-nav-item:hover .sidebar-nav-badge {
+  transform: scale(1.1);
+}
+
+/* 4. Subtopics List & Filter Chips */
+.subtopic-item {
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.subtopic-item:hover {
+  transform: translateX(6px);
+  box-shadow: 0 4px 12px rgba(10, 37, 64, 0.05);
+}
+
+.category-chip,
+.tool-tab,
+.quick-prompt-chip,
+.filter-chip {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.category-chip:hover,
+.quick-prompt-chip:hover,
+.filter-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 90, 31, 0.18);
+}
+
+/* 5. Modals Smooth Transitions */
+.modal-overlay {
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              backdrop-filter 0.3s ease;
+}
+
+.modal-content {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.close-modal-btn:hover,
+.modal-close:hover {
+  transform: rotate(90deg) scale(1.15) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  color: var(--accent-orange) !important;
+}
