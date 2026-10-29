@@ -662,19 +662,67 @@ function revealModalVideo(btn, videoUrl) {
   btn.style.display = "none";
 }
 
-function openImageModal(imageSrc, imageTitle) {
+const FEATURED_BOARD_DESCRIPTIONS = {
+  "incoterms": {
+    heading: "All Types of Incoterms 2026 (ICC Rules Matrix)",
+    text: "This comprehensive matrix illustrates the official division of costs, freight responsibilities, and point of risk transfer between Buyer and Seller across all 11 Incoterms rules. It clearly differentiates Any Mode rules (EXW, FCA, CPT, CIP, DAP, DPU, DDP) from Sea/Inland Waterway only rules (FAS, FOB, CFR, CIF), guiding supply chain professionals on freight carriage, export/import customs clearance, cargo insurance, and unloading liabilities."
+  },
+  "cargo aircraft": {
+    heading: "Inside a Cargo Aircraft (Freighter Layout & Operations)",
+    text: "This technical cutaway infographic illustrates the internal configuration of a dedicated main-deck cargo freighter (such as the Boeing 777F / 747-8F). It reveals main-deck cargo door loading, motorized roller-bed floor tracks, Unit Load Device (ULD) container & pallet positions, temperature-controlled cargo zones, and lower forward/aft belly holds with automated high-loader ground support equipment."
+  },
+  "types of logistics": {
+    heading: "Types of Logistics & Supply Chain Models",
+    text: "This structural visual guide breaks down the core branches of modern logistics across global trade: Inbound Logistics (raw materials & supplier delivery), Outbound Logistics (warehousing, fulfillment & end-user delivery), Reverse Logistics (returns, refurbishment & recycling), Third-Party (3PL) & Fourth-Party (4PL) outsourced operations, and specialized Cold Chain and Green Logistics models."
+  },
+  "passenger aircraft": {
+    heading: "Inside a Passenger Aircraft (Belly-Hold Cargo Operations)",
+    text: "This aviation cross-section showcases how commercial wide-body passenger aircraft carry vital air cargo beneath the passenger cabin deck. It details forward and aft lower belly holds, bulk cargo compartments, baggage container netting, LD3/AKE container loading procedures, and the vital role of belly freight in global express air cargo networks."
+  },
+  "containers": {
+    heading: "Types of Shipping Containers & Technical Specifications",
+    text: "This marine equipment guide details standard ocean container dimensions, maximum gross weights, tare weights, and payload capacities. Covering 20ft and 40ft Dry Standard, 40ft High Cube, Open Top, Flat Rack, and Reefer refrigerated units, it also explains container CSC safety plates, ISO sizing codes, and essential tare-to-payload calculations for freight forwarders."
+  }
+};
+
+function openImageModal(imageSrc, imageTitle, customDesc) {
   const lightboxModal = document.getElementById("image-lightbox-modal");
   const lightboxImg = document.getElementById("lightbox-img");
   const lightboxTitle = document.getElementById("lightbox-image-title");
   const lightboxDownload = document.getElementById("lightbox-download-btn");
+  const descContainer = document.getElementById("lightbox-image-desc-container");
+  const descHeading = document.getElementById("lightbox-desc-heading");
+  const descText = document.getElementById("lightbox-desc-text");
   
   if (lightboxModal && lightboxImg && lightboxTitle && lightboxDownload) {
     lightboxImg.src = imageSrc;
     lightboxImg.alt = imageTitle || "Subtopic Image";
     lightboxTitle.textContent = imageTitle || "Image View";
     lightboxDownload.href = imageSrc;
-    const cleanFilename = (imageTitle || "image").replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') + '.jpg';
+    const cleanFilename = (imageTitle || "infographic").replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') + '.jpg';
     lightboxDownload.download = cleanFilename;
+
+    // Check for infographic description
+    let info = customDesc;
+    if (!info && imageTitle) {
+      const lower = imageTitle.toLowerCase();
+      for (const [key, val] of Object.entries(FEATURED_BOARD_DESCRIPTIONS)) {
+        if (lower.includes(key)) {
+          info = val;
+          break;
+        }
+      }
+    }
+
+    if (descContainer && descHeading && descText) {
+      if (info) {
+        descHeading.textContent = typeof info === 'object' ? info.heading : imageTitle;
+        descText.textContent = typeof info === 'object' ? info.text : info;
+        descContainer.style.display = "block";
+      } else {
+        descContainer.style.display = "none";
+      }
+    }
     
     lightboxModal.style.display = "flex";
     void lightboxModal.offsetWidth; // Force layout recalculation

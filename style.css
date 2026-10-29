@@ -3198,21 +3198,64 @@ footer {
 
 .image-lightbox-body {
   padding: 20px;
-  overflow: auto;
+  overflow-y: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #f8fafc;
   max-height: calc(92vh - 75px);
 }
 
 .image-lightbox-body img {
   max-width: 100%;
-  max-height: 75vh;
+  max-height: 72vh;
   height: auto;
   object-fit: contain;
   border-radius: 10px;
   box-shadow: var(--shadow-md);
+}
+
+.lightbox-desc-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 22px auto 10px auto;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px 24px;
+  text-align: left;
+  box-shadow: 0 8px 25px rgba(10, 37, 64, 0.06);
+}
+
+.lightbox-desc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent-orange);
+  background: rgba(242, 105, 56, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lightbox-desc-heading {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary-navy);
+  margin: 0 0 8px 0;
+}
+
+.lightbox-desc-text {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0;
 }
 
 /* Responsive Design Adjustments */
