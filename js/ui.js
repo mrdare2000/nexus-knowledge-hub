@@ -102,3 +102,65 @@ function showToast(message, type = "info") {
   }, 4000);
 }
 window.showToast = showToast;
+
+/* ==========================================
+   DARK MODE THEME CONTROLLER
+   ========================================== */
+function initTheme() {
+  const savedTheme = localStorage.getItem("nexus_theme") || 
+    (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  applyTheme(savedTheme, false);
+}
+window.initTheme = initTheme;
+
+function applyTheme(theme, showNotification = false) {
+  if (theme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    document.body.classList.add("dark-theme");
+  } else {
+    document.documentElement.setAttribute("data-theme", "light");
+    document.body.classList.remove("dark-theme");
+  }
+  updateThemeBtnUI(theme);
+  if (showNotification && typeof showToast === "function") {
+    showToast(theme === "dark" ? "🌙 Dark Mode activated" : "☀️ Light Mode activated", "info");
+  }
+}
+window.applyTheme = applyTheme;
+
+function toggleDarkMode() {
+  const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+  try {
+    localStorage.setItem("nexus_theme", newTheme);
+  } catch (e) {}
+  applyTheme(newTheme, true);
+}
+window.toggleDarkMode = toggleDarkMode;
+
+function updateThemeBtnUI(theme) {
+  const isDark = theme === "dark";
+  const iconSpans = document.querySelectorAll(".theme-icon, .mobile-theme-icon");
+  iconSpans.forEach(icon => {
+    icon.textContent = isDark ? "☀️" : "🌙";
+  });
+
+  const labelSpans = document.querySelectorAll(".theme-toggle-btn .control-label");
+  labelSpans.forEach(label => {
+    label.textContent = isDark ? "Light Mode" : "Dark Mode";
+  });
+
+  const themeBtns = document.querySelectorAll(".theme-toggle-btn, .mobile-theme-btn");
+  themeBtns.forEach(btn => {
+    btn.setAttribute("title", isDark ? "Switch to Light Mode" : "Switch to Dark Mode");
+  });
+}
+window.updateThemeBtnUI = updateThemeBtnUI;
+
+// Auto-run theme initialization immediately
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initTheme);
+} else {
+  initTheme();
+}
+

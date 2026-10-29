@@ -59,6 +59,18 @@
   <meta name="msapplication-config" content="https://www.nexusknowledgehub.com/browserconfig.xml">
   <meta name="theme-color" content="#ff5a1f">
 
+  <!-- Instant Dark/Light Theme Hydration -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('nexus_theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- Vercel Web Analytics & Speed Insights Tracking -->
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -266,6 +278,13 @@
     <span>☰</span>
   </button>
 
+  <!-- MOBILE TOPBAR ACTIONS (THEME TOGGLE) -->
+  <div class="mobile-topbar-actions">
+    <button class="mobile-theme-btn" onclick="toggleDarkMode()" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">
+      <span class="mobile-theme-icon">🌙</span>
+    </button>
+  </div>
+
   <!-- LEFT SIDEBAR NAVIGATION BAR -->
   <aside class="app-sidebar" id="app-sidebar" aria-label="Main Left Sidebar Navigation">
     <div class="sidebar-header">
@@ -323,6 +342,10 @@
         <button class="sidebar-control-btn collapse-toggle-btn" id="sidebar-collapse-btn" onclick="toggleSidebarCollapse()" title="Collapse Sidebar">
           <span class="collapse-icon">◄</span>
           <span class="control-label">Collapse</span>
+        </button>
+        <button class="sidebar-control-btn theme-toggle-btn" id="sidebar-theme-btn" onclick="toggleDarkMode()" title="Toggle Dark/Light Theme">
+          <span class="theme-icon">🌙</span>
+          <span class="control-label">Dark Mode</span>
         </button>
       </div>
 
