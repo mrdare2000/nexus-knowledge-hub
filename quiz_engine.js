@@ -346,54 +346,53 @@
 
   function renderQuizGatekeeperUI() {
     return `
-      <div class="quiz-gatekeeper-card" style="max-width: 680px; margin: 35px auto; padding: 48px 36px; text-align: center; background: linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%); border: 1.5px solid #E2E8F0; border-radius: 28px; box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.02); color: var(--primary-navy); position: relative; overflow: hidden;">
-        
+      <div class="quiz-gatekeeper-card">
         <!-- Subtle Top Decorative Glow Accent -->
-        <div style="position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 280px; height: 120px; background: radial-gradient(circle, rgba(255, 90, 31, 0.12) 0%, rgba(255, 255, 255, 0) 70%); pointer-events: none;"></div>
+        <div class="quiz-gatekeeper-glow"></div>
 
         <!-- Category Badge Pill -->
-        <div style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: #FFF7ED; border: 1px solid #FFEDD5; border-radius: 30px; color: var(--accent-orange); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 22px;">
+        <div class="quiz-gatekeeper-badge">
           <span>✨</span> Professional Certification Hub
         </div>
 
         <!-- Lock Icon Badge -->
-        <div style="width: 84px; height: 84px; background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2.5px solid var(--accent-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px auto; font-size: 2.5rem; box-shadow: 0 12px 28px -6px rgba(255, 90, 31, 0.25);">
+        <div class="quiz-gatekeeper-icon">
           🔐
         </div>
 
         <!-- Main Title -->
-        <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.9rem; font-weight: 800; margin-bottom: 12px; color: var(--primary-navy); letter-spacing: -0.3px;">
+        <h2 class="quiz-gatekeeper-title">
           Unlock Quiz Hub & Certifications
         </h2>
 
         <!-- Description -->
-        <p style="font-size: 0.98rem; color: #475569; margin-bottom: 30px; line-height: 1.65; max-width: 530px; margin-left: auto; margin-right: auto; font-weight: 500;">
+        <p class="quiz-gatekeeper-desc">
           Access weekly freight forwarding challenges, evaluate Incoterms & SOLAS mastery, track your progress, and earn verifiable logistics certificates.
         </p>
 
         <!-- Feature Highlight Pills -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 34px; text-align: left;">
-          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 14px 16px; border-radius: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+        <div class="quiz-gatekeeper-features">
+          <div class="quiz-gatekeeper-chip">
             <span style="font-size: 1.3rem;">🎯</span>
-            <span style="font-size: 0.83rem; font-weight: 700; color: var(--primary-navy); line-height: 1.3;">Weekly Freight Challenges</span>
+            <span class="quiz-gatekeeper-chip-text">Weekly Freight Challenges</span>
           </div>
-          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 14px 16px; border-radius: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+          <div class="quiz-gatekeeper-chip">
             <span style="font-size: 1.3rem;">🏆</span>
-            <span style="font-size: 0.83rem; font-weight: 700; color: var(--primary-navy); line-height: 1.3;">Verifiable Digital Certificates</span>
+            <span class="quiz-gatekeeper-chip-text">Verifiable Digital Certificates</span>
           </div>
-          <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 14px 16px; border-radius: 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+          <div class="quiz-gatekeeper-chip">
             <span style="font-size: 1.3rem;">⚡</span>
-            <span style="font-size: 0.83rem; font-weight: 700; color: var(--primary-navy); line-height: 1.3;">Cross-Device Score Syncing</span>
+            <span class="quiz-gatekeeper-chip-text">Cross-Device Score Syncing</span>
           </div>
         </div>
 
         <!-- Primary Call to Action Button -->
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
-          <button onclick="openAuthModal()" class="btn btn-primary" style="padding: 15px 38px; font-size: 1.05rem; font-weight: 700; border-radius: 14px; background: linear-gradient(135deg, #FF5A1F 0%, #FF7A00 100%); color: white; border: none; box-shadow: 0 12px 28px -6px rgba(255, 90, 31, 0.38); cursor: pointer; transition: all 0.25s ease;">
+        <div class="quiz-gatekeeper-cta-wrap">
+          <button onclick="openAuthModal()" class="btn btn-primary" style="padding: 15px 38px; font-size: 1.05rem; font-weight: 700; border-radius: 14px; box-shadow: 0 12px 28px -6px rgba(255, 90, 31, 0.38);">
             🔑 Sign In / Create Free Account
           </button>
           
-          <span style="font-size: 0.84rem; color: #64748B; font-weight: 500;">
+          <span style="font-size: 0.84rem; color: var(--text-muted); font-weight: 500;">
             100% Free for Students & Freight Professionals
           </span>
         </div>
@@ -419,9 +418,9 @@
     }
 
     return `
-      <div class="quiz-candidate-strip" style="background: var(--bg-white); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 14px 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 15px rgba(10,37,64,0.04);">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <div style="width: 44px; height: 44px; border-radius: 50%; background: #FFF7ED; border: 2px solid var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; box-shadow: 0 2px 8px rgba(255, 90, 31, 0.25); flex-shrink: 0;">
+      <div class="quiz-candidate-strip">
+        <div class="quiz-candidate-info">
+          <div class="quiz-candidate-avatar">
             ${avatar}
           </div>
           <div>

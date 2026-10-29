@@ -561,8 +561,8 @@ function openSubtopicModal(categoryId, subtopicId) {
   let bodyHTML = "";
   if (subtopic.image && (!subtopic.content || !subtopic.content.includes(subtopic.image))) {
       bodyHTML += `
-      <div class="modal-feature-image-wrapper" style="width: 100%; margin-bottom: 25px;">
-        <img src="${subtopic.image}" alt="${subtopic.title}" style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--shadow-sm); cursor: pointer;">
+      <div class="modal-feature-wrapper">
+        <img src="${subtopic.image}" alt="${subtopic.title}" class="modal-feature-img">
       </div>
       `;
   }
@@ -580,7 +580,7 @@ function openSubtopicModal(categoryId, subtopicId) {
     else if (subtopic.linkToWidget === "hs") widgetName = "HS Code Classifier & Tariff Lookup";
     
     bodyHTML += `
-      <div style="margin-bottom: 25px; padding: 16px; border: 1px solid var(--border-color); border-radius: 14px; background-color: var(--bg-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div class="modal-simulator-banner">
         <span style="font-weight: 600; font-size: 0.92rem; color: var(--primary-navy);">Launch the dedicated interactive simulator:</span>
         <button class="btn btn-primary" onclick="switchPage('tools'); toggleToolPanel('${subtopic.linkToWidget}'); document.getElementById('modal-close').click();" style="font-size: 0.85rem; padding: 8px 18px;">
           Open ${widgetName} &rarr;
@@ -602,8 +602,8 @@ function openSubtopicModal(categoryId, subtopicId) {
   const nextSubtopic = subtopicIndex < category.subtopics.length - 1 ? category.subtopics[subtopicIndex + 1] : null;
   
   bodyHTML += `
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 35px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-      ${prevSubtopic ? `<button class="btn" style="font-size: 0.85rem; padding: 10px 20px; background-color: var(--primary-navy); color: white; border-radius: 6px; box-shadow: var(--shadow-sm);" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'" onclick="openSubtopicModal('${categoryId}', '${prevSubtopic.id}')">&larr; Previous Subtopic</button>` : `<div></div>`}
+    <div class="modal-nav-footer">
+      ${prevSubtopic ? `<button class="btn" style="font-size: 0.85rem; padding: 10px 20px; background-color: var(--primary-navy); color: white; border-radius: 6px; box-shadow: var(--shadow-sm);" onclick="openSubtopicModal('${categoryId}', '${prevSubtopic.id}')">&larr; Previous Subtopic</button>` : `<div></div>`}
       ${nextSubtopic ? `<button class="btn btn-primary" style="font-size: 0.85rem; padding: 10px 20px;" onclick="openSubtopicModal('${categoryId}', '${nextSubtopic.id}')">Next Subtopic &rarr;</button>` : `<div></div>`}
     </div>
   `;
@@ -614,8 +614,8 @@ function openSubtopicModal(categoryId, subtopicId) {
     const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
     
     bodyHTML += `
-      <div class="youtube-direct-container" style="margin-top: 25px; margin-bottom: 25px;">
-        <a href="${watchUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary reveal-video-btn" style="text-decoration: none; font-size: 0.88rem; padding: 12px 22px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid var(--border-color); color: var(--primary-navy); background: var(--bg-white); font-weight: 700; border-radius: 50px; cursor: pointer; transition: var(--transition-smooth);">
+      <div class="youtube-direct-wrapper">
+        <a href="${watchUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary reveal-video-btn-link">
           📺 Watch Video Guide on YouTube &rarr;
         </a>
       </div>

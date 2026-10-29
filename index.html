@@ -2048,22 +2048,22 @@
               <span>Select Profile Avatar</span>
               <span style="font-weight: 600; color: var(--accent-orange); font-size: 0.8rem;">Tap to choose</span>
             </label>
-            <div style="display: flex; align-items: center; gap: 12px; background: #F8FAFC; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 12px;">
-              <div id="signup-avatar-preview" style="width: 50px; height: 50px; border-radius: 50%; background: #FFF7ED; border: 2.5px solid var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 4px 10px rgba(255, 90, 31, 0.25); flex-shrink: 0; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+            <div class="signup-avatar-picker-wrap">
+              <div id="signup-avatar-preview" class="signup-avatar-preview-box">
                 👤
               </div>
               <div style="flex: 1; min-width: 0;">
-                <div class="signup-avatar-grid" id="signup-avatar-grid" style="display: flex; gap: 6px; flex-wrap: wrap;">
-                  <button type="button" class="signup-avatar-btn active" data-avatar="👤" onclick="selectSignupAvatar('👤', this)" title="Default" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--accent-orange); background: #FFF7ED; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">👤</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="👨‍💼" onclick="selectSignupAvatar('👨‍💼', this)" title="Executive (Male)" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">👨‍💼</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="👩‍💼" onclick="selectSignupAvatar('👩‍💼', this)" title="Executive (Female)" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">👩‍💼</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="👨‍🎓" onclick="selectSignupAvatar('👨‍🎓', this)" title="Student (Male)" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">👨‍🎓</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="👩‍🎓" onclick="selectSignupAvatar('👩‍🎓', this)" title="Student (Female)" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">👩‍🎓</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="👷" onclick="selectSignupAvatar('👷', this)" title="Logistics Expert" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">👷</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="👨‍🏫" onclick="selectSignupAvatar('👨‍🏫', this)" title="Lecturer" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">👨‍🏫</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="🎓" onclick="selectSignupAvatar('🎓', this)" title="Academic" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">🎓</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="🚢" onclick="selectSignupAvatar('🚢', this)" title="Maritime Logistics" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">🚢</button>
-                  <button type="button" class="signup-avatar-btn" data-avatar="✈️" onclick="selectSignupAvatar('✈️', this)" title="Air Cargo" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-color); background: #FFFFFF; font-size: 1.15rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0;">✈️</button>
+                <div class="signup-avatar-grid" id="signup-avatar-grid">
+                  <button type="button" class="signup-avatar-btn active" data-avatar="👤" onclick="selectSignupAvatar('👤', this)" title="Default">👤</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="👨‍💼" onclick="selectSignupAvatar('👨‍💼', this)" title="Executive (Male)">👨‍💼</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="👩‍💼" onclick="selectSignupAvatar('👩‍💼', this)" title="Executive (Female)">👩‍💼</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="👨‍🎓" onclick="selectSignupAvatar('👨‍🎓', this)" title="Student (Male)">👨‍🎓</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="👩‍🎓" onclick="selectSignupAvatar('👩‍🎓', this)" title="Student (Female)">👩‍🎓</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="👷" onclick="selectSignupAvatar('👷', this)" title="Logistics Expert">👷</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="👨‍🏫" onclick="selectSignupAvatar('👨‍🏫', this)" title="Lecturer">👨‍🏫</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="🎓" onclick="selectSignupAvatar('🎓', this)" title="Academic">🎓</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="🚢" onclick="selectSignupAvatar('🚢', this)" title="Maritime Logistics">🚢</button>
+                  <button type="button" class="signup-avatar-btn" data-avatar="✈️" onclick="selectSignupAvatar('✈️', this)" title="Air Cargo">✈️</button>
                 </div>
               </div>
             </div>
@@ -2115,38 +2115,38 @@
 
   <!-- DEDICATED USER PROFILE & ACCOUNT MANAGEMENT MODAL -->
   <div id="profile-modal" class="modal-overlay">
-    <div class="modal-content profile-modal-content" style="max-width: 460px; padding: 0; border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 25px 50px rgba(0,0,0,0.25);">
+    <div class="modal-content profile-modal-content profile-modal-dialog">
       
       <!-- Modal Top Banner Header -->
-      <div style="background: linear-gradient(135deg, var(--primary-navy), #0F172A); padding: 25px 30px; color: white; position: relative;">
+      <div class="profile-banner">
         <button class="close-modal-btn" onclick="closeProfileModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; color: rgba(255,255,255,0.7); cursor: pointer;">&times;</button>
         
-        <div style="display: flex; align-items: center; gap: 18px;">
-          <div id="modal-profile-avatar-large" style="width: 64px; height: 64px; border-radius: 50%; background: #FFF7ED; border: 3px solid var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; box-shadow: 0 6px 16px rgba(255, 90, 31, 0.3); flex-shrink: 0; color: var(--primary-navy);">
+        <div class="profile-banner-header">
+          <div id="modal-profile-avatar-large" class="profile-banner-avatar">
             <span id="modal-avatar-display">👤</span>
           </div>
           <div style="overflow: hidden;">
-            <h2 id="modal-user-name-display" style="margin: 0; font-size: 1.25rem; font-family: var(--font-title); font-weight: 700; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">User Name</h2>
-            <p id="modal-user-email-display" style="margin: 4px 0 0 0; font-size: 0.85rem; color: rgba(255,255,255,0.75); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">user@example.com</p>
+            <h2 id="modal-user-name-display" class="profile-banner-name">User Name</h2>
+            <p id="modal-user-email-display" class="profile-banner-email">user@example.com</p>
           </div>
         </div>
       </div>
 
       <!-- READ-ONLY VIEW SECTION -->
-      <div id="profile-view-section" style="padding: 25px 30px;">
-        <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; margin-bottom: 20px;">
-          <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+      <div id="profile-view-section" class="profile-body">
+        <div class="profile-meta-card">
+          <div class="profile-meta-row">
             <span style="font-size: 1.2rem;">🏢</span>
             <div>
-              <span style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Company / University</span>
-              <strong id="view-user-company" style="font-size: 0.95rem; color: var(--primary-navy);">Not Set</strong>
+              <span class="profile-meta-label">Company / University</span>
+              <strong id="view-user-company" class="profile-meta-value">Not Set</strong>
             </div>
           </div>
-          <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="profile-meta-row">
             <span style="font-size: 1.2rem;">💼</span>
             <div>
-              <span style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Professional Role</span>
-              <strong id="view-user-role" style="font-size: 0.95rem; color: var(--primary-navy);">Not Set</strong>
+              <span class="profile-meta-label">Professional Role</span>
+              <strong id="view-user-role" class="profile-meta-value">Not Set</strong>
             </div>
           </div>
         </div>
@@ -2155,7 +2155,7 @@
           ✏️ Edit Profile Info
         </button>
 
-        <div style="display: flex; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 10px;">
+        <div class="profile-action-footer">
           <button onclick="handleLogout()" class="btn btn-secondary" style="flex: 1; padding: 10px; font-size: 0.85rem; background: #FEF2F2; color: #DC2626; border: 1px solid #FCA5A5; font-weight: 600;">
             🚪 Logout
           </button>
@@ -2166,24 +2166,24 @@
       </div>
 
       <!-- EDIT MODE SECTION (Hidden initially) -->
-      <div id="profile-edit-section" style="padding: 25px 30px; display: none;">
-        <div id="profile-success-message" style="display: none; background: #D1FAE5; color: #065F46; padding: 10px 14px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid #A7F3D0;">
+      <div id="profile-edit-section" class="profile-body" style="display: none;">
+        <div id="profile-success-message" class="profile-alert-success" style="display: none;">
           ✅ Profile saved successfully!
         </div>
-        <div id="profile-error-message" style="display: none; background: #FEF2F2; color: #DC2626; padding: 10px 14px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid #FCA5A5;"></div>
+        <div id="profile-error-message" class="profile-alert-error" style="display: none;"></div>
 
         <!-- Avatar Selection -->
         <div style="margin-bottom: 20px;">
           <label style="display: block; margin-bottom: 10px; font-weight: 700; color: var(--primary-navy); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Select Avatar Style</label>
-          <div class="avatar-grid" style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" class="avatar-option active" data-avatar="👤" onclick="selectAvatar('👤', this)" title="Default Profile" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--accent-orange); background: #FFF7ED; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">👤</button>
-            <button type="button" class="avatar-option" data-avatar="👨‍💼" onclick="selectAvatar('👨‍💼', this)" title="Executive (Male)" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">👨‍💼</button>
-            <button type="button" class="avatar-option" data-avatar="👩‍💼" onclick="selectAvatar('👩‍💼', this)" title="Executive (Female)" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">👩‍💼</button>
-            <button type="button" class="avatar-option" data-avatar="👨‍🎓" onclick="selectAvatar('👨‍🎓', this)" title="Student (Male)" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">👨‍🎓</button>
-            <button type="button" class="avatar-option" data-avatar="👩‍🎓" onclick="selectAvatar('👩‍🎓', this)" title="Student (Female)" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">👩‍🎓</button>
-            <button type="button" class="avatar-option" data-avatar="🎓" onclick="selectAvatar('🎓', this)" title="Academic Cap" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">🎓</button>
-            <button type="button" class="avatar-option" data-avatar="👷" onclick="selectAvatar('👷', this)" title="Logistics Expert" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">👷</button>
-            <button type="button" class="avatar-option" data-avatar="👨‍🏫" onclick="selectAvatar('👨‍🏫', this)" title="Lecturer / Scholar" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-color); background: #F8FAFC; font-size: 1.3rem; cursor: pointer; transition: all 0.2s;">👨‍🏫</button>
+          <div class="avatar-grid">
+            <button type="button" class="avatar-option active" data-avatar="👤" onclick="selectAvatar('👤', this)" title="Default Profile">👤</button>
+            <button type="button" class="avatar-option" data-avatar="👨‍💼" onclick="selectAvatar('👨‍💼', this)" title="Executive (Male)">👨‍💼</button>
+            <button type="button" class="avatar-option" data-avatar="👩‍💼" onclick="selectAvatar('👩‍💼', this)" title="Executive (Female)">👩‍💼</button>
+            <button type="button" class="avatar-option" data-avatar="👨‍🎓" onclick="selectAvatar('👨‍🎓', this)" title="Student (Male)">👨‍🎓</button>
+            <button type="button" class="avatar-option" data-avatar="👩‍🎓" onclick="selectAvatar('👩‍🎓', this)" title="Student (Female)">👩‍🎓</button>
+            <button type="button" class="avatar-option" data-avatar="🎓" onclick="selectAvatar('🎓', this)" title="Academic Cap">🎓</button>
+            <button type="button" class="avatar-option" data-avatar="👷" onclick="selectAvatar('👷', this)" title="Logistics Expert">👷</button>
+            <button type="button" class="avatar-option" data-avatar="👨‍🏫" onclick="selectAvatar('👨‍🏫', this)" title="Lecturer / Scholar">👨‍🏫</button>
           </div>
         </div>
 
@@ -2214,6 +2214,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- GLOBAL BRANDED LOADING OVERLAY -->
   <div id="global-loader" class="global-loader-overlay" style="display: none;">
