@@ -53,7 +53,7 @@
   // 1. AUTHENTICATION MODULE (Sign Up, Login, Logout)
   // ----------------------------------------------------
 
-  async function signUp(email, password, displayName, company = 'Not Set', role = 'Not Set') {
+  async function signUp(email, password, displayName, company = 'Not Set', role = 'Not Set', avatar = '👤') {
     if (!isFirebaseReady && !initFirebase()) throw new Error("Firebase backend unavailable.");
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
@@ -70,7 +70,7 @@
       name: displayName || email.split('@')[0],
       role: role || 'Not Set',
       company: company || 'Not Set',
-      avatar: '👤',
+      avatar: avatar || '👤',
       createdAt: new Date().toISOString()
     };
 

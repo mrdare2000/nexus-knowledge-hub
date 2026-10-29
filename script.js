@@ -4540,6 +4540,30 @@ async function handleSignIn(e) {
   }
 }
 
+let selectedSignupAvatarSymbol = '👤';
+function selectSignupAvatar(avatar, element) {
+  selectedSignupAvatarSymbol = avatar || '👤';
+  const valInput = document.getElementById('signup-avatar-value');
+  if (valInput) valInput.value = selectedSignupAvatarSymbol;
+  const preview = document.getElementById('signup-avatar-preview');
+  if (preview) {
+    preview.textContent = selectedSignupAvatarSymbol;
+    preview.style.transform = 'scale(1.2)';
+    setTimeout(() => { preview.style.transform = 'scale(1)'; }, 180);
+  }
+  document.querySelectorAll('.signup-avatar-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.borderColor = 'var(--border-color)';
+    btn.style.background = '#FFFFFF';
+  });
+  if (element) {
+    element.classList.add('active');
+    element.style.borderColor = 'var(--accent-orange)';
+    element.style.background = '#FFF7ED';
+  }
+}
+window.selectSignupAvatar = selectSignupAvatar;
+
 async function handleSignUp(e) {
   e.preventDefault();
   hideAuthError();
@@ -4550,6 +4574,8 @@ async function handleSignUp(e) {
   const email = document.getElementById('signup-email').value;
   const password = document.getElementById('signup-password').value;
   const confirm = document.getElementById('signup-password-confirm').value;
+  const avatarEl = document.getElementById('signup-avatar-value');
+  const avatar = (avatarEl && avatarEl.value) ? avatarEl.value : (selectedSignupAvatarSymbol || '👤');
   
   if (password !== confirm) {
     showAuthError("⚠️ Password confirmation does not match. Please re-enter your password.");
@@ -4561,8 +4587,8 @@ async function handleSignUp(e) {
   
   try {
     if (!window.NEXUS_FIREBASE) throw new Error("Firebase not initialized");
-    // signUp returns the user object directly from firebase_config.js with company and role
-    const user = await window.NEXUS_FIREBASE.signUp(email, password, name, company || "Not Set", role || "Not Set");
+    // signUp returns the user object directly from firebase_config.js with company, role, and avatar
+    const user = await window.NEXUS_FIREBASE.signUp(email, password, name, company || "Not Set", role || "Not Set", avatar);
     
     // Save profile details to both Firestore & Realtime DB & LocalStorage
     if (user && window.NEXUS_FIREBASE && typeof window.NEXUS_FIREBASE.saveUserProfileData === 'function') {
@@ -4572,7 +4598,7 @@ async function handleSignUp(e) {
         name: name,
         displayName: name,
         email: email,
-        avatar: '👤',
+        avatar: avatar,
         createdAt: new Date().toISOString()
       });
     }

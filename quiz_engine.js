@@ -476,7 +476,7 @@
         </div>
 
         <!-- 4 Metric Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px;">
+        <div class="quiz-metric-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px; margin-bottom: 35px;">
           
           <div style="background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 22px; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -517,7 +517,7 @@
         </div>
         
         <!-- Active Featured Weekly Challenge Card -->
-        <div style="background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2px solid var(--accent-orange); border-radius: 24px; padding: 30px; margin-bottom: 35px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; box-shadow: 0 10px 30px rgba(255,90,31,0.12);">
+        <div class="quiz-featured-banner" style="background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2px solid var(--accent-orange); border-radius: 20px; padding: 22px; margin-bottom: 35px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; box-shadow: 0 10px 30px rgba(255,90,31,0.12);">
           <div>
             <span style="background: var(--accent-orange); color: white; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; margin-bottom: 10px;">
               🔥 FEATURED WEEKLY CHALLENGE
@@ -558,7 +558,7 @@
           📚 Available Quizzes
         </h3>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 45px;">
+        <div class="available-quizzes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 18px; margin-bottom: 45px;">
           ${[...weeks].reverse().map((w) => {
             const originalSetNum = weeks.indexOf(w) + 1;
             const attempt = myAttempts.find(a => a.weekId === w.id);
