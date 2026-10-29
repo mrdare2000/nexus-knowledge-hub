@@ -1890,65 +1890,156 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-content"
-      style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding: 25px 4%; max-width: 1400px; margin: 0 auto; align-items: flex-start;">
-      
-      <!-- Left Column: Logo & Address -->
-      <div class="footer-logo"
-        style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1.2; min-width: 220px;">
-        <div
-          style="background-color: #ffffff; padding: 10px 18px; border-radius: 12px; box-shadow: var(--shadow-sm); display: inline-flex; align-items: center; justify-content: center; line-height: 0;">
-          <img src="images/logo.png" alt="Nexus Cargo Logo" style="height: 34px; width: auto; display: block; object-fit: contain; margin: 0;">
+    <!-- Footer Top Strip -->
+    <div class="footer-top-strip">
+      <div class="footer-top-inner">
+        <div class="footer-headline">
+          <span class="footer-badge-pulse"><span class="pulse-dot"></span> Live Logistics Network</span>
+          <span class="footer-top-text">Multimodal freight forwarding intelligence, real-time market updates, and digital tools.</span>
         </div>
-        <p style="font-size: 0.82rem; color: rgba(255,255,255,0.8); line-height: 1.5; font-weight: 500; margin: 0;">
-          <strong>Nexus Cargos (Pvt) Ltd</strong><br>
-          Level 1, Parkland 1, No 33, Park Street,<br>
-          Colombo 02, Sri Lanka
-        </p>
+        <div class="footer-top-actions">
+          <button class="footer-inquiry-btn" onclick="switchPage('ai');" style="margin-top: 0; padding: 6px 14px; font-size: 0.78rem;">
+            <span>🤖</span> Ask Nexus AI
+          </button>
+        </div>
       </div>
-
-      <!-- Middle Column: Platform Links (Stacked Vertically) -->
-      <div class="footer-links" style="display: flex; flex-direction: column; gap: 6px; flex: 0.8; min-width: 160px;">
-        <h4 style="color: var(--accent-orange); font-family: var(--font-title); font-size: 0.95rem; margin: 0 0 6px 0; text-transform: uppercase; letter-spacing: 0.5px;">
-          Platform
-        </h4>
-        <a href="#home" onclick="switchPage('home'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Home</a>
-        <a href="#news-feed" onclick="switchPage('news'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">News Feed</a>
-        <a href="#knowledge-hub" onclick="switchPage('learning'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Knowledge Hub</a>
-        <a href="#interactive-tools" onclick="switchPage('tools'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Interactive Tools</a>
-        <a href="#quiz-hub" onclick="switchPage('quiz'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Quiz Hub</a>
-        <a href="#nexus-ai" onclick="switchPage('ai'); return false;"
-          style="cursor: pointer; color: white; opacity: 0.85; font-size: 0.82rem; text-decoration: none;">Nexus AI</a>
-      </div>
-
-      <!-- Right Column: Connect With Us (Stacked Vertically) -->
-      <div class="footer-contact" style="display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px;">
-        <h4 style="color: var(--accent-orange); font-family: var(--font-title); font-size: 0.95rem; margin: 0 0 6px 0; text-transform: uppercase; letter-spacing: 0.5px;">
-          Connect With Us
-        </h4>
-        <a href="mailto:darshika@nexuscargos.com"
-          style="color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.82rem;">
-          <span style="font-size: 0.95rem;">📧</span> darshika@nexuscargos.com
-        </a>
-        <a href="https://www.nexuscargos.com" target="_blank" rel="noopener noreferrer"
-          style="color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; opacity: 0.9; font-size: 0.82rem;">
-          <span style="font-size: 0.95rem;">🌐</span> www.nexuscargos.com
-        </a>
-        <a href="#contact" onclick="switchPage('contact'); return false;"
-          style="margin-top: 6px; cursor: pointer; display: inline-block; padding: 6px 14px; border: 1px solid var(--accent-orange); color: var(--accent-orange); border-radius: 20px; text-align: center; font-weight: 600; font-size: 0.78rem; text-decoration: none; transition: background-color 0.3s;"
-          onmouseover="this.style.backgroundColor='rgba(255,90,31,0.15)'"
-          onmouseout="this.style.backgroundColor='transparent'">Submit Inquiry</a>
-      </div>
-
     </div>
-    <div class="footer-bottom"
-      style="text-align: center; padding: 10px 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.78rem; color: rgba(255,255,255,0.5);">
-      &copy; 2026 Nexus Cargos (Pvt) Ltd. All rights reserved. Nexus Knowledge Hub educational portal.
+
+    <!-- Main Footer Grid -->
+    <div class="footer-content">
+      <!-- Column 1: Brand & Headquarters -->
+      <div class="footer-brand-col">
+        <div class="footer-logo-card">
+          <img src="images/logo.png" alt="Nexus Cargos Logo" class="footer-logo-img">
+        </div>
+        <p class="footer-about-text">
+          <strong>Nexus Knowledge Hub</strong> is Sri Lanka's premier freight forwarding intelligence and logistics training ecosystem, powered by <strong>Nexus Cargos (Pvt) Ltd</strong>.
+        </p>
+        <div class="footer-address-box">
+          <span class="footer-address-icon">📍</span>
+          <div>
+            <strong>Nexus Cargos (Pvt) Ltd</strong><br>
+            Level 1, Parkland 1, No 33, Park Street,<br>
+            Colombo 02, Sri Lanka
+          </div>
+        </div>
+        <div class="footer-trust-badges">
+          <span class="trust-badge-pill">SLFFA Member</span>
+          <span class="trust-badge-pill">FIATA Standards</span>
+          <span class="trust-badge-pill">IATA Cargo Agent</span>
+          <span class="trust-badge-pill">ISO 9001:2015</span>
+        </div>
+      </div>
+
+      <!-- Column 2: Platform & Learning -->
+      <div class="footer-nav-col">
+        <h4 class="footer-col-title">Platform & Learning</h4>
+        <div class="footer-links-list">
+          <a class="footer-link-item" href="#home" onclick="switchPage('home'); return false;">
+            <span class="link-arrow">▸</span> Home Dashboard
+          </a>
+          <a class="footer-link-item" href="#news-feed" onclick="switchPage('news'); return false;">
+            <span class="link-arrow">▸</span> Global Logistics News
+          </a>
+          <a class="footer-link-item" href="#knowledge-hub" onclick="switchPage('learning'); return false;">
+            <span class="link-arrow">▸</span> Knowledge Hub & Guides
+          </a>
+          <a class="footer-link-item" href="#interactive-tools" onclick="switchPage('tools'); return false;">
+            <span class="link-arrow">▸</span> Freight Simulator Tools
+          </a>
+          <a class="footer-link-item" href="#quiz-hub" onclick="switchPage('quiz'); return false;">
+            <span class="link-arrow">▸</span> Quiz Hub & Certification
+          </a>
+          <a class="footer-link-item" href="#nexus-ai" onclick="switchPage('ai'); return false;">
+            <span class="link-arrow">▸</span> Nexus AI Copilot
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 3: Interactive Tools -->
+      <div class="footer-nav-col">
+        <h4 class="footer-col-title">Logistics Tools</h4>
+        <div class="footer-links-list">
+          <a class="footer-link-item" href="#interactive-tools" onclick="switchPage('tools'); if(window.selectTool) selectTool('cbm'); return false;">
+            <span class="link-arrow">▸</span> CBM & Volumetric Calculator
+          </a>
+          <a class="footer-link-item" href="#interactive-tools" onclick="switchPage('tools'); if(window.selectTool) selectTool('dg'); return false;">
+            <span class="link-arrow">▸</span> Dangerous Goods (DG) Inspector
+          </a>
+          <a class="footer-link-item" href="#interactive-tools" onclick="switchPage('tools'); if(window.selectTool) selectTool('aircraft'); return false;">
+            <span class="link-arrow">▸</span> Aircraft Freighter Specs
+          </a>
+          <a class="footer-link-item" href="#interactive-tools" onclick="switchPage('tools'); if(window.selectTool) selectTool('incoterms'); return false;">
+            <span class="link-arrow">▸</span> Incoterms 2020 Matrix
+          </a>
+          <a class="footer-link-item" href="#interactive-tools" onclick="switchPage('tools'); if(window.selectTool) selectTool('ports'); return false;">
+            <span class="link-arrow">▸</span> Port Pair Route Benchmark
+          </a>
+          <a class="footer-link-item" href="#interactive-tools" onclick="switchPage('tools'); if(window.selectTool) selectTool('logistics_models'); return false;">
+            <span class="link-arrow">▸</span> 1PL to 5PL Model Simulator
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 4: Contact & Social Channels -->
+      <div class="footer-contact-col">
+        <h4 class="footer-col-title">Connect & Inquiries</h4>
+        <div class="footer-contact-list">
+          <a href="mailto:darshika@nexuscargos.com" class="footer-contact-card">
+            <span class="contact-icon">✉️</span>
+            <div>
+              <div style="font-size: 0.72rem; color: rgba(255,255,255,0.6);">General Inquiries</div>
+              <strong>darshika@nexuscargos.com</strong>
+            </div>
+          </a>
+          <a href="https://www.nexuscargos.com" target="_blank" rel="noopener noreferrer" class="footer-contact-card">
+            <span class="contact-icon">🌐</span>
+            <div>
+              <div style="font-size: 0.72rem; color: rgba(255,255,255,0.6);">Corporate Portal</div>
+              <strong>www.nexuscargos.com</strong>
+            </div>
+          </a>
+          <button class="footer-inquiry-btn" onclick="switchPage('contact');">
+            <span>📝</span> Submit Cargo Inquiry
+          </button>
+        </div>
+
+        <div class="footer-social-section">
+          <div class="footer-social-title">Follow Nexus Cargos</div>
+          <div class="footer-social-icons">
+            <a href="https://www.linkedin.com/company/nexuscargos/posts/?feedView=all" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="LinkedIn">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="https://www.nexuscargos.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Official Website">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </a>
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Facebook">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.597 0 9 1.583 9 4.615V8z"/></svg>
+            </a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="YouTube">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom Bar -->
+    <div class="footer-bottom-bar">
+      <div class="footer-bottom-inner">
+        <div>
+          &copy; 2026 <strong>Nexus Cargos (Pvt) Ltd</strong>. All rights reserved. Nexus Knowledge Hub educational & intelligence portal.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#home" onclick="switchPage('home'); return false;">Privacy Policy</a>
+          <span>•</span>
+          <a href="#home" onclick="switchPage('home'); return false;">Terms of Service</a>
+          <span>•</span>
+          <a href="#contact" onclick="switchPage('contact'); return false;">Support & Helpdesk</a>
+          <span>•</span>
+          <span style="color: #00e676; font-weight: 600;">● System Operational v2.4</span>
+        </div>
+      </div>
     </div>
   </footer>
   </main>
