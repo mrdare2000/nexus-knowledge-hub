@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Nexus Knowledge Hub - Core Application Engine & Router (js/app.js)
  */
 // Nexus Knowledge Hub - Core Application Script
@@ -35,20 +35,20 @@ function initHeroSlider() {
   const slides = document.querySelectorAll(".hero-slider .slide");
   const indicators = document.querySelectorAll(".slider-indicators .indicator");
   if (slides.length === 0) return;
-  
+
   let currentSlide = 0;
   const slideInterval = 5000;
-  
+
   function nextSlide() {
     slides[currentSlide].classList.remove("active");
     if (indicators.length > currentSlide) indicators[currentSlide].classList.remove("active");
-    
+
     currentSlide = (currentSlide + 1) % slides.length;
-    
+
     slides[currentSlide].classList.add("active");
     if (indicators.length > currentSlide) indicators[currentSlide].classList.add("active");
   }
-  
+
   setInterval(nextSlide, slideInterval);
 }
 
@@ -79,7 +79,7 @@ function initScrollAnimations() {
 /* Helper utility for XSS sanitization */
 function escapeHTML(str) {
   if (!str || typeof str !== 'string') return '';
-  return str.replace(/[&<>'"]/g, 
+  return str.replace(/[&<>'"]/g,
     tag => ({
       '&': '&amp;',
       '<': '&lt;',
@@ -175,13 +175,13 @@ function getPageFromURL() {
 
 function initSPARouting() {
   const navLinks = document.querySelectorAll(".nav-link");
-  
+
   navLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const targetId = link.getAttribute("data-page");
       if (!targetId) return;
-      
+
       switchPage(targetId);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -277,7 +277,7 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
       item.classList.remove("active");
     }
   });
-  
+
   // Update section active state
   const sections = document.querySelectorAll(".page-section");
   sections.forEach(section => {
@@ -287,12 +287,15 @@ function switchPage(pageId, updateHistory = true, isInitialLoad = false) {
       section.classList.remove("active");
     }
   });
-  
+
   if (pageId === "learning") {
     renderLearningHub();
   }
   if (pageId === "ai") {
     initNexusAIChat();
+    if (typeof window.scrollChatToBottom === 'function') {
+      setTimeout(() => window.scrollChatToBottom(false), 100);
+    }
   }
   if (pageId === "quiz") {
     if (window.NEXUS_QUIZ_ENGINE && typeof window.NEXUS_QUIZ_ENGINE.refresh === 'function') {
@@ -318,10 +321,33 @@ window.switchPage = switchPage;
    SIDEBAR NAVIGATION SYSTEM
    ========================================== */
 function initAppLayout() {
-  // Always default sidebar to expanded (open) state on site entrance
-  localStorage.removeItem("nexus_sidebar_collapsed");
-  document.body.classList.remove("sidebar-collapsed");
-  updateCollapseBtnUI(false);
+  if (window.innerWidth < 992) {
+    // Always full expanded mode on mobile / tablet
+    localStorage.removeItem("nexus_sidebar_collapsed");
+    document.body.classList.remove("sidebar-collapsed");
+    updateCollapseBtnUI(false);
+  } else {
+    // Desktop layout state restore
+    const isCollapsed = localStorage.getItem("nexus_sidebar_collapsed") === "true";
+    document.body.classList.toggle("sidebar-collapsed", isCollapsed);
+    updateCollapseBtnUI(isCollapsed);
+  }
+
+  // Handle window resizing: cleanup mobile/desktop transition states
+  window.addEventListener("resize", () => {
+    if (window.innerWidth < 992) {
+      if (document.body.classList.contains("sidebar-collapsed")) {
+        document.body.classList.remove("sidebar-collapsed");
+      }
+    } else {
+      if (document.body.classList.contains("sidebar-mobile-open")) {
+        document.body.classList.remove("sidebar-mobile-open");
+      }
+      const isCollapsed = localStorage.getItem("nexus_sidebar_collapsed") === "true";
+      document.body.classList.toggle("sidebar-collapsed", isCollapsed);
+      updateCollapseBtnUI(isCollapsed);
+    }
+  });
 
   // Bind keyboard shortcut Ctrl+K / Cmd+K for quick search focus
   document.addEventListener("keydown", (e) => {
@@ -340,6 +366,12 @@ function initAppLayout() {
 }
 
 function toggleSidebarCollapse() {
+  // On mobile/tablet screens (< 992px), collapsing to an icon rail is disabled.
+  // Instead, close the mobile drawer for a smooth UX.
+  if (window.innerWidth < 992) {
+    toggleMobileSidebar(false);
+    return;
+  }
   const body = document.body;
   const isCollapsed = body.classList.toggle("sidebar-collapsed");
   localStorage.setItem("nexus_sidebar_collapsed", isCollapsed);
@@ -375,7 +407,7 @@ function initSidebarTooltips() {
   const items = document.querySelectorAll(".sidebar-nav-item, #sidebar-collapse-btn");
   items.forEach(item => {
     item.addEventListener("mouseenter", () => {
-      if (!document.body.classList.contains("sidebar-collapsed")) return;
+      if (!document.body.classList.contains("sidebar-collapsed") || window.innerWidth < 992) return;
       const text = item.getAttribute("data-tooltip") || item.title || item.querySelector(".sidebar-nav-label")?.textContent;
       if (!text) return;
 
@@ -388,7 +420,7 @@ function initSidebarTooltips() {
 
       tooltipEl.style.top = `${top}px`;
       tooltipEl.style.left = `${left}px`;
-      
+
       requestAnimationFrame(() => {
         tooltipEl.style.opacity = "1";
         tooltipEl.style.transform = "translateY(-50%) translateX(0)";
@@ -431,15 +463,15 @@ window.initAppLayout = initAppLayout;
 window.toggleSidebarCollapse = toggleSidebarCollapse;
 window.toggleMobileSidebar = toggleMobileSidebar;
 
-window.toggleMobileMenu = function() {
+window.toggleMobileMenu = function () {
   toggleMobileSidebar();
 };
 
 // Global visual panel switch helper
-window.toggleToolPanel = function(panelId) {
+window.toggleToolPanel = function (panelId) {
   const tabBtns = document.querySelectorAll(".tools-page-tab-card, .tool-tab, .tool-tab-btn");
   const panels = document.querySelectorAll(".tool-panel");
-  
+
   tabBtns.forEach(btn => {
     if (btn.id === `tab-${panelId}` || (btn.getAttribute("onclick") && btn.getAttribute("onclick").includes(panelId))) {
       btn.classList.add("active");
@@ -450,7 +482,7 @@ window.toggleToolPanel = function(panelId) {
       btn.classList.remove("active");
     }
   });
-  
+
   panels.forEach(panel => {
     if (panel.id === `panel-${panelId}`) {
       panel.classList.add("active");
@@ -463,7 +495,7 @@ window.toggleToolPanel = function(panelId) {
   });
 };
 
-window.onerror = function(message, source, lineno, colno, error) {
+window.onerror = function (message, source, lineno, colno, error) {
   console.error("Nexus Knowledge Hub JS Error:", message, "at", source, lineno + ":" + colno, error);
   return false;
 };

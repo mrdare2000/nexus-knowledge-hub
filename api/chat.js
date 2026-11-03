@@ -34,8 +34,17 @@ function sanitizeInput(text) {
 }
 
 export default async function handler(req, res) {
-  // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.nexusknowledgehub.com');
+  // CORS headers - support both apex and www domains, as well as preview environments
+  const allowedOrigins = [
+    'https://www.nexusknowledgehub.com',
+    'https://nexusknowledgehub.com'
+  ];
+  const origin = req.headers.origin;
+  if (origin && (allowedOrigins.includes(origin) || origin.includes('localhost') || origin.endsWith('.vercel.app'))) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.nexusknowledgehub.com');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -49,14 +58,14 @@ export default async function handler(req, res) {
   }
 
   // Rate limiting by IP
-  const clientIP = req.headers['x-forwarded-for']?.split(',')[0]?.trim() 
-    || req.headers['x-real-ip'] 
-    || req.socket?.remoteAddress 
+  const clientIP = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
+    || req.headers['x-real-ip']
+    || req.socket?.remoteAddress
     || 'unknown';
 
   if (isRateLimited(clientIP)) {
-    return res.status(429).json({ 
-      error: 'Too many requests. Please wait a moment before trying again.' 
+    return res.status(429).json({
+      error: 'Too many requests. Please wait a moment before trying again.'
     });
   }
 
@@ -83,8 +92,8 @@ export default async function handler(req, res) {
     }
 
     // Sanitize system prompt
-    const cleanSystemPrompt = typeof systemPrompt === 'string' 
-      ? systemPrompt.slice(0, MAX_SYSTEM_PROMPT_LENGTH) 
+    const cleanSystemPrompt = typeof systemPrompt === 'string'
+      ? systemPrompt.slice(0, MAX_SYSTEM_PROMPT_LENGTH)
       : 'You are a global logistics expert.';
 
     // Get API key from server environment (never exposed to frontend)
@@ -117,7 +126,7 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    
+
     if (!data.candidates || !data.candidates[0]?.content?.parts?.[0]?.text) {
       return res.status(502).json({ error: 'AI returned an empty response. Please try again.' });
     }

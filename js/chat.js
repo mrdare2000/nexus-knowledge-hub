@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Nexus Knowledge Hub - AI Chatbot Engine (js/chat.js)
  */
 /* ==========================================
@@ -43,34 +43,70 @@ const SHIPPING_BOT_ANSWERS = {
 
 let isNexusAiChatInitialized = false;
 
+function scrollChatToBottom(smooth = false) {
+  const msgArea = document.getElementById("chat-msg-area");
+  if (!msgArea) return;
+  requestAnimationFrame(() => {
+    msgArea.scrollTo({
+      top: msgArea.scrollHeight,
+      behavior: smooth ? "smooth" : "auto"
+    });
+  });
+  setTimeout(() => {
+    msgArea.scrollTop = msgArea.scrollHeight;
+  }, 100);
+}
+window.scrollChatToBottom = scrollChatToBottom;
+
 function initNexusAIChat() {
   const sendBtn = document.getElementById("chat-send-btn");
   const textInput = document.getElementById("chat-input");
   const msgArea = document.getElementById("chat-msg-area");
-  
+
   if (!sendBtn || !textInput || !msgArea) return;
 
   // Guard against re-binding event listeners multiple times
   if (isNexusAiChatInitialized) return;
   isNexusAiChatInitialized = true;
-  
+
   appendChatMessage("system", SHIPPING_BOT_ANSWERS.greeting);
   conversationHistory.push({ role: "model", parts: [{ text: SHIPPING_BOT_ANSWERS.greeting }] });
-  
+
   sendBtn.addEventListener("click", () => {
     handleUserChatMessage();
   });
-  
+
   textInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       handleUserChatMessage();
     }
   });
-  
-  const presetBtns = document.querySelectorAll(".chat-preset-query");
+
+  // Mobile virtual keyboard handling: auto-scroll to bottom on focus
+  textInput.addEventListener("focus", () => {
+    setTimeout(() => {
+      scrollChatToBottom(true);
+      try {
+        textInput.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } catch (e) { }
+    }, 280);
+  });
+
+  // Listen to visual viewport changes on mobile
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", () => {
+      const aiPage = document.getElementById("ai-page");
+      if (aiPage && aiPage.classList.contains("active")) {
+        scrollChatToBottom(false);
+      }
+    });
+  }
+
+  const presetBtns = document.querySelectorAll(".chat-preset-query, .chat-chip-btn");
   presetBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      textInput.value = btn.textContent.trim();
+      const q = btn.getAttribute("data-query") || btn.textContent.trim();
+      textInput.value = q;
       handleUserChatMessage();
     });
   });
@@ -79,16 +115,22 @@ function initNexusAIChat() {
 function appendChatMessage(sender, text) {
   const msgArea = document.getElementById("chat-msg-area");
   if (!msgArea) return;
-  
+
   const msgDiv = document.createElement("div");
   msgDiv.className = `chat-message ${sender}`;
-  
+
   const avatar = document.createElement("div");
   avatar.className = `chat-avatar ${sender}`;
-  
+  avatar.setAttribute("aria-hidden", "true");
+  if (sender === "user") {
+    avatar.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#ffffff;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
+  } else {
+    avatar.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#ffffff;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+  }
+
   const bubble = document.createElement("div");
   bubble.className = "msg-bubble";
-  
+
   if (text === "... reasoning") {
     bubble.innerHTML = `
       <div class="typing-indicator" style="font-style: italic; color: var(--primary-navy); opacity: 0.8; font-size: 0.9rem; font-weight: 600;">
@@ -98,12 +140,12 @@ function appendChatMessage(sender, text) {
   } else {
     bubble.innerHTML = parseMarkdown(text);
   }
-  
+
   msgDiv.appendChild(avatar);
   msgDiv.appendChild(bubble);
-  
+
   msgArea.appendChild(msgDiv);
-  msgArea.scrollTop = msgArea.scrollHeight;
+  scrollChatToBottom(true);
 }
 
 // XSS Sanitizer — strips dangerous HTML/JS from AI output before rendering
@@ -132,10 +174,10 @@ function parseMarkdown(text) {
   let inTable = false;
   let tableHeaderParsed = false;
   let tableRows = [];
-  
+
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i].trim();
-    
+
     // 1. Table Parsing
     if (line.startsWith("|") && line.endsWith("|")) {
       if (!inTable) {
@@ -143,15 +185,15 @@ function parseMarkdown(text) {
         tableHeaderParsed = false;
         tableRows = [];
       }
-      
+
       let cells = line.split("|").map(c => c.trim()).filter((c, idx, arr) => idx > 0 && idx < arr.length - 1);
-      
+
       // Skip markdown divider lines like |---|---|
       if (cells.every(c => c.match(/^[-:]+$/))) {
         tableHeaderParsed = true;
         continue;
       }
-      
+
       tableRows.push({ cells, isHeader: !tableHeaderParsed });
       continue;
     } else {
@@ -159,7 +201,7 @@ function parseMarkdown(text) {
         // Output accumulated table
         let tableHTML = '<table>';
         let hasHeader = tableRows.some(r => r.isHeader);
-        
+
         if (hasHeader) {
           tableHTML += '<thead>';
           tableRows.filter(r => r.isHeader).forEach(r => {
@@ -167,18 +209,18 @@ function parseMarkdown(text) {
           });
           tableHTML += '</thead>';
         }
-        
+
         tableHTML += '<tbody>';
         tableRows.filter(r => !r.isHeader).forEach(r => {
           tableHTML += '<tr>' + r.cells.map(c => `<td>${parseInlineMarkdown(c)}</td>`).join('') + '</tr>';
         });
         tableHTML += '</tbody></table>';
-        
+
         html.push(tableHTML);
         inTable = false;
       }
     }
-    
+
     // 2. Lists Parsing
     if (line.startsWith("- ") || line.startsWith("* ")) {
       if (!inList) {
@@ -194,7 +236,7 @@ function parseMarkdown(text) {
         inList = false;
       }
     }
-    
+
     // 3. Headers
     if (line.startsWith("### ")) {
       html.push(`<h3>${parseInlineMarkdown(line.substring(4))}</h3>`);
@@ -208,7 +250,7 @@ function parseMarkdown(text) {
       html.push(`<h1>${parseInlineMarkdown(line.substring(2))}</h1>`);
       continue;
     }
-    
+
     // 4. Paragraph
     if (line !== "") {
       html.push(`<p>${parseInlineMarkdown(line)}</p>`);
@@ -216,7 +258,7 @@ function parseMarkdown(text) {
       html.push("<br>");
     }
   }
-  
+
   // Close trailing blocks
   if (inTable) {
     let tableHTML = '<table><tbody>';
@@ -229,7 +271,7 @@ function parseMarkdown(text) {
   if (inList) {
     html.push("</ul>");
   }
-  
+
   return html.join("\n");
 }
 
@@ -248,15 +290,15 @@ async function handleUserChatMessage() {
   const textInput = document.getElementById("chat-input");
   const query = textInput.value.trim();
   if (query === "") return;
-  
+
   appendChatMessage("user", query);
   textInput.value = "";
-  
+
   conversationHistory.push({ role: "user", parts: [{ text: query }] });
-  
+
   appendChatMessage("system", "... reasoning");
   const typingMsg = document.querySelector(".chat-message.system:last-child");
-  
+
   setTimeout(async () => {
     try {
       // 1. Primary Engine: Vercel Serverless (platform GEMINI_API_KEY — no user key needed)
@@ -279,6 +321,7 @@ async function handleUserChatMessage() {
         appendChatMessage("system", fallbackMsg);
         conversationHistory.push({ role: "model", parts: [{ text: fallbackMsg }] });
       }
+      scrollChatToBottom(true);
     }
   }, 400);
 }
@@ -286,7 +329,7 @@ async function handleUserChatMessage() {
 // Keyless Free AI proxy call
 async function callFreeAI() {
   const systemText = NEXUS_AI_SYSTEM_PROMPT;
-  
+
   const messages = [
     {
       role: "system",
@@ -294,22 +337,22 @@ async function callFreeAI() {
     }
   ];
 
-  
+
   let latestUserQuery = "";
   conversationHistory.forEach(msg => {
     const text = msg.parts[0].text;
     if (text.includes("... reasoning") || text.includes("... thinking") || text === "") return;
-    
+
     if (msg.role === "user") {
       latestUserQuery = text;
     }
-    
+
     messages.push({
       role: msg.role === "model" ? "assistant" : "user",
       content: text
     });
   });
-  
+
   // 1. Try JSON POST payload (preserves full multi-turn conversational history)
   try {
     const response = await fetch("https://text.pollinations.ai/", {
@@ -319,7 +362,7 @@ async function callFreeAI() {
       },
       body: JSON.stringify({ messages })
     });
-    
+
     if (response.ok) {
       const resultText = await response.text();
       if (resultText && resultText.trim() !== "") {
@@ -329,16 +372,16 @@ async function callFreeAI() {
   } catch (e) {
     console.warn("Pollinations POST connection failed, attempting GET fallback...", e);
   }
-  
+
   // 2. Fallback to robust GET query (guarantees completion even on CORS/POST blockages)
   const promptText = `System Context: ${systemText}\n\nUser Question: ${latestUserQuery}`;
   const encodedPrompt = encodeURIComponent(promptText);
   const response = await fetch(`https://text.pollinations.ai/${encodedPrompt}?model=openai`);
-  
+
   if (!response.ok) {
     throw new Error(`GET Fallback HTTP ${response.status}`);
   }
-  
+
   const resultText = await response.text();
   if (!resultText || resultText.trim() === "") {
     throw new Error("Empty response from AI GET fallback.");
@@ -350,12 +393,12 @@ async function callFreeAI() {
 // Local Conversational Response Engine with Stop Words Filtering & Regional Intelligence
 function getLocalConversationalResponse(query) {
   const q = query.toLowerCase().trim();
-  
+
   // 0. Chinese New Year / Spring Festival Logistics Impact Matcher
   if (q.includes("china new year") || q.includes("chinese new year") || q.includes("cny") || q.includes("spring festival") || (q.includes("china") && (q.includes("new year") || q.includes("festival") || q.includes("holiday")))) {
     return `### 🧧 Impact of Chinese New Year (CNY) on Global Shipping & Logistics\n\nChinese New Year (Spring Festival) causes the largest annual disruption to global supply chains:\n\n1. **Factory Closures & Production Halt**:\n   - Chinese manufacturing plants close for **2 to 4 weeks** (between late January and mid-February). Millions of factory workers travel home, causing a complete production standstill across China.\n\n2. **The Pre-CNY Shipping Surge (Peak Season)**:\n   - In the **4 to 6 weeks leading up to CNY**, importers and exporters rush to ship cargo before factories lock doors.\n   - **Freight Rates Surge**: Ocean and air freight spot rates spike dramatically due to intense space competition.\n   - **Equipment Shortages**: Container availability at origin ports (Shanghai, Ningbo, Shenzhen) becomes extremely tight.\n\n3. **Blank Sailings (Vessel Cancellations)**:\n   - During and immediately after CNY, ocean carriers execute widespread **Blank Sailings** (cancelling scheduled ship voyages) because export volumes drop sharply.\n\n4. **Post-CNY Recovery Period (3-4 Weeks)**:\n   - Factories take **3 to 4 weeks to return to 100% operational capacity** as migrant labor returns gradually. Shipping volumes remain sluggish until late March.\n\n💡 *Logistics Best Practice: Book cargo space at least 4 to 6 weeks BEFORE Chinese New Year to avoid rolled cargo and Peak Season Surcharges (PSS).*`;
   }
-  
+
   // 1. Regional Freight & Airport / Seaport Intelligence Hub
   if ((q.includes("europe") || q.includes("eroupe") || q.includes("european") || q.includes("eu")) && (q.includes("airport") || q.includes("air") || q.includes("hub") || q.includes("flight") || q.includes("famous") || q.includes("detail"))) {
     return `### ✈️ Major Cargo & Passenger Airports in Europe\n\nEurope operates several of the world's most critical air freight gateways and aviation hubs:\n\n1. **Frankfurt Airport (FRA - Germany)**:\n   - Europe's busiest air cargo hub (~2.2 million tonnes annually). Primary base for Lufthansa Cargo featuring specialized GDP-certified cold-chain facilities for pharma.\n\n2. **Paris Charles de Gaulle (CDG - France)**:\n   - Major European express hub (FedEx European hub) handling over 2 million tonnes of cargo per year.\n\n3. **Amsterdam Airport Schiphol (AMS - Netherlands)**:\n   - Premier multimodal gateway connecting directly to Europe's largest seaport (Rotterdam) and Europe's rail network.\n\n4. **London Heathrow Airport (LHR - United Kingdom)**:\n   - The UK's primary air freight portal, processing over 1.5 million tonnes of high-value belly-hold cargo.\n\n5. **Luxembourg Findel Airport (LUX)**:\n   - Operational hub for Cargolux, operating strictly as a dedicated all-cargo freighter hub.\n\n💡 *Air Freight Calculation Tip: Chargeable weight is always the higher of Gross Weight or Volumetric Weight (L x W x H in cm / 6000).*`;
@@ -380,7 +423,7 @@ function getLocalConversationalResponse(query) {
   if (q.includes("dubai") || q.includes("jebel ali") || q.includes("uae")) {
     return `### 🇦🇪 Dubai & Middle East Logistics Hub\n\n- **Jebel Ali Port (DP World)**: Largest man-made harbor and premier Middle East transshipment port.\n- **Dubai Cargo City (DXB / DWC)**: Seamless sea-to-air multimodal connectivity within 4 hours.`;
   }
-  
+
   // 2. Core Shipping Topic matchers
   if (q.includes("incoterm")) {
     currentTopicContext = "incoterms";
@@ -414,7 +457,7 @@ function getLocalConversationalResponse(query) {
     currentTopicContext = "lithium";
     return SHIPPING_BOT_ANSWERS.lithium;
   }
-  
+
   // 3. Stateful Context Reference Matches (resolving "it", "this", "who pays", "how")
   if (currentTopicContext) {
     if (q.includes("who pays") || q.includes("responsibility") || q.includes("buyer") || q.includes("seller") || q.includes("risk")) {
@@ -428,7 +471,7 @@ function getLocalConversationalResponse(query) {
         return "It depends entirely on the term! Under DDP, the seller pays everything. Under EXW, the buyer pays everything. For FOB, it split at the ship's rail. Which term are you assessing?";
       }
     }
-    
+
     if (q.includes("how to calculate") || q.includes("formula") || q.includes("math")) {
       if (currentTopicContext === "cbm") {
         return "The formula is: Length (m) x Width (m) x Height (m) x Quantity = Total CBM. Do you have dimensions to run?";
@@ -437,14 +480,14 @@ function getLocalConversationalResponse(query) {
         return "For Air Cargo: (Length x Width x Height in cm) / 6000. For Sea LCL: 1 CBM is equivalent to 1000 kg (1 Ton).";
       }
     }
-    
+
     if (q.includes("what sizes") || q.includes("capacity") || q.includes("dimension")) {
       if (currentTopicContext === "container") {
         return "A standard 20ft Dry fits ~28-30 CBM cargo. A 40ft Dry fits ~58-65 CBM. A 40ft High Cube goes up to ~68-75 CBM volume capacity.";
       }
     }
   }
-  
+
   // 4. Greetings and Help
   if (/\b(hi|hello|hey|greetings|howdy)\b/i.test(q)) {
     return SHIPPING_BOT_ANSWERS.greeting;
@@ -452,7 +495,7 @@ function getLocalConversationalResponse(query) {
   if (q.includes("help") || q.includes("list")) {
     return SHIPPING_BOT_ANSWERS.help;
   }
-  
+
   // 5. Standalone Conversational Freight AI Engine (Trade Lanes, Routes, Customs, Regulations)
   if ((q.includes("china") || q.includes("asia")) && (q.includes("usa") || q.includes("america") || q.includes("us") || q.includes("transpacific"))) {
     return `### 🌐 Transpacific Shipping Corridor (China & Asia to USA)\n\nThe Transpacific container shipping lane is the highest-volume maritime trade corridor in the world:\n\n1. **US West Coast (USWC)**:\n   - **Primary Ports**: Los Angeles (LA), Long Beach (LB), Oakland, Seattle/Tacoma.\n   - **Transit Time**: 12 to 16 days direct ocean transit from Shanghai/Ningbo/Shenzhen.\n\n2. **US East Coast (USEC)**:\n   - **Primary Ports**: New York / New Jersey, Savannah, Charleston, Norfolk (routed via the Panama Canal).\n   - **Transit Time**: 24 to 32 days ocean transit.\n\n3. **Intermodal Landbridge (MLB / IPI)**:\n   - Cargo Discharges at USWC ports and moves by rail (BNSF / Union Pacific) to inland hubs like Chicago, Dallas, Memphis, and Atlanta.\n\n4. **Key Customs Compliance Requirements**:\n   - **ISF 10+2 Filing**: Must be filed with US Customs (CBP) at least 24 hours BEFORE cargo is loaded on the ship at origin.\n   - **Section 301 Tariffs**: Import tariffs applicable to Chinese-origin goods.\n   - **AMS (Automated Manifest System)**: Transmitted by carriers before vessel departure.`;
@@ -503,27 +546,27 @@ function getLocalConversationalResponse(query) {
 function getRelevantKnowledgeContext(userQuery) {
   const kbData = getKBData();
   if (!kbData || !kbData.categories) return "";
-  
+
   const q = (userQuery || "").toLowerCase();
   const words = q.replace(/[^\w\s]/gi, '').split(/\s+/).filter(w => w.length > 2 && !['what', 'how', 'why', 'when', 'where', 'which', 'who', 'the', 'and', 'for', 'can', 'you', 'tell', 'about', 'with', 'does', 'this', 'that', 'from'].includes(w));
-  
+
   if (words.length === 0) return "";
-  
+
   let matches = [];
-  
+
   kbData.categories.forEach(cat => {
     cat.subtopics.forEach(sub => {
       let score = 0;
       const titleLower = (sub.title || "").toLowerCase();
       const summaryLower = (sub.summary || "").toLowerCase();
       const contentLower = (sub.content || "").toLowerCase();
-      
+
       words.forEach(word => {
         if (titleLower.includes(word)) score += 5;
         if (summaryLower.includes(word)) score += 3;
         if (contentLower.includes(word)) score += 1;
       });
-      
+
       if (score > 0) {
         matches.push({
           category: cat.title,
@@ -535,12 +578,12 @@ function getRelevantKnowledgeContext(userQuery) {
       }
     });
   });
-  
+
   matches.sort((a, b) => b.score - a.score);
   const topMatches = matches.slice(0, 3);
-  
+
   if (topMatches.length === 0) return "";
-  
+
   return topMatches.map(m => `[Topic: ${m.category} -> Subtopic: ${m.title}]\nSummary: ${m.summary}\nContent: ${m.snippet}...`).join("\n\n");
 }
 
@@ -594,18 +637,18 @@ async function callGeminiAPI(customKey) {
   let cleanHistory = [];
   let lastRole = null;
   let latestUserQuery = "";
-  
+
   conversationHistory.forEach(msg => {
     const text = msg.parts[0].text;
     if (text.includes("... reasoning") || text.includes("... thinking") || text === "") return;
-    
+
     let role = msg.role;
     if (role === "system") {
       role = "model";
     } else if (role === "user") {
       latestUserQuery = text;
     }
-    
+
     if (lastRole === role) {
       cleanHistory[cleanHistory.length - 1].parts[0].text += "\n" + text;
     } else {
@@ -620,7 +663,7 @@ async function callGeminiAPI(customKey) {
   if (cleanHistory.length > 0 && cleanHistory[0].role === "model") {
     cleanHistory = cleanHistory.slice(1);
   }
-  
+
   if (cleanHistory.length === 0) {
     cleanHistory.push({
       role: "user",
@@ -648,7 +691,7 @@ async function callGeminiAPI(customKey) {
       }
     })
   });
-  
+
   // Try gemini-2.0-flash fallback if 1.5-flash returns non-200
   if (!response.ok) {
     response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${activeKey}`, {
@@ -664,15 +707,15 @@ async function callGeminiAPI(customKey) {
       })
     });
   }
-  
+
   if (!response.ok) {
     const errData = await response.json().catch(() => ({}));
     const errMsg = errData.error ? errData.error.message : `HTTP ${response.status}`;
     throw new Error(errMsg);
   }
-  
+
   const data = await response.json();
-  
+
   if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
     return data.candidates[0].content.parts.map(p => p.text).join("");
   } else if (data.text) {

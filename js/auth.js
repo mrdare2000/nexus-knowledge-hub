@@ -180,6 +180,9 @@ function updateProfileBadgesUI(name, avatar, role, company) {
 window.updateProfileBadgesUI = updateProfileBadgesUI;
 
 function openAuthModal() {
+  if (typeof toggleMobileSidebar === "function") {
+    toggleMobileSidebar(false);
+  }
   const modal = document.getElementById("auth-modal");
   if (modal) {
     modal.style.setProperty("display", "flex", "important");
@@ -510,6 +513,9 @@ function toggleProfileEditMode(isEdit) {
 window.toggleProfileEditMode = toggleProfileEditMode;
 
 function openProfileModal() {
+  if (typeof toggleMobileSidebar === "function") {
+    toggleMobileSidebar(false);
+  }
   if (!currentUser) {
     openAuthModal();
     return;
