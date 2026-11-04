@@ -106,33 +106,69 @@ export default async function handler(req, res) {
       contents: sanitizedHistory,
       systemInstruction: {
         parts: [{ text: cleanSystemPrompt }]
+      },
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 1200,
+        topP: 0.95
       }
     };
 
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify(payload)
+    // Resilient Model Cascade: Try stable fast models with per-call timeout
+    const GEMINI_MODELS = [
+      'gemini-1.5-flash',
+      'gemini-2.0-flash',
+      'gemini-1.5-flash-8b'
+    ];
+
+    let botText = null;
+    let lastError = null;
+
+    for (const model of GEMINI_MODELS) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6500);
+
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          const data = await response.json();
+          const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (candidateText && candidateText.trim().length > 0) {
+            botText = candidateText;
+            break;
+          }
+        } else {
+          const errData = await response.json().catch(() => ({}));
+          const errMsg = errData.error?.message || `HTTP ${response.status}`;
+          console.warn(`Gemini model ${model} returned error (${errMsg}), trying fallback...`);
+          lastError = errMsg;
+        }
+      } catch (err) {
+        clearTimeout(timeoutId);
+        console.warn(`Gemini model ${model} network error/timeout:`, err.message);
+        lastError = err.message;
+      }
+    }
+
+    if (botText) {
+      return res.status(200).json({ text: botText });
+    }
+
+    return res.status(502).json({
+      error: `AI service temporarily unavailable (${lastError || 'timeout'}). Please try again.`
     });
-
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      const errMsg = errData.error ? errData.error.message : `AI service error (${response.status})`;
-      console.error("Gemini API error:", errMsg);
-      return res.status(502).json({ error: 'AI service temporarily unavailable. Please try again.' });
-    }
-
-    const data = await response.json();
-
-    if (!data.candidates || !data.candidates[0]?.content?.parts?.[0]?.text) {
-      return res.status(502).json({ error: 'AI returned an empty response. Please try again.' });
-    }
-
-    const botText = data.candidates[0].content.parts[0].text;
-    return res.status(200).json({ text: botText });
 
   } catch (error) {
     console.error("API Error:", error.message);
