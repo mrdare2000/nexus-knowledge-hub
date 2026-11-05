@@ -101,7 +101,7 @@
         if (cached.length > 0) {
           userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(cached));
         }
-      } catch(e) {}
+      } catch (e) { }
     } else {
       userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(userAttempts));
     }
@@ -138,7 +138,7 @@
         window.NEXUS_FIREBASE.fetchQuizAttempts(currentUser.uid).then(remoteAttempts => {
           if (remoteAttempts && remoteAttempts.length > 0) {
             userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(remoteAttempts));
-            try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
+            try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch (e) { }
             // Refresh dashboard with cloud data if user is on dashboard view
             if (!isAttemptingQuiz && !currentViewingAttempt && activeQuizTab !== 'arcade') {
               const freshContainer = document.getElementById('quiz-hub-container');
@@ -160,7 +160,7 @@
               if (allAttempts && Array.isArray(allAttempts) && allAttempts.length > 0) {
                 regradePreviousZeroAttempts(allAttempts);
               }
-            }).catch(e => {});
+            }).catch(e => { });
           }
         }, 2000);
       }
@@ -369,7 +369,7 @@
     });
 
     if (modified) {
-      try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(attempts)); } catch(e) {}
+      try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(attempts)); } catch (e) { }
     }
     return attempts;
   }
@@ -547,7 +547,7 @@
   function renderCandidateStrip(user) {
     const avatar = (typeof selectedAvatarSymbol !== 'undefined') ? selectedAvatarSymbol : '👤';
     const name = user.displayName || user.email.split('@')[0];
-    
+
     let subtext = user.email;
     if (window.currentUserProfileData) {
       const role = window.currentUserProfileData.role;
@@ -679,20 +679,20 @@
           </div>
 
           <div>
-            ${(function(){
-              if (!featuredQuiz) return '';
-              const actAtt = myAttempts.find(a => a.weekId === featuredQuiz.id);
-              if (actAtt) {
-                return `
+            ${(function () {
+        if (!featuredQuiz) return '';
+        const actAtt = myAttempts.find(a => a.weekId === featuredQuiz.id);
+        if (actAtt) {
+          return `
                   <button class="btn btn-secondary btn-view-results" data-attempt-id="${actAtt.attemptId}" data-week-id="${featuredQuiz.id}" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; border: 2px solid #10B981; color: #065F46; background: #ECFDF5; white-space: nowrap; cursor: pointer;">
                     📊 View Score & Certificate
                   </button>
                 `;
-              }
-              return `<button id="btn-start-active-quiz" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3); white-space: nowrap;">
+        }
+        return `<button id="btn-start-active-quiz" class="btn btn-primary" style="padding: 16px 36px; border-radius: 50px; font-weight: 800; font-size: 1.05rem; box-shadow: 0 10px 25px rgba(255,90,31,0.3); white-space: nowrap;">
                 🚀 Attempt Active Quiz
               </button>`;
-            })()}
+      })()}
           </div>
         </div>
 
@@ -703,34 +703,34 @@
 
         <div class="available-quizzes-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 18px; margin-bottom: 45px;">
           ${[...weeks].reverse().map((w) => {
-            const originalSetNum = weeks.indexOf(w) + 1;
-            const attempt = myAttempts.find(a => a.weekId === w.id);
-            const isSpecial = w.quizType === 'crossword' || (w.title && w.title.includes('Special Edition'));
+        const originalSetNum = weeks.indexOf(w) + 1;
+        const attempt = myAttempts.find(a => a.weekId === w.id);
+        const isSpecial = w.quizType === 'crossword' || (w.title && w.title.includes('Special Edition'));
 
-            const cardStyle = isSpecial 
-              ? `background: linear-gradient(145deg, #FFFFFF 0%, #FFF7ED 100%); border: 2px solid #F26938; padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(242, 105, 56, 0.18); position: relative; overflow: hidden;`
-              : `background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);`;
+        const cardStyle = isSpecial
+          ? `background: linear-gradient(145deg, #FFFFFF 0%, #FFF7ED 100%); border: 2px solid #F26938; padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(242, 105, 56, 0.18); position: relative; overflow: hidden;`
+          : `background: var(--bg-white); border: 1.5px solid var(--border-color); padding: 24px; border-radius: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);`;
 
-            const badgeHtml = isSpecial
-              ? `<span style="background: linear-gradient(135deg, #F26938 0%, #E11D48 100%); color: #FFFFFF; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 6px; box-shadow: 0 2px 8px rgba(242,105,56,0.35);">🔥 SPECIAL EDITION #${originalSetNum}</span>`
-              : `<span style="background: #EFF6FF; color: #1E40AF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">SET #${originalSetNum}</span>`;
+        const badgeHtml = isSpecial
+          ? `<span style="background: linear-gradient(135deg, #F26938 0%, #E11D48 100%); color: #FFFFFF; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 6px; box-shadow: 0 2px 8px rgba(242,105,56,0.35);">🔥 SPECIAL EDITION #${originalSetNum}</span>`
+          : `<span style="background: #EFF6FF; color: #1E40AF; font-size: 0.78rem; font-weight: 800; padding: 4px 10px; border-radius: 6px;">SET #${originalSetNum}</span>`;
 
-            const titleHtml = `<h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">${w.title}</h4>`;
+        const titleHtml = `<h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 8px 0; font-size: 1.15rem; line-height: 1.4; font-weight: 800;">${w.title}</h4>`;
 
-            const btnHtml = attempt
-              ? `<button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5; cursor: pointer;">
+        const btnHtml = attempt
+          ? `<button class="btn btn-secondary btn-view-results" data-attempt-id="${attempt.attemptId}" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; border: 1.5px solid #10B981; color: #065F46; background: #ECFDF5; cursor: pointer;">
                   📊 View Score & Certificate
                  </button>`
-              : (isSpecial 
-                  ? `<button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 13px; border-radius: 10px; font-weight: 800; font-size: 0.92rem; background: linear-gradient(135deg, #F26938 0%, #E11D48 100%); border: none; color: #FFF; box-shadow: 0 6px 20px rgba(242, 105, 56, 0.4); cursor: pointer;">
+          : (isSpecial
+            ? `<button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 13px; border-radius: 10px; font-weight: 800; font-size: 0.92rem; background: linear-gradient(135deg, #F26938 0%, #E11D48 100%); border: none; color: #FFF; box-shadow: 0 6px 20px rgba(242, 105, 56, 0.4); cursor: pointer;">
                       🧩 Attempt Special Crossword
                     </button>`
-                  : `<button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;">
+            : `<button class="btn btn-primary btn-select-quiz" data-week-id="${w.id}" style="width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem;">
                       📝 Attempt Quiz
                     </button>`
-                );
+          );
 
-            return `
+        return `
               <div style="${cardStyle}">
                 <div>
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -744,7 +744,7 @@
                 ${btnHtml}
               </div>
             `;
-          }).join('')}
+      }).join('')}
         </div>
 
         <!-- Result History & Downloadable Certificates Table -->
@@ -892,7 +892,7 @@
     if (!activeQuiz && window.NEXUS_QUIZ_DATABASE && window.NEXUS_QUIZ_DATABASE.weeks && window.NEXUS_QUIZ_DATABASE.weeks.length > 0) {
       activeQuiz = window.NEXUS_QUIZ_DATABASE.weeks[window.NEXUS_QUIZ_DATABASE.weeks.length - 1];
     }
-    
+
     // Prevent re-attempting if quiz already completed
     const currentUser = getCurrentAuthUser();
     if (activeQuiz && currentUser) {
@@ -1082,20 +1082,20 @@
             <div class="crossword-grid-wrapper">
               <div class="crossword-grid" style="grid-template-columns: repeat(${cols}, var(--cw-cell-size, 19.5px)); grid-template-rows: repeat(${rows}, var(--cw-cell-size, 19.5px));">
                 ${grid.map((rowArr, rIdx) => {
-                  return rowArr.map((cell, cIdx) => {
-                    if (!cell) {
-                      return `<div class="cw-cell black"></div>`;
-                    }
-                    const wordIdsStr = cell.words.join(' ');
-                    const numHtml = cell.number ? `<span class="cw-num">${cell.number}</span>` : '';
-                    return `
+      return rowArr.map((cell, cIdx) => {
+        if (!cell) {
+          return `<div class="cw-cell black"></div>`;
+        }
+        const wordIdsStr = cell.words.join(' ');
+        const numHtml = cell.number ? `<span class="cw-num">${cell.number}</span>` : '';
+        return `
                       <div class="cw-cell" data-row="${rIdx}" data-col="${cIdx}" data-words="${wordIdsStr}" id="cw-cell-${rIdx}-${cIdx}">
                         ${numHtml}
                         <input type="text" class="cw-input" maxlength="1" data-row="${rIdx}" data-col="${cIdx}" id="cw-inp-${rIdx}-${cIdx}" autocomplete="off" spellcheck="false">
                       </div>
                     `;
-                  }).join('');
-                }).join('')}
+      }).join('');
+    }).join('')}
               </div>
             </div>
 
@@ -1447,7 +1447,7 @@
     userAttempts.unshift(attemptRecord);
     userAttempts = deduplicateUserAttempts(userAttempts);
 
-    try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
+    try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch (e) { }
 
     isSubmittingCrossword = false;
     isAttemptingQuiz = false;
@@ -1503,8 +1503,8 @@
         const isCorrect = (userChoiceIdx === correctIdx);
         if (isCorrect) mcqScore++;
 
-        const correctAnsText = (q.options && typeof correctIdx === 'number' && q.options[correctIdx]) 
-          ? q.options[correctIdx] 
+        const correctAnsText = (q.options && typeof correctIdx === 'number' && q.options[correctIdx])
+          ? q.options[correctIdx]
           : (q.correctAnswer || 'N/A');
 
         detailedResults.push({
@@ -1518,7 +1518,7 @@
       } else if (q.type === 'short') {
         const inputField = form.querySelector(`input[name="q_${q.id}"]`);
         const userText = inputField ? inputField.value.trim() : '';
-        
+
         const validKeywords = q.keywords || q.acceptedKeywords || [];
         const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
 
@@ -1571,7 +1571,7 @@
     userAttempts = deduplicateUserAttempts(userAttempts);
 
     // 1. Cache to localStorage immediately for instant data safety
-    try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
+    try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch (e) { }
 
     // 2. Transition UI to Results & Certificate view INSTANTLY (<20ms)
     isSubmittingQuiz = false;
@@ -1654,10 +1654,10 @@
 
         <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px;">
           ${results.map((r, idx) => {
-            if (r.isCrossword) {
-              const displayIsCorrect = r.isCorrect;
-              const marksPerWord = Math.round(100 / (results.length || 10));
-              return `
+      if (r.isCrossword) {
+        const displayIsCorrect = r.isCorrect;
+        const marksPerWord = Math.round(100 / (results.length || 10));
+        return `
                 <div style="background: var(--bg-white); border: 1.5px solid ${displayIsCorrect ? '#10B981' : '#EF4444'}; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <span style="font-size: 0.85rem; font-weight: 800; color: var(--primary-navy);">${r.label}</span>
@@ -1675,31 +1675,31 @@
                   </div>
                 </div>
               `;
-            }
+      }
 
-            const week = (typeof NEXUS_QUIZ_DATABASE !== 'undefined' && NEXUS_QUIZ_DATABASE.weeks)
-              ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === attempt.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
-              : null;
-            const q = (week && week.questions) ? week.questions.find(item => item.id === r.questionId || item.question === r.question) : null;
-            
-            let displayCorrect = r.correctAnswer;
-            let displayIsCorrect = r.isCorrect;
+      const week = (typeof NEXUS_QUIZ_DATABASE !== 'undefined' && NEXUS_QUIZ_DATABASE.weeks)
+        ? (NEXUS_QUIZ_DATABASE.weeks.find(w => w.id === attempt.weekId) || NEXUS_QUIZ_DATABASE.weeks[0])
+        : null;
+      const q = (week && week.questions) ? week.questions.find(item => item.id === r.questionId || item.question === r.question) : null;
 
-            if (q && q.type === 'mcq') {
-              const correctIdx = (typeof q.answerIndex !== 'undefined') ? q.answerIndex : q.correctAnswer;
-              const trueCorrectText = q.options[correctIdx];
-              if (!displayCorrect || displayCorrect === 'undefined') displayCorrect = trueCorrectText;
-              if (r.userAnswer === trueCorrectText || (typeof r.userChoiceIdx !== 'undefined' && r.userChoiceIdx === correctIdx)) {
-                displayIsCorrect = true;
-              }
-            } else if (q && q.type === 'short') {
-              const validKeywords = q.keywords || q.acceptedKeywords || [];
-              const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
-              if (!displayCorrect || displayCorrect === 'undefined') displayCorrect = modelAns;
-              displayIsCorrect = evaluateShortAnswer(r.userAnswer, q);
-            }
+      let displayCorrect = r.correctAnswer;
+      let displayIsCorrect = r.isCorrect;
 
-            return `
+      if (q && q.type === 'mcq') {
+        const correctIdx = (typeof q.answerIndex !== 'undefined') ? q.answerIndex : q.correctAnswer;
+        const trueCorrectText = q.options[correctIdx];
+        if (!displayCorrect || displayCorrect === 'undefined') displayCorrect = trueCorrectText;
+        if (r.userAnswer === trueCorrectText || (typeof r.userChoiceIdx !== 'undefined' && r.userChoiceIdx === correctIdx)) {
+          displayIsCorrect = true;
+        }
+      } else if (q && q.type === 'short') {
+        const validKeywords = q.keywords || q.acceptedKeywords || [];
+        const modelAns = q.modelAnswer || q.correctAnswer || (validKeywords.length > 0 ? validKeywords.join(' / ') : '');
+        if (!displayCorrect || displayCorrect === 'undefined') displayCorrect = modelAns;
+        displayIsCorrect = evaluateShortAnswer(r.userAnswer, q);
+      }
+
+      return `
               <div style="background: var(--bg-white); border: 1.5px solid ${displayIsCorrect ? '#10B981' : '#EF4444'}; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                   <span style="font-size: 0.8rem; font-weight: 800; color: var(--primary-navy);">Question ${idx + 1}</span>
@@ -1717,7 +1717,7 @@
                 </div>
               </div>
             `;
-          }).join('')}
+    }).join('')}
         </div>
       </div>
     `;
@@ -1821,7 +1821,7 @@
 
   window.NEXUS_QUIZ_ENGINE = {
     init: initQuizHub,
-    refresh: function() {
+    refresh: function () {
       fetchedRemoteAttempts = false;
       initQuizHub();
     }
