@@ -10,6 +10,8 @@
   let activeQuiz = null;
   let isAttemptingQuiz = false;
   let currentViewingAttempt = null;
+  let activeQuizTab = 'certifications'; // 'certifications' | 'arcade'
+  let activeArcadeView = 'lobby'; // 'lobby' | 'playing' | 'summary'
 
   // Calculate Active Week Index (Defaults to Latest Active Week)
   function calculateActiveWeekIndex() {
@@ -105,15 +107,28 @@
     }
 
     // 2. Render UI Shell IMMEDIATELY (Instant Response)
-    if (currentViewingAttempt) {
+    if (activeQuizTab === 'arcade' && typeof window.renderArcadeLobbyHTML === 'function') {
+      if (activeArcadeView === 'playing' && typeof window.renderIncotermsGameHTML === 'function') {
+        container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderIncotermsGameHTML();
+        bindArcadeGameEvents();
+      } else if (activeArcadeView === 'summary' && typeof window.renderIncotermsSummaryHTML === 'function') {
+        container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderIncotermsSummaryHTML();
+        bindArcadeSummaryEvents();
+      } else {
+        container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderArcadeLobbyHTML();
+        bindArcadeLobbyEvents();
+      }
+      bindTabNavigationEvents();
+    } else if (currentViewingAttempt) {
       container.innerHTML = renderQuizResultsView(currentViewingAttempt);
       bindResultsViewEvents();
     } else if (isAttemptingQuiz) {
       container.innerHTML = renderQuizQuestionsForm();
       bindQuizEvents();
     } else {
-      container.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
+      container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + renderPortalDashboard();
       bindDashboardEvents();
+      bindTabNavigationEvents();
     }
 
     // 3. Fetch remote attempts from Cloud Firebase in background (Non-blocking)
@@ -125,11 +140,12 @@
             userAttempts = deduplicateUserAttempts(regradePreviousZeroAttempts(remoteAttempts));
             try { localStorage.setItem('nexus_quiz_attempts', JSON.stringify(userAttempts)); } catch(e) {}
             // Refresh dashboard with cloud data if user is on dashboard view
-            if (!isAttemptingQuiz && !currentViewingAttempt) {
+            if (!isAttemptingQuiz && !currentViewingAttempt && activeQuizTab !== 'arcade') {
               const freshContainer = document.getElementById('quiz-hub-container');
               if (freshContainer) {
-                freshContainer.innerHTML = renderCandidateStrip(currentUser) + renderPortalDashboard();
+                freshContainer.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + renderPortalDashboard();
                 bindDashboardEvents();
+                bindTabNavigationEvents();
               }
             }
           }
@@ -412,6 +428,120 @@
         </div>
       </div>
     `;
+  }
+
+  // Quiz Hub & Logistics Arcade Navigation Tabs
+  function renderQuizHubNavigationTabs() {
+    const isArcade = activeQuizTab === 'arcade';
+    return `
+      <div class="quiz-hub-tabs-container" style="max-width: 1050px; margin: 0 auto 28px auto; display: flex; justify-content: center;">
+        <div class="quiz-hub-tabs-pill" style="background: #F1F5F9; padding: 6px; border-radius: 50px; display: inline-flex; gap: 8px; border: 1.5px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          <button id="tab-btn-certifications" class="quiz-tab-toggle-btn" style="padding: 10px 22px; border-radius: 40px; border: none; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: all 0.25s ease; ${!isArcade ? 'background: var(--primary-navy); color: #FFFFFF; box-shadow: 0 4px 12px rgba(15,23,42,0.18);' : 'background: transparent; color: var(--text-muted);'}">
+            📜 Weekly Assessment & Certificates
+          </button>
+          <button id="tab-btn-arcade" class="quiz-tab-toggle-btn" style="padding: 10px 22px; border-radius: 40px; border: none; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: all 0.25s ease; display: inline-flex; align-items: center; gap: 8px; ${isArcade ? 'background: linear-gradient(135deg, #FF5A1F 0%, #E11D48 100%); color: #FFFFFF; box-shadow: 0 4px 14px rgba(255,90,31,0.28);' : 'background: transparent; color: var(--text-muted);'}">
+            <span>🕹️ Logistics Arcade</span>
+            <span style="background: ${isArcade ? 'rgba(255,255,255,0.25)' : '#FFEDD5'}; color: ${isArcade ? '#FFFFFF' : '#C2410C'}; font-size: 0.7rem; font-weight: 900; padding: 2px 7px; border-radius: 12px; letter-spacing: 0.5px;">NEW</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  function bindTabNavigationEvents() {
+    const certTabBtn = document.getElementById('tab-btn-certifications');
+    const arcadeTabBtn = document.getElementById('tab-btn-arcade');
+
+    if (certTabBtn) {
+      certTabBtn.addEventListener('click', function () {
+        activeQuizTab = 'certifications';
+        activeArcadeView = 'lobby';
+        isAttemptingQuiz = false;
+        currentViewingAttempt = null;
+        renderQuizHubUI();
+      });
+    }
+
+    if (arcadeTabBtn) {
+      arcadeTabBtn.addEventListener('click', function () {
+        activeQuizTab = 'arcade';
+        activeArcadeView = 'lobby';
+        isAttemptingQuiz = false;
+        currentViewingAttempt = null;
+        renderQuizHubUI();
+      });
+    }
+  }
+
+  function bindArcadeLobbyEvents() {
+    const launchIncotermsBtn = document.getElementById('btn-launch-incoterms-game');
+    if (launchIncotermsBtn) {
+      launchIncotermsBtn.addEventListener('click', function () {
+        activeArcadeView = 'playing';
+        if (typeof window.startIncotermsBattle === 'function') {
+          window.startIncotermsBattle((nextView) => {
+            if (nextView === 'summary') activeArcadeView = 'summary';
+            renderQuizHubUI();
+          });
+        }
+      });
+    }
+
+    const soundBtn = document.getElementById('btn-toggle-arcade-sound');
+    if (soundBtn) {
+      soundBtn.addEventListener('click', function () {
+        if (typeof window.toggleArcadeSound === 'function') {
+          window.toggleArcadeSound();
+          renderQuizHubUI();
+        }
+      });
+    }
+  }
+
+  function bindArcadeGameEvents() {
+    const exitBtn = document.getElementById('btn-exit-game');
+    if (exitBtn) {
+      exitBtn.addEventListener('click', function () {
+        activeArcadeView = 'lobby';
+        renderQuizHubUI();
+      });
+    }
+
+    const choiceBtns = document.querySelectorAll('.btn-risk-choice');
+    choiceBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const choice = btn.getAttribute('data-choice');
+        if (typeof window.handleIncotermsChoice === 'function') {
+          window.handleIncotermsChoice(choice, (nextView) => {
+            if (nextView === 'summary') activeArcadeView = 'summary';
+            renderQuizHubUI();
+          });
+        }
+      });
+    });
+  }
+
+  function bindArcadeSummaryEvents() {
+    const replayBtn = document.getElementById('btn-replay-game');
+    if (replayBtn) {
+      replayBtn.addEventListener('click', function () {
+        activeArcadeView = 'playing';
+        if (typeof window.startIncotermsBattle === 'function') {
+          window.startIncotermsBattle((nextView) => {
+            if (nextView === 'summary') activeArcadeView = 'summary';
+            renderQuizHubUI();
+          });
+        }
+      });
+    }
+
+    const returnBtn = document.getElementById('btn-return-arcade');
+    if (returnBtn) {
+      returnBtn.addEventListener('click', function () {
+        activeArcadeView = 'lobby';
+        renderQuizHubUI();
+      });
+    }
   }
 
   function renderCandidateStrip(user) {
