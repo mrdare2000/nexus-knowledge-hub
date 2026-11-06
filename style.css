@@ -9076,6 +9076,12 @@ button.btn-secondary:active,
   border-color: #334155 !important;
 }
 
+[data-theme="dark"] #btn-return-arcade {
+  background: #334155 !important;
+  color: #F8FAFC !important;
+  border-color: #475569 !important;
+}
+
 @media (max-width: 640px) {
   .quiz-tab-toggle-btn {
     padding: 8px 14px;

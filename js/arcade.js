@@ -150,6 +150,134 @@
       scenario: "Cargo washes overboard in rough seas in the Bay of Bengal under CFR Singapore. Who bears the financial loss?",
       answer: "Buyer",
       explanation: "Under CFR, risk transfers to the Buyer once the goods are on board the ship at the origin port."
+    },
+    {
+      id: "fob_2",
+      term: "FOB — Free On Board",
+      ruleTag: "Quayside Loading • Sling Break",
+      scenario: "During loading at Singapore Port, the crane sling snaps while hoisting the container from the pier BEFORE it crosses the vessel's rail. Who carries the loss?",
+      answer: "Seller",
+      explanation: "Under FOB, the Seller carries all risks until goods are actually on board the ship. Since it fell before crossing on board, the Seller bears the loss."
+    },
+    {
+      id: "cif_2",
+      term: "CIF — Cost, Insurance & Freight",
+      ruleTag: "Discharge Port • Typhoon Water Damage",
+      scenario: "Seawater damages machinery in the ship's hold during an ocean typhoon between Colombo and Sydney under CIF Sydney. Who bears the cargo loss?",
+      answer: "Buyer",
+      explanation: "Under CIF, risk transfers to Buyer once goods are on board at the origin port. The Buyer files the claim with the insurer using the policy provided by Seller."
+    },
+    {
+      id: "exw_2",
+      term: "EXW — Ex Works",
+      ruleTag: "Buyer Collection Delay • Factory Fire",
+      scenario: "Goods are packaged and set aside for the Buyer. The Buyer's truck is delayed by 5 days, during which an accidental fire destroys the warehouse. Who bears the loss?",
+      answer: "Buyer",
+      explanation: "Under EXW, once goods are clearly identified and placed at Buyer's disposal, any failure or delay by the Buyer to collect passes the risk of loss to the Buyer."
+    },
+    {
+      id: "ddp_2",
+      term: "DDP — Delivered Duty Paid",
+      ruleTag: "Destination Port • Custom Clearance Fine",
+      scenario: "A shipment under DDP New York incurs heavy demurrage penalties because the destination customs broker failed to file the entry on time. Who pays these costs?",
+      answer: "Seller",
+      explanation: "Under DDP, the Seller is legally responsible for all import clearance procedures, customs brokerage, tariffs, and demurrage delays."
+    },
+    {
+      id: "dap_2",
+      term: "DAP — Delivered at Place",
+      ruleTag: "Arrival at Facility • Reefer Unit Failure",
+      scenario: "A refrigerated container arrives on the truck outside the Buyer's cold store under DAP Paris. Before unloading starts, the reefer compressor fails. Who carries the spoilage loss?",
+      answer: "Seller",
+      explanation: "Under DAP, the Seller bears all risk until the carrying vehicle arrives and goods are ready for unloading. Risk remains with the Seller until that moment."
+    },
+    {
+      id: "dpu_2",
+      term: "DPU — Delivered at Place Unloaded",
+      ruleTag: "Destination Yard • Forklift Tilt",
+      scenario: "While the Seller's contractor unloads crates with a forklift at the rail terminal in Munich under DPU terms, a crate falls and shatters. Who bears the loss?",
+      answer: "Seller",
+      explanation: "DPU is the only Incoterm where unloading at the named place is the Seller's contractual responsibility and risk."
+    },
+    {
+      id: "fca_3",
+      term: "FCA — Free Carrier (Colombo Airport)",
+      ruleTag: "Air Cargo Terminal • Warehouse Flooding",
+      scenario: "Seller delivers cargo to the airline's air cargo terminal under FCA Colombo Airport. That night, an airport warehouse floods before flight departure. Who bears the loss?",
+      answer: "Buyer",
+      explanation: "Under FCA at the carrier's terminal, delivery is complete once goods are handed to the carrier. Subsequent terminal and transit risks belong to the Buyer."
+    },
+    {
+      id: "fca_4",
+      term: "FCA — Free Carrier (Seller's Factory)",
+      ruleTag: "Factory Gate • Carrier Departure",
+      scenario: "Goods are loaded onto the Buyer's truck at the Seller's premises in Gampaha. As the truck drives off the factory grounds, it overturns on the highway. Who carries the loss?",
+      answer: "Buyer",
+      explanation: "Under FCA at the Seller's premises, risk transfers the moment loading onto the Buyer's collecting vehicle is completed."
+    },
+    {
+      id: "cpt_2",
+      term: "CPT — Carriage Paid To",
+      ruleTag: "Air Freight Route • Transit Delay & Spoilage",
+      scenario: "Fresh perishables shipped under CPT Frankfurt spoil because the first airline misrouted the consignment via Doha. Who carries the transit risk?",
+      answer: "Buyer",
+      explanation: "Under CPT, risk transfers when goods are delivered to the FIRST carrier. The Seller pays the air freight, but the Buyer bears in-transit risks."
+    },
+    {
+      id: "cip_2",
+      term: "CIP — Carriage & Insurance Paid To",
+      ruleTag: "Insurance Cover Level • Maritime Piracy",
+      scenario: "Under CIP terms in Incoterms 2020, cargo is stolen by pirates. If the Seller only purchased basic ICC-C instead of Institute Cargo Clauses (A) All Risks, who is at fault?",
+      answer: "Seller",
+      explanation: "Incoterms 2020 strictly requires the Seller to provide ICC (A) All Risks insurance for CIP (unlike CIF which only mandates basic ICC-C)."
+    },
+    {
+      id: "cfr_2",
+      term: "CFR — Cost & Freight",
+      ruleTag: "Ocean Voyage • Vessel Collision",
+      scenario: "A container ship collides with another vessel in the Malacca Strait under CFR Busan. A container is destroyed. Who bears the loss?",
+      answer: "Buyer",
+      explanation: "Under CFR, the Seller pays ocean freight to Busan, but risk transferred to the Buyer the moment the container crossed on board at origin."
+    },
+    {
+      id: "fas_2",
+      term: "FAS — Free Alongside Ship",
+      ruleTag: "Quayside Staging • Port Crane Collision",
+      scenario: "While cargo sits safely alongside the vessel on the quay under FAS Colombo, a port straddle carrier crashes into the pallets. Who bears the loss?",
+      answer: "Buyer",
+      explanation: "Under FAS, risk transfers once cargo is placed alongside the ship on the quay. Any subsequent quay damage is at the Buyer's risk."
+    },
+    {
+      id: "ddp_3",
+      term: "DDP — Delivered Duty Paid",
+      ruleTag: "Buyer Warehouse • Unloading Stage",
+      scenario: "Goods arrive safely at Buyer's warehouse in Toronto under DDP terms. The Buyer's warehouse staff drops a box while unloading from the trailer. Who carries the loss?",
+      answer: "Buyer",
+      explanation: "Even under DDP, the Seller is NOT responsible for unloading. Unloading at destination is strictly the Buyer's responsibility and risk."
+    },
+    {
+      id: "dap_3",
+      term: "DAP — Delivered at Place",
+      ruleTag: "Border Crossing • Buyer License Delay",
+      scenario: "A truck carrying goods under DAP Zurich is held at the Swiss border because the Buyer delayed obtaining an import license. Goods spoil in heat. Who carries the loss?",
+      answer: "Buyer",
+      explanation: "Under DAP, import clearance is the Buyer's duty. Any risk of delay caused by Buyer's failure to clear customs falls upon the Buyer."
+    },
+    {
+      id: "exw_3",
+      term: "EXW — Ex Works",
+      ruleTag: "Export Documentation • Customs Refusal",
+      scenario: "The Buyer demands that the Seller complete the official export customs declaration at the port under EXW Colombo. Is the Seller obligated to do so?",
+      answer: "Buyer",
+      explanation: "Under EXW, the Seller has NO obligation to clear goods for export. Export licenses and clearance are 100% the Buyer's responsibility."
+    },
+    {
+      id: "cif_3",
+      term: "CIF — Cost, Insurance & Freight",
+      ruleTag: "Mid-Ocean Fire • General Average Declaration",
+      scenario: "A container vessel catches fire in the Red Sea under CIF Rotterdam. The Captain declares General Average. Who is responsible for the General Average contribution?",
+      answer: "Buyer",
+      explanation: "Under CIF, the Buyer holds the insurable interest and ownership risk during transit, and pays the GA contribution (which is reimbursed by cargo insurance)."
     }
   ];
 
@@ -469,7 +597,7 @@
             <button id="btn-replay-game" class="btn btn-primary" style="padding: 14px 28px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; cursor: pointer;">
               🔄 Play Again
             </button>
-            <button id="btn-return-arcade" class="btn btn-secondary" style="padding: 14px 28px; border-radius: 14px; font-weight: 700; font-size: 0.95rem; border: 1.5px solid var(--border-color); background: #FFF; cursor: pointer;">
+            <button id="btn-return-arcade" style="padding: 14px 28px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; border: 1.5px solid var(--border-color); background: #F8FAFC; color: var(--primary-navy, #0F172A); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: transform 0.15s ease;">
               🕹️ Return to Arcade
             </button>
           </div>
