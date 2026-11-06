@@ -12,6 +12,7 @@
   let currentViewingAttempt = null;
   let activeQuizTab = 'certifications'; // 'certifications' | 'arcade'
   let activeArcadeView = 'lobby'; // 'lobby' | 'playing' | 'summary'
+  let activeArcadeGame = 'incoterms'; // 'incoterms' | 'ladder' | 'inspector' | 'hazmat' | 'dispatcher'
 
   // Calculate Active Week Index (Defaults to Latest Active Week)
   function calculateActiveWeekIndex() {
@@ -108,11 +109,11 @@
 
     // 2. Render UI Shell IMMEDIATELY (Instant Response)
     if (activeQuizTab === 'arcade' && typeof window.renderArcadeLobbyHTML === 'function') {
-      if (activeArcadeView === 'playing' && typeof window.renderIncotermsGameHTML === 'function') {
-        container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderIncotermsGameHTML();
+      if (activeArcadeView === 'playing' && typeof window.renderArcadeGameHTML === 'function') {
+        container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderArcadeGameHTML(activeArcadeGame);
         bindArcadeGameEvents();
-      } else if (activeArcadeView === 'summary' && typeof window.renderIncotermsSummaryHTML === 'function') {
-        container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderIncotermsSummaryHTML();
+      } else if (activeArcadeView === 'summary' && typeof window.renderArcadeSummaryHTML === 'function') {
+        container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderArcadeSummaryHTML(activeArcadeGame);
         bindArcadeSummaryEvents();
       } else {
         container.innerHTML = renderCandidateStrip(currentUser) + renderQuizHubNavigationTabs() + window.renderArcadeLobbyHTML();
@@ -474,18 +475,20 @@
   }
 
   function bindArcadeLobbyEvents() {
-    const launchIncotermsBtn = document.getElementById('btn-launch-incoterms-game');
-    if (launchIncotermsBtn) {
-      launchIncotermsBtn.addEventListener('click', function () {
+    const playBtns = document.querySelectorAll('.btn-play-game');
+    playBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const gameKey = btn.getAttribute('data-game') || 'incoterms';
+        activeArcadeGame = gameKey;
         activeArcadeView = 'playing';
-        if (typeof window.startIncotermsBattle === 'function') {
-          window.startIncotermsBattle((nextView) => {
+        if (typeof window.launchArcadeGame === 'function') {
+          window.launchArcadeGame(gameKey, (nextView) => {
             if (nextView === 'summary') activeArcadeView = 'summary';
             renderQuizHubUI();
           });
         }
       });
-    }
+    });
 
     const soundBtn = document.getElementById('btn-toggle-arcade-sound');
     if (soundBtn) {
@@ -507,12 +510,80 @@
       });
     }
 
+    // Game 1: Incoterms
     const choiceBtns = document.querySelectorAll('.btn-risk-choice');
     choiceBtns.forEach(btn => {
       btn.addEventListener('click', function () {
         const choice = btn.getAttribute('data-choice');
         if (typeof window.handleIncotermsChoice === 'function') {
           window.handleIncotermsChoice(choice, (nextView) => {
+            if (nextView === 'summary') activeArcadeView = 'summary';
+            renderQuizHubUI();
+          });
+        }
+      });
+    });
+
+    // Game 2: Ladder
+    const ladderBtns = document.querySelectorAll('.btn-ladder-choice');
+    ladderBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const idx = parseInt(btn.getAttribute('data-index'));
+        if (typeof window.handleLadderAnswer === 'function') {
+          window.handleLadderAnswer(idx, (nextView) => {
+            if (nextView === 'summary') activeArcadeView = 'summary';
+            renderQuizHubUI();
+          });
+        }
+      });
+    });
+
+    const lifelineBtns = document.querySelectorAll('.btn-lifeline');
+    lifelineBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const type = btn.getAttribute('data-type');
+        const typeKey = type === 'fifty' ? 'fiftyFifty' : (type === 'ai' ? 'aiClue' : 'skip');
+        if (typeof window.handleLadderLifeline === 'function') {
+          window.handleLadderLifeline(typeKey, () => renderQuizHubUI());
+        }
+      });
+    });
+
+    // Game 3: Inspector
+    const inspectorBtns = document.querySelectorAll('.btn-inspector-choice');
+    inspectorBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const idx = parseInt(btn.getAttribute('data-index'));
+        if (typeof window.handleInspectorAnswer === 'function') {
+          window.handleInspectorAnswer(idx, (nextView) => {
+            if (nextView === 'summary') activeArcadeView = 'summary';
+            renderQuizHubUI();
+          });
+        }
+      });
+    });
+
+    // Game 4: Hazmat
+    const hazmatBtns = document.querySelectorAll('.btn-hazmat-choice');
+    hazmatBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const choice = btn.getAttribute('data-choice');
+        if (typeof window.handleHazmatAnswer === 'function') {
+          window.handleHazmatAnswer(choice, (nextView) => {
+            if (nextView === 'summary') activeArcadeView = 'summary';
+            renderQuizHubUI();
+          });
+        }
+      });
+    });
+
+    // Game 5: Dispatcher
+    const dispatcherBtns = document.querySelectorAll('.btn-dispatcher-choice');
+    dispatcherBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const idx = parseInt(btn.getAttribute('data-index'));
+        if (typeof window.handleDispatcherAnswer === 'function') {
+          window.handleDispatcherAnswer(idx, (nextView) => {
             if (nextView === 'summary') activeArcadeView = 'summary';
             renderQuizHubUI();
           });
@@ -526,8 +597,8 @@
     if (replayBtn) {
       replayBtn.addEventListener('click', function () {
         activeArcadeView = 'playing';
-        if (typeof window.startIncotermsBattle === 'function') {
-          window.startIncotermsBattle((nextView) => {
+        if (typeof window.launchArcadeGame === 'function') {
+          window.launchArcadeGame(activeArcadeGame, (nextView) => {
             if (nextView === 'summary') activeArcadeView = 'summary';
             renderQuizHubUI();
           });
