@@ -163,8 +163,8 @@
     maxCombo: 0,
     correctCount: 0,
     timerInterval: null,
-    timeLeft: 5,
-    totalTime: 5,
+    timeLeft: 10,
+    totalTime: 10,
     userAnswers: []
   };
 
@@ -262,10 +262,10 @@
                 Incoterms® Rapid Battle
               </h4>
               <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0 0 18px 0; line-height: 1.5;">
-                5-second flashcards. Who carries the loss? Test your split-second trade risk instincts under Incoterms® 2020.
+                10-second flashcards. Who carries the loss? Test your split-second trade risk instincts under Incoterms® 2020.
               </p>
               <div style="display: flex; gap: 12px; font-size: 0.78rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 22px;">
-                <span style="background: #FFEDD5; padding: 3px 8px; border-radius: 6px; color: #C2410C;">⏱️ 5s Timer</span>
+                <span style="background: #FFEDD5; padding: 3px 8px; border-radius: 6px; color: #C2410C;">⏱️ 10s Timer</span>
                 <span style="background: #EFF6FF; padding: 3px 8px; border-radius: 6px; color: #1D4ED8;">⚡ 10 Scenarios</span>
                 <span style="background: #F0FDF4; padding: 3px 8px; border-radius: 6px; color: #15803D;">🔥 Combo XP</span>
               </div>
@@ -383,7 +383,7 @@
           <div style="max-width: 320px; margin: 0 auto 24px auto;">
             <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; margin-bottom: 6px;">
               <span style="color: var(--text-muted); text-transform: uppercase;">Time Left</span>
-              <span id="timer-text" style="color: #FF5A1F; font-size: 0.9rem;">5.0s</span>
+              <span id="timer-text" style="color: #FF5A1F; font-size: 0.9rem;">10.0s</span>
             </div>
             <div style="width: 100%; height: 8px; background: #F1F5F9; border-radius: 10px; overflow: hidden; border: 1px solid #E2E8F0;">
               <div id="timer-bar" style="width: 100%; height: 100%; background: #10B981; transition: width 0.1s linear, background-color 0.3s ease;"></div>
@@ -519,12 +519,12 @@
 
   function startQuestionTimer(renderCallback) {
     clearInterval(gameState.timerInterval);
-    gameState.timeLeft = 5.0;
+    gameState.timeLeft = 10.0;
     const timerText = document.getElementById('timer-text');
     const timerBar = document.getElementById('timer-bar');
 
     const startTime = Date.now();
-    const duration = 5000; // 5 seconds
+    const duration = 10000; // 10 seconds
 
     gameState.timerInterval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -535,10 +535,10 @@
       if (timerBar) {
         const percent = (remaining / duration) * 100;
         timerBar.style.width = `${percent}%`;
-        if (remaining <= 1500) {
-          timerBar.style.backgroundColor = '#EF4444'; // Red alert
-        } else if (remaining <= 3000) {
-          timerBar.style.backgroundColor = '#F59E0B'; // Yellow warning
+        if (remaining <= 3000) {
+          timerBar.style.backgroundColor = '#EF4444'; // Red alert (last 3s)
+        } else if (remaining <= 6000) {
+          timerBar.style.backgroundColor = '#F59E0B'; // Yellow warning (last 6s)
         } else {
           timerBar.style.backgroundColor = '#10B981'; // Green
         }
