@@ -9082,6 +9082,17 @@ button.btn-secondary:active,
   border-color: #475569 !important;
 }
 
+[data-theme="dark"] .arcade-rules-guide-banner {
+  background: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] #guide-toggle-label {
+  background: #334155 !important;
+  color: #F8FAFC !important;
+  border-color: #475569 !important;
+}
+
 @media (max-width: 640px) {
   .quiz-tab-toggle-btn {
     padding: 8px 14px;

@@ -499,6 +499,19 @@
         }
       });
     }
+
+    const toggleGuideBtn = document.getElementById('btn-toggle-arcade-guide');
+    const guideBreakdown = document.getElementById('arcade-rules-breakdown');
+    const guideToggleLabel = document.getElementById('guide-toggle-label');
+    if (toggleGuideBtn && guideBreakdown) {
+      toggleGuideBtn.addEventListener('click', function () {
+        const isHidden = guideBreakdown.style.display === 'none';
+        guideBreakdown.style.display = isHidden ? 'block' : 'none';
+        if (guideToggleLabel) {
+          guideToggleLabel.textContent = isHidden ? 'Hide Rules ▴' : 'View Rules ▾';
+        }
+      });
+    }
   }
 
   function bindArcadeGameEvents() {

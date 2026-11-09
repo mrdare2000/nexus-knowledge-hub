@@ -765,6 +765,76 @@
           </div>
         </div>
 
+        <!-- SCORING & RULES GUIDELINE CARD -->
+        <div class="arcade-rules-guide-banner" style="background: var(--bg-white); border: 2px solid #E2E8F0; border-radius: 20px; padding: 22px 24px; margin-bottom: 30px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <div id="btn-toggle-arcade-guide" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 1.5rem; background: #FFF7ED; border: 1.5px solid #FFEDD5; width: 44px; height: 44px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center;">📖</span>
+              <div>
+                <h4 style="font-family: 'Outfit', sans-serif; margin: 0; color: var(--primary-navy); font-size: 1.12rem; font-weight: 800;">
+                  Arcade Scoring & Rules Guide: How XP & Combos Work
+                </h4>
+                <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 0.85rem;">
+                  Scoring breakdown: Base XP, 🔥 Streak Combo Multipliers, ⏱️ 20s Speed Bonus, and ❤️ Cargo Integrity.
+                </p>
+              </div>
+            </div>
+            <button id="guide-toggle-label" style="border: 1.5px solid var(--border-color); background: #F8FAFC; color: var(--primary-navy); font-weight: 800; border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; cursor: pointer;">
+              Hide Rules ▴
+            </button>
+          </div>
+
+          <div id="arcade-rules-breakdown" style="display: block; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 18px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px;">
+              
+              <!-- 1. Base XP -->
+              <div style="background: #FFF7ED; border: 1.5px solid #FFEDD5; border-radius: 14px; padding: 14px 16px;">
+                <div style="font-size: 0.8rem; font-weight: 800; color: #EA580C; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+                  <span>⚡ Base XP (Marks)</span>
+                </div>
+                <div style="font-size: 0.84rem; color: #9A3412; line-height: 1.45;">
+                  Earn <strong>+50 to +250 XP</strong> for every correct operational decision or caught document discrepancy.
+                </div>
+              </div>
+
+              <!-- 2. Combo Multiplier -->
+              <div style="background: #EFF6FF; border: 1.5px solid #DBEAFE; border-radius: 14px; padding: 14px 16px;">
+                <div style="font-size: 0.8rem; font-weight: 800; color: #2563EB; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+                  <span>🔥 Combo Multipliers</span>
+                </div>
+                <div style="font-size: 0.84rem; color: #1E40AF; line-height: 1.45;">
+                  Streak consecutive correct answers to multiply XP:<br>
+                  • <strong>1x</strong>: 1st correct (50 XP)<br>
+                  • <strong>2x</strong>: 2–3 in a row (+100 XP)<br>
+                  • <strong>3x</strong>: 4+ in a row (+150 XP)<br>
+                  <span style="color: #DC2626; font-size: 0.78rem; font-weight: 700;">⚠️ 1 wrong answer breaks combo!</span>
+                </div>
+              </div>
+
+              <!-- 3. Speed Bonus -->
+              <div style="background: #FEF3C7; border: 1.5px solid #FDE68A; border-radius: 14px; padding: 14px 16px;">
+                <div style="font-size: 0.8rem; font-weight: 800; color: #D97706; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+                  <span>⏱️ 20s Speed Bonus</span>
+                </div>
+                <div style="font-size: 0.84rem; color: #92400E; line-height: 1.45;">
+                  The faster you react within the 20-second window, the higher your bonus: <strong>Remaining Secs × 4 XP</strong> (up to +80 instant bonus XP!).
+                </div>
+              </div>
+
+              <!-- 4. Lives System -->
+              <div style="background: #FEE2E2; border: 1.5px solid #FECACA; border-radius: 14px; padding: 14px 16px;">
+                <div style="font-size: 0.8rem; font-weight: 800; color: #DC2626; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;">
+                  <span>❤️ Cargo Integrity (3 Lives)</span>
+                </div>
+                <div style="font-size: 0.84rem; color: #991B1B; line-height: 1.45;">
+                  Start each voyage with 3 containers (3 Hearts). Each mistake drops a container into the ocean. If you lose all 3, the vessel is abandoned (Game Over)!
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.35rem; margin: 0 0 18px 0; display: flex; align-items: center; justify-content: space-between;">
           <span>🎮 Select Game Zone</span>
           <span style="font-size: 0.85rem; font-weight: 700; color: #10B981;">⚡ 5 of 5 Live & Playable</span>
@@ -785,10 +855,11 @@
               <p style="color: var(--text-muted); font-size: 0.86rem; margin: 0 0 14px 0; line-height: 1.45;">
                 Load containers onto the MV NEXUS! Survive with 3 Hearts, earn Speed Bonuses, and navigate from Colombo to Singapore!
               </p>
-              <div style="display: flex; gap: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 18px;">
+              <div style="display: flex; gap: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 18px; flex-wrap: wrap;">
                 <span style="background: #FEE2E2; color: #DC2626; padding: 3px 7px; border-radius: 6px;">❤️ 3 Lives</span>
+                <span style="background: #FEF3C7; color: #D97706; padding: 3px 7px; border-radius: 6px;">⏱️ 20s Timer</span>
                 <span style="background: #E0F2FE; color: #0284C7; padding: 3px 7px; border-radius: 6px;">🚢 Ship Stage</span>
-                <span style="background: #FEF3C7; color: #D97706; padding: 3px 7px; border-radius: 6px;">⚡ Speed XP</span>
+                <span style="background: #ECFDF5; color: #059669; padding: 3px 7px; border-radius: 6px;">🔥 Combo XP</span>
               </div>
             </div>
             <button class="btn btn-primary btn-play-game" data-game="incoterms" style="width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer;">
@@ -1611,7 +1682,7 @@
             </span>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 400px; margin: 0 auto 30px auto;">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 520px; margin: 0 auto 30px auto;">
             <div style="background: #FFF7ED; padding: 18px 10px; border-radius: 16px; border: 1px solid #FFEDD5;">
               <div style="font-size: 1.8rem; font-weight: 900; color: #FF5A1F; font-family: 'Outfit', sans-serif;">+${gameState.score}</div>
               <div style="font-size: 0.75rem; font-weight: 700; color: #C2410C; text-transform: uppercase;">XP Earned</div>
@@ -1619,6 +1690,10 @@
             <div style="background: #F0FDF4; padding: 18px 10px; border-radius: 16px; border: 1px solid #DCFCE7;">
               <div style="font-size: 1.8rem; font-weight: 900; color: #10B981; font-family: 'Outfit', sans-serif;">${accuracy}%</div>
               <div style="font-size: 0.75rem; font-weight: 700; color: #15803D; text-transform: uppercase;">Accuracy (${gameState.correctCount}/${gameState.items.length})</div>
+            </div>
+            <div style="background: #EFF6FF; padding: 18px 10px; border-radius: 16px; border: 1px solid #DBEAFE;">
+              <div style="font-size: 1.8rem; font-weight: 900; color: #2563EB; font-family: 'Outfit', sans-serif;">${gameState.maxCombo}x</div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: #1D4ED8; text-transform: uppercase;">Max Combo</div>
             </div>
           </div>
 
@@ -1665,6 +1740,9 @@
     const stats = getArcadeStats();
     stats.totalXp += gameState.score;
     stats.gamesPlayed += 1;
+    if (gameState.maxCombo > (stats.bestCombo || 0)) {
+      stats.bestCombo = gameState.maxCombo;
+    }
     saveArcadeStats(stats);
 
     renderCallback('summary');
