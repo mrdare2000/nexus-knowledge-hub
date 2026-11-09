@@ -1,5 +1,5 @@
 // Nexus Logistics Arcade - Gamified Micro-Learning Engine
-// Complete 5-Game Suite with Web Audio BGM & Sound FX
+// Complete 5-Game Suite with Maritime Stage, 3 Lives, Speed Bonus & Realistic Document Inspector
 
 (function () {
   'use strict';
@@ -57,7 +57,11 @@
     });
   }
 
-  // Soft, driving arcade background music (subtle rhythmic synth bassline + soft hats)
+  function playClankSound() {
+    playTone(300, 'square', 0.08, 0.09);
+    setTimeout(() => playTone(150, 'triangle', 0.15, 0.12), 40);
+  }
+
   function startArcadeBGM() {
     if (isMuted || bgmPlaying) return;
     initAudio();
@@ -79,12 +83,10 @@
         const filter = audioCtx.createBiquadFilter();
 
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(420, audioCtx.currentTime); // Soft muffled warm pulse
+        filter.frequency.setValueAtTime(420, audioCtx.currentTime);
 
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-        // Very low volume (0.024) so it creates an ambient energetic vibe without distraction
         gain.gain.setValueAtTime(0.024, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.11);
 
@@ -95,7 +97,6 @@
         osc.start();
         osc.stop(audioCtx.currentTime + 0.11);
 
-        // Soft arcade hi-hat on offbeats
         if (step % 2 === 1) {
           const hatOsc = audioCtx.createOscillator();
           const hatGain = audioCtx.createGain();
@@ -142,7 +143,7 @@
       ruleTag: "Ocean Freight • Mid-Voyage Storm",
       scenario: "A storm damages goods in the middle of the Indian Ocean during a voyage from Colombo to Singapore. Who carries the transit risk?",
       answer: "Buyer",
-      explanation: "Under CIF, risk transfers to the Buyer at the origin port when loaded on the ship. The Seller buys insurance, but the cargo risk belongs to the Buyer."
+      explanation: "Under CIF, risk transfers to Buyer at the origin port when loaded on the ship. The Seller buys insurance, but the cargo risk belongs to the Buyer."
     },
     {
       id: "exw_1",
@@ -438,87 +439,88 @@
     }
   ];
 
-  // GAME 3: Port Inspector Detective (5 Cases)
+  // GAME 3: Port Inspector Detective - REALISTIC DOCUMENT HOTSPOT DATA
   const INSPECTOR_CASES = [
     {
       caseNo: 1,
       title: "Case #101: Weight Discrepancy Alert",
-      docs: {
-        invoice: "Invoice #NX-991 • Description: Garments • Gross Weight: 4,500 kg • Net Weight: 4,100 kg",
-        packingList: "Packing List #NX-991 • 150 Cartons • Gross Weight: 4,500 kg • Net: 4,100 kg",
-        bol: "Master B/L #MSCU981 • Port: Colombo to Hamburg • Declared Gross Weight: 4,050 kg"
-      },
-      options: [
-        "Weight conflict: Master B/L declares 4,050 kg while Invoice/Packing List declares 4,500 kg (-450 kg shortage).",
-        "Carton count mismatch between Invoice and Packing List.",
-        "Missing consignee address on Master Bill of Lading."
-      ],
-      correct: 0,
-      explanation: "Discrepancy: The B/L weight differs by 450 kg from the Commercial Invoice and Packing List. This will trigger a Customs VGM weight hold."
+      carrier: "MSC MEDITERRANEAN SHIPPING COMPANY",
+      docType: "ORIGINAL OCEAN BILL OF LADING",
+      docNumber: "MSCU-7489201",
+      customsDecl: "Customs Declaration & Commercial Invoice #INV-880 declares 4,500.00 KG Gross Weight.",
+      fields: [
+        { key: "shipper", label: "Shipper / Exporter", value: "Lanka Garments (Pvt) Ltd, Colombo 03, Sri Lanka", isError: false },
+        { key: "consignee", label: "Consignee", value: "Hamburg Fashions GMBH, 20457 Hamburg, Germany", isError: false },
+        { key: "vessel", label: "Vessel / Voyage", value: "MSC TINA / V.049W", isError: false },
+        { key: "pol", label: "Port of Loading (POL)", value: "Colombo, Sri Lanka (LKCMB)", isError: false },
+        { key: "pod", label: "Port of Discharge (POD)", value: "Hamburg, Germany (DEHAM)", isError: false },
+        { key: "grossWeight", label: "Gross Weight (VGM)", value: "4,050.00 KG (Weight Discrepancy)", isError: true, flawReason: "B/L declares 4,050 KG, but Invoice & Customs declare 4,500 KG (450 KG unmanifested weight difference triggers VGM customs audit)!" },
+        { key: "packages", label: "Total Package Count", value: "150 Corrugated Cartons", isError: false },
+        { key: "sealNo", label: "Container Seal No", value: "SL-994821", isError: false }
+      ]
     },
     {
       caseNo: 2,
       title: "Case #102: HS Code Classification Mismatch",
-      docs: {
-        invoice: "Invoice #NX-992 • Commodity: Ceylon Pure Black Tea • Tariff HS Code: 0902.30",
-        packingList: "Packing List #NX-992 • 200 Wooden Chests Ceylon Black Tea • Net: 5,000 kg",
-        bol: "Master B/L #ONE902 • Cargo Description: Pure Green Tea (Flavored) • HS Code: 0902.10"
-      },
-      options: [
-        "Inconsistent description and HS Code: Invoice states Black Tea (0902.30), but B/L declares Green Tea (0902.10).",
-        "Packing List is missing the shipper stamp.",
-        "The gross weight is missing from the Bill of Lading."
-      ],
-      correct: 0,
-      explanation: "Tariff Mismatch: Black Tea is classified under HS 0902.30/40, while Green Tea is 0902.10/20. Conflicting declarations lead to customs audits."
+      carrier: "ONE - OCEAN NETWORK EXPRESS",
+      docType: "MULTIMODAL BILL OF LADING",
+      docNumber: "ONEY-3382901",
+      customsDecl: "Commercial Invoice #NX-440 clearly sells Ceylon Pure Black Tea (HS 0902.30).",
+      fields: [
+        { key: "shipper", label: "Shipper", value: "Kandy Tea Exporters Ltd, Kandy, Sri Lanka", isError: false },
+        { key: "consignee", label: "Consignee", value: "London Tea Blenders PLC, London, UK", isError: false },
+        { key: "pol", label: "Port of Loading (POL)", value: "Colombo (LKCMB)", isError: false },
+        { key: "pod", label: "Port of Discharge (POD)", value: "London Gateway (GBLON)", isError: false },
+        { key: "hsCode", label: "Commodity Tariff HS Code", value: "HS 0902.10 (Green Tea Flavored)", isError: true, flawReason: "Tariff Mismatch: B/L declares Green Tea (HS 0902.10) instead of Black Tea (HS 0902.30), causing customs misclassification penalties!" },
+        { key: "grossWeight", label: "Total Gross Weight", value: "5,000.00 KG", isError: false },
+        { key: "containerNo", label: "Container Number", value: "TGHU-882910-4", isError: false }
+      ]
     },
     {
       caseNo: 3,
       title: "Case #103: Port of Discharge Conflict",
-      docs: {
-        invoice: "Invoice #NX-993 • Terms: CIF Rotterdam • Discharge Port: Rotterdam, Netherlands",
-        packingList: "Packing List #NX-993 • 2x40HC Containers Automotive Spares",
-        bol: "Master B/L #HLCU441 • Port of Loading: Colombo • Port of Discharge: Antwerp, Belgium"
-      },
-      options: [
-        "Port Conflict: Commercial Invoice specifies Rotterdam, but Master B/L is consigned to Antwerp.",
-        "Container type mismatch on the packing list.",
-        "Invoice currency does not match the bill of lading currency."
-      ],
-      correct: 0,
-      explanation: "Port Mismatch: Cargo routed to Antwerp while commercial sales contracts specify Rotterdam will fail letter of credit (L/C) bank presentation."
+      carrier: "HAPAG-LLOYD CONTAINER LINE",
+      docType: "ORIGINAL BILL OF LADING",
+      docNumber: "HLCU-9024881",
+      customsDecl: "Sales Contract and Commercial Invoice strictly specify delivery to Rotterdam, Netherlands.",
+      fields: [
+        { key: "shipper", label: "Shipper", value: "Ceylon Auto Spares Ltd, Colombo, Sri Lanka", isError: false },
+        { key: "consignee", label: "Consignee", value: "Euro Logistics BV, Rotterdam", isError: false },
+        { key: "pol", label: "Port of Loading (POL)", value: "Colombo (LKCMB)", isError: false },
+        { key: "pod", label: "Port of Discharge (POD)", value: "Antwerp, Belgium (BEANR)", isError: true, flawReason: "Discharge Port Conflict: Bill of Lading routes cargo to Antwerp instead of Rotterdam, breaching Letter of Credit bank instructions!" },
+        { key: "freight", label: "Freight Payment Terms", value: "CIF Rotterdam (Prepaid)", isError: false },
+        { key: "grossWeight", label: "Gross Weight", value: "18,400.00 KG", isError: false }
+      ]
     },
     {
       caseNo: 4,
       title: "Case #104: Package Quantity Shortfall",
-      docs: {
-        invoice: "Invoice #NX-994 • Quantity: 500 Cartons Ceramic Tiles • Total Value: $25,000 USD",
-        packingList: "Packing List #NX-994 • Pallets 1 to 20 • Total Count: 450 Cartons",
-        bol: "Master B/L #CMA882 • Declared Quantity: 500 Cartons as per Shipper Declaration"
-      },
-      options: [
-        "Quantity Shortage: Packing list confirms only 450 cartons, while Invoice and B/L state 500 cartons.",
-        "Currency mismatch between invoice and freight manifest.",
-        "Bill of lading has wrong container seal number."
-      ],
-      correct: 0,
-      explanation: "Short Shipment: Physical count is 450 cartons. If 500 cartons are cleared, the importer pays excess duties and faces customs discrepancies."
+      carrier: "CMA CGM THE FRENCH LINE",
+      docType: "NON-NEGOTIABLE SEA WAYBILL",
+      docNumber: "CMA-5519200",
+      customsDecl: "Physical CFS Tally Sheet & Packing List count exactly 450 Cartons.",
+      fields: [
+        { key: "shipper", label: "Shipper", value: "Lanka Ceramics (Pvt) Ltd, Colombo, Sri Lanka", isError: false },
+        { key: "consignee", label: "Consignee", value: "Sydney Tile Wholesale, Sydney, Australia", isError: false },
+        { key: "packages", label: "Declared Total Packages", value: "500 Cartons Ceramic Floor Tiles", isError: true, flawReason: "Quantity Shortage: B/L declares 500 Cartons, but physical packing list is only 450 Cartons (Short shipment discrepancy)!" },
+        { key: "pol", label: "Port of Loading (POL)", value: "Colombo (LKCMB)", isError: false },
+        { key: "pod", label: "Port of Discharge (POD)", value: "Sydney (AUSYD)", isError: false }
+      ]
     },
     {
       caseNo: 5,
-      title: "Case #105: Dangerous Goods Undecleared",
-      docs: {
-        invoice: "Invoice #NX-995 • Commodity: Industrial Paint & Solvent Thinners (Flashpoint 24°C)",
-        packingList: "Packing List #NX-995 • 50 Steel Drums • UN 1263 Class 3 Flammable Liquid",
-        bol: "Master B/L #MAEU771 • Cargo Description: General Non-Hazardous Cargo (Dry Freight)"
-      },
-      options: [
-        "Severe Safety Violation: Hazardous Class 3 flammable solvent is declared as Non-Hazardous general cargo on B/L.",
-        "Steel drum packaging is forbidden for industrial cargo.",
-        "Packing list lacks metric volume conversion."
-      ],
-      correct: 0,
-      explanation: "Dangerous Goods Concealment: UN 1263 Class 3 must be manifested as Dangerous Cargo with DGD certificate. Failing to do so violates SOLAS and IMDG."
+      title: "Case #105: Concealed Dangerous Goods",
+      carrier: "MAERSK LINE A/S",
+      docType: "OCEAN BILL OF LADING",
+      docNumber: "MAEU-8821940",
+      customsDecl: "Shipper commercial invoice lists UN 1263 Class 3 Flammable Industrial Solvent Thinners.",
+      fields: [
+        { key: "shipper", label: "Shipper", value: "Lanka Industrial Paints, Gampaha, Sri Lanka", isError: false },
+        { key: "consignee", label: "Consignee", value: "Nordic Coatings AB, Gothenburg, Sweden", isError: false },
+        { key: "cargoDesc", label: "Commodity & Hazard Class", value: "General Non-Hazardous Freight (Dry Goods)", isError: true, flawReason: "Dangerous Goods Concealment: Declaring flammable UN 1263 Class 3 as Non-Hazardous violates SOLAS and IMDG maritime safety laws!" },
+        { key: "pol", label: "Port of Loading (POL)", value: "Colombo (LKCMB)", isError: false },
+        { key: "pod", label: "Port of Discharge (POD)", value: "Gothenburg (SEGOT)", isError: false }
+      ]
     }
   ];
 
@@ -666,10 +668,9 @@
   // =========================================================================
   // SHARED STATE & STORAGE
   // =========================================================================
-  let currentGame = 'incoterms'; // 'incoterms' | 'ladder' | 'inspector' | 'hazmat' | 'dispatcher'
-  let gameView = 'lobby'; // 'lobby' | 'playing' | 'summary'
+  let currentGame = 'incoterms';
+  let gameView = 'lobby';
 
-  // Generic game state
   let gameState = {
     active: false,
     score: 0,
@@ -677,6 +678,9 @@
     correctCount: 0,
     combo: 0,
     maxCombo: 0,
+    lives: 3,
+    loadedContainers: [],
+    routeProgress: 0,
     timeLeft: 20,
     timerInterval: null,
     items: [],
@@ -726,8 +730,6 @@
     const stats = getArcadeStats();
     return `
       <div class="arcade-lobby-wrapper" style="max-width: 1050px; margin: 0 auto; font-family: 'Inter', sans-serif;">
-        
-        <!-- Arcade Hero Banner -->
         <div class="arcade-hero" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); border-radius: 24px; padding: 32px 28px; color: #FFFFFF; margin-bottom: 30px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(15, 23, 42, 0.25);">
           <div style="position: absolute; top: -50px; right: -50px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(255,90,31,0.3) 0%, transparent 70%); border-radius: 50%;"></div>
           
@@ -737,14 +739,13 @@
                 <span style="font-size: 0.8rem; font-weight: 800; color: #FF7A45; letter-spacing: 0.5px; text-transform: uppercase;">🕹️ NEXUS LOGISTICS ARCADE</span>
               </div>
               <h1 style="font-size: 2.1rem; font-family: 'Outfit', sans-serif; margin: 0 0 8px 0; font-weight: 800;">
-                All 5 Game Zones Unlocked.
+                Logistics Arcade Playground
               </h1>
               <p style="color: #94A3B8; font-size: 0.95rem; margin: 0; max-width: 600px; line-height: 1.5;">
-                Test trade risk instincts, climb from Trainee to Tycoon, detect customs document flaws, handle dangerous goods, and solve global maritime crises!
+                Playable maritime games with live cargo vessel loading, 3 hearts life system, authentic customs document inspection, and crisis management!
               </p>
             </div>
 
-            <!-- Player Arcade Stats Pill -->
             <div style="background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; padding: 16px 22px; display: flex; gap: 20px;">
               <div style="text-align: center;">
                 <div style="font-size: 1.5rem; font-weight: 900; color: #FF7A45; font-family: 'Outfit', sans-serif;">${stats.totalXp}</div>
@@ -764,15 +765,14 @@
           </div>
         </div>
 
-        <!-- Weekly Games Showcase (ALL 5 UNLOCKED) -->
         <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.35rem; margin: 0 0 18px 0; display: flex; align-items: center; justify-content: space-between;">
           <span>🎮 Select Game Zone</span>
-          <span style="font-size: 0.85rem; font-weight: 700; color: #10B981;">⚡ 5 of 5 Playable Now</span>
+          <span style="font-size: 0.85rem; font-weight: 700; color: #10B981;">⚡ 5 of 5 Live & Playable</span>
         </h3>
 
         <div class="arcade-games-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 20px; margin-bottom: 40px;">
           
-          <!-- GAME 1: Incoterms Rapid Battle -->
+          <!-- GAME 1 -->
           <div class="arcade-card-active" style="background: linear-gradient(145deg, #FFFFFF 0%, #FFF7ED 100%); border: 2px solid var(--accent-orange); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(255, 90, 31, 0.14);">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -783,12 +783,12 @@
                 Incoterms® Rapid Battle
               </h4>
               <p style="color: var(--text-muted); font-size: 0.86rem; margin: 0 0 14px 0; line-height: 1.45;">
-                20-second flashcards. Who carries the loss? Test your risk assessment instincts under Incoterms® 2020.
+                Load containers onto the MV NEXUS! Survive with 3 Hearts, earn Speed Bonuses, and navigate from Colombo to Singapore!
               </p>
               <div style="display: flex; gap: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 18px;">
-                <span style="background: #FFEDD5; color: #C2410C; padding: 3px 7px; border-radius: 6px;">⏱️ 20s</span>
-                <span style="background: #EFF6FF; color: #1D4ED8; padding: 3px 7px; border-radius: 6px;">⚡ 28 Scenarios</span>
-                <span style="background: #F0FDF4; color: #15803D; padding: 3px 7px; border-radius: 6px;">🔥 Combos</span>
+                <span style="background: #FEE2E2; color: #DC2626; padding: 3px 7px; border-radius: 6px;">❤️ 3 Lives</span>
+                <span style="background: #E0F2FE; color: #0284C7; padding: 3px 7px; border-radius: 6px;">🚢 Ship Stage</span>
+                <span style="background: #FEF3C7; color: #D97706; padding: 3px 7px; border-radius: 6px;">⚡ Speed XP</span>
               </div>
             </div>
             <button class="btn btn-primary btn-play-game" data-game="incoterms" style="width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer;">
@@ -796,12 +796,12 @@
             </button>
           </div>
 
-          <!-- GAME 2: Logistics Career Ladder -->
+          <!-- GAME 2 -->
           <div style="background: linear-gradient(145deg, #FFFFFF 0%, #EFF6FF 100%); border: 2px solid #3B82F6; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(59, 130, 246, 0.14);">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <div style="font-size: 2.2rem;">🏆</div>
-                <span style="background: #3B82F6; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 2 • UNLOCKED</span>
+                <span style="background: #3B82F6; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 2 • LIVE</span>
               </div>
               <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800;">
                 Logistics Career Ladder
@@ -816,39 +816,39 @@
               </div>
             </div>
             <button class="btn btn-play-game" data-game="ladder" style="width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); color: #FFF; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(37,99,235,0.3);">
-              🚀 Climb the Ladder
+              🚀 Climb Career Ladder
             </button>
           </div>
 
-          <!-- GAME 3: Port Inspector Detective -->
+          <!-- GAME 3: Port Inspector -->
           <div style="background: linear-gradient(145deg, #FFFFFF 0%, #F5F3FF 100%); border: 2px solid #8B5CF6; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(139, 92, 246, 0.14);">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <div style="font-size: 2.2rem;">🕵️‍♂️</div>
-                <span style="background: #8B5CF6; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 3 • UNLOCKED</span>
+                <span style="background: #8B5CF6; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 3 • REALISTIC</span>
               </div>
               <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800;">
                 Port Inspector: Customs Detective
               </h4>
               <p style="color: var(--text-muted); font-size: 0.86rem; margin: 0 0 14px 0; line-height: 1.45;">
-                Review B/L, Commercial Invoice & Packing List case files to catch cargo weight, HS code and tariff flaws!
+                Inspect authentic shipping documents with official carrier stamps! Tap directly on the fraudulent field to catch discrepancies!
               </p>
               <div style="display: flex; gap: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 18px;">
-                <span style="background: #F3E8FF; color: #6B21A8; padding: 3px 7px; border-radius: 6px;">📂 5 Cases</span>
-                <span style="background: #ECFDF5; color: #065F46; padding: 3px 7px; border-radius: 6px;">📄 Cross-Doc</span>
+                <span style="background: #F3E8FF; color: #6B21A8; padding: 3px 7px; border-radius: 6px;">📄 Document Paper</span>
+                <span style="background: #ECFDF5; color: #065F46; padding: 3px 7px; border-radius: 6px;">🔍 Hotspot Tap</span>
               </div>
             </div>
             <button class="btn btn-play-game" data-game="inspector" style="width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%); color: #FFF; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(124,58,237,0.3);">
-              🚀 Start Inspection Desk
+              🚀 Start Document Inspection
             </button>
           </div>
 
-          <!-- GAME 4: DG HazMat Hazard -->
+          <!-- GAME 4 -->
           <div style="background: linear-gradient(145deg, #FFFFFF 0%, #FEF2F2 100%); border: 2px solid #EF4444; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(239, 68, 68, 0.14);">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <div style="font-size: 2.2rem;">⚠️</div>
-                <span style="background: #EF4444; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 4 • UNLOCKED</span>
+                <span style="background: #EF4444; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 4 • LIVE</span>
               </div>
               <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800;">
                 DG HazMat Hazard
@@ -866,12 +866,12 @@
             </button>
           </div>
 
-          <!-- GAME 5: The Route Dispatcher -->
+          <!-- GAME 5 -->
           <div style="background: linear-gradient(145deg, #FFFFFF 0%, #ECFDF5 100%); border: 2px solid #10B981; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.14);">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <div style="font-size: 2.2rem;">🧭</div>
-                <span style="background: #10B981; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 5 • UNLOCKED</span>
+                <span style="background: #10B981; color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px;">WEEK 5 • LIVE</span>
               </div>
               <h4 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); margin: 0 0 6px 0; font-size: 1.2rem; font-weight: 800;">
                 The Route Dispatcher: Crisis Simulator
@@ -891,7 +891,6 @@
 
         </div>
 
-        <!-- Arcade Audio Control & Tip Footer -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 16px; margin-bottom: 20px;">
           <div style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted);">
             <span>🎵 <strong>Arcade BGM:</strong> Soft ambient retro synth beat loops during gameplay for active focus!</span>
@@ -929,6 +928,9 @@
     gameState.correctCount = 0;
     gameState.combo = 0;
     gameState.maxCombo = 0;
+    gameState.lives = 3;
+    gameState.loadedContainers = [];
+    gameState.routeProgress = 0;
     gameState.userAnswers = [];
     gameState.lifelines = { fiftyFifty: true, aiClue: true, skip: true };
     gameState.activeAiClue = null;
@@ -956,15 +958,14 @@
   };
 
   // -------------------------------------------------------------------------
-  // GAME 1: Incoterms Game Screen (20s Timer)
+  // GAME 1: Incoterms Game Screen with Maritime Mini-Stage & 3 Lives
   // -------------------------------------------------------------------------
   function renderIncotermsGameHTML() {
     const q = gameState.items[gameState.currentIndex];
-    const progressPercent = ((gameState.currentIndex) / gameState.items.length) * 100;
     
     return `
-      <div class="incoterms-game-wrapper" style="max-width: 750px; margin: 0 auto; font-family: 'Inter', sans-serif;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <div class="incoterms-game-wrapper" style="max-width: 780px; margin: 0 auto; font-family: 'Inter', sans-serif;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <button id="btn-exit-game" style="background: none; border: none; font-size: 0.9rem; font-weight: 700; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 6px;">
             ← Exit to Arcade
           </button>
@@ -972,18 +973,43 @@
             <div id="combo-pill" style="display: ${gameState.combo > 1 ? 'inline-block' : 'none'}; background: linear-gradient(135deg, #FF5A1F, #E11D48); color: #FFF; font-size: 0.78rem; font-weight: 900; padding: 3px 10px; border-radius: 12px; animation: pulse 1s infinite;">
               🔥 ${gameState.combo}x COMBO
             </div>
-            <div style="font-size: 1.1rem; font-weight: 900; color: var(--accent-orange); font-family: 'Outfit', sans-serif;">
+            <div style="font-size: 1.15rem; font-weight: 900; color: var(--accent-orange); font-family: 'Outfit', sans-serif;">
               ${gameState.score} XP
             </div>
           </div>
         </div>
 
-        <div style="width: 100%; height: 6px; background: #E2E8F0; border-radius: 10px; margin-bottom: 24px; overflow: hidden;">
-          <div style="width: ${progressPercent}%; height: 100%; background: linear-gradient(90deg, #FF5A1F, #38BDF8); transition: width 0.3s ease;"></div>
+        <!-- MARITIME MINI-STAGE (Interactive Harbor & Ship Deck) -->
+        <div class="maritime-mini-stage">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <span style="font-size: 0.76rem; font-weight: 800; color: #0369A1; text-transform: uppercase;">Cargo Integrity:</span>
+              <span style="font-size: 1.15rem; letter-spacing: 2px;">
+                ${'❤️'.repeat(Math.max(0, gameState.lives))}${'💔'.repeat(Math.max(0, 3 - gameState.lives))}
+              </span>
+            </div>
+            <div style="font-size: 0.75rem; font-weight: 800; color: #0C4A6E; background: rgba(255,255,255,0.7); padding: 3px 10px; border-radius: 12px;">
+              ⚓ Colombo (LKCMB) ➔ 🚢 ${gameState.routeProgress}% ➔ 🇸🇬 Singapore
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 8px;">
+            <div style="font-size: 2.3rem; transform: scaleX(-1);">🏗️</div>
+            <div class="mini-vessel-hull" style="background: #1E293B; border-radius: 6px 18px 4px 4px; padding: 6px 14px; color: #FFF; box-shadow: 0 4px 10px rgba(0,0,0,0.25);">
+              <div style="display: flex; gap: 4px; margin-bottom: 4px; min-height: 16px; align-items: flex-end;">
+                ${gameState.loadedContainers.length === 0 ? `<span style="font-size: 0.7rem; color: #94A3B8;">Stowing Holds...</span>` : gameState.loadedContainers.map(color => `
+                  <div class="mini-container-block loaded" style="background: ${color};"></div>
+                `).join('')}
+              </div>
+              <div style="font-size: 0.72rem; font-weight: 900; letter-spacing: 1px; color: #38BDF8;">
+                🚢 MV NEXUS ENTERPRISE
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="game-flashcard" id="game-flashcard" style="background: var(--bg-white); border: 2px solid var(--border-color); border-radius: 24px; padding: 32px 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); text-align: center; position: relative; margin-bottom: 25px; transition: all 0.25s ease;">
-          <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;">
+        <div class="game-flashcard" id="game-flashcard" style="background: var(--bg-white); border: 2px solid var(--border-color); border-radius: 24px; padding: 30px 26px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); text-align: center; position: relative; margin-bottom: 25px; transition: all 0.25s ease;">
+          <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;">
             <span style="background: #FFF7ED; color: #C2410C; border: 1px solid #FFEDD5; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;">
               ${q.term}
             </span>
@@ -991,15 +1017,15 @@
               ${q.ruleTag}
             </span>
             <span style="background: #EFF6FF; color: #1D4ED8; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;">
-              Scenario ${gameState.currentIndex + 1} of ${gameState.items.length}
+              Container ${gameState.currentIndex + 1} of ${gameState.items.length}
             </span>
           </div>
 
-          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.35rem; line-height: 1.5; font-weight: 700; margin: 0 0 24px 0; min-height: 80px; display: flex; align-items: center; justify-content: center;">
+          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.35rem; line-height: 1.5; font-weight: 700; margin: 0 0 22px 0; min-height: 75px; display: flex; align-items: center; justify-content: center;">
             "${q.scenario}"
           </h2>
 
-          <div style="max-width: 320px; margin: 0 auto 24px auto;">
+          <div style="max-width: 320px; margin: 0 auto 22px auto;">
             <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; margin-bottom: 6px;">
               <span style="color: var(--text-muted); text-transform: uppercase;">Time Left</span>
               <span id="timer-text" style="color: #FF5A1F; font-size: 0.9rem;">20.0s</span>
@@ -1009,7 +1035,7 @@
             </div>
           </div>
 
-          <div id="action-buttons-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 10px;">
+          <div id="action-buttons-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 10px;">
             <button class="btn-risk-choice" data-choice="Buyer" style="background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%); color: #FFFFFF; border: none; padding: 18px 24px; border-radius: 16px; font-weight: 800; font-size: 1.15rem; cursor: pointer; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.28); transition: transform 0.15s ease, filter 0.2s ease;">
               👤 BUYER
             </button>
@@ -1071,9 +1097,20 @@
       gameState.combo += 1;
       if (gameState.combo > gameState.maxCombo) gameState.maxCombo = gameState.combo;
       const multiplier = gameState.combo >= 4 ? 3 : (gameState.combo >= 2 ? 2 : 1);
-      pointsEarned = 50 * multiplier;
+      
+      // Speed Bonus
+      const remainingSec = parseFloat(gameState.timeLeft) || 0;
+      const speedBonus = Math.round(remainingSec * 4);
+      pointsEarned = (50 * multiplier) + speedBonus;
       gameState.score += pointsEarned;
       gameState.correctCount += 1;
+
+      // Add container to ship deck
+      const colors = ['#FF5A1F', '#38BDF8', '#10B981', '#8B5CF6', '#F59E0B'];
+      gameState.loadedContainers.push(colors[gameState.currentIndex % colors.length]);
+      gameState.routeProgress = Math.min(100, Math.round(((gameState.currentIndex + 1) / gameState.items.length) * 100));
+
+      playClankSound();
       playSuccessSound();
 
       if (flashcard) {
@@ -1087,15 +1124,18 @@
         feedbackBox.style.color = '#065F46';
         feedbackBox.innerHTML = `
           <div style="font-weight: 800; font-size: 0.95rem; margin-bottom: 4px;">
-            🎉 Correct! (+${pointsEarned} XP ${multiplier > 1 ? `• ${multiplier}x Combo` : ''})
+            🎉 Loaded Safely! (+${pointsEarned} XP • Base + ⚡${speedBonus} Speed Bonus)
           </div>
           <div style="font-size: 0.85rem; line-height: 1.4;">${q.explanation}</div>
         `;
       }
     } else {
       gameState.combo = 0;
+      gameState.lives -= 1; // Deduct Life Heart
       playErrorSound();
+
       if (flashcard) {
+        flashcard.classList.add('arcade-shake');
         flashcard.style.borderColor = '#EF4444';
         flashcard.style.boxShadow = '0 10px 35px rgba(239, 68, 68, 0.2)';
       }
@@ -1106,7 +1146,7 @@
         feedbackBox.style.color = '#991B1B';
         feedbackBox.innerHTML = `
           <div style="font-weight: 800; font-size: 0.95rem; margin-bottom: 4px;">
-            ${userChoice ? '✗ Incorrect!' : '⏰ Time Out!'} Correct Answer: <strong>${q.answer.toUpperCase()}</strong>
+            ${userChoice ? '💥 Cargo Dropped Into Ocean! (-1 Heart)' : '⏰ Time Out! (-1 Heart)'} Correct: <strong>${q.answer.toUpperCase()}</strong>
           </div>
           <div style="font-size: 0.85rem; line-height: 1.4;">${q.explanation}</div>
         `;
@@ -1121,14 +1161,20 @@
     });
 
     setTimeout(() => {
+      // Check if lives reached zero (GAME OVER)
+      if (gameState.lives <= 0) {
+        finishUniversalGame('incoterms', renderCallback, true);
+        return;
+      }
+
       gameState.currentIndex += 1;
       if (gameState.currentIndex >= gameState.items.length) {
-        finishUniversalGame('incoterms', renderCallback);
+        finishUniversalGame('incoterms', renderCallback, false);
       } else {
         renderCallback('playing');
         startIncotermsTimer(renderCallback);
       }
-    }, 1600);
+    }, 1700);
   };
 
   // -------------------------------------------------------------------------
@@ -1152,7 +1198,6 @@
             <span style="background: #EFF6FF; color: #1D4ED8; font-size: 0.85rem; font-weight: 800; padding: 6px 14px; border-radius: 20px;">
               Rank: ${q.rank}
             </span>
-            <!-- Lifelines Group -->
             <div style="display: flex; gap: 8px;">
               <button class="btn-lifeline" data-type="fifty" ${!gameState.lifelines.fiftyFifty ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : 'style="background:#FFFBEB; border:1px solid #FCD34D; color:#B45309; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:8px; cursor:pointer;"'}>
                 💡 50:50
@@ -1213,7 +1258,7 @@
       gameState.hiddenOptions = [];
 
       if (gameState.currentIndex >= gameState.items.length) {
-        finishUniversalGame('ladder', renderCallback);
+        finishUniversalGame('ladder', renderCallback, false);
       } else {
         renderCallback('playing');
       }
@@ -1225,87 +1270,167 @@
         isCorrect: false,
         explanation: `Incorrect. Correct answer was: ${q.options[q.answer]}`
       });
-      finishUniversalGame('ladder', renderCallback);
+      finishUniversalGame('ladder', renderCallback, false);
     }
   };
 
   // -------------------------------------------------------------------------
-  // GAME 3: Port Inspector Detective Screen
+  // GAME 3: Port Inspector Detective - REALISTIC DOCUMENT HOTSPOT SCREEN!
   // -------------------------------------------------------------------------
   function renderInspectorGameHTML() {
     const c = gameState.items[gameState.currentIndex];
     return `
-      <div class="inspector-game-wrapper" style="max-width: 820px; margin: 0 auto; font-family: 'Inter', sans-serif;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <div class="inspector-game-wrapper" style="max-width: 840px; margin: 0 auto; font-family: 'Inter', sans-serif;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
           <button id="btn-exit-game" style="background: none; border: none; font-size: 0.9rem; font-weight: 700; color: var(--text-muted); cursor: pointer;">
             ← Exit to Arcade
           </button>
-          <div style="font-size: 1.1rem; font-weight: 900; color: #7C3AED; font-family: 'Outfit', sans-serif;">
+          <div style="font-size: 1.15rem; font-weight: 900; color: #7C3AED; font-family: 'Outfit', sans-serif;">
             Case ${gameState.currentIndex + 1} of 5 • ${gameState.score} XP
           </div>
         </div>
 
-        <div style="background: var(--bg-white); border: 2px solid var(--border-color); border-radius: 24px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); margin-bottom: 25px;">
-          <div style="font-size: 0.85rem; font-weight: 800; color: #7C3AED; text-transform: uppercase; margin-bottom: 8px;">
-            🕵️ Customs Documentation Desk
+        <!-- Customs Inspection Brief Card -->
+        <div style="background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); border: 2px solid var(--accent-orange); border-radius: 16px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(255,90,31,0.12);">
+          <div style="font-size: 0.78rem; font-weight: 900; color: #C2410C; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
+            🕵️ Customs Intelligence Manifest
           </div>
-          <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.3rem; margin: 0 0 20px 0;">
-            ${c.title}
-          </h2>
+          <div style="font-size: 0.98rem; font-weight: 800; color: var(--primary-navy); line-height: 1.4;">
+            "${c.customsDecl}"
+          </div>
+          <div style="font-size: 0.82rem; color: #9A3412; font-weight: 700; margin-top: 4px;">
+            👉 Action: Cross-reference this bill below. Click/Tap directly on the flawed data field on the document!
+          </div>
+        </div>
 
-          <!-- 3 Document Dossiers -->
-          <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px;">
-            <div style="background: #F8FAFC; border-left: 4px solid #3B82F6; padding: 14px 16px; border-radius: 10px; font-size: 0.88rem;">
-              <strong style="color:#1D4ED8;">1. Commercial Invoice:</strong><br>${c.docs.invoice}
+        <!-- REALISTIC CARRIER BILL OF LADING DOCUMENT PAPER -->
+        <div class="realistic-doc-paper" id="realistic-doc-paper">
+          <div class="doc-rubber-stamp">CUSTOMS ENTRY</div>
+
+          <!-- Document Header -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #78716C; padding-bottom: 12px; margin-bottom: 16px;">
+            <div>
+              <div style="font-weight: 900; font-size: 1.15rem; letter-spacing: 1px; color: #1C1917;">${c.carrier}</div>
+              <div style="font-size: 0.75rem; color: #78716C; font-weight: 700; margin-top: 2px;">${c.docType} • B/L NO: ${c.docNumber}</div>
             </div>
-            <div style="background: #F8FAFC; border-left: 4px solid #10B981; padding: 14px 16px; border-radius: 10px; font-size: 0.88rem;">
-              <strong style="color:#047857;">2. Packing List:</strong><br>${c.docs.packingList}
-            </div>
-            <div style="background: #F8FAFC; border-left: 4px solid #F59E0B; padding: 14px 16px; border-radius: 10px; font-size: 0.88rem;">
-              <strong style="color:#B45309;">3. Master Bill of Lading (MBL):</strong><br>${c.docs.bol}
+            <div style="text-align: right;">
+              <div style="font-family: monospace; font-size: 1.4rem; letter-spacing: 2px; color: #44403C;">||| | ||||| || ||||</div>
+              <div style="font-size: 0.68rem; color: #78716C; text-transform: uppercase;">VERIFIED VGM / SOLAS FORM</div>
             </div>
           </div>
 
-          <h3 style="font-size: 1rem; color: var(--primary-navy); font-weight: 800; margin: 0 0 14px 0;">
-            Which operational discrepancy did you uncover?
-          </h3>
+          <!-- Structured Document Grid -->
+          <div style="border: 1px solid #A8A29E; border-radius: 6px; overflow: hidden; margin-bottom: 14px; background: #FFF;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #CBD5E1;">
+              <div style="padding: 10px 14px; border-right: 1px solid #CBD5E1;">
+                <div style="font-size: 0.7rem; color: #78716C; text-transform: uppercase; font-weight: 800;">Shipper / Exporter:</div>
+                <div class="doc-inspect-hotspot" data-key="${c.fields[0].key}" style="font-size: 0.86rem; font-weight: 700;">
+                  ${c.fields[0].value}
+                </div>
+              </div>
+              <div style="padding: 10px 14px;">
+                <div style="font-size: 0.7rem; color: #78716C; text-transform: uppercase; font-weight: 800;">Consignee / Importer:</div>
+                <div class="doc-inspect-hotspot" data-key="${c.fields[1].key}" style="font-size: 0.86rem; font-weight: 700;">
+                  ${c.fields[1].value}
+                </div>
+              </div>
+            </div>
 
-          <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
-            ${c.options.map((opt, idx) => `
-              <button class="btn-inspector-choice" data-index="${idx}" style="background: #FFFFFF; border: 1.5px solid #CBD5E1; padding: 15px 18px; border-radius: 12px; text-align: left; font-size: 0.92rem; font-weight: 700; color: var(--primary-navy); cursor: pointer; transition: all 0.15s ease;">
-                🔍 ${opt}
-              </button>
-            `).join('')}
+            <div style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #CBD5E1; background: #FAFAF9;">
+              <div style="padding: 8px 14px; border-right: 1px solid #CBD5E1;">
+                <div style="font-size: 0.7rem; color: #78716C; text-transform: uppercase; font-weight: 800;">Port of Loading (POL):</div>
+                <div class="doc-inspect-hotspot" data-key="${c.fields[3].key}" style="font-size: 0.86rem; font-weight: 700;">
+                  ${c.fields[3].value}
+                </div>
+              </div>
+              <div style="padding: 8px 14px;">
+                <div style="font-size: 0.7rem; color: #78716C; text-transform: uppercase; font-weight: 800;">Port of Discharge (POD):</div>
+                <div class="doc-inspect-hotspot" data-key="${c.fields[4].key}" style="font-size: 0.86rem; font-weight: 700;">
+                  ${c.fields[4].value}
+                </div>
+              </div>
+            </div>
+
+            <!-- Goods & Specifics Rows -->
+            <div style="padding: 12px 14px; border-bottom: 1px solid #CBD5E1;">
+              <div style="font-size: 0.7rem; color: #78716C; text-transform: uppercase; font-weight: 800; margin-bottom: 4px;">Description of Packages and Goods:</div>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                ${c.fields.slice(5).map(f => `
+                  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #E7E5E4; padding-bottom: 4px;">
+                    <span style="font-size: 0.82rem; font-weight: 800; color: #44403C;">${f.label}:</span>
+                    <span class="doc-inspect-hotspot" data-key="${f.key}" style="font-size: 0.88rem; font-weight: 800; color: #1C1917;">
+                      ${f.value}
+                    </span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
           </div>
+
+          <div id="inspector-feedback" style="display: none; padding: 12px 16px; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 800; animation: fadeIn 0.2s ease;"></div>
         </div>
       </div>
     `;
   }
 
-  window.handleInspectorAnswer = function (chosenIdx, renderCallback) {
+  window.handleInspectorHotspotClick = function (fieldKey, renderCallback) {
     const c = gameState.items[gameState.currentIndex];
-    const isCorrect = chosenIdx === c.correct;
+    const fieldObj = c.fields.find(f => f.key === fieldKey);
+    const feedback = document.getElementById('inspector-feedback');
+    const clickedHotspot = document.querySelector(`.doc-inspect-hotspot[data-key="${fieldKey}"]`);
 
-    if (isCorrect) {
-      gameState.score += 200;
+    if (!fieldObj) return;
+
+    if (fieldObj.isError) {
+      // Discrepancy Found!
+      if (clickedHotspot) clickedHotspot.classList.add('correct-hit');
+      gameState.score += 250;
       gameState.correctCount += 1;
       playSuccessSound();
+
+      if (feedback) {
+        feedback.style.display = 'block';
+        feedback.style.background = '#ECFDF5';
+        feedback.style.border = '1.5px solid #10B981';
+        feedback.style.color = '#065F46';
+        feedback.innerHTML = `
+          🎯 DISCREPANCY CAUGHT! (+250 XP)<br>
+          <span style="font-weight: 500; font-size: 0.85rem; color: #047857;">${fieldObj.flawReason}</span>
+        `;
+      }
+
+      gameState.userAnswers.push({
+        title: c.title,
+        sub: `Flawed Field: ${fieldObj.label} (${fieldObj.value})`,
+        isCorrect: true,
+        explanation: fieldObj.flawReason
+      });
+
+      setTimeout(() => {
+        gameState.currentIndex += 1;
+        if (gameState.currentIndex >= gameState.items.length) {
+          finishUniversalGame('inspector', renderCallback, false);
+        } else {
+          renderCallback('playing');
+        }
+      }, 1900);
+
     } else {
+      // Wrong field clicked
       playErrorSound();
-    }
-
-    gameState.userAnswers.push({
-      title: c.title,
-      sub: c.options[c.correct],
-      isCorrect,
-      explanation: c.explanation
-    });
-
-    gameState.currentIndex += 1;
-    if (gameState.currentIndex >= gameState.items.length) {
-      finishUniversalGame('inspector', renderCallback);
-    } else {
-      renderCallback('playing');
+      if (clickedHotspot) {
+        clickedHotspot.classList.add('wrong-hit');
+        setTimeout(() => clickedHotspot.classList.remove('wrong-hit'), 500);
+      }
+      if (feedback) {
+        feedback.style.display = 'block';
+        feedback.style.background = '#FEF2F2';
+        feedback.style.border = '1.5px solid #EF4444';
+        feedback.style.color = '#991B1B';
+        feedback.innerHTML = `
+          ❌ Field Verified Correct! Look closely at the cargo particulars or ports. Keep searching!
+        `;
+      }
     }
   };
 
@@ -1334,7 +1459,6 @@
             ${h.question}
           </h2>
 
-          <!-- Visual 2 Pallet Staging Area -->
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;">
             <div style="background: #F8FAFC; border: 2px solid ${h.cargoA.badge}; border-radius: 16px; padding: 20px;">
               <div style="font-size: 2.8rem; margin-bottom: 8px;">${h.cargoA.icon}</div>
@@ -1382,7 +1506,7 @@
 
     gameState.currentIndex += 1;
     if (gameState.currentIndex >= gameState.items.length) {
-      finishUniversalGame('hazmat', renderCallback);
+      finishUniversalGame('hazmat', renderCallback, false);
     } else {
       renderCallback('playing');
     }
@@ -1454,35 +1578,35 @@
 
     gameState.currentIndex += 1;
     if (gameState.currentIndex >= gameState.items.length) {
-      finishUniversalGame('dispatcher', renderCallback);
+      finishUniversalGame('dispatcher', renderCallback, false);
     } else {
       renderCallback('playing');
     }
   };
 
   // -------------------------------------------------------------------------
-  // UNIFIED SUMMARY SCREEN (All Games)
+  // UNIFIED SUMMARY SCREEN (All Games + S.O.S Game Over Support)
   // -------------------------------------------------------------------------
   function renderUnifiedSummaryHTML(gameKey) {
     const accuracy = Math.round((gameState.correctCount / gameState.items.length) * 100);
-    let rankBadge = "Logistics Apprentice 🥉";
-    if (accuracy === 100) rankBadge = "Global Trade Master 👑";
-    else if (accuracy >= 80) rankBadge = "Senior Logistics Specialist 🥇";
-    else if (accuracy >= 60) rankBadge = "Operations Practitioner 🥈";
+    const isGameOver = gameState.lives <= 0;
+
+    let rankBadge = isGameOver ? "S.O.S! Cargo Lost at Sea 💥" : (accuracy === 100 ? "Global Trade Grandmaster 👑" : (accuracy >= 80 ? "Senior Logistics Specialist 🥇" : "Competent Forwarder 🥈"));
+    let badgeColor = isGameOver ? "#DC2626" : (accuracy >= 80 ? "#10B981" : "#FF5A1F");
 
     return `
       <div class="arcade-summary-wrapper" style="max-width: 750px; margin: 0 auto; font-family: 'Inter', sans-serif; text-align: center;">
-        <div style="background: var(--bg-white); border: 2px solid var(--border-color); border-radius: 24px; padding: 40px 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-bottom: 25px;">
-          <div style="font-size: 3.5rem; margin-bottom: 12px;">🎉</div>
+        <div style="background: var(--bg-white); border: 2px solid ${isGameOver ? '#EF4444' : 'var(--border-color)'}; border-radius: 24px; padding: 40px 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-bottom: 25px;">
+          <div style="font-size: 3.5rem; margin-bottom: 12px;">${isGameOver ? '🌊' : '🎉'}</div>
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 2rem; margin: 0 0 6px 0; font-weight: 800;">
-            Mission Complete!
+            ${isGameOver ? 'Vessel Abandoned / Mission Failed!' : 'Mission Accomplished!'}
           </h2>
           <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0 0 25px 0;">
-            Here is your arcade performance assessment.
+            ${isGameOver ? 'You lost all 3 cargo integrity hearts. Review the shipping rules below to avoid losses!' : 'Here is your official logistics arcade performance.'}
           </p>
 
-          <div style="display: inline-block; background: #F8FAFC; border: 2px solid var(--accent-orange); padding: 8px 24px; border-radius: 30px; margin-bottom: 30px;">
-            <span style="font-size: 1.05rem; font-weight: 900; color: var(--accent-orange); font-family: 'Outfit', sans-serif;">
+          <div style="display: inline-block; background: #F8FAFC; border: 2px solid ${badgeColor}; padding: 8px 24px; border-radius: 30px; margin-bottom: 30px;">
+            <span style="font-size: 1.05rem; font-weight: 900; color: ${badgeColor}; font-family: 'Outfit', sans-serif;">
               ${rankBadge}
             </span>
           </div>
@@ -1500,7 +1624,7 @@
 
           <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
             <button id="btn-replay-game" class="btn btn-primary" style="padding: 14px 28px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; cursor: pointer;">
-              🔄 Play Again
+              🔄 Retry Voyage
             </button>
             <button id="btn-return-arcade" style="padding: 14px 28px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; border: 1.5px solid var(--border-color); background: #F8FAFC; color: var(--primary-navy, #0F172A); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: transform 0.15s ease;">
               🕹️ Return to Arcade
@@ -1509,7 +1633,7 @@
         </div>
 
         <h3 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.25rem; margin: 0 0 16px 0; text-align: left;">
-          📝 Scenario Review & Rules
+          📝 Scenario Review & Maritime Rules
         </h3>
         <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; text-align: left;">
           ${gameState.userAnswers.map((item, idx) => `
@@ -1517,7 +1641,7 @@
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                 <span style="font-weight: 800; font-size: 0.88rem; color: var(--primary-navy);">${idx + 1}. ${item.title}</span>
                 <span style="font-size: 0.75rem; font-weight: 800; color: ${item.isCorrect ? '#10B981' : '#EF4444'};">
-                  ${item.isCorrect ? '✓ CORRECT (+XP)' : '✗ FLAW / CAUTION'}
+                  ${item.isCorrect ? '✓ CORRECT (+XP)' : '✗ CARGO LOSS / FLAW'}
                 </span>
               </div>
               <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 8px 0; line-height: 1.4;">${item.sub}</p>
@@ -1531,11 +1655,12 @@
     `;
   }
 
-  function finishUniversalGame(gameKey, renderCallback) {
+  function finishUniversalGame(gameKey, renderCallback, isGameOver = false) {
     clearInterval(gameState.timerInterval);
     gameState.active = false;
     stopArcadeBGM();
-    playFanfare();
+    if (isGameOver) playErrorSound();
+    else playFanfare();
 
     const stats = getArcadeStats();
     stats.totalXp += gameState.score;
@@ -1578,7 +1703,7 @@
       gameState.hiddenOptions = [];
       playSuccessSound();
       if (gameState.currentIndex >= gameState.items.length) {
-        finishUniversalGame('ladder', renderCallback);
+        finishUniversalGame('ladder', renderCallback, false);
       } else {
         renderCallback('playing');
       }

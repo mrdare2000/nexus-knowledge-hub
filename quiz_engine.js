@@ -549,13 +549,13 @@
       });
     });
 
-    // Game 3: Inspector
-    const inspectorBtns = document.querySelectorAll('.btn-inspector-choice');
-    inspectorBtns.forEach(btn => {
-      btn.addEventListener('click', function () {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        if (typeof window.handleInspectorAnswer === 'function') {
-          window.handleInspectorAnswer(idx, (nextView) => {
+    // Game 3: Inspector (Realistic Document Hotspot Clicks)
+    const docHotspots = document.querySelectorAll('.doc-inspect-hotspot');
+    docHotspots.forEach(el => {
+      el.addEventListener('click', function () {
+        const key = el.getAttribute('data-key');
+        if (typeof window.handleInspectorHotspotClick === 'function') {
+          window.handleInspectorHotspotClick(key, (nextView) => {
             if (nextView === 'summary') activeArcadeView = 'summary';
             renderQuizHubUI();
           });
