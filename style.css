@@ -9093,6 +9093,19 @@ button.btn-secondary:active,
   border-color: #475569 !important;
 }
 
+.btn-dispatcher-choice:hover:not(:disabled),
+.btn-ladder-choice:hover:not(:disabled) {
+  border-color: #3B82F6 !important;
+  background: #EFF6FF !important;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 820px) {
+  .ladder-responsive-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @media (max-width: 640px) {
   .quiz-tab-toggle-btn {
     padding: 8px 14px;

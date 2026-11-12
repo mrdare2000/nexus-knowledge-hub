@@ -518,6 +518,9 @@
     const exitBtn = document.getElementById('btn-exit-game');
     if (exitBtn) {
       exitBtn.addEventListener('click', function () {
+        if (typeof window.exitArcadeGame === 'function') {
+          window.exitArcadeGame();
+        }
         activeArcadeView = 'lobby';
         renderQuizHubUI();
       });
