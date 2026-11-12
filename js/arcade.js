@@ -5,7 +5,7 @@
   'use strict';
 
   // =========================================================================
-  // AUDIO SYNTHESIZER ENGINE (Web Audio API - 100% Offline, Zero Lag)
+  // 5-THEME AUDIO SYNTHESIZER ENGINE (Custom BGM + SFX per Game Mode)
   // =========================================================================
   let audioCtx = null;
   let isMuted = localStorage.getItem('nexus_arcade_muted') === 'true';
@@ -22,132 +22,294 @@
     }
   }
 
-  function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.1) {
+  function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.1, delaySec = 0) {
     if (isMuted) return;
     try {
       initAudio();
       if (!audioCtx) return;
+      const startTime = audioCtx.currentTime + delaySec;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = type;
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.frequency.setValueAtTime(freq, startTime);
+      gain.gain.setValueAtTime(gainVal, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.0008, startTime + duration);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + duration);
+      osc.start(startTime);
+      osc.stop(startTime + duration + 0.01);
     } catch (e) {}
   }
 
-  function playSuccessSound() {
-    playTone(523.25, 'triangle', 0.1, 0.12);
-    setTimeout(() => playTone(659.25, 'triangle', 0.1, 0.12), 70);
-    setTimeout(() => playTone(783.99, 'triangle', 0.2, 0.15), 140);
+  function playSweepTone(startFreq, endFreq, type = 'sine', duration = 0.25, gainVal = 0.12, delaySec = 0) {
+    if (isMuted) return;
+    try {
+      initAudio();
+      if (!audioCtx) return;
+      const startTime = audioCtx.currentTime + delaySec;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(startFreq, startTime);
+      osc.frequency.exponentialRampToValueAtTime(Math.max(20, endFreq), startTime + duration);
+      gain.gain.setValueAtTime(gainVal, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.0008, startTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + duration + 0.01);
+    } catch (e) {}
   }
 
-  function playErrorSound() {
-    playTone(220, 'sawtooth', 0.2, 0.15);
-    setTimeout(() => playTone(174.61, 'sawtooth', 0.25, 0.18), 110);
+  function playNoiseBurst(duration = 0.2, filterType = 'lowpass', filterFreq = 800, gainVal = 0.15, delaySec = 0) {
+    if (isMuted) return;
+    try {
+      initAudio();
+      if (!audioCtx) return;
+      const startTime = audioCtx.currentTime + delaySec;
+      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.45));
+      }
+      const src = audioCtx.createBufferSource();
+      src.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = filterType;
+      filter.frequency.setValueAtTime(filterFreq, startTime);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(gainVal, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      src.start(startTime);
+    } catch (e) {}
   }
 
+  // Real Multi-Layer Bomb Detonation for DG HazMat Failure
   function playExplosionSound() {
     if (isMuted) return;
     try {
       initAudio();
       if (!audioCtx) return;
-      // Low sub boom
-      playTone(90, 'sawtooth', 0.65, 0.25);
-      setTimeout(() => playTone(55, 'square', 0.7, 0.22), 80);
+      const now = audioCtx.currentTime;
 
-      // Noise burst for blast wave
-      const bufferSize = audioCtx.sampleRate * 0.8;
+      // 1. Sharp Initial Ignition Crack
+      playSweepTone(520, 38, 'sawtooth', 0.16, 0.34, 0);
+      playNoiseBurst(0.14, 'highpass', 900, 0.32, 0);
+
+      // 2. Massive Chest-Thumping Sub-Bass Shockwave (1.6s boom)
+      playSweepTone(72, 18, 'sine', 1.5, 0.45, 0.02);
+      playSweepTone(54, 15, 'triangle', 1.65, 0.35, 0.04);
+
+      // 3. Rolling Fireball Roar & Smoke Rumble (2.2s filtered noise)
+      const roarDuration = 2.2;
+      const bufferSize = Math.floor(audioCtx.sampleRate * roarDuration);
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const output = buffer.getChannelData(0);
+      let lastOut = 0;
       for (let i = 0; i < bufferSize; i++) {
-        output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.22));
+        const white = Math.random() * 2 - 1;
+        // Brownian/pink texture for heavy realistic explosion rumble
+        lastOut = (lastOut + 0.06 * white) / 1.06;
+        const env = Math.exp(-i / (audioCtx.sampleRate * 0.65));
+        output[i] = (lastOut * 3.5 + white * 0.45) * env;
       }
-      const whiteNoise = audioCtx.createBufferSource();
-      whiteNoise.buffer = buffer;
 
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(650, audioCtx.currentTime);
-      filter.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.75);
+      const roarSrc = audioCtx.createBufferSource();
+      roarSrc.buffer = buffer;
 
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.28, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.78);
+      const roarFilter = audioCtx.createBiquadFilter();
+      roarFilter.type = 'lowpass';
+      roarFilter.Q.value = 1.4;
+      roarFilter.frequency.setValueAtTime(2200, now);
+      roarFilter.frequency.exponentialRampToValueAtTime(85, now + roarDuration);
 
-      whiteNoise.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioCtx.destination);
-      whiteNoise.start();
+      const roarGain = audioCtx.createGain();
+      roarGain.gain.setValueAtTime(0.45, now);
+      roarGain.gain.exponentialRampToValueAtTime(0.002, now + roarDuration);
+
+      roarSrc.connect(roarFilter);
+      roarFilter.connect(roarGain);
+      roarGain.connect(audioCtx.destination);
+      roarSrc.start(now);
+
+      // 4. Secondary Chemical Container Debris / Shrapnel Pops
+      playNoiseBurst(0.12, 'bandpass', 1400, 0.18, 0.28);
+      playNoiseBurst(0.15, 'bandpass', 950, 0.16, 0.52);
+      playNoiseBurst(0.18, 'lowpass', 700, 0.14, 0.85);
+      playSweepTone(160, 45, 'square', 0.22, 0.12, 0.42);
     } catch (e) {}
   }
 
-  function playFanfare() {
-    [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
-      setTimeout(() => playTone(f, 'sine', 0.25, 0.18), i * 100);
-    });
+  // Game-Specific Success SFX (Distinct per Game!)
+  function playGameSuccessSound(gameKey) {
+    if (gameKey === 'incoterms') {
+      // Heavy Metallic Container Clank + Bright Maritime Triad
+      playTone(300, 'square', 0.07, 0.08, 0);
+      playTone(145, 'triangle', 0.12, 0.11, 0.03);
+      playTone(523.25, 'triangle', 0.12, 0.13, 0.08);
+      playTone(659.25, 'triangle', 0.12, 0.13, 0.15);
+      playTone(783.99, 'triangle', 0.22, 0.15, 0.22);
+    } else if (gameKey === 'ladder') {
+      // Quiz-Show Golden Ascending Chord (raises slightly with step!)
+      const boost = 1 + (gameState.currentIndex * 0.03);
+      playTone(440 * boost, 'sine', 0.14, 0.12, 0);
+      playTone(554.37 * boost, 'sine', 0.14, 0.12, 0.07);
+      playTone(659.25 * boost, 'sine', 0.16, 0.13, 0.14);
+      playTone(880 * boost, 'triangle', 0.32, 0.15, 0.21);
+    } else if (gameKey === 'inspector') {
+      // Heavy Customs Rubber Stamp THUMP + Bright Discovery Chime
+      playSweepTone(140, 48, 'sine', 0.11, 0.22, 0);
+      playNoiseBurst(0.06, 'lowpass', 500, 0.14, 0);
+      playTone(880, 'sine', 0.12, 0.12, 0.1);
+      playTone(1318.51, 'sine', 0.25, 0.14, 0.18);
+    } else if (gameKey === 'hazmat') {
+      // Pressurized Air-Lock Seal + Clean Safety Chime
+      playNoiseBurst(0.14, 'bandpass', 2400, 0.1, 0);
+      playTone(587.33, 'sine', 0.12, 0.12, 0.08);
+      playTone(880, 'sine', 0.24, 0.14, 0.16);
+    } else if (gameKey === 'dispatcher') {
+      // Satellite Telemetry Lock & Crisp Confirmation Ping
+      playTone(1046.5, 'sine', 0.07, 0.09, 0);
+      playTone(1318.5, 'sine', 0.08, 0.09, 0.07);
+      playTone(783.99, 'triangle', 0.2, 0.12, 0.15);
+    }
   }
 
-  function playClankSound() {
-    playTone(300, 'square', 0.08, 0.09);
-    setTimeout(() => playTone(150, 'triangle', 0.15, 0.12), 40);
+  // Game-Specific Error SFX (Distinct per Game!)
+  function playGameErrorSound(gameKey) {
+    if (gameKey === 'incoterms') {
+      // Ocean Splash + Cargo Drop Horn
+      playNoiseBurst(0.35, 'bandpass', 650, 0.2, 0);
+      playSweepTone(210, 95, 'sawtooth', 0.28, 0.14, 0.05);
+    } else if (gameKey === 'ladder') {
+      // Quiz Show Dramatic Downward Fall Chord
+      playTone(311.13, 'sawtooth', 0.18, 0.11, 0);
+      playTone(277.18, 'sawtooth', 0.18, 0.11, 0.16);
+      playTone(246.94, 'sawtooth', 0.35, 0.13, 0.32);
+    } else if (gameKey === 'inspector') {
+      // Subtle Paper Tap / Clean Field Reject Blip
+      playTone(260, 'triangle', 0.09, 0.1, 0);
+      playTone(195, 'triangle', 0.14, 0.1, 0.08);
+    } else if (gameKey === 'hazmat') {
+      // Industrial Chemical Klaxon Warning Siren + Acid Hiss
+      playNoiseBurst(0.25, 'highpass', 1800, 0.14, 0);
+      playTone(440, 'sawtooth', 0.14, 0.14, 0);
+      playTone(310, 'sawtooth', 0.18, 0.15, 0.14);
+      playTone(440, 'sawtooth', 0.18, 0.13, 0.32);
+    } else if (gameKey === 'dispatcher') {
+      // Low Command Radar Emergency Horn
+      playTone(185, 'sawtooth', 0.22, 0.12, 0);
+      playTone(138.59, 'sawtooth', 0.3, 0.14, 0.15);
+    }
   }
 
-  function startArcadeBGM() {
-    if (isMuted || bgmPlaying) return;
+  function playLifelineSound(type) {
+    if (type === 'fiftyFifty') {
+      playSweepTone(400, 950, 'sine', 0.2, 0.12, 0);
+    } else if (type === 'aiClue') {
+      playTone(660, 'sine', 0.08, 0.1, 0);
+      playTone(880, 'sine', 0.08, 0.1, 0.07);
+      playTone(1174.66, 'sine', 0.18, 0.12, 0.14);
+    } else {
+      // Divert swap mechanical swoosh
+      playNoiseBurst(0.14, 'bandpass', 1200, 0.12, 0);
+      playSweepTone(300, 620, 'triangle', 0.18, 0.12, 0.05);
+    }
+  }
+
+  function playGameFanfare(gameKey) {
+    if (gameKey === 'dispatcher') {
+      [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => playTone(f, 'triangle', 0.24, 0.14, i * 0.09));
+    } else if (gameKey === 'ladder') {
+      [440, 554.37, 659.25, 880, 1108.73].forEach((f, i) => playTone(f, 'sine', 0.3, 0.15, i * 0.1));
+    } else {
+      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, 'sine', 0.25, 0.16, i * 0.1));
+    }
+  }
+
+  // 5 Completely Distinct Theme BGM Engines!
+  function startArcadeBGM(gameKey = 'incoterms') {
+    stopArcadeBGM();
+    if (isMuted) return;
     initAudio();
     if (!audioCtx) return;
 
     bgmPlaying = true;
-    const bassline = [
-      110.0, 110.0, 130.81, 146.83, 110.0, 110.0, 98.0, 82.41,
-      110.0, 110.0, 164.81, 146.83, 130.81, 123.47, 110.0, 130.81
-    ];
     let step = 0;
 
-    bgmInterval = setInterval(() => {
-      if (isMuted || !bgmPlaying) return;
-      try {
-        const freq = bassline[step % bassline.length];
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        const filter = audioCtx.createBiquadFilter();
-
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(420, audioCtx.currentTime);
-
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.022, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.11);
-
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.11);
-
-        if (step % 2 === 1) {
-          const hatOsc = audioCtx.createOscillator();
-          const hatGain = audioCtx.createGain();
-          hatOsc.type = 'square';
-          hatOsc.frequency.setValueAtTime(900 + (step % 4) * 200, audioCtx.currentTime);
-          hatGain.gain.setValueAtTime(0.006, audioCtx.currentTime);
-          hatGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.035);
-          hatOsc.connect(hatGain);
-          hatGain.connect(audioCtx.destination);
-          hatOsc.start();
-          hatOsc.stop(audioCtx.currentTime + 0.035);
-        }
-
+    if (gameKey === 'incoterms') {
+      // 1. INCOTERMS: Fast Upbeat Maritime Arcade Groove (125ms)
+      const bass = [110.0, 110.0, 130.81, 146.83, 110.0, 110.0, 98.0, 82.41];
+      bgmInterval = setInterval(() => {
+        if (isMuted || !bgmPlaying) return;
+        playTone(bass[step % bass.length], 'triangle', 0.1, 0.024, 0);
+        if (step % 2 === 1) playTone(980 + (step % 4) * 180, 'square', 0.03, 0.006, 0);
         step++;
-      } catch (e) {}
-    }, 125);
+      }, 125);
+
+    } else if (gameKey === 'ladder') {
+      // 2. CAREER LADDER: TV Quiz Show Suspense Heartbeat + Tension Pad (420ms)
+      bgmInterval = setInterval(() => {
+        if (isMuted || !bgmPlaying) return;
+        const m = step % 4;
+        if (m === 0) {
+          playTone(65.41, 'sine', 0.18, 0.045, 0);      // Lub
+          playTone(58.27, 'sine', 0.22, 0.035, 0.14);   // Dub
+        }
+        const padNotes = [220, 261.63, 293.66, 329.63];
+        const tierBoost = 1 + (gameState.currentIndex * 0.025);
+        playTone(padNotes[m] * tierBoost, 'sine', 0.35, 0.014, 0);
+        step++;
+      }, 420);
+
+    } else if (gameKey === 'inspector') {
+      // 3. PORT INSPECTOR: Stealth Detective Noir Walking Bass (220ms)
+      const noirBass = [110, 0, 130.81, 146.83, 155.56, 0, 146.83, 130.81];
+      bgmInterval = setInterval(() => {
+        if (isMuted || !bgmPlaying) return;
+        const note = noirBass[step % noirBass.length];
+        if (note > 0) playTone(note, 'triangle', 0.18, 0.028, 0);
+        if (step % 4 === 2) playNoiseBurst(0.03, 'highpass', 3000, 0.008, 0); // Soft brush snare
+        if (step % 8 === 0) playTone(440, 'sine', 0.2, 0.01, 0);
+        step++;
+      }, 220);
+
+    } else if (gameKey === 'hazmat') {
+      // 4. DG HAZMAT: Industrial Chemical Lab Caution Pulse & Geiger Clicks (190ms)
+      bgmInterval = setInterval(() => {
+        if (isMuted || !bgmPlaying) return;
+        const m = step % 8;
+        if (m === 0 || m === 4) playTone(73.42, 'sawtooth', 0.12, 0.018, 0); // Low industrial drone
+        if (m === 6) playTone(1240, 'sine', 0.06, 0.012, 0); // Caution monitor ping
+        // Occasional Geiger counter tick
+        if (step % 3 === 1) playTone(2600, 'square', 0.012, 0.005, 0);
+        step++;
+      }, 190);
+
+    } else if (gameKey === 'dispatcher') {
+      // 5. ROUTE DISPATCHER: Global Radar Control Room Sonar + Telemetry (250ms)
+      bgmInterval = setInterval(() => {
+        if (isMuted || !bgmPlaying) return;
+        const m = step % 8;
+        if (m === 0) {
+          // Crisp Submarine/Maritime Radar Sonar Ping
+          playTone(1174.66, 'sine', 0.45, 0.025, 0);
+        }
+        if (m % 2 === 0) {
+          playTone(98.0, 'sine', 0.22, 0.02, 0); // Deep ops room hum
+        } else {
+          playTone(2100 + (m * 110), 'sine', 0.02, 0.005, 0); // Faint telemetry blip
+        }
+        step++;
+      }, 250);
+    }
   }
 
   function stopArcadeBGM() {
@@ -1465,7 +1627,7 @@
 
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 16px; margin-bottom: 20px;">
           <div style="display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted);">
-            <span>🎵 <strong>Arcade Music & Sound:</strong> Soft background music plays during games.</span>
+            <span>🎵 <strong>5 Custom Soundscapes:</strong> Each game has its own themed music and sound effects!</span>
           </div>
           <button id="btn-toggle-arcade-sound" style="background: #F8FAFC; border: 1.5px solid var(--border-color); padding: 7px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 800; color: var(--primary-navy); cursor: pointer;">
             ${isMuted ? '🔇 Audio: Muted' : '🔊 Audio: On'}
@@ -1528,7 +1690,7 @@
       gameState.items = shuffle(DISPATCHER_CRISES).slice(0, 5);
     }
 
-    startArcadeBGM();
+    startArcadeBGM(gameKey);
     renderCallback('playing');
 
     if (gameKey === 'incoterms') {
@@ -1675,8 +1837,7 @@
       gameState.loadedContainers.push(colors[gameState.currentIndex % colors.length]);
       gameState.routeProgress = Math.min(100, Math.round(((gameState.currentIndex + 1) / gameState.items.length) * 100));
 
-      playClankSound();
-      playSuccessSound();
+      playGameSuccessSound('incoterms');
 
       if (flashcard) {
         flashcard.style.borderColor = '#10B981';
@@ -1697,7 +1858,7 @@
     } else {
       gameState.combo = 0;
       gameState.lives -= 1;
-      playErrorSound();
+      playGameErrorSound('incoterms');
 
       if (flashcard) {
         flashcard.classList.add('arcade-shake');
@@ -1860,7 +2021,7 @@
     if (isCorrect) {
       gameState.score += (gameState.currentIndex + 1) * 100;
       gameState.correctCount += 1;
-      playSuccessSound();
+      playGameSuccessSound('ladder');
       gameState.userAnswers.push({
         title: `Step ${q.tier}: ${q.rank}`,
         sub: q.question,
@@ -1878,14 +2039,14 @@
         renderCallback('playing');
       }
     } else {
-      playErrorSound();
+      playGameErrorSound('ladder');
       gameState.userAnswers.push({
         title: `Step ${q.tier}: ${q.rank}`,
         sub: q.question,
         isCorrect: false,
         explanation: `Wrong answer. Right answer was: ${q.options[q.answer]}`
       });
-      finishUniversalGame('ladder', renderCallback, false);
+      finishUniversalGame('ladder', renderCallback, true);
     }
   };
 
@@ -1897,12 +2058,12 @@
       gameState.lifelines.fiftyFifty = false;
       const wrongIndices = [0, 1, 2, 3].filter(i => i !== q.answer);
       gameState.hiddenOptions = shuffle(wrongIndices).slice(0, 2);
-      playSuccessSound();
+      playLifelineSound('fiftyFifty');
       renderCallback('playing');
     } else if (type === 'aiClue') {
       gameState.lifelines.aiClue = false;
       gameState.activeAiClue = q.aiHint;
-      playSuccessSound();
+      playLifelineSound('aiClue');
       renderCallback('playing');
     } else if (type === 'skip') {
       // Divert replaces current question with a brand-new backup question at the same Tier!
@@ -1913,7 +2074,7 @@
       }
       gameState.activeAiClue = null;
       gameState.hiddenOptions = [];
-      playClankSound();
+      playLifelineSound('skip');
       renderCallback('playing');
     }
   };
@@ -2030,7 +2191,7 @@
 
       gameState.score += 250;
       gameState.correctCount += 1;
-      playSuccessSound();
+      playGameSuccessSound('inspector');
 
       if (feedback) {
         feedback.style.display = 'block';
@@ -2060,7 +2221,7 @@
       }, 1800);
 
     } else {
-      playErrorSound();
+      playGameErrorSound('inspector');
       if (clickedHotspot) {
         clickedHotspot.classList.add('wrong-hit');
         setTimeout(() => clickedHotspot.classList.remove('wrong-hit'), 500);
@@ -2186,7 +2347,7 @@
       gameState.score += 200;
       gameState.correctCount += 1;
       gameState.hazmatResults.push('safe');
-      playSuccessSound();
+      playGameSuccessSound('hazmat');
 
       if (fb) {
         fb.style.display = 'block';
@@ -2197,7 +2358,7 @@
       }
     } else {
       gameState.hazmatResults.push('danger');
-      playErrorSound();
+      playGameErrorSound('hazmat');
       if (card) card.classList.add('arcade-shake');
 
       if (fb) {
@@ -2299,8 +2460,8 @@
     gameState.dispatcherTotalScore += opt.score;
     gameState.correctCount += (isOptimal ? 1 : 0);
 
-    if (isOptimal) playSuccessSound();
-    else playErrorSound();
+    if (isOptimal) playGameSuccessSound('dispatcher');
+    else playGameErrorSound('dispatcher');
 
     const fb = document.getElementById('dispatcher-feedback-box');
     if (fb) {
@@ -2512,9 +2673,9 @@
     if (gameKey === 'hazmat' && isFailureSound) {
       playExplosionSound();
     } else if (isFailureSound) {
-      playErrorSound();
+      playGameErrorSound(gameKey);
     } else {
-      playFanfare();
+      playGameFanfare(gameKey);
     }
 
     const stats = getArcadeStats();
@@ -2534,7 +2695,7 @@
     if (isMuted) {
       stopArcadeBGM();
     } else if (gameState.active) {
-      startArcadeBGM();
+      startArcadeBGM(currentGame);
     }
     return isMuted;
   };
