@@ -228,7 +228,12 @@
     if (gameKey === 'dispatcher') {
       [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => playTone(f, 'triangle', 0.24, 0.14, i * 0.09));
     } else if (gameKey === 'ladder') {
-      [440, 554.37, 659.25, 880, 1108.73].forEach((f, i) => playTone(f, 'sine', 0.3, 0.15, i * 0.1));
+      // Grand Tycoon Champion Brass Fanfare!
+      const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5, 1318.51];
+      const delays = [0, 0.1, 0.2, 0.32, 0.48, 0.6, 0.78];
+      notes.forEach((f, i) => playTone(f, 'triangle', i === notes.length - 1 ? 0.7 : 0.18, 0.16, delays[i]));
+      playTone(523.25, 'sine', 0.75, 0.12, 0.78);
+      playTone(783.99, 'sine', 0.75, 0.12, 0.78);
     } else {
       [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, 'sine', 0.25, 0.16, i * 0.1));
     }
@@ -2500,6 +2505,79 @@
     const accuracy = Math.round((gameState.correctCount / totalCount) * 100);
     const isIncotermsLoss = gameKey === 'incoterms' && gameState.lives <= 0;
     const isHazmatExplosion = gameKey === 'hazmat' && gameState.correctCount < 3;
+    const isLadderVictory = gameKey === 'ladder' && gameState.correctCount >= 10;
+
+    // Special Grand Celebration Screen when winning all 10 Steps of Career Ladder!
+    if (isLadderVictory) {
+      const confettiColors = ['#FACC15', '#38BDF8', '#4ADE80', '#F472B6', '#FB923C', '#A78BFA'];
+      const confettiSpans = Array.from({ length: 18 }).map((_, i) => {
+        const left = (i * 5.5 + 2) % 96;
+        const delay = ((i * 0.27) % 2.4).toFixed(2);
+        const color = confettiColors[i % confettiColors.length];
+        return `<span class="confetti-piece" style="left:${left}%; background:${color}; animation-delay:${delay}s;"></span>`;
+      }).join('');
+
+      return `
+        <div class="arcade-summary-wrapper" style="max-width: 780px; margin: 0 auto; font-family: 'Inter', sans-serif; text-align: center;">
+          <div class="tycoon-celebration-card">
+            ${confettiSpans}
+
+            <div class="trophy-float" style="font-size: 4.5rem; margin-bottom: 10px; position: relative; z-index: 2;">
+              👑🏆
+            </div>
+
+            <div style="position: relative; z-index: 2;">
+              <div style="display: inline-block; background: linear-gradient(90deg, #FACC15, #F59E0B); color: #0F172A; font-size: 0.8rem; font-weight: 900; padding: 6px 18px; border-radius: 30px; letter-spacing: 0.8px; margin-bottom: 14px; box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);">
+                ✨ ALL 10 CAREER STEPS CONQUERED ✨
+              </div>
+
+              <h2 style="font-family: 'Outfit', sans-serif; font-size: 2.35rem; margin: 0 0 10px 0; font-weight: 900; color: #FDE047; text-shadow: 0 4px 18px rgba(250,204,21,0.35);">
+                GLOBAL LOGISTICS TYCOON!
+              </h2>
+
+              <p style="color: #E2E8F0; font-size: 1rem; margin: 0 auto 24px auto; max-width: 540px; line-height: 1.55;">
+                Congratulations! You climbed every single step from Junior Trainee to the top executive crown with 10/10 right answers!
+              </p>
+
+              <!-- 10-Step Golden Ladder Strip -->
+              <div style="display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 28px;">
+                ${Array.from({ length: 10 }).map((_, idx) => `
+                  <div style="background: rgba(250, 204, 21, 0.2); border: 1.5px solid #FACC15; color: #FDE047; padding: 5px 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 900;">
+                    ${idx === 9 ? '10 👑' : `${idx + 1} ✅`}
+                  </div>
+                `).join('')}
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 540px; margin: 0 auto 30px auto;">
+                <div style="background: rgba(255,255,255,0.08); padding: 18px 10px; border-radius: 16px; border: 1px solid rgba(250,204,21,0.35);">
+                  <div style="font-size: 1.9rem; font-weight: 900; color: #FACC15; font-family: 'Outfit', sans-serif;">+${gameState.score}</div>
+                  <div style="font-size: 0.74rem; font-weight: 800; color: #CBD5E1; text-transform: uppercase;">Grand Prize XP</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.08); padding: 18px 10px; border-radius: 16px; border: 1px solid rgba(74,222,128,0.35);">
+                  <div style="font-size: 1.9rem; font-weight: 900; color: #4ADE80; font-family: 'Outfit', sans-serif;">10 / 10</div>
+                  <div style="font-size: 0.74rem; font-weight: 800; color: #CBD5E1; text-transform: uppercase;">Steps Climbed</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.08); padding: 18px 10px; border-radius: 16px; border: 1px solid rgba(56,189,248,0.35);">
+                  <div style="font-size: 1.9rem; font-weight: 900; color: #38BDF8; font-family: 'Outfit', sans-serif;">100%</div>
+                  <div style="font-size: 0.74rem; font-weight: 800; color: #CBD5E1; text-transform: uppercase;">Tycoon Mastery</div>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                <button id="btn-replay-game" class="btn" style="background: linear-gradient(135deg, #FACC15 0%, #EAB308 100%); color: #0F172A; border: none; padding: 14px 28px; border-radius: 14px; font-weight: 900; font-size: 0.95rem; cursor: pointer; box-shadow: 0 6px 20px rgba(250,204,21,0.35);">
+                  🔄 Climb Again
+                </button>
+                <button id="btn-return-arcade" style="padding: 14px 28px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; border: 1.5px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); color: #FFFFFF; cursor: pointer;">
+                  🕹️ Return to Arcade
+                </button>
+              </div>
+            </div>
+          </div>
+
+          ${renderAnswersReviewListHTML()}
+        </div>
+      `;
+    }
 
     // Special HazMat Explosion Game Over Screen!
     if (isHazmatExplosion) {
@@ -2592,15 +2670,17 @@
           : (accuracy >= 60 ? "Senior Logistics Pro 🥇" : "Junior Forwarder 🥈"));
     let badgeColor = isIncotermsLoss ? "#DC2626" : (accuracy >= 60 ? "#10B981" : "#FF5A1F");
 
+    const isLadderStop = gameKey === 'ladder' && gameState.correctCount < 10;
+
     return `
       <div class="arcade-summary-wrapper" style="max-width: 780px; margin: 0 auto; font-family: 'Inter', sans-serif; text-align: center;">
-        <div style="background: var(--bg-white); border: 2px solid ${isIncotermsLoss ? '#EF4444' : 'var(--border-color)'}; border-radius: 24px; padding: 38px 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-bottom: 25px;">
-          <div style="font-size: 3.5rem; margin-bottom: 12px;">${isIncotermsLoss ? '🌊' : '🎉'}</div>
+        <div style="background: var(--bg-white); border: 2px solid ${(isIncotermsLoss || isLadderStop) ? '#EF4444' : 'var(--border-color)'}; border-radius: 24px; padding: 38px 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-bottom: 25px;">
+          <div style="font-size: 3.5rem; margin-bottom: 12px;">${isIncotermsLoss ? '🌊' : (isLadderStop ? '🪜' : '🎉')}</div>
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 2rem; margin: 0 0 6px 0; font-weight: 800;">
-            ${isIncotermsLoss ? 'Ship Abandoned - Out of Lives!' : (gameKey === 'hazmat' ? 'Container Safe & Approved! ✅' : 'Mission Complete!')}
+            ${isIncotermsLoss ? 'Ship Abandoned - Out of Lives!' : (isLadderStop ? `Climb Stopped at Step ${gameState.correctCount + 1} of 10` : (gameKey === 'hazmat' ? 'Container Safe & Approved! ✅' : 'Mission Complete!'))}
           </h2>
           <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0 0 22px 0;">
-            ${isIncotermsLoss ? 'You lost all 3 cargo hearts. Check the rules below and try again!' : 'Here is your game score and review.'}
+            ${isIncotermsLoss ? 'You lost all 3 cargo hearts. Check the rules below and try again!' : (isLadderStop ? 'Good effort! Check the answer below and climb again to win the Tycoon Crown.' : 'Here is your game score and review.')}
           </p>
 
           <div style="display: inline-block; background: #F8FAFC; border: 2px solid ${badgeColor}; padding: 8px 24px; border-radius: 30px; margin-bottom: 24px;">
