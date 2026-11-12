@@ -1462,11 +1462,11 @@
               </div>
             </div>
             <button id="guide-toggle-label" style="border: 1.5px solid var(--border-color); background: #F8FAFC; color: var(--primary-navy); font-weight: 800; border-radius: 20px; padding: 6px 16px; font-size: 0.82rem; cursor: pointer;">
-              Hide Rules ▴
+              View Rules ▾
             </button>
           </div>
 
-          <div id="arcade-rules-breakdown" style="display: block; margin-top: 18px; border-top: 1px solid var(--border-color); padding-top: 16px;">
+          <div id="arcade-rules-breakdown" style="display: none; margin-top: 18px; border-top: 1px solid var(--border-color); padding-top: 16px;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px;">
               <div style="background: #FFF7ED; border: 1.5px solid #FFEDD5; border-radius: 14px; padding: 14px 16px;">
                 <div style="font-size: 0.8rem; font-weight: 800; color: #EA580C; text-transform: uppercase; margin-bottom: 5px;">⚡ Base XP (Points)</div>
