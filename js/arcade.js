@@ -1362,7 +1362,7 @@
     loadedContainers: [],
     routeProgress: 0,
     hazmatResults: [],
-    timeLeft: 20,
+    timeLeft: 40,
     timerInterval: null,
     items: [],
     userAnswers: [],
@@ -1457,7 +1457,7 @@
                   How Points, XP & Combos Work
                 </h4>
                 <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 0.85rem;">
-                  Quick guide: Base XP, Combo Streaks, 20-Second Speed Bonus, and Cargo Lives.
+                  Quick guide: Base XP, Combo Streaks, 40-Second Speed Bonus, and Cargo Lives.
                 </p>
               </div>
             </div>
@@ -1489,7 +1489,7 @@
               <div style="background: #FEF3C7; border: 1.5px solid #FDE68A; border-radius: 14px; padding: 14px 16px;">
                 <div style="font-size: 0.8rem; font-weight: 800; color: #D97706; text-transform: uppercase; margin-bottom: 5px;">⏱️ Speed Bonus</div>
                 <div style="font-size: 0.84rem; color: #92400E; line-height: 1.45;">
-                  Answer fast inside 20 seconds to win extra points: <strong>Seconds left × 4 XP</strong> (up to +80 extra XP!).
+                  Answer fast inside 40 seconds to win extra points: <strong>Seconds left × 2 XP</strong> (up to +80 extra XP!).
                 </div>
               </div>
 
@@ -1525,7 +1525,7 @@
               </p>
               <div style="display: flex; gap: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 18px; flex-wrap: wrap;">
                 <span style="background: #FEE2E2; color: #DC2626; padding: 3px 7px; border-radius: 6px;">❤️ 3 Lives</span>
-                <span style="background: #FEF3C7; color: #D97706; padding: 3px 7px; border-radius: 6px;">⏱️ 20s Timer</span>
+                <span style="background: #FEF3C7; color: #D97706; padding: 3px 7px; border-radius: 6px;">⏱️ 40s Timer</span>
                 <span style="background: #E0F2FE; color: #0284C7; padding: 3px 7px; border-radius: 6px;">🚢 Ship Deck</span>
                 <span style="background: #ECFDF5; color: #059669; padding: 3px 7px; border-radius: 6px;">🔥 Combo XP</span>
               </div>
@@ -1704,7 +1704,7 @@
   };
 
   // =========================================================================
-  // GAME 1: Incoterms Rapid Battle (20s Timer, Ship Stage, 3 Lives)
+  // GAME 1: Incoterms Rapid Battle (40s Timer, Ship Stage, 3 Lives)
   // =========================================================================
   function renderIncotermsGameHTML() {
     const q = gameState.items[gameState.currentIndex];
@@ -1768,7 +1768,7 @@
           </div>
           <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 800; color: var(--text-muted); margin-bottom: 22px;">
             <span>Card ${gameState.currentIndex + 1} of ${gameState.items.length}</span>
-            <span id="arcade-timer-text" style="color: #EF4444; font-family: 'Outfit', sans-serif; font-size: 0.9rem;">⏱️ 20.0s</span>
+            <span id="arcade-timer-text" style="color: #EF4444; font-family: 'Outfit', sans-serif; font-size: 0.9rem;">⏱️ 40.0s</span>
           </div>
 
           <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary-navy); font-size: 1.35rem; line-height: 1.45; font-weight: 700; margin: 0 0 28px 0;">
@@ -1794,8 +1794,8 @@
   }
 
   function startIncotermsTimer(renderCallback) {
-    gameState.timeLeft = 20.0;
-    const totalMs = 20000;
+    gameState.timeLeft = 40.0;
+    const totalMs = 40000;
     let remainingMs = totalMs;
 
     clearInterval(gameState.timerInterval);
@@ -1833,7 +1833,7 @@
       if (gameState.combo > gameState.maxCombo) gameState.maxCombo = gameState.combo;
       const multiplier = gameState.combo >= 4 ? 3 : (gameState.combo >= 2 ? 2 : 1);
       const remainingSec = parseFloat(gameState.timeLeft) || 0;
-      const speedBonus = Math.round(remainingSec * 4);
+      const speedBonus = Math.round(remainingSec * 2);
       const pointsEarned = (50 * multiplier) + speedBonus;
       gameState.score += pointsEarned;
       gameState.correctCount += 1;
