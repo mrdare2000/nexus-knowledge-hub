@@ -5393,7 +5393,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         }
       ]
     },
-    {
+        {
       id: "tiep-customs-regimes",
       title: "14. TIEP Scheme, Bonded Warehouses & Free Ports",
       description: "Temporary Import for Export Processing (TIEP), Customs Bonded Warehouses, Inward Processing Relief & Free Port Hubs.",
@@ -5402,8 +5402,11 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
         {
           id: "tiep-scheme-fundamentals-sri-lanka",
           title: "TIEP Scheme Fundamentals: Temporary Import for Export Processing",
+          image: "images/tiep_scheme_fundamentals_infographic.png",
           summary: "Upfront duty suspension, working capital preservation, direct vs indirect exporters, and legal authority under Sri Lanka Customs.",
           content: `
+            <img src="images/tiep_scheme_fundamentals_infographic.png" alt="TIEP Scheme Fundamentals Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
+
             <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
               <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <span style="background: rgba(14, 165, 233, 0.2); color: #38BDF8; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3);">Sri Lanka Customs Fiscal Incentive</span>
@@ -5411,67 +5414,6 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">TIEP Scheme Fundamentals & Capital Preservation</h3>
               <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">The Temporary Import for Export Processing (TIEP) scheme is Sri Lanka's flagship trade facilitation mechanism. It grants legitimate exporters a 100% upfront suspension of customs import duties, CESS, PAL, and border levies on imported production inputs, shielding operational working capital and enhancing export price competitiveness in world markets.</p>
-            </div>
-
-            <!-- SVG Visual Infographic: TIEP vs Normal Import Cash Flow -->
-            <div style="margin: 25px 0; text-align: center;">
-              <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
-                <!-- Header Title -->
-                <rect x="0" y="0" width="880" height="52" fill="#0F172A"/>
-                <text x="440" y="32" text-anchor="middle" fill="#38BDF8" font-family="'Outfit', sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">FINANCIAL IMPACT: STANDARD IMPORTATION VS. TIEP SUSPENSION</text>
-                
-                <!-- Left: Standard Import (Cash Drain) -->
-                <rect x="25" y="70" width="395" height="245" rx="10" fill="#FFF1F2" stroke="#FECACA" stroke-width="2"/>
-                <rect x="25" y="70" width="395" height="38" rx="10" fill="#E11D48"/>
-                <text x="222" y="95" text-anchor="middle" fill="#FFFFFF" font-family="'Outfit', sans-serif" font-size="14" font-weight="700">TRADITIONAL IMPORT (CASH DRAIN)</text>
-                
-                <!-- Steps Left -->
-                <circle cx="55" cy="135" r="14" fill="#BE123C"/>
-                <text x="55" y="140" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">1</text>
-                <text x="80" y="133" fill="#881337" font-size="12" font-weight="700">Cargo Arrives at Colombo Port</text>
-                <text x="80" y="148" fill="#9F1239" font-size="11">Inputs landed with CIF value $100,000</text>
-                
-                <circle cx="55" cy="180" r="14" fill="#BE123C"/>
-                <text x="55" y="185" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">2</text>
-                <text x="80" y="177" fill="#881337" font-size="12" font-weight="700">Immediate Duty & Levy Cash Payment</text>
-                <text x="80" y="192" fill="#9F1239" font-size="11">~$35,000 paid upfront (Duty, CESS, PAL, VAT)</text>
-                
-                <circle cx="55" cy="225" r="14" fill="#BE123C"/>
-                <text x="55" y="230" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">3</text>
-                <text x="80" y="222" fill="#881337" font-size="12" font-weight="700">Working Capital Frozen (4 to 6 Months)</text>
-                <text x="80" y="237" fill="#9F1239" font-size="11">Cash locked during production, assembly & shipment</text>
-                
-                <circle cx="55" cy="270" r="14" fill="#BE123C"/>
-                <text x="55" y="275" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">4</text>
-                <text x="80" y="267" fill="#881337" font-size="12" font-weight="700">Tedious Duty Drawback / Rebate Claim</text>
-                <text x="80" y="282" fill="#9F1239" font-size="11">High bureaucratic delay, audit risk & finance costs</text>
-                
-                <!-- Right: TIEP Scheme (Preserved Liquidity) -->
-                <rect x="460" y="70" width="395" height="245" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
-                <rect x="460" y="70" width="395" height="38" rx="10" fill="#059669"/>
-                <text x="657" y="95" text-anchor="middle" fill="#FFFFFF" font-family="'Outfit', sans-serif" font-size="14" font-weight="700">TIEP SUSPENSION REGIME (100% LIQUIDITY)</text>
-                
-                <!-- Steps Right -->
-                <circle cx="490" cy="135" r="14" fill="#047857"/>
-                <text x="490" y="140" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">1</text>
-                <text x="515" y="133" fill="#064E3B" font-size="12" font-weight="700">Cargo Arrives & Enters TIEP Channel</text>
-                <text x="515" y="148" fill="#047857" font-size="11">Declared under Customs Procedure Code CPC 5100</text>
-                
-                <circle cx="490" cy="180" r="14" fill="#047857"/>
-                <text x="490" y="185" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">2</text>
-                <text x="515" y="177" fill="#064E3B" font-size="12" font-weight="700">Zero Upfront Cash Taxes ($0 Paid)</text>
-                <text x="515" y="192" fill="#047857" font-size="11">Secured via Corporate or Bank Guarantee</text>
-                
-                <circle cx="490" cy="225" r="14" fill="#047857"/>
-                <text x="490" y="230" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">3</text>
-                <text x="515" y="222" fill="#064E3B" font-size="12" font-weight="700">Maximum Operational Cash Flow</text>
-                <text x="515" y="237" fill="#047857" font-size="11">Capital deployed into factories, wages & raw materials</text>
-                
-                <circle cx="490" cy="270" r="14" fill="#047857"/>
-                <text x="490" y="275" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">4</text>
-                <text x="515" y="267" fill="#064E3B" font-size="12" font-weight="700">Export & Complete Liability Discharge</text>
-                <text x="515" y="282" fill="#047857" font-size="11">MUD filed within 30 days: guarantee released in full</text>
-              </svg>
             </div>
 
             <!-- Deep Dive Real World Case Study: Ceylon Tea Value Addition -->
@@ -5561,13 +5503,16 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/9LEanczg-Hw"
+          youtube: "https://www.youtube.com/embed/ihO2TH1dJ-I"
         },
         {
           id: "tiep-classification-types-infac",
           title: "TIEP Classification: TIEP-I, TIEP-IV, TIEP-V, INFAC & Duty Relief Regimes",
+          image: "images/tiep_classification_types_infographic.png",
           summary: "Comparison of TIEP-I (materials), TIEP-IV (machinery), TIEP-V (audit discharge), INFAC (garments), and exclusivity rules.",
           content: `
+            <img src="images/tiep_classification_types_infographic.png" alt="TIEP Classification Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
+
             <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
               <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <span style="background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.3);">Classification & Scheme Architecture</span>
@@ -5654,58 +5599,6 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
 
             </div>
 
-            <!-- SVG Decision Tree Diagram -->
-            <div style="margin: 30px 0; text-align: center;">
-              <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
-                <rect x="0" y="0" width="880" height="48" fill="#0F172A"/>
-                <text x="440" y="30" text-anchor="middle" fill="#34D399" font-family="'Outfit', sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">SCHEME SELECTION: WHICH REGIME FITS YOUR LOGISTICS PIPELINE?</text>
-                
-                <!-- Decision Box 1 -->
-                <rect x="40" y="70" width="220" height="70" rx="8" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
-                <text x="150" y="98" text-anchor="middle" fill="#0F172A" font-size="13" font-weight="700">What are you importing?</text>
-                <text x="150" y="118" text-anchor="middle" fill="#64748B" font-size="11">Classify cargo nature</text>
-                
-                <!-- Line Right -->
-                <line x1="260" y1="105" x2="330" y2="105" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
-                
-                <!-- Branch 1: Materials -->
-                <rect x="330" y="70" width="220" height="70" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
-                <text x="440" y="95" text-anchor="middle" fill="#1D4ED8" font-size="12" font-weight="700">Raw Materials / Parts / Tins</text>
-                <text x="440" y="115" text-anchor="middle" fill="#2563EB" font-size="11">Consumed within 6 months</text>
-                
-                <line x1="550" y1="105" x2="620" y2="105" stroke="#3B82F6" stroke-width="2"/>
-                <rect x="620" y="70" width="220" height="70" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
-                <text x="730" y="98" text-anchor="middle" fill="#1E40AF" font-size="14" font-weight="800">USE TIEP-I</text>
-                <text x="730" y="118" text-anchor="middle" fill="#1D4ED8" font-size="11">Annual renewable registration</text>
-                
-                <!-- Branch 2: Apparel -->
-                <line x1="150" y1="140" x2="150" y2="190" stroke="#64748B" stroke-width="2"/>
-                <line x1="150" y1="190" x2="330" y2="190" stroke="#64748B" stroke-width="2"/>
-                
-                <rect x="330" y="155" width="220" height="70" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
-                <text x="440" y="180" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="700">Garment Fabrics & Trims</text>
-                <text x="440" y="200" text-anchor="middle" fill="#7C3AED" font-size="11">Apparel sector only (Non-BOI)</text>
-                
-                <line x1="550" y1="190" x2="620" y2="190" stroke="#8B5CF6" stroke-width="2"/>
-                <rect x="620" y="155" width="220" height="70" rx="8" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
-                <text x="730" y="183" text-anchor="middle" fill="#5B21B6" font-size="14" font-weight="800">USE INFAC</text>
-                <text x="730" y="203" text-anchor="middle" fill="#6D28D9" font-size="11">Fast-track garment clearance</text>
-                
-                <!-- Branch 3: Machinery -->
-                <line x1="150" y1="190" x2="150" y2="275" stroke="#64748B" stroke-width="2"/>
-                <line x1="150" y1="275" x2="330" y2="275" stroke="#64748B" stroke-width="2"/>
-                
-                <rect x="330" y="240" width="220" height="70" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="1.5"/>
-                <text x="440" y="265" text-anchor="middle" fill="#047857" font-size="12" font-weight="700">Production Machinery</text>
-                <text x="440" y="285" text-anchor="middle" fill="#059669" font-size="11">Exporting >50% of output</text>
-                
-                <line x1="550" y1="275" x2="620" y2="275" stroke="#10B981" stroke-width="2"/>
-                <rect x="620" y="240" width="220" height="70" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
-                <text x="730" y="268" text-anchor="middle" fill="#065F46" font-size="14" font-weight="800">USE TIEP-IV</text>
-                <text x="730" y="288" text-anchor="middle" fill="#047857" font-size="11">Discharged annually via TIEP-V</text>
-              </svg>
-            </div>
-
             <!-- Anti-Double Dipping / Mutual Exclusivity -->
             <div style="background: #FFF1F2; border: 2px solid #FECACA; border-radius: 12px; padding: 20px; margin: 25px 0;">
               <div style="display: flex; align-items: flex-start; gap: 14px;">
@@ -5786,13 +5679,16 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/U-tUVBaRk_Y"
+          youtube: "https://www.youtube.com/embed/6RAqMHlj0z4"
         },
         {
           id: "tiep-operational-workflow-guarantees-compliance",
           title: "Step-by-Step TIEP Operational Workflow, Guarantees & Compliance",
+          image: "images/tiep_operational_workflow_infographic.png",
           summary: "6-month manufacturing window, 30-day proof of export, bank guarantees, wastage norms, and domestic diversion rules.",
           content: `
+            <img src="images/tiep_operational_workflow_infographic.png" alt="TIEP Operational Workflow Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
+
             <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
               <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <span style="background: rgba(245, 158, 11, 0.2); color: #FBBF24; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(251, 191, 36, 0.3);">Standard Operating Procedure</span>
@@ -5800,83 +5696,6 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">TIEP Operational Lifecycle & Compliance Architecture</h3>
               <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">Operating successfully under TIEP requires strict adherence to statutory deadlines, technical wastage tolerances, and digital customs reconciliation. A single paperwork flaw or missed deadline can convert suspended liabilities into punitive cash debts.</p>
-            </div>
-
-            <!-- SVG 6-Stage Workflow Diagram -->
-            <div style="margin: 25px 0; text-align: center;">
-              <svg viewBox="0 0 880 240" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
-                <rect x="0" y="0" width="880" height="42" fill="#0F172A"/>
-                <text x="440" y="27" text-anchor="middle" fill="#FBBF24" font-family="'Outfit', sans-serif" font-size="14" font-weight="700" letter-spacing="0.5">THE 6-STAGE TIEP OPERATIONAL LIFECYCLE & TIMELINE</text>
-                
-                <!-- Stage 1 -->
-                <rect x="20" y="65" width="125" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <circle cx="82" cy="90" r="14" fill="#0284C7"/>
-                <text x="82" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">1</text>
-                <text x="82" y="125" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700">RATIO AUDIT</text>
-                <text x="82" y="145" text-anchor="middle" fill="#64748B" font-size="10">Ministry of Ind.</text>
-                <text x="82" y="160" text-anchor="middle" fill="#64748B" font-size="10">MUR & Wastage</text>
-                <text x="82" y="195" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">Step 1</text>
-                
-                <!-- Arrow 1 -->
-                <line x1="145" y1="140" x2="165" y2="140" stroke="#94A3B8" stroke-width="2"/>
-                
-                <!-- Stage 2 -->
-                <rect x="165" y="65" width="125" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <circle cx="227" cy="90" r="14" fill="#0284C7"/>
-                <text x="227" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">2</text>
-                <text x="227" y="125" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700">REGISTRATION</text>
-                <text x="227" y="145" text-anchor="middle" fill="#64748B" font-size="10">Customs EFU</text>
-                <text x="227" y="160" text-anchor="middle" fill="#64748B" font-size="10">Lodge Guarantee</text>
-                <text x="227" y="195" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">Annual</text>
-                
-                <!-- Arrow 2 -->
-                <line x1="290" y1="140" x2="310" y2="140" stroke="#94A3B8" stroke-width="2"/>
-                
-                <!-- Stage 3 -->
-                <rect x="310" y="65" width="125" height="150" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
-                <circle cx="372" cy="90" r="14" fill="#2563EB"/>
-                <text x="372" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">3</text>
-                <text x="372" y="125" text-anchor="middle" fill="#1E40AF" font-size="11" font-weight="700">IMPORT (CPC 5100)</text>
-                <text x="372" y="145" text-anchor="middle" fill="#2563EB" font-size="10">Duty Suspended</text>
-                <text x="372" y="160" text-anchor="middle" fill="#2563EB" font-size="10">Factory Delivery</text>
-                <text x="372" y="195" text-anchor="middle" fill="#DC2626" font-size="9" font-weight="700">Day 0: Clock Starts</text>
-                
-                <!-- Arrow 3 -->
-                <line x1="435" y1="140" x2="455" y2="140" stroke="#3B82F6" stroke-width="2"/>
-                
-                <!-- Stage 4 -->
-                <rect x="455" y="65" width="125" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <circle cx="517" cy="90" r="14" fill="#0284C7"/>
-                <text x="517" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">4</text>
-                <text x="517" y="125" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700">MANUFACTURING</text>
-                <text x="517" y="145" text-anchor="middle" fill="#64748B" font-size="10">Factory Processing</text>
-                <text x="517" y="160" text-anchor="middle" fill="#64748B" font-size="10">Subcontract OK</text>
-                <text x="517" y="195" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">Value Addition</text>
-                
-                <!-- Arrow 4 -->
-                <line x1="580" y1="140" x2="600" y2="140" stroke="#94A3B8" stroke-width="2"/>
-                
-                <!-- Stage 5 -->
-                <rect x="600" y="65" width="125" height="150" rx="8" fill="#F0FDF4" stroke="#10B981" stroke-width="2"/>
-                <circle cx="662" cy="90" r="14" fill="#059669"/>
-                <text x="662" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">5</text>
-                <text x="662" y="125" text-anchor="middle" fill="#065F46" font-size="11" font-weight="700">EXPORT (CPC 3151)</text>
-                <text x="662" y="145" text-anchor="middle" fill="#047857" font-size="10">Port Clearance</text>
-                <text x="662" y="160" text-anchor="middle" fill="#047857" font-size="10">Bill of Lading Issued</text>
-                <text x="662" y="195" text-anchor="middle" fill="#D97706" font-size="9" font-weight="700">&le; 6 Months Window</text>
-                
-                <!-- Arrow 5 -->
-                <line x1="725" y1="140" x2="745" y2="140" stroke="#10B981" stroke-width="2"/>
-                
-                <!-- Stage 6 -->
-                <rect x="745" y="65" width="120" height="150" rx="8" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
-                <circle cx="805" cy="90" r="14" fill="#047857"/>
-                <text x="805" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">6</text>
-                <text x="805" y="125" text-anchor="middle" fill="#064E3B" font-size="11" font-weight="700">MUD DISCHARGE</text>
-                <text x="805" y="145" text-anchor="middle" fill="#047857" font-size="10">Submit Proofs</text>
-                <text x="805" y="160" text-anchor="middle" fill="#047857" font-size="10">Guarantee Free</text>
-                <text x="805" y="195" text-anchor="middle" fill="#047857" font-size="9" font-weight="700">&le; 30 Days Post-Ship</text>
-              </svg>
             </div>
 
             <!-- Detailed Stage Breakdown -->
@@ -5994,13 +5813,16 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/O-O_-6I3lDk"
+          youtube: "https://www.youtube.com/embed/4mND6F9aq84"
         },
         {
           id: "customs-bonded-warehouses-port-free-zones",
           title: "Customs Bonded Warehouses, Port Logistics Parks & Free Port Regimes",
+          image: "images/customs_bonded_warehouses_infographic.png",
           summary: "Sections 69-84 Customs Ordinance, port value addition without domestic tax, Commercial Hub Act No. 1 of 2013, and entrepot trade.",
           content: `
+            <img src="images/customs_bonded_warehouses_infographic.png" alt="Customs Bonded Warehouses Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
+
             <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
               <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <span style="background: rgba(14, 165, 233, 0.2); color: #38BDF8; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3);">Port Logistics & Extraterritorial Trade</span>
@@ -6008,71 +5830,6 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">Customs Bonded Warehouses & Free Port Hub Regimes</h3>
               <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">Beyond factory-based TIEP, international maritime trade thrives on port bonded facilities and free port zones. Under these regimes, foreign cargo enters designated logistics parks, undergoes value addition, sorting, and packaging, and departs to global destinations with complete exemption from domestic customs duties and corporate income taxes.</p>
-            </div>
-
-            <!-- SVG Diagram: Port Bonded Logistics Hub -->
-            <div style="margin: 25px 0; text-align: center;">
-              <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
-                <rect x="0" y="0" width="880" height="48" fill="#0F172A"/>
-                <text x="440" y="30" text-anchor="middle" fill="#38BDF8" font-family="'Outfit', sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">MARITIME PORT BONDED LOGISTICS HUB & COMMERCIAL FREE PORT</text>
-                
-                <!-- Inflow from Ships -->
-                <rect x="30" y="75" width="180" height="100" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
-                <text x="120" y="105" text-anchor="middle" fill="#1E40AF" font-size="13" font-weight="700">Inbound Ocean Vessels</text>
-                <text x="120" y="125" text-anchor="middle" fill="#2563EB" font-size="11">From India, China, Vietnam</text>
-                <text x="120" y="145" text-anchor="middle" fill="#64748B" font-size="10">Raw bulk, LCL, components</text>
-                
-                <!-- Arrow In -->
-                <line x1="210" y1="125" x2="270" y2="125" stroke="#3B82F6" stroke-width="2.5"/>
-                <polygon points="270,120 280,125 270,130" fill="#3B82F6"/>
-                <text x="245" y="115" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">No Tax Entry</text>
-                
-                <!-- Central Free Port Logistics Park -->
-                <rect x="280" y="70" width="320" height="230" rx="12" fill="#F8FAFC" stroke="#0284C7" stroke-width="2"/>
-                <rect x="280" y="70" width="320" height="34" rx="12" fill="#0284C7"/>
-                <text x="440" y="93" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">PORT BONDED LOGISTICS PARK (FREE ZONE)</text>
-                
-                <text x="440" y="125" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700">Dual-Lock Custody & 24/7 CCTV</text>
-                
-                <!-- Value Add activities inside box -->
-                <rect x="300" y="140" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
-                <text x="365" y="157" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">Sorting & Grading</text>
-                <text x="365" y="172" text-anchor="middle" fill="#64748B" font-size="9">Quality Inspection</text>
-                
-                <rect x="450" y="140" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
-                <text x="515" y="157" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">Repacking & Kitting</text>
-                <text x="515" y="172" text-anchor="middle" fill="#64748B" font-size="9">Retail Barcoding</text>
-                
-                <rect x="300" y="190" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
-                <text x="365" y="207" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">MCC Consolidation</text>
-                <text x="365" y="222" text-anchor="middle" fill="#64748B" font-size="9">Multi-Country LCL</text>
-                
-                <rect x="450" y="190" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
-                <text x="515" y="207" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">Light Assembly</text>
-                <text x="515" y="222" text-anchor="middle" fill="#64748B" font-size="9">Blending & Testing</text>
-                
-                <rect x="300" y="240" width="280" height="45" rx="6" fill="#F0FDF4" stroke="#86EFAC"/>
-                <text x="440" y="258" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">COMMERCIAL HUB ACT NO. 1 OF 2013</text>
-                <text x="440" y="273" text-anchor="middle" fill="#15803D" font-size="9">0% Import Duty • 0% VAT • 0% PAL • 0% Income Tax</text>
-                
-                <!-- Arrow Out to World -->
-                <line x1="600" y1="125" x2="660" y2="125" stroke="#059669" stroke-width="2.5"/>
-                <polygon points="660,120 670,125 660,130" fill="#059669"/>
-                <text x="635" y="115" text-anchor="middle" fill="#047857" font-size="9" font-weight="700">100% Re-Export</text>
-                
-                <!-- Outflow Box: Global Destinations -->
-                <rect x="670" y="75" width="180" height="100" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="1.5"/>
-                <text x="760" y="105" text-anchor="middle" fill="#065F46" font-size="13" font-weight="700">Global Markets</text>
-                <text x="760" y="125" text-anchor="middle" fill="#047857" font-size="11">Europe, USA, Middle East</text>
-                <text x="760" y="145" text-anchor="middle" fill="#64748B" font-size="10">High-margin value added</text>
-                
-                <!-- Domestic Market Branch Down -->
-                <line x1="440" y1="300" x2="440" y2="310" stroke="#DC2626" stroke-width="2"/>
-                <text x="120" y="240" text-anchor="middle" fill="#DC2626" font-size="11" font-weight="700">Domestic Market Entry?</text>
-                <text x="120" y="258" text-anchor="middle" fill="#9F1239" font-size="10">Requires Full Import Clearance</text>
-                <text x="120" y="272" text-anchor="middle" fill="#9F1239" font-size="9">+ Duties, VAT & Interest Paid</text>
-                <line x1="280" y1="260" x2="210" y2="260" stroke="#DC2626" stroke-width="2" stroke-dasharray="4,4"/>
-              </svg>
             </div>
 
             <!-- Customs Bonded Warehouses Fundamentals -->
@@ -6176,13 +5933,16 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/nZr0ogTjm3c"
+          youtube: "https://www.youtube.com/embed/hfomNC703P4"
         },
         {
           id: "global-inward-processing-duty-relief-benchmarks",
           title: "Global Inward Processing & Duty Relief Regimes: International Benchmarks",
+          image: "images/global_inward_processing_benchmarks_infographic.png",
           summary: "How inward processing operates worldwide: EU/UK IPR, US Foreign Trade Zones, China Processing Trade, India Advance Authorisation, and Dubai Free Zones.",
           content: `
+            <img src="images/global_inward_processing_benchmarks_infographic.png" alt="Global Inward Processing Benchmarks Infographic" class="kb-infographic" style="width:100%; border-radius:12px; margin-bottom:20px; box-shadow:0 4px 12px rgba(0,0,0,0.1); cursor:pointer;" onclick="openLightbox(this.src, this.alt)">
+
             <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
               <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <span style="background: rgba(139, 92, 246, 0.2); color: #C4B5FD; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(196, 181, 253, 0.3);">Global Benchmarking & Trade Policy</span>
@@ -6190,68 +5950,6 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </div>
               <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">Global Inward Processing & Duty Relief Regimes</h3>
               <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">Inward processing relief is not unique to Sri Lanka: it is an established pillar of modern international trade standardized by the World Customs Organization (WCO). Every major manufacturing and export nation operates its own duty deferment system to ensure domestic factories are not penalized by border tariffs on raw inputs.</p>
-            </div>
-
-            <!-- SVG Infographic: Global Trade Relief Architecture -->
-            <div style="margin: 25px 0; text-align: center;">
-              <svg viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
-                <rect x="0" y="0" width="880" height="48" fill="#0F172A"/>
-                <text x="440" y="30" text-anchor="middle" fill="#C4B5FD" font-family="'Outfit', sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">WORLD TRADE: INWARD PROCESSING REGIMES ACROSS KEY JURISDICTIONS</text>
-                
-                <!-- European Union / UK -->
-                <rect x="30" y="70" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <rect x="30" y="70" width="250" height="28" rx="8" fill="#1E3A8A"/>
-                <text x="155" y="89" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">EU & UK: INWARD PROCESSING (IPR)</text>
-                <text x="45" y="118" fill="#0F172A" font-size="11" font-weight="700">Legal: UCC Reg 952/2013 Art. 256</text>
-                <text x="45" y="136" fill="#475569" font-size="10">• Bill of Discharge (BoD) reconciliation</text>
-                <text x="45" y="152" fill="#475569" font-size="10">• AEO Comprehensive Guarantee Waivers</text>
-                <text x="45" y="168" fill="#1D4ED8" font-size="10" font-weight="700">• Equivalence Principle permitted</text>
-                
-                <!-- United States -->
-                <rect x="315" y="70" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <rect x="315" y="70" width="250" height="28" rx="8" fill="#991B1B"/>
-                <text x="440" y="89" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">USA: FOREIGN TRADE ZONES (FTZ)</text>
-                <text x="330" y="118" fill="#0F172A" font-size="11" font-weight="700">Legal: 19 U.S.C. &sect; 81a / &sect; 1313</text>
-                <text x="330" y="136" fill="#475569" font-size="10">• Inverted Tariff advantage on parts</text>
-                <text x="330" y="152" fill="#475569" font-size="10">• Duty Drawback: 99% refund upon export</text>
-                <text x="330" y="168" fill="#B91C1C" font-size="10" font-weight="700">• Weekly Entry & MPF cost savings</text>
-                
-                <!-- China -->
-                <rect x="600" y="70" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <rect x="600" y="70" width="250" height="28" rx="8" fill="#9A3412"/>
-                <text x="725" y="89" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">CHINA: PROCESSING TRADE</text>
-                <text x="615" y="118" fill="#0F172A" font-size="11" font-weight="700">Modes: Jinliao vs Lailiao Jiagong</text>
-                <text x="615" y="136" fill="#475569" font-size="10">• Electronic Customs Handbook (E-Ledger)</text>
-                <text x="615" y="152" fill="#475569" font-size="10">• Real-time ERP link to China Customs</text>
-                <text x="615" y="168" fill="#C2410C" font-size="10" font-weight="700">• Comprehensive Bonded Zones (CBZ)</text>
-                
-                <!-- India -->
-                <rect x="30" y="200" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <rect x="30" y="200" width="250" height="28" rx="8" fill="#047857"/>
-                <text x="155" y="219" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">INDIA: ADVANCE AUTHORISATION</text>
-                <text x="45" y="248" fill="#0F172A" font-size="11" font-weight="700">DGFT Policy & MOOWR Scheme</text>
-                <text x="45" y="266" fill="#475569" font-size="10">• Standard Input-Output Norms (SION)</text>
-                <text x="45" y="282" fill="#475569" font-size="10">• MOOWR: Section 65 Customs Act</text>
-                <text x="45" y="298" fill="#047857" font-size="10" font-weight="700">• Indefinite duty deferment until export</text>
-                
-                <!-- Dubai UAE -->
-                <rect x="315" y="200" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <rect x="315" y="200" width="250" height="28" rx="8" fill="#0E7490"/>
-                <text x="440" y="219" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">DUBAI: JAFZA & FREE ZONES</text>
-                <text x="330" y="248" fill="#0F172A" font-size="11" font-weight="700">Extraterritorial Logistics Hubs</text>
-                <text x="330" y="266" fill="#475569" font-size="10">• 100% Foreign Company Ownership</text>
-                <text x="330" y="282" fill="#475569" font-size="10">• 0% Corporate Tax & 0% Customs Duty</text>
-                <text x="330" y="298" fill="#0891B2" font-size="10" font-weight="700">• Integrated Sea-Air Corridor (4 Hours)</text>
-                
-                <!-- Singapore -->
-                <rect x="600" y="200" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-                <rect x="600" y="200" width="250" height="28" rx="8" fill="#4C1D95"/>
-                <text x="725" y="219" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">SINGAPORE: FREE TRADE ZONES</text>
-                <text x="615" y="248" fill="#0F172A" font-size="11" font-weight="700">Customs Zero-GST Warehouse</text>
-                <text x="615" y="266" fill="#475569" font-size="10">• Frictionless transshipment transit</text>
-                <text x="615" y="282" fill="#475569" font-size="10">• TradeNet digital automated clearance</text>
-                <text x="615" y="298" fill="#7C3AED" font-size="10" font-weight="700">• World leader in multi-country bunkering</text>
-              </svg>
             </div>
 
             <!-- In-Depth International Regimes Breakdown -->
@@ -6404,7 +6102,7 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
               </ul>
             </div>
           `,
-          youtube: "https://www.youtube.com/embed/40RFiUZZitE"
+          youtube: "https://www.youtube.com/embed/xQis-DqT_F4"
         }
       ]
     }

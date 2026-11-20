@@ -252,6 +252,26 @@ const FEATURED_BOARD_DESCRIPTIONS = {
   "containers": {
     heading: "Types of Shipping Containers & Technical Specifications",
     text: "This marine equipment guide details standard ocean container dimensions, maximum gross weights, tare weights, and payload capacities. Covering 20ft and 40ft Dry Standard, 40ft High Cube, Open Top, Flat Rack, and Reefer refrigerated units, it also explains container CSC safety plates, ISO sizing codes, and essential tare-to-payload calculations for freight forwarders."
+  },
+  "tiep scheme": {
+    heading: "TIEP Scheme Fundamentals & Capital Preservation",
+    text: "Illustrates the financial and operational mechanics of Sri Lanka Customs Temporary Import for Export Processing (TIEP). Contrasts traditional upfront border tax drains with 100% duty suspension under Customs Procedure Code (CPC 5100), detailing the 3 recognized exporter tiers and 4-pillar inter-agency governance model."
+  },
+  "tiep classification": {
+    heading: "TIEP Scheme Classification Architecture & Regimes",
+    text: "Details the operational boundaries between TIEP-I (consumable raw materials and packaging), TIEP-IV (capital machinery for >=50% exporters), TIEP-V (annual Chartered Accountant audited guarantee release), and INFAC (textile and garment inward processing), highlighting the strict anti-double dipping mutual exclusivity rules."
+  },
+  "operational workflow": {
+    heading: "TIEP 6-Stage Operational Lifecycle & Compliance Timeline",
+    text: "Step-by-step SOP tracing an export consignment from Ministry MUR ratio approval and Customs EFU guarantee lodgment to CPC 5100 import, factory manufacturing, CPC 3151 export within 6 months, and Material Utilization Declaration (MUD) discharge within 30 days."
+  },
+  "bonded warehouse": {
+    heading: "Customs Bonded Warehouses & Port Logistics Hubs",
+    text: "Explains extraterritorial port logistics operations under Sections 69-84 of the Customs Ordinance and the Commercial Hub Act No. 1 of 2013. Showcases dual-lock security controls, 2-year tax-deferred storage, non-duty value addition (sorting, repacking, MCC consolidation), and direct vessel-to-warehouse quayside transfers."
+  },
+  "global inward": {
+    heading: "Global Inward Processing & Duty Relief Benchmarks",
+    text: "Comprehensive international benchmarking framework comparing EU/UK Inward Processing Relief (IPR & Bill of Discharge), US Foreign Trade Zones (FTZ with inverted tariffs and Duty Drawback), China Processing Trade (Electronic Customs Handbook), India Advance Authorisation and MOOWR, and Dubai/Singapore Free Trade Zones."
   }
 };
 
