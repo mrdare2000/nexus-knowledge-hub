@@ -1,4 +1,4 @@
-// Nexus Knowledge Hub - Core Knowledge Base Data
+﻿// Nexus Knowledge Hub - Core Knowledge Base Data
 // This file acts as the database for the learning platform and Nexus AI context.
 // 100% complete coverage of all topics and subtopics from the recommended guidelines.
 // Features embedded custom SVG infographics and custom layout configurations.
@@ -5390,6 +5390,1021 @@ var NEXUS_KNOWLEDGE_BASE = window.NEXUS_KNOWLEDGE_BASE = {
             </div>
           `,
           youtube: "https://www.youtube.com/embed/9LEanczg-Hw"
+        }
+      ]
+    },
+    {
+      id: "tiep-customs-regimes",
+      title: "14. TIEP Scheme, Bonded Warehouses & Free Ports",
+      description: "Temporary Import for Export Processing (TIEP), Customs Bonded Warehouses, Inward Processing Relief & Free Port Hubs.",
+      icon: "🏛️",
+      subtopics: [
+        {
+          id: "tiep-scheme-fundamentals-sri-lanka",
+          title: "TIEP Scheme Fundamentals: Temporary Import for Export Processing",
+          summary: "Upfront duty suspension, working capital preservation, direct vs indirect exporters, and legal authority under Sri Lanka Customs.",
+          content: `
+            <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <span style="background: rgba(14, 165, 233, 0.2); color: #38BDF8; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3);">Sri Lanka Customs Fiscal Incentive</span>
+                <span style="font-size: 0.85rem; color: #94A3B8;">Customs Ordinance (Cap. 235) • Sections 22, 22A & 47</span>
+              </div>
+              <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">TIEP Scheme Fundamentals & Capital Preservation</h3>
+              <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">The Temporary Import for Export Processing (TIEP) scheme is Sri Lanka's flagship trade facilitation mechanism. It grants legitimate exporters a 100% upfront suspension of customs import duties, CESS, PAL, and border levies on imported production inputs, shielding operational working capital and enhancing export price competitiveness in world markets.</p>
+            </div>
+
+            <!-- SVG Visual Infographic: TIEP vs Normal Import Cash Flow -->
+            <div style="margin: 25px 0; text-align: center;">
+              <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
+                <!-- Header Title -->
+                <rect x="0" y="0" width="880" height="52" fill="#0F172A"/>
+                <text x="440" y="32" text-anchor="middle" fill="#38BDF8" font-family="'Outfit', sans-serif" font-size="16" font-weight="700" letter-spacing="0.5">FINANCIAL IMPACT: STANDARD IMPORTATION VS. TIEP SUSPENSION</text>
+                
+                <!-- Left: Standard Import (Cash Drain) -->
+                <rect x="25" y="70" width="395" height="245" rx="10" fill="#FFF1F2" stroke="#FECACA" stroke-width="2"/>
+                <rect x="25" y="70" width="395" height="38" rx="10" fill="#E11D48"/>
+                <text x="222" y="95" text-anchor="middle" fill="#FFFFFF" font-family="'Outfit', sans-serif" font-size="14" font-weight="700">TRADITIONAL IMPORT (CASH DRAIN)</text>
+                
+                <!-- Steps Left -->
+                <circle cx="55" cy="135" r="14" fill="#BE123C"/>
+                <text x="55" y="140" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">1</text>
+                <text x="80" y="133" fill="#881337" font-size="12" font-weight="700">Cargo Arrives at Colombo Port</text>
+                <text x="80" y="148" fill="#9F1239" font-size="11">Inputs landed with CIF value $100,000</text>
+                
+                <circle cx="55" cy="180" r="14" fill="#BE123C"/>
+                <text x="55" y="185" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">2</text>
+                <text x="80" y="177" fill="#881337" font-size="12" font-weight="700">Immediate Duty & Levy Cash Payment</text>
+                <text x="80" y="192" fill="#9F1239" font-size="11">~$35,000 paid upfront (Duty, CESS, PAL, VAT)</text>
+                
+                <circle cx="55" cy="225" r="14" fill="#BE123C"/>
+                <text x="55" y="230" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">3</text>
+                <text x="80" y="222" fill="#881337" font-size="12" font-weight="700">Working Capital Frozen (4 to 6 Months)</text>
+                <text x="80" y="237" fill="#9F1239" font-size="11">Cash locked during production, assembly & shipment</text>
+                
+                <circle cx="55" cy="270" r="14" fill="#BE123C"/>
+                <text x="55" y="275" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">4</text>
+                <text x="80" y="267" fill="#881337" font-size="12" font-weight="700">Tedious Duty Drawback / Rebate Claim</text>
+                <text x="80" y="282" fill="#9F1239" font-size="11">High bureaucratic delay, audit risk & finance costs</text>
+                
+                <!-- Right: TIEP Scheme (Preserved Liquidity) -->
+                <rect x="460" y="70" width="395" height="245" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
+                <rect x="460" y="70" width="395" height="38" rx="10" fill="#059669"/>
+                <text x="657" y="95" text-anchor="middle" fill="#FFFFFF" font-family="'Outfit', sans-serif" font-size="14" font-weight="700">TIEP SUSPENSION REGIME (100% LIQUIDITY)</text>
+                
+                <!-- Steps Right -->
+                <circle cx="490" cy="135" r="14" fill="#047857"/>
+                <text x="490" y="140" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">1</text>
+                <text x="515" y="133" fill="#064E3B" font-size="12" font-weight="700">Cargo Arrives & Enters TIEP Channel</text>
+                <text x="515" y="148" fill="#047857" font-size="11">Declared under Customs Procedure Code CPC 5100</text>
+                
+                <circle cx="490" cy="180" r="14" fill="#047857"/>
+                <text x="490" y="185" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">2</text>
+                <text x="515" y="177" fill="#064E3B" font-size="12" font-weight="700">Zero Upfront Cash Taxes ($0 Paid)</text>
+                <text x="515" y="192" fill="#047857" font-size="11">Secured via Corporate or Bank Guarantee</text>
+                
+                <circle cx="490" cy="225" r="14" fill="#047857"/>
+                <text x="490" y="230" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">3</text>
+                <text x="515" y="222" fill="#064E3B" font-size="12" font-weight="700">Maximum Operational Cash Flow</text>
+                <text x="515" y="237" fill="#047857" font-size="11">Capital deployed into factories, wages & raw materials</text>
+                
+                <circle cx="490" cy="270" r="14" fill="#047857"/>
+                <text x="490" y="275" text-anchor="middle" fill="#FFF" font-size="12" font-weight="700">4</text>
+                <text x="515" y="267" fill="#064E3B" font-size="12" font-weight="700">Export & Complete Liability Discharge</text>
+                <text x="515" y="282" fill="#047857" font-size="11">MUD filed within 30 days: guarantee released in full</text>
+              </svg>
+            </div>
+
+            <!-- Deep Dive Real World Case Study: Ceylon Tea Value Addition -->
+            <div style="background: #FFF; border: 2px solid #E2E8F0; border-radius: 14px; padding: 22px; margin: 25px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                <span style="font-size: 2rem;">🍵</span>
+                <div>
+                  <h4 style="margin: 0; color: #0F172A; font-size: 1.25rem;">Practical Real-World Case Study: The Ceylon Tea Master Blender</h4>
+                  <span style="color: #64748B; font-size: 0.85rem;">Step-by-step application of TIEP-I duty suspension in export manufacturing</span>
+                </div>
+              </div>
+              
+              <div style="background: #F8FAFC; border-left: 4px solid #0284C7; padding: 16px; border-radius: 8px; margin-bottom: 16px; font-size: 0.92rem; color: #334155; line-height: 1.6;">
+                <strong>Scenario:</strong> <em>Lanka Artisan Blends (Pvt) Ltd</em> is a Colombo-based specialty tea processor contracted by high-end retail chains in Germany and Japan. To create a signature "Spiced Citrus Royal Blend", the exporter imports specialized ingredients and luxury packaging that cannot be sourced locally:
+                <ul style="margin: 8px 0 0 18px; padding: 0;">
+                  <li><strong>Imported Inputs:</strong> 10,000 kg of Indian Assam orthodox tea (for specific body and color density), 150 kg of natural cold-pressed Italian lemon essence, and 50,000 lithographed airtight metal canisters from East Asia.</li>
+                  <li><strong>Local Content:</strong> 15,000 kg of premium Ceylon High-Grown Nuwara Eliya and Uva Broken Orange Pekoe (BOP) tea purchased through the Colombo Tea Auction.</li>
+                  <li><strong>Normal Import Without TIEP:</strong> The imported tea leaves, flavorings, and printed tins carry normal customs tariffs (approx. 30% duty + LKR 300/kg tea CESS + PAL + port charges). The blender would be forced to pay over <strong>LKR 16,500,000 in upfront cash taxes</strong> at the port gate.</li>
+                  <li><strong>Under TIEP-I Suspension:</strong> Lanka Artisan Blends registers its approved input-output ratio with Sri Lanka Customs and lodges an approved Corporate Guarantee. The entire consignment is cleared through Customs with <strong>Zero Duty Paid Upfront</strong>.</li>
+                  <li><strong>Processing & Value Addition:</strong> Inside their certified blending plant, the ingredients are mixed, sifted, quality checked, sealed into the canisters, and packed into master shipping cartons.</li>
+                  <li><strong>Export & Guarantee Discharge:</strong> 65,000 finished retail canisters are exported within 4 months via Colombo Port to Hamburg and Yokohama. The exporter files the Export CusDec, Bill of Lading, and Foreign Inward Remittance Certificate. Sri Lanka Customs reviews the Material Utilization Declaration (MUD) and cancels the guarantee. <strong>Net Tax Paid: LKR 0. Cash Preserved: LKR 16.5M.</strong></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Exporter Eligibility Categories -->
+            <div style="margin: 30px 0;">
+              <h4 style="color: #0F172A; font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                <span>👥</span> The Three Recognized Exporter Categories
+              </h4>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+                <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-top: 4px solid #0284C7; border-radius: 12px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color: #0369A1; font-size: 1.05rem; display: block; margin-bottom: 6px;">1. Direct Exporters</strong>
+                  <p style="font-size: 0.88rem; color: #475569; margin: 0 0 10px 0; line-height: 1.5;">Enterprises that directly import raw materials, manufacture finished products in their own premises, and ship finished goods abroad under their own commercial name and Export Customs Declaration (CusDec).</p>
+                  <span style="display: inline-block; background: #E0F2FE; color: #0369A1; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;">Primary Beneficiaries</span>
+                </div>
+                
+                <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-top: 4px solid #10B981; border-radius: 12px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color: #047857; font-size: 1.05rem; display: block; margin-bottom: 6px;">2. Indirect Exporters</strong>
+                  <p style="font-size: 0.88rem; color: #475569; margin: 0 0 10px 0; line-height: 1.5;">Manufacturers who import inputs to produce intermediate components, sub-assemblies, or packaging materials (e.g. corrugated cartons, labels, polybags) and supply them to registered Direct Exporters.</p>
+                  <span style="display: inline-block; background: #DCFCE7; color: #047857; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;">Domestic Supply Chain</span>
+                </div>
+                
+                <div style="background: #FFFFFF; border: 1.5px solid #E2E8F0; border-top: 4px solid #8B5CF6; border-radius: 12px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color: #6D28D9; font-size: 1.05rem; display: block; margin-bottom: 6px;">3. Deemed Exporters</strong>
+                  <p style="font-size: 0.88rem; color: #475569; margin: 0 0 10px 0; line-height: 1.5;">Domestic manufacturers who import raw materials under TIEP and supply their finished products to Board of Investment (BOI) enterprises or specialized offshore bonded operations without cargo physically leaving the island immediately.</p>
+                  <span style="display: inline-block; background: #EDE9FE; color: #6D28D9; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;">BOI & Bond Transfer</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inter-Agency Governance Ecosystem -->
+            <div style="background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 14px; padding: 22px; margin: 25px 0;">
+              <h4 style="margin: 0 0 15px 0; color: #0F172A; font-size: 1.2rem; text-align: center;">🏛️ Four-Pillar Inter-Agency Regulatory Ecosystem</h4>
+              <p style="font-size: 0.9rem; color: #64748B; text-align: center; max-width: 720px; margin: 0 auto 20px auto;">The TIEP scheme does not operate in isolation. It is strictly overseen by four coordinated governmental bodies to balance export growth with customs revenue protection:</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px;">
+                <div style="background: #FFF; padding: 15px; border-radius: 8px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color: #0369A1; font-size: 0.95rem; display: block; margin-bottom: 4px;">1. Sri Lanka Customs (EFU)</strong>
+                  <span style="font-size: 0.83rem; color: #475569; line-height: 1.4; display: block;">The Export Facilitation Unit under the Directorate of Industries & Services manages company registrations, scrutinizes CusDecs, accepts guarantees, audits factory stocks, and discharges liabilities.</span>
+                </div>
+                
+                <div style="background: #FFF; padding: 15px; border-radius: 8px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color: #0369A1; font-size: 0.95rem; display: block; margin-bottom: 4px;">2. Ministry of Industry</strong>
+                  <span style="font-size: 0.83rem; color: #475569; line-height: 1.4; display: block;">Engineers and technical officers conduct factory audits to calculate standard Material Utilization Ratios (MUR) and maximum allowable manufacturing wastage norms before recommending companies to Customs.</span>
+                </div>
+                
+                <div style="background: #FFF; padding: 15px; border-radius: 8px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color: #0369A1; font-size: 0.95rem; display: block; margin-bottom: 4px;">3. Sector Line Agencies</strong>
+                  <span style="font-size: 0.83rem; color: #475569; line-height: 1.4; display: block;">Specialized statutory bodies (Sri Lanka Tea Board, Coconut Development Authority, National Gem & Jewellery Authority) verify purity, blend composition, and quality standards for sector-specific inputs.</span>
+                </div>
+                
+                <div style="background: #FFF; padding: 15px; border-radius: 8px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color: #0369A1; font-size: 0.95rem; display: block; margin-bottom: 4px;">4. Export Development Board (EDB)</strong>
+                  <span style="font-size: 0.83rem; color: #475569; line-height: 1.4; display: block;">Mandatory prerequisite exporter registration. Coordinates national export policy, advocates for SME exporters, and participates in monthly joint dispute resolution forums with Customs.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Alert Box: Legal Foundation -->
+            <div style="background: #FFFBEB; border: 1.5px solid #FCD34D; border-radius: 12px; padding: 16px; margin-top: 20px; display: flex; align-items: flex-start; gap: 14px;">
+              <span style="font-size: 1.8rem; line-height: 1;">⚖️</span>
+              <div>
+                <strong style="color: #92400E; font-size: 0.95rem; display: block; margin-bottom: 4px;">Statutory Legal Grounding: Sri Lanka Customs Ordinance (Cap. 235)</strong>
+                <p style="margin: 0; font-size: 0.86rem; color: #78350F; line-height: 1.5;">TIEP is legally anchored under <strong>Section 22</strong> (temporary importation of goods for repair or processing), <strong>Section 22A</strong> (special inward processing regimes under security), and <strong>Section 47</strong> (customs bond enforcement). Non-compliance, failure to re-export within statutory limits, or unauthorized domestic sales constitute customs offenses liable to immediate bond forfeiture, treble duty fines, and confiscation under Section 129.</p>
+              </div>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/9LEanczg-Hw"
+        },
+        {
+          id: "tiep-classification-types-infac",
+          title: "TIEP Classification: TIEP-I, TIEP-IV, TIEP-V, INFAC & Duty Relief Regimes",
+          summary: "Comparison of TIEP-I (materials), TIEP-IV (machinery), TIEP-V (audit discharge), INFAC (garments), and exclusivity rules.",
+          content: `
+            <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <span style="background: rgba(16, 185, 129, 0.2); color: #34D399; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.3);">Classification & Scheme Architecture</span>
+                <span style="font-size: 0.85rem; color: #94A3B8;">Customs Guide • Operational Regimes</span>
+              </div>
+              <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">TIEP Classification: TIEP-I, TIEP-IV, TIEP-V & INFAC</h3>
+              <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">Sri Lanka Customs structures duty relief into distinct specialized regimes based on cargo type, industrial activity, and asset longevity. Understanding the exact program boundaries prevents fatal compliance violations and ensures maximum financial duty deferment.</p>
+            </div>
+
+            <!-- The Core Regimes Detailed -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin: 25px 0;">
+              
+              <!-- TIEP-I -->
+              <div style="background: #FFF; border: 2px solid #E2E8F0; border-top: 5px solid #0284C7; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <strong style="color: #0369A1; font-size: 1.15rem;">📦 TIEP-I Scheme</strong>
+                  <span style="background: #E0F2FE; color: #0284C7; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">Consumables & Inputs</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">The primary inward processing regime for all physical inputs consumed in export production.</p>
+                <ul style="font-size: 0.83rem; color: #334155; padding-left: 18px; margin: 0 0 14px 0; line-height: 1.6;">
+                  <li><strong>Scope:</strong> Raw materials, chemical catalysts, components, intermediate goods, labels, packaging materials, cartons, and containers.</li>
+                  <li><strong>Validity:</strong> Registration granted for 1 year; requires annual Ministry of Industry and Customs renewal.</li>
+                  <li><strong>Export Window:</strong> Strict 6 months from import date to conversion and physical export.</li>
+                  <li><strong>Guarantee:</strong> Corporate Guarantee (low-risk verified firms) or Bank Guarantee.</li>
+                </ul>
+                <div style="background: #F0F9FF; border: 1px solid #BAE6FD; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; color: #0369A1;">
+                  <strong>Best For:</strong> Value-added food processors, rubber goods makers, electronics assemblers, and light engineering.
+                </div>
+              </div>
+
+              <!-- TIEP-IV -->
+              <div style="background: #FFF; border: 2px solid #E2E8F0; border-top: 5px solid #10B981; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <strong style="color: #047857; font-size: 1.15rem;">⚙️ TIEP-IV Scheme</strong>
+                  <span style="background: #DCFCE7; color: #047857; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">Capital Machinery</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">Duty relief mechanism designed to modernize manufacturing facilities and lower industrial capex.</p>
+                <ul style="font-size: 0.83rem; color: #334155; padding-left: 18px; margin: 0 0 14px 0; line-height: 1.6;">
+                  <li><strong>Scope:</strong> Industrial machinery, specialized manufacturing equipment, lab testing instruments, precision molds, and tooling.</li>
+                  <li><strong>Mandatory 50% Rule:</strong> Enterprise MUST export <strong>at least 50% or more</strong> of its total factory production output.</li>
+                  <li><strong>Security:</strong> Backed by a long-term bank guarantee amortized systematically over 3 to 5 years based on export turnover.</li>
+                  <li><strong>Discharge:</strong> Cannot be disposed of or sold locally without prior Customs assessment.</li>
+                </ul>
+                <div style="background: #ECFDF5; border: 1px solid #A7F3D0; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; color: #047857;">
+                  <strong>Best For:</strong> Modernizing factory lines, buying CNC machinery, automated packaging lines, and textile looms.
+                </div>
+              </div>
+
+              <!-- TIEP-V -->
+              <div style="background: #FFF; border: 2px solid #E2E8F0; border-top: 5px solid #F59E0B; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <strong style="color: #B45309; font-size: 1.15rem;">📋 TIEP-V Statement</strong>
+                  <span style="background: #FEF3C7; color: #B45309; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">Annual CA Audit</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">The formal annual reconciliation mechanism that unlocks and writes down TIEP-IV machinery guarantees.</p>
+                <ul style="font-size: 0.83rem; color: #334155; padding-left: 18px; margin: 0 0 14px 0; line-height: 1.6;">
+                  <li><strong>Nature:</strong> Not an import permit, but a comprehensive annual compliance dossier certified by a licensed Chartered Accountant.</li>
+                  <li><strong>Verification:</strong> Reconciles total factory output, audited raw material consumption, domestic sales, and foreign export revenue.</li>
+                  <li><strong>Outcome:</strong> Submitting a clean TIEP-V allows Customs to release that financial year's tranche of the bank guarantee.</li>
+                  <li><strong>Penalty:</strong> Failure to submit TIEP-V triggers immediate revocation of TIEP-I privileges and demand for duty payment.</li>
+                </ul>
+                <div style="background: #FFFBEB; border: 1px solid #FDE68A; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; color: #B45309;">
+                  <strong>Best For:</strong> Annual financial audit closure, bank guarantee reduction, and maintaining clean customs status.
+                </div>
+              </div>
+
+              <!-- INFAC -->
+              <div style="background: #FFF; border: 2px solid #E2E8F0; border-top: 5px solid #8B5CF6; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <strong style="color: #6D28D9; font-size: 1.15rem;">🧵 INFAC Scheme</strong>
+                  <span style="background: #EDE9FE; color: #6D28D9; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">Textiles & Apparel Only</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">A specialized inward processing scheme dedicated solely to non-BOI textile and apparel manufacturers.</p>
+                <ul style="font-size: 0.83rem; color: #334155; padding-left: 18px; margin: 0 0 14px 0; line-height: 1.6;">
+                  <li><strong>Scope:</strong> Knitted/woven fabrics, threads, buttons, zippers, linings, elastic webbing, hangtags, and garment polybags.</li>
+                  <li><strong>Administration:</strong> Managed jointly by Sri Lanka Customs Textile Unit and Ministry of Industry Garment Directorate.</li>
+                  <li><strong>Fast-Track:</strong> Tailored specifically to the intense seasonal velocity of apparel fashion orders (fast-tracked material clearance).</li>
+                  <li><strong>Exclusivity:</strong> Garment enterprises registered under INFAC cannot claim general TIEP-I for the same fabric lots.</li>
+                </ul>
+                <div style="background: #F5F3FF; border: 1px solid #DDD6FE; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; color: #6D28D9;">
+                  <strong>Best For:</strong> Non-BOI garment factories, apparel embellishers, uniform makers, and fashion exporters.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- SVG Decision Tree Diagram -->
+            <div style="margin: 30px 0; text-align: center;">
+              <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
+                <rect x="0" y="0" width="880" height="48" fill="#0F172A"/>
+                <text x="440" y="30" text-anchor="middle" fill="#34D399" font-family="'Outfit', sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">SCHEME SELECTION: WHICH REGIME FITS YOUR LOGISTICS PIPELINE?</text>
+                
+                <!-- Decision Box 1 -->
+                <rect x="40" y="70" width="220" height="70" rx="8" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
+                <text x="150" y="98" text-anchor="middle" fill="#0F172A" font-size="13" font-weight="700">What are you importing?</text>
+                <text x="150" y="118" text-anchor="middle" fill="#64748B" font-size="11">Classify cargo nature</text>
+                
+                <!-- Line Right -->
+                <line x1="260" y1="105" x2="330" y2="105" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+                
+                <!-- Branch 1: Materials -->
+                <rect x="330" y="70" width="220" height="70" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+                <text x="440" y="95" text-anchor="middle" fill="#1D4ED8" font-size="12" font-weight="700">Raw Materials / Parts / Tins</text>
+                <text x="440" y="115" text-anchor="middle" fill="#2563EB" font-size="11">Consumed within 6 months</text>
+                
+                <line x1="550" y1="105" x2="620" y2="105" stroke="#3B82F6" stroke-width="2"/>
+                <rect x="620" y="70" width="220" height="70" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+                <text x="730" y="98" text-anchor="middle" fill="#1E40AF" font-size="14" font-weight="800">USE TIEP-I</text>
+                <text x="730" y="118" text-anchor="middle" fill="#1D4ED8" font-size="11">Annual renewable registration</text>
+                
+                <!-- Branch 2: Apparel -->
+                <line x1="150" y1="140" x2="150" y2="190" stroke="#64748B" stroke-width="2"/>
+                <line x1="150" y1="190" x2="330" y2="190" stroke="#64748B" stroke-width="2"/>
+                
+                <rect x="330" y="155" width="220" height="70" rx="8" fill="#F5F3FF" stroke="#8B5CF6" stroke-width="1.5"/>
+                <text x="440" y="180" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="700">Garment Fabrics & Trims</text>
+                <text x="440" y="200" text-anchor="middle" fill="#7C3AED" font-size="11">Apparel sector only (Non-BOI)</text>
+                
+                <line x1="550" y1="190" x2="620" y2="190" stroke="#8B5CF6" stroke-width="2"/>
+                <rect x="620" y="155" width="220" height="70" rx="8" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+                <text x="730" y="183" text-anchor="middle" fill="#5B21B6" font-size="14" font-weight="800">USE INFAC</text>
+                <text x="730" y="203" text-anchor="middle" fill="#6D28D9" font-size="11">Fast-track garment clearance</text>
+                
+                <!-- Branch 3: Machinery -->
+                <line x1="150" y1="190" x2="150" y2="275" stroke="#64748B" stroke-width="2"/>
+                <line x1="150" y1="275" x2="330" y2="275" stroke="#64748B" stroke-width="2"/>
+                
+                <rect x="330" y="240" width="220" height="70" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="1.5"/>
+                <text x="440" y="265" text-anchor="middle" fill="#047857" font-size="12" font-weight="700">Production Machinery</text>
+                <text x="440" y="285" text-anchor="middle" fill="#059669" font-size="11">Exporting >50% of output</text>
+                
+                <line x1="550" y1="275" x2="620" y2="275" stroke="#10B981" stroke-width="2"/>
+                <rect x="620" y="240" width="220" height="70" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="2"/>
+                <text x="730" y="268" text-anchor="middle" fill="#065F46" font-size="14" font-weight="800">USE TIEP-IV</text>
+                <text x="730" y="288" text-anchor="middle" fill="#047857" font-size="11">Discharged annually via TIEP-V</text>
+              </svg>
+            </div>
+
+            <!-- Anti-Double Dipping / Mutual Exclusivity -->
+            <div style="background: #FFF1F2; border: 2px solid #FECACA; border-radius: 12px; padding: 20px; margin: 25px 0;">
+              <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <span style="font-size: 2rem; line-height: 1;">🚫</span>
+                <div>
+                  <strong style="color: #9F1239; font-size: 1.1rem; display: block; margin-bottom: 6px;">The Mutual Exclusivity Rule (Anti-Double Dipping Mandate)</strong>
+                  <p style="margin: 0; font-size: 0.9rem; color: #881337; line-height: 1.6;">
+                    Under Sri Lanka Customs regulations, an exporter <strong>cannot combine TIEP-I with another duty relief mechanism for the same consignment or finished product</strong>. Specifically:
+                  </p>
+                  <ul style="margin: 8px 0 0 18px; padding: 0; font-size: 0.88rem; color: #9F1239; line-height: 1.5;">
+                    <li><strong>No Duty Rebate:</strong> If raw materials entered duty-free under TIEP-I, you cannot apply for a Duty Rebate / Duty Drawback on the exported finished product. Claiming a refund for a tax you never paid is treated as criminal customs fraud.</li>
+                    <li><strong>No Manufacture-in-Bond (Section 22):</strong> You cannot mix TIEP-I material stocks inside a general Section 22 Bonded Manufacturing Warehouse without separate physical segregation and dedicated CusDec accounting.</li>
+                    <li><strong>No Double Concessions:</strong> If goods enjoy duty exemption under a Free Trade Agreement (e.g. ISFTA/PSFTA) on final import, the raw input reconciliation must strictly segregate origin claims.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Comprehensive Comparison Table -->
+            <div style="margin: 30px 0;">
+              <h4 style="color: #0F172A; font-size: 1.25rem; margin-bottom: 16px; text-align: center;">📊 Comparative Matrix: Sri Lanka Export Duty Relief Schemes</h4>
+              
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; background: #FFF; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #E2E8F0;">
+                  <thead>
+                    <tr style="background: #0F172A; color: #FFF;">
+                      <th style="padding: 14px 16px;">Scheme Name</th>
+                      <th style="padding: 14px 16px;">Eligible Items</th>
+                      <th style="padding: 14px 16px;">Duty Treatment</th>
+                      <th style="padding: 14px 16px;">Security Type</th>
+                      <th style="padding: 14px 16px;">Export Ratio Required</th>
+                      <th style="padding: 14px 16px;">Time Limit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                      <td style="padding: 12px 16px;"><strong style="color: #0284C7;">TIEP-I</strong></td>
+                      <td style="padding: 12px 16px; color: #334155;">Raw materials, parts, packing items</td>
+                      <td style="padding: 12px 16px; color: #059669; font-weight: 700;">100% Upfront Suspended</td>
+                      <td style="padding: 12px 16px; color: #475569;">Corporate / Bank Guarantee</td>
+                      <td style="padding: 12px 16px; color: #475569;">100% of imported input</td>
+                      <td style="padding: 12px 16px; color: #D97706; font-weight: 700;">6 Months</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                      <td style="padding: 12px 16px;"><strong style="color: #10B981;">TIEP-IV</strong></td>
+                      <td style="padding: 12px 16px; color: #334155;">Capital machinery, tooling, equipment</td>
+                      <td style="padding: 12px 16px; color: #059669; font-weight: 700;">100% Upfront Suspended</td>
+                      <td style="padding: 12px 16px; color: #475569;">Bank Guarantee (Amortized)</td>
+                      <td style="padding: 12px 16px; color: #0284C7; font-weight: 700;">&ge; 50% of Total Production</td>
+                      <td style="padding: 12px 16px; color: #475569;">3 to 5 Years</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                      <td style="padding: 12px 16px;"><strong style="color: #8B5CF6;">INFAC</strong></td>
+                      <td style="padding: 12px 16px; color: #334155;">Garment fabrics, buttons, trims</td>
+                      <td style="padding: 12px 16px; color: #059669; font-weight: 700;">100% Upfront Suspended</td>
+                      <td style="padding: 12px 16px; color: #475569;">Corporate / Bank Guarantee</td>
+                      <td style="padding: 12px 16px; color: #475569;">100% of imported input</td>
+                      <td style="padding: 12px 16px; color: #D97706; font-weight: 700;">6 Months</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                      <td style="padding: 12px 16px;"><strong style="color: #D97706;">Manufacture-in-Bond</strong></td>
+                      <td style="padding: 12px 16px; color: #334155;">Inputs used inside licensed bond store</td>
+                      <td style="padding: 12px 16px; color: #059669; font-weight: 700;">Duty Deferred in Bond</td>
+                      <td style="padding: 12px 16px; color: #475569;">General Bond + Customs Lock</td>
+                      <td style="padding: 12px 16px; color: #475569;">Any ratio (duty paid if local)</td>
+                      <td style="padding: 12px 16px; color: #475569;">Up to 2 Years</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 12px 16px;"><strong style="color: #EF4444;">Duty Rebate Scheme</strong></td>
+                      <td style="padding: 12px 16px; color: #334155;">Inputs where duty was paid at entry</td>
+                      <td style="padding: 12px 16px; color: #DC2626; font-weight: 700;">Paid Upfront &rarr; Refunded Later</td>
+                      <td style="padding: 12px 16px; color: #475569;">None (Cash Tied Up)</td>
+                      <td style="padding: 12px 16px; color: #475569;">Pro-rated to exported volume</td>
+                      <td style="padding: 12px 16px; color: #475569;">Refund claimed within 12 mos</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/U-tUVBaRk_Y"
+        },
+        {
+          id: "tiep-operational-workflow-guarantees-compliance",
+          title: "Step-by-Step TIEP Operational Workflow, Guarantees & Compliance",
+          summary: "6-month manufacturing window, 30-day proof of export, bank guarantees, wastage norms, and domestic diversion rules.",
+          content: `
+            <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <span style="background: rgba(245, 158, 11, 0.2); color: #FBBF24; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(251, 191, 36, 0.3);">Standard Operating Procedure</span>
+                <span style="font-size: 0.85rem; color: #94A3B8;">ASYCUDA World • Customs Compliance</span>
+              </div>
+              <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">TIEP Operational Lifecycle & Compliance Architecture</h3>
+              <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">Operating successfully under TIEP requires strict adherence to statutory deadlines, technical wastage tolerances, and digital customs reconciliation. A single paperwork flaw or missed deadline can convert suspended liabilities into punitive cash debts.</p>
+            </div>
+
+            <!-- SVG 6-Stage Workflow Diagram -->
+            <div style="margin: 25px 0; text-align: center;">
+              <svg viewBox="0 0 880 240" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
+                <rect x="0" y="0" width="880" height="42" fill="#0F172A"/>
+                <text x="440" y="27" text-anchor="middle" fill="#FBBF24" font-family="'Outfit', sans-serif" font-size="14" font-weight="700" letter-spacing="0.5">THE 6-STAGE TIEP OPERATIONAL LIFECYCLE & TIMELINE</text>
+                
+                <!-- Stage 1 -->
+                <rect x="20" y="65" width="125" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <circle cx="82" cy="90" r="14" fill="#0284C7"/>
+                <text x="82" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">1</text>
+                <text x="82" y="125" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700">RATIO AUDIT</text>
+                <text x="82" y="145" text-anchor="middle" fill="#64748B" font-size="10">Ministry of Ind.</text>
+                <text x="82" y="160" text-anchor="middle" fill="#64748B" font-size="10">MUR & Wastage</text>
+                <text x="82" y="195" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">Step 1</text>
+                
+                <!-- Arrow 1 -->
+                <line x1="145" y1="140" x2="165" y2="140" stroke="#94A3B8" stroke-width="2"/>
+                
+                <!-- Stage 2 -->
+                <rect x="165" y="65" width="125" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <circle cx="227" cy="90" r="14" fill="#0284C7"/>
+                <text x="227" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">2</text>
+                <text x="227" y="125" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700">REGISTRATION</text>
+                <text x="227" y="145" text-anchor="middle" fill="#64748B" font-size="10">Customs EFU</text>
+                <text x="227" y="160" text-anchor="middle" fill="#64748B" font-size="10">Lodge Guarantee</text>
+                <text x="227" y="195" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">Annual</text>
+                
+                <!-- Arrow 2 -->
+                <line x1="290" y1="140" x2="310" y2="140" stroke="#94A3B8" stroke-width="2"/>
+                
+                <!-- Stage 3 -->
+                <rect x="310" y="65" width="125" height="150" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+                <circle cx="372" cy="90" r="14" fill="#2563EB"/>
+                <text x="372" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">3</text>
+                <text x="372" y="125" text-anchor="middle" fill="#1E40AF" font-size="11" font-weight="700">IMPORT (CPC 5100)</text>
+                <text x="372" y="145" text-anchor="middle" fill="#2563EB" font-size="10">Duty Suspended</text>
+                <text x="372" y="160" text-anchor="middle" fill="#2563EB" font-size="10">Factory Delivery</text>
+                <text x="372" y="195" text-anchor="middle" fill="#DC2626" font-size="9" font-weight="700">Day 0: Clock Starts</text>
+                
+                <!-- Arrow 3 -->
+                <line x1="435" y1="140" x2="455" y2="140" stroke="#3B82F6" stroke-width="2"/>
+                
+                <!-- Stage 4 -->
+                <rect x="455" y="65" width="125" height="150" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <circle cx="517" cy="90" r="14" fill="#0284C7"/>
+                <text x="517" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">4</text>
+                <text x="517" y="125" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700">MANUFACTURING</text>
+                <text x="517" y="145" text-anchor="middle" fill="#64748B" font-size="10">Factory Processing</text>
+                <text x="517" y="160" text-anchor="middle" fill="#64748B" font-size="10">Subcontract OK</text>
+                <text x="517" y="195" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">Value Addition</text>
+                
+                <!-- Arrow 4 -->
+                <line x1="580" y1="140" x2="600" y2="140" stroke="#94A3B8" stroke-width="2"/>
+                
+                <!-- Stage 5 -->
+                <rect x="600" y="65" width="125" height="150" rx="8" fill="#F0FDF4" stroke="#10B981" stroke-width="2"/>
+                <circle cx="662" cy="90" r="14" fill="#059669"/>
+                <text x="662" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">5</text>
+                <text x="662" y="125" text-anchor="middle" fill="#065F46" font-size="11" font-weight="700">EXPORT (CPC 3151)</text>
+                <text x="662" y="145" text-anchor="middle" fill="#047857" font-size="10">Port Clearance</text>
+                <text x="662" y="160" text-anchor="middle" fill="#047857" font-size="10">Bill of Lading Issued</text>
+                <text x="662" y="195" text-anchor="middle" fill="#D97706" font-size="9" font-weight="700">&le; 6 Months Window</text>
+                
+                <!-- Arrow 5 -->
+                <line x1="725" y1="140" x2="745" y2="140" stroke="#10B981" stroke-width="2"/>
+                
+                <!-- Stage 6 -->
+                <rect x="745" y="65" width="120" height="150" rx="8" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+                <circle cx="805" cy="90" r="14" fill="#047857"/>
+                <text x="805" y="95" text-anchor="middle" fill="#FFF" font-size="12" font-weight="800">6</text>
+                <text x="805" y="125" text-anchor="middle" fill="#064E3B" font-size="11" font-weight="700">MUD DISCHARGE</text>
+                <text x="805" y="145" text-anchor="middle" fill="#047857" font-size="10">Submit Proofs</text>
+                <text x="805" y="160" text-anchor="middle" fill="#047857" font-size="10">Guarantee Free</text>
+                <text x="805" y="195" text-anchor="middle" fill="#047857" font-size="9" font-weight="700">&le; 30 Days Post-Ship</text>
+              </svg>
+            </div>
+
+            <!-- Detailed Stage Breakdown -->
+            <div style="margin: 30px 0;">
+              <h4 style="color: #0F172A; font-size: 1.25rem; margin-bottom: 18px;">📋 Step-by-Step Operational Protocol</h4>
+              
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 14px;">
+                  <span style="background: #0284C7; color: #FFF; font-weight: 700; font-size: 0.9rem; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">1</span>
+                  <div>
+                    <strong style="color: #0F172A; font-size: 1rem; display: block; margin-bottom: 4px;">Material Utilization Ratio (MUR) & Wastage Determination</strong>
+                    <span style="font-size: 0.88rem; color: #475569; line-height: 1.5; display: block;">Before importing, the enterprise submits manufacturing formulas and engineering bills of materials to the Ministry of Industry. Factory assessors verify how much raw material is transformed into the final finished unit and establish maximum allowable technical wastage percentages (e.g. 3.5% cutting waste in apparel; 2.0% sifting loss in tea).</span>
+                  </div>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 14px;">
+                  <span style="background: #0284C7; color: #FFF; font-weight: 700; font-size: 0.9rem; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">2</span>
+                  <div>
+                    <strong style="color: #0F172A; font-size: 1rem; display: block; margin-bottom: 4px;">Customs EFU Registration & Security Guarantee Lodgment</strong>
+                    <span style="font-size: 0.88rem; color: #475569; line-height: 1.5; display: block;">The company registers with the Export Facilitation Unit of Sri Lanka Customs. Security is established:
+                      <ul style="margin: 6px 0 0 16px; padding: 0;">
+                        <li><strong>Corporate Guarantee:</strong> Granted to reputable, financially sound corporate exporters with long compliance histories. Requires zero bank collateral.</li>
+                        <li><strong>Bank Guarantee:</strong> Demanded for new entrants, high-risk commodities, or companies with past compliance anomalies. The bank guarantee can cover up to 100% of the suspended duty liability.</li>
+                      </ul>
+                    </span>
+                  </div>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 14px;">
+                  <span style="background: #0284C7; color: #FFF; font-weight: 700; font-size: 0.9rem; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">3</span>
+                  <div>
+                    <strong style="color: #0F172A; font-size: 1rem; display: block; margin-bottom: 4px;">Import Declaration Under ASYCUDA CPC 5100</strong>
+                    <span style="font-size: 0.88rem; color: #475569; line-height: 1.5; display: block;">Upon arrival at Colombo Port or BIA Airport, the clearing agent files an Import CusDec under Customs Procedure Code <strong>CPC 5100 (Temporary Importation for Inward Processing)</strong>. The system records the suspended duties against the registered bond quota and issues release orders. <strong>The 6-month statutory countdown commences immediately.</strong></span>
+                  </div>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 14px;">
+                  <span style="background: #0284C7; color: #FFF; font-weight: 700; font-size: 0.9rem; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">4</span>
+                  <div>
+                    <strong style="color: #0F172A; font-size: 1rem; display: block; margin-bottom: 4px;">Factory Processing & Approved Subcontracting</strong>
+                    <span style="font-size: 0.88rem; color: #475569; line-height: 1.5; display: block;">Cargo is moved under customs bond to the registered manufacturing facility. If specialized subcontracting is needed (e.g. textile printing, precision heat treatment, bottle coating), prior written permission must be obtained from Customs EFU, designating the exact subcontractor premises.</span>
+                  </div>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 14px;">
+                  <span style="background: #0284C7; color: #FFF; font-weight: 700; font-size: 0.9rem; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">5</span>
+                  <div>
+                    <strong style="color: #0F172A; font-size: 1rem; display: block; margin-bottom: 4px;">Export Clearance Under ASYCUDA CPC 3151</strong>
+                    <span style="font-size: 0.88rem; color: #475569; line-height: 1.5; display: block;">Finished goods are declared under <strong>CPC 3151 (Direct Exportation of Inward Processing Products)</strong>. In Box 40 of the export CusDec, the customs broker must cross-reference the exact prior import CusDec numbers, ensuring that electronic links exist between incoming inputs and outgoing exports.</span>
+                  </div>
+                </div>
+
+                <div style="background: #FFF; padding: 18px; border-radius: 10px; border-left: 4px solid #0284C7; box-shadow: 0 2px 4px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 14px;">
+                  <span style="background: #0284C7; color: #FFF; font-weight: 700; font-size: 0.9rem; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">6</span>
+                  <div>
+                    <strong style="color: #0F172A; font-size: 1rem; display: block; margin-bottom: 4px;">Material Utilization Declaration (MUD) Lodgment & Guarantee Release</strong>
+                    <span style="font-size: 0.88rem; color: #475569; line-height: 1.5; display: block;">Within <strong>30 days of the vessel sailing date</strong>, the exporter submits the MUD dossier to Customs EFU. The reconciliation matches imported quantities against exported units, applies approved wastage, and verifies banking remittance advice. Once verified, Customs formally issues a guarantee discharge note.</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Mandatory Proof of Export Documentation -->
+            <div style="background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 14px; padding: 22px; margin: 25px 0;">
+              <h4 style="margin: 0 0 14px 0; color: #0F172A; font-size: 1.2rem;">📁 Mandatory Proof of Export Documentation Package</h4>
+              <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 15px;">To secure guarantee discharge, Customs requires four non-negotiable verification pillars:</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+                <div style="background: #FFF; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">1. Certified Export CusDec</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Stamped and electronically finalized export declaration showing CPC 3151 and linking import entry numbers.</span>
+                </div>
+                <div style="background: #FFF; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">2. Transport Document</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Original Shipper's Bill of Lading (OBL), Air Waybill (AWB), or Multi-Modal Transport Document confirming overseas vessel departure.</span>
+                </div>
+                <div style="background: #FFF; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">3. Foreign Inward Remittance</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Bank Realization Certificate (BRC) or commercial bank SWIFT MT103 confirmation proving export proceeds were received in foreign currency.</span>
+                </div>
+                <div style="background: #FFF; padding: 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">4. Reconciled MUD Statement</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Detailed spreadsheet accounting for imported weight, manufactured weight, actual wastage, and closing stock balance.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Domestic Market Diversion Penalties -->
+            <div style="background: #FFF1F2; border: 2px solid #FECACA; border-radius: 12px; padding: 20px; margin: 25px 0;">
+              <h4 style="margin: 0 0 10px 0; color: #9F1239; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+                <span>⚠️</span> Domestic Market Diversion (DTA Sale) Penalties
+              </h4>
+              <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #881337; line-height: 1.6;">
+                What happens if goods imported under TIEP cannot be exported or are sold locally in Sri Lanka?
+              </p>
+              <ul style="font-size: 0.86rem; color: #9F1239; margin: 0 0 10px 18px; padding: 0; line-height: 1.5;">
+                <li><strong>Prior Permission Mandatory:</strong> Domestic disposal without prior Customs sanction is considered illicit smuggling. Goods are liable to immediate seizure and criminal forfeiture under Sections 129 and 130 of the Customs Ordinance.</li>
+                <li><strong>Retrospective Tax Liability:</strong> If permission is granted (e.g. buyer order cancellation), the importer must pay full Customs Import Duty, CESS, PAL, and VAT calculated on the <em>original CIF value and tariff rates applicable at the time of importation</em>.</li>
+                <li><strong>Statutory Compound Interest:</strong> In addition to full duties, Customs charges compound interest for the entire duration the cargo sat in Sri Lanka duty-free (from import clearance date to payment settlement date).</li>
+                <li><strong>Commercial Wastage Disposal:</strong> If production scrap (e.g. metal cuttings, packaging trimmings) has commercial resale value in Sri Lanka, duty must be assessed and paid on the scrap value before local sale.</li>
+              </ul>
+            </div>
+
+            <!-- Modernization: 2024 to 2026 Evolution -->
+            <div style="background: #F0FDF4; border: 2px solid #86EFAC; border-radius: 12px; padding: 20px; margin-top: 20px;">
+              <h4 style="margin: 0 0 10px 0; color: #14532D; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+                <span>🚀</span> 2024 to 2026 Strategic Evolution & Tax Reforms
+              </h4>
+              <div style="font-size: 0.88rem; color: #166534; line-height: 1.6;">
+                <p style="margin: 0 0 8px 0;"><strong>Digital MUD Transition:</strong> Customs and EDB have modernized the reconciliation process, moving from slow physical ledgers to direct online MUD upload via ASYCUDA World, shrinking audit turnarounds from 60 days to under 10 days.</p>
+                <p style="margin: 0 0 8px 0;"><strong>Monthly EDB-Customs Task Force:</strong> Initiated in 2024-2026, monthly joint liaison roundtables resolve exporter bottleneck disputes, review technical wastage norms for new industries, and support small SME exporters.</p>
+                <p style="margin: 0;"><strong>Abolition of SVAT (October 2025):</strong> Sri Lanka repealed the Simplified VAT (SVAT) voucher scheme in October 2025, shifting to standard risk-rated cash VAT refunds. Because exporters now face upfront cash VAT payments on domestic purchases, utilizing TIEP for import duty suspension has become <em>far more critical</em> to protect enterprise liquidity from severe cash shortages.</p>
+              </div>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/O-O_-6I3lDk"
+        },
+        {
+          id: "customs-bonded-warehouses-port-free-zones",
+          title: "Customs Bonded Warehouses, Port Logistics Parks & Free Port Regimes",
+          summary: "Sections 69-84 Customs Ordinance, port value addition without domestic tax, Commercial Hub Act No. 1 of 2013, and entrepot trade.",
+          content: `
+            <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <span style="background: rgba(14, 165, 233, 0.2); color: #38BDF8; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3);">Port Logistics & Extraterritorial Trade</span>
+                <span style="font-size: 0.85rem; color: #94A3B8;">Commercial Hub Act No. 1 of 2013 • Free Ports</span>
+              </div>
+              <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">Customs Bonded Warehouses & Free Port Hub Regimes</h3>
+              <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">Beyond factory-based TIEP, international maritime trade thrives on port bonded facilities and free port zones. Under these regimes, foreign cargo enters designated logistics parks, undergoes value addition, sorting, and packaging, and departs to global destinations with complete exemption from domestic customs duties and corporate income taxes.</p>
+            </div>
+
+            <!-- SVG Diagram: Port Bonded Logistics Hub -->
+            <div style="margin: 25px 0; text-align: center;">
+              <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
+                <rect x="0" y="0" width="880" height="48" fill="#0F172A"/>
+                <text x="440" y="30" text-anchor="middle" fill="#38BDF8" font-family="'Outfit', sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">MARITIME PORT BONDED LOGISTICS HUB & COMMERCIAL FREE PORT</text>
+                
+                <!-- Inflow from Ships -->
+                <rect x="30" y="75" width="180" height="100" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+                <text x="120" y="105" text-anchor="middle" fill="#1E40AF" font-size="13" font-weight="700">Inbound Ocean Vessels</text>
+                <text x="120" y="125" text-anchor="middle" fill="#2563EB" font-size="11">From India, China, Vietnam</text>
+                <text x="120" y="145" text-anchor="middle" fill="#64748B" font-size="10">Raw bulk, LCL, components</text>
+                
+                <!-- Arrow In -->
+                <line x1="210" y1="125" x2="270" y2="125" stroke="#3B82F6" stroke-width="2.5"/>
+                <polygon points="270,120 280,125 270,130" fill="#3B82F6"/>
+                <text x="245" y="115" text-anchor="middle" fill="#0284C7" font-size="9" font-weight="700">No Tax Entry</text>
+                
+                <!-- Central Free Port Logistics Park -->
+                <rect x="280" y="70" width="320" height="230" rx="12" fill="#F8FAFC" stroke="#0284C7" stroke-width="2"/>
+                <rect x="280" y="70" width="320" height="34" rx="12" fill="#0284C7"/>
+                <text x="440" y="93" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="800">PORT BONDED LOGISTICS PARK (FREE ZONE)</text>
+                
+                <text x="440" y="125" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700">Dual-Lock Custody & 24/7 CCTV</text>
+                
+                <!-- Value Add activities inside box -->
+                <rect x="300" y="140" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
+                <text x="365" y="157" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">Sorting & Grading</text>
+                <text x="365" y="172" text-anchor="middle" fill="#64748B" font-size="9">Quality Inspection</text>
+                
+                <rect x="450" y="140" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
+                <text x="515" y="157" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">Repacking & Kitting</text>
+                <text x="515" y="172" text-anchor="middle" fill="#64748B" font-size="9">Retail Barcoding</text>
+                
+                <rect x="300" y="190" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
+                <text x="365" y="207" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">MCC Consolidation</text>
+                <text x="365" y="222" text-anchor="middle" fill="#64748B" font-size="9">Multi-Country LCL</text>
+                
+                <rect x="450" y="190" width="130" height="40" rx="6" fill="#FFF" stroke="#CBD5E1"/>
+                <text x="515" y="207" text-anchor="middle" fill="#334155" font-size="10" font-weight="700">Light Assembly</text>
+                <text x="515" y="222" text-anchor="middle" fill="#64748B" font-size="9">Blending & Testing</text>
+                
+                <rect x="300" y="240" width="280" height="45" rx="6" fill="#F0FDF4" stroke="#86EFAC"/>
+                <text x="440" y="258" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">COMMERCIAL HUB ACT NO. 1 OF 2013</text>
+                <text x="440" y="273" text-anchor="middle" fill="#15803D" font-size="9">0% Import Duty • 0% VAT • 0% PAL • 0% Income Tax</text>
+                
+                <!-- Arrow Out to World -->
+                <line x1="600" y1="125" x2="660" y2="125" stroke="#059669" stroke-width="2.5"/>
+                <polygon points="660,120 670,125 660,130" fill="#059669"/>
+                <text x="635" y="115" text-anchor="middle" fill="#047857" font-size="9" font-weight="700">100% Re-Export</text>
+                
+                <!-- Outflow Box: Global Destinations -->
+                <rect x="670" y="75" width="180" height="100" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="1.5"/>
+                <text x="760" y="105" text-anchor="middle" fill="#065F46" font-size="13" font-weight="700">Global Markets</text>
+                <text x="760" y="125" text-anchor="middle" fill="#047857" font-size="11">Europe, USA, Middle East</text>
+                <text x="760" y="145" text-anchor="middle" fill="#64748B" font-size="10">High-margin value added</text>
+                
+                <!-- Domestic Market Branch Down -->
+                <line x1="440" y1="300" x2="440" y2="310" stroke="#DC2626" stroke-width="2"/>
+                <text x="120" y="240" text-anchor="middle" fill="#DC2626" font-size="11" font-weight="700">Domestic Market Entry?</text>
+                <text x="120" y="258" text-anchor="middle" fill="#9F1239" font-size="10">Requires Full Import Clearance</text>
+                <text x="120" y="272" text-anchor="middle" fill="#9F1239" font-size="9">+ Duties, VAT & Interest Paid</text>
+                <line x1="280" y1="260" x2="210" y2="260" stroke="#DC2626" stroke-width="2" stroke-dasharray="4,4"/>
+              </svg>
+            </div>
+
+            <!-- Customs Bonded Warehouses Fundamentals -->
+            <div style="background: #FFF; border: 2px solid #E2E8F0; border-radius: 14px; padding: 22px; margin: 25px 0;">
+              <h4 style="margin: 0 0 14px 0; color: #0F172A; font-size: 1.25rem;">🏛️ Customs Bonded Warehouses (Sections 69-84, Customs Ordinance)</h4>
+              <p style="font-size: 0.92rem; color: #334155; line-height: 1.6; margin-bottom: 16px;">
+                A Customs Bonded Warehouse is a specialized building or secured area licensed under statutory authority where dutiable goods may be stored, manipulated, or undergo authorized operations without payment of duty. Duty is postponed until the goods are either cleared for local consumption or re-exported.
+              </p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+                <div style="background: #F8FAFC; padding: 16px; border-radius: 10px; border-left: 4px solid #0284C7;">
+                  <strong style="color: #0369A1; font-size: 0.95rem; display: block; margin-bottom: 6px;">🔒 Dual-Lock Control Mechanism</strong>
+                  <p style="font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.5;">Every bonded warehouse is physically secured with two separate, heavy-duty locks. One key is held exclusively by the Sri Lanka Customs Bond Officer, and the second key is held by the licensed Warehouse Keeper. Neither party can enter the warehouse without the other present.</p>
+                </div>
+                
+                <div style="background: #F8FAFC; padding: 16px; border-radius: 10px; border-left: 4px solid #0284C7;">
+                  <strong style="color: #0369A1; font-size: 0.95rem; display: block; margin-bottom: 6px;">📹 24/7 Real-Time CCTV Surveillance</strong>
+                  <p style="font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.5;">Modern bonded facilities must maintain continuous digital video surveillance covering all perimeter gates, loading docks, and internal gangways, with secure remote IP feeds routed directly into Customs Central Intelligence.</p>
+                </div>
+                
+                <div style="background: #F8FAFC; padding: 16px; border-radius: 10px; border-left: 4px solid #0284C7;">
+                  <strong style="color: #0369A1; font-size: 0.95rem; display: block; margin-bottom: 6px;">⏱️ Extended Storage Window (Up to 2 Years)</strong>
+                  <p style="font-size: 0.85rem; color: #475569; margin: 0; line-height: 1.5;">Unlike standard port container yards that levy devastating demurrage fees after 3 to 7 free days, cargo in bonded warehouses can reside safely for up to 2 years, awaiting favorable international market demand or seasonal commodity prices.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Permitted Non-Duty Value Addition Operations -->
+            <div style="margin: 30px 0;">
+              <h4 style="color: #0F172A; font-size: 1.25rem; margin-bottom: 14px;">🛠️ Permitted Value Addition Operations Inside Bonded Logistics Parks</h4>
+              <p style="font-size: 0.9rem; color: #64748B; margin-bottom: 16px;">What physical handling can international forwarders and supply chain operators perform inside these facilities without triggering domestic tax?</p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+                <div style="background: #FFF; border: 1.5px solid #E2E8F0; padding: 15px; border-radius: 8px;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">1. Sorting, Grading & Cleaning</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Agricultural commodities (spices, coffee, pulses) can be sifted, de-stoned, optical-sorted, and graded into premium consumer sizes.</span>
+                </div>
+                <div style="background: #FFF; border: 1.5px solid #E2E8F0; padding: 15px; border-radius: 8px;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">2. Bulk-Breaking & Repacking</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Importing 1-ton bulk intermediate tote bags and repacking them into 500g retail consumer pouches or vacuum foil packs.</span>
+                </div>
+                <div style="background: #FFF; border: 1.5px solid #E2E8F0; padding: 15px; border-radius: 8px;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">3. Labeling, Barcoding & RFID Tagging</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Affixing country-specific language stickers (e.g. Arabic, German), GS1 barcodes, expiry date batch prints, and anti-theft RFID tags.</span>
+                </div>
+                <div style="background: #FFF; border: 1.5px solid #E2E8F0; padding: 15px; border-radius: 8px;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">4. Multi-Country Consolidation (MCC)</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Receiving Less-than-Container Load (LCL) shipments from Bangladesh, India, and Vietnam, de-consolidating, sorting, and combining into unified Full Container Loads (FCL).</span>
+                </div>
+                <div style="background: #FFF; border: 1.5px solid #E2E8F0; padding: 15px; border-radius: 8px;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">5. Kitting, Testing & QA Inspection</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Grouping multiple components into complete retail sales kits (e.g. camera + lens + strap), firmware flashing, and technical testing.</span>
+                </div>
+                <div style="background: #FFF; border: 1.5px solid #E2E8F0; padding: 15px; border-radius: 8px;">
+                  <strong style="color: #0F172A; font-size: 0.92rem; display: block; margin-bottom: 4px;">6. Light Blending & Sub-Assembly</strong>
+                  <span style="font-size: 0.82rem; color: #475569;">Blending oils or base liquids, snapping together prefabricated modular electronics housings, or attaching handles to cookware.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Strategic Maritime Gateways: Colombo & Hambantota -->
+            <div style="background: #EFF6FF; border: 2px solid #BFDBFE; border-radius: 14px; padding: 22px; margin: 25px 0;">
+              <h4 style="margin: 0 0 12px 0; color: #1E3A8A; font-size: 1.25rem;">⚓ Strategic Maritime Gateways: Port of Colombo & Hambantota (HIPG)</h4>
+              <p style="font-size: 0.9rem; color: #1E40AF; line-height: 1.6; margin-bottom: 16px;">
+                Sri Lanka's geographical location along the main East-West sea route makes its port logistics parks formidable transshipment and value-addition powerhouses:
+              </p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                <div style="background: #FFF; padding: 16px; border-radius: 10px; border: 1px solid #93C5FD;">
+                  <strong style="color: #1D4ED8; font-size: 1rem; display: block; margin-bottom: 6px;">Port of Colombo Logistics Centers</strong>
+                  <p style="font-size: 0.85rem; color: #334155; margin: 0; line-height: 1.5;">Directly connected to the deep-water container terminals (JCT, SAGT, CICT, CWIT). Containers are shunted internally from vessel cranes directly into bonded CFS warehouses without ever navigating public roadways or clearing domestic customs barriers. Slashing handling turnaround and demurrage risks.</p>
+                </div>
+                
+                <div style="background: #FFF; padding: 16px; border-radius: 10px; border: 1px solid #93C5FD;">
+                  <strong style="color: #1D4ED8; font-size: 1rem; display: block; margin-bottom: 6px;">Hambantota International Port (HIPG) Hub</strong>
+                  <p style="font-size: 0.85rem; color: #334155; margin: 0; line-height: 1.5;">Located just 10 nautical miles off the main Indian Ocean sea lane. Features dedicated massive bonded acreage for Ro-Ro vehicle transshipment, maritime bunkering fuel storage, heavy machinery staging, and an expansive bonded industrial zone operated in partnership with CMPort.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Commercial Hub Act No. 1 of 2013 & Entrepot Trade -->
+            <div style="background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 14px; padding: 22px; margin: 25px 0;">
+              <h4 style="margin: 0 0 10px 0; color: #0F172A; font-size: 1.25rem;">🌐 Commercial Hub Act No. 1 of 2013 & Entrepot Trade</h4>
+              <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 14px;">
+                To position Sri Lanka as South Asia's preeminent logistics hub, the parliament enacted the <strong>Commercial Hub Regulations under Finance Act No. 12 of 2012</strong>. Under this statute, designated zones are declared as <strong>Free Ports</strong> and treated as legally extraterritorial for customs and tax purposes.
+              </p>
+              
+              <div style="background: #FFF; border: 1px solid #E2E8F0; padding: 16px; border-radius: 10px; margin-bottom: 14px;">
+                <strong style="color: #0F172A; font-size: 0.95rem; display: block; margin-bottom: 6px;">Designated Commercial Free Port Zones:</strong>
+                <span style="font-size: 0.85rem; color: #475569; line-height: 1.6;">
+                  1. Port of Colombo & Logistics Precinct • 2. Port of Hambantota & Logistics Park • 3. Katunayake Export Processing Zone • 4. Koggala Export Processing Zone • 5. Mirijjawila Export Processing Zone.
+                </span>
+              </div>
+
+              <div style="background: #ECFDF5; border: 1.5px solid #6EE7B7; padding: 16px; border-radius: 10px;">
+                <strong style="color: #065F46; font-size: 0.95rem; display: block; margin-bottom: 6px;">Entrepot Trade vs. TIEP Scheme: Key Differences:</strong>
+                <ul style="font-size: 0.85rem; color: #047857; margin: 0 0 0 18px; padding: 0; line-height: 1.5;">
+                  <li><strong>Entrepot Trade:</strong> Goods arrive from Country A into the free port, undergo minimal manipulation (repacking, sorting, relabeling), and are re-exported directly to Country B. The goods <em>never</em> enter the domestic customs territory and undergo zero substantial industrial transformation. 100% exempt from income tax and foreign exchange restrictions.</li>
+                  <li><strong>TIEP Scheme:</strong> Raw materials physically leave the port under customs bond and enter domestic manufacturing factories across the island, where they undergo deep physical/chemical manufacturing transformation before being exported.</li>
+                </ul>
+              </div>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/nZr0ogTjm3c"
+        },
+        {
+          id: "global-inward-processing-duty-relief-benchmarks",
+          title: "Global Inward Processing & Duty Relief Regimes: International Benchmarks",
+          summary: "How inward processing operates worldwide: EU/UK IPR, US Foreign Trade Zones, China Processing Trade, India Advance Authorisation, and Dubai Free Zones.",
+          content: `
+            <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFF; padding: 26px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);">
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <span style="background: rgba(139, 92, 246, 0.2); color: #C4B5FD; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(196, 181, 253, 0.3);">Global Benchmarking & Trade Policy</span>
+                <span style="font-size: 0.85rem; color: #94A3B8;">WCO Revised Kyoto Convention • Specific Annex F</span>
+              </div>
+              <h3 style="margin: 0 0 10px 0; font-size: 1.55rem; color: #F8FAFC; font-weight: 700;">Global Inward Processing & Duty Relief Regimes</h3>
+              <p style="margin: 0; font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">Inward processing relief is not unique to Sri Lanka: it is an established pillar of modern international trade standardized by the World Customs Organization (WCO). Every major manufacturing and export nation operates its own duty deferment system to ensure domestic factories are not penalized by border tariffs on raw inputs.</p>
+            </div>
+
+            <!-- SVG Infographic: Global Trade Relief Architecture -->
+            <div style="margin: 25px 0; text-align: center;">
+              <svg viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 860px; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: #FFFFFF; border: 1px solid #E2E8F0;">
+                <rect x="0" y="0" width="880" height="48" fill="#0F172A"/>
+                <text x="440" y="30" text-anchor="middle" fill="#C4B5FD" font-family="'Outfit', sans-serif" font-size="15" font-weight="700" letter-spacing="0.5">WORLD TRADE: INWARD PROCESSING REGIMES ACROSS KEY JURISDICTIONS</text>
+                
+                <!-- European Union / UK -->
+                <rect x="30" y="70" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <rect x="30" y="70" width="250" height="28" rx="8" fill="#1E3A8A"/>
+                <text x="155" y="89" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">EU & UK: INWARD PROCESSING (IPR)</text>
+                <text x="45" y="118" fill="#0F172A" font-size="11" font-weight="700">Legal: UCC Reg 952/2013 Art. 256</text>
+                <text x="45" y="136" fill="#475569" font-size="10">• Bill of Discharge (BoD) reconciliation</text>
+                <text x="45" y="152" fill="#475569" font-size="10">• AEO Comprehensive Guarantee Waivers</text>
+                <text x="45" y="168" fill="#1D4ED8" font-size="10" font-weight="700">• Equivalence Principle permitted</text>
+                
+                <!-- United States -->
+                <rect x="315" y="70" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <rect x="315" y="70" width="250" height="28" rx="8" fill="#991B1B"/>
+                <text x="440" y="89" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">USA: FOREIGN TRADE ZONES (FTZ)</text>
+                <text x="330" y="118" fill="#0F172A" font-size="11" font-weight="700">Legal: 19 U.S.C. &sect; 81a / &sect; 1313</text>
+                <text x="330" y="136" fill="#475569" font-size="10">• Inverted Tariff advantage on parts</text>
+                <text x="330" y="152" fill="#475569" font-size="10">• Duty Drawback: 99% refund upon export</text>
+                <text x="330" y="168" fill="#B91C1C" font-size="10" font-weight="700">• Weekly Entry & MPF cost savings</text>
+                
+                <!-- China -->
+                <rect x="600" y="70" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <rect x="600" y="70" width="250" height="28" rx="8" fill="#9A3412"/>
+                <text x="725" y="89" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">CHINA: PROCESSING TRADE</text>
+                <text x="615" y="118" fill="#0F172A" font-size="11" font-weight="700">Modes: Jinliao vs Lailiao Jiagong</text>
+                <text x="615" y="136" fill="#475569" font-size="10">• Electronic Customs Handbook (E-Ledger)</text>
+                <text x="615" y="152" fill="#475569" font-size="10">• Real-time ERP link to China Customs</text>
+                <text x="615" y="168" fill="#C2410C" font-size="10" font-weight="700">• Comprehensive Bonded Zones (CBZ)</text>
+                
+                <!-- India -->
+                <rect x="30" y="200" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <rect x="30" y="200" width="250" height="28" rx="8" fill="#047857"/>
+                <text x="155" y="219" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">INDIA: ADVANCE AUTHORISATION</text>
+                <text x="45" y="248" fill="#0F172A" font-size="11" font-weight="700">DGFT Policy & MOOWR Scheme</text>
+                <text x="45" y="266" fill="#475569" font-size="10">• Standard Input-Output Norms (SION)</text>
+                <text x="45" y="282" fill="#475569" font-size="10">• MOOWR: Section 65 Customs Act</text>
+                <text x="45" y="298" fill="#047857" font-size="10" font-weight="700">• Indefinite duty deferment until export</text>
+                
+                <!-- Dubai UAE -->
+                <rect x="315" y="200" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <rect x="315" y="200" width="250" height="28" rx="8" fill="#0E7490"/>
+                <text x="440" y="219" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">DUBAI: JAFZA & FREE ZONES</text>
+                <text x="330" y="248" fill="#0F172A" font-size="11" font-weight="700">Extraterritorial Logistics Hubs</text>
+                <text x="330" y="266" fill="#475569" font-size="10">• 100% Foreign Company Ownership</text>
+                <text x="330" y="282" fill="#475569" font-size="10">• 0% Corporate Tax & 0% Customs Duty</text>
+                <text x="330" y="298" fill="#0891B2" font-size="10" font-weight="700">• Integrated Sea-Air Corridor (4 Hours)</text>
+                
+                <!-- Singapore -->
+                <rect x="600" y="200" width="250" height="110" rx="8" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+                <rect x="600" y="200" width="250" height="28" rx="8" fill="#4C1D95"/>
+                <text x="725" y="219" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">SINGAPORE: FREE TRADE ZONES</text>
+                <text x="615" y="248" fill="#0F172A" font-size="11" font-weight="700">Customs Zero-GST Warehouse</text>
+                <text x="615" y="266" fill="#475569" font-size="10">• Frictionless transshipment transit</text>
+                <text x="615" y="282" fill="#475569" font-size="10">• TradeNet digital automated clearance</text>
+                <text x="615" y="298" fill="#7C3AED" font-size="10" font-weight="700">• World leader in multi-country bunkering</text>
+              </svg>
+            </div>
+
+            <!-- In-Depth International Regimes Breakdown -->
+            <div style="display: flex; flex-direction: column; gap: 18px; margin: 30px 0;">
+              
+              <!-- EU / UK -->
+              <div style="background: #FFF; border: 1.5px solid #E2E8F0; border-left: 5px solid #1E3A8A; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="color: #1E3A8A; font-size: 1.15rem;">🇪🇺 🇬🇧 European Union & United Kingdom: Inward Processing Relief (IPR)</strong>
+                  <span style="background: #DBEAFE; color: #1E3A8A; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">UCC Regulation (EU) 952/2013</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #334155; line-height: 1.6; margin: 0 0 10px 0;">
+                  Under Article 256 of the Union Customs Code, non-Union goods can be placed under Inward Processing for manufacturing, processing, or repair without being subject to import duty or other trade defence charges.
+                </p>
+                <ul style="font-size: 0.83rem; color: #475569; padding-left: 18px; margin: 0; line-height: 1.6;">
+                  <li><strong>Bill of Discharge (BoD):</strong> Exporters file Form C&E 99 / electronic BoD within 30 days of the agreed Period of Discharge, proving processing throughput and export release.</li>
+                  <li><strong>Authorised Economic Operator (AEO):</strong> Companies certified as AEO-C/AEO-S enjoy complete or partial guarantee waivers, eliminating the need to tie up cash collateral with banks.</li>
+                  <li><strong>The Equivalence Principle:</strong> Exporters are permitted to use equivalent domestic Union goods in place of imported non-Union goods for processing, drastically simplifying inventory management.</li>
+                </ul>
+              </div>
+
+              <!-- United States -->
+              <div style="background: #FFF; border: 1.5px solid #E2E8F0; border-left: 5px solid #991B1B; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="color: #991B1B; font-size: 1.15rem;">🇺🇸 United States: Foreign-Trade Zones (FTZ) & Duty Drawback</strong>
+                  <span style="background: #FEE2E2; color: #991B1B; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">19 U.S.C. &sect; 81a & &sect; 1313</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #334155; line-height: 1.6; margin: 0 0 10px 0;">
+                  Governed by the Foreign-Trade Zones Act of 1934 and administered by US Customs and Border Protection (CBP). FTZs are secure geographical enclaves considered outside US Customs territory.
+                </p>
+                <ul style="font-size: 0.83rem; color: #475569; padding-left: 18px; margin: 0; line-height: 1.6;">
+                  <li><strong>The Inverted Tariff Advantage:</strong> A unique US mechanism where imported sub-components carry higher tariffs than finished products. If raw electronic chips carry an 8% tariff but an assembled medical device carries 0%, an assembler inside an FTZ can import chips, assemble the device, and pay <strong>0% tariff</strong> upon entering US domestic commerce.</li>
+                  <li><strong>US Duty Drawback:</strong> Under 19 U.S.C. &sect; 1313, US manufacturers who previously paid import duties can recover up to <strong>99% of duties, taxes, and fees</strong> if the items are subsequently exported.</li>
+                  <li><strong>Weekly Entry Filing:</strong> FTZs allow manufacturers to consolidate hundreds of weekly container arrivals into a single weekly customs entry, capping Merchandise Processing Fees (MPF).</li>
+                </ul>
+              </div>
+
+              <!-- China -->
+              <div style="background: #FFF; border: 1.5px solid #E2E8F0; border-left: 5px solid #C2410C; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="color: #C2410C; font-size: 1.15rem;">🇨🇳 China: Processing Trade (进料加工 & 来料加工)</strong>
+                  <span style="background: #FFEDD5; color: #C2410C; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">GACC Electronic Customs Handbook</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #334155; line-height: 1.6; margin: 0 0 10px 0;">
+                  Processing trade fueled China's rise as the world's workshop. Governed by the General Administration of Customs of China (GACC), it is bifurcated into two primary operational models:
+                </p>
+                <ul style="font-size: 0.83rem; color: #475569; padding-left: 18px; margin: 0; line-height: 1.6;">
+                  <li><strong>Jinliao Jiagong (Processing with Imported Materials):</strong> The Chinese factory purchases and owns the foreign materials, processes them, and sells finished goods abroad.</li>
+                  <li><strong>Lailiao Jiagong (Processing with Client-Supplied Materials):</strong> Foreign buyers supply raw materials for free; the Chinese factory acts purely as a contract processor earning processing fees.</li>
+                  <li><strong>The Electronic Customs Handbook (电子账册):</strong> Enterprise Resource Planning (ERP) systems connect directly via EDI into China Customs. Every gram of plastic or steel received and converted is reconciled electronically in real time without paper declarations.</li>
+                </ul>
+              </div>
+
+              <!-- India -->
+              <div style="background: #FFF; border: 1.5px solid #E2E8F0; border-left: 5px solid #047857; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <strong style="color: #047857; font-size: 1.15rem;">🇮🇳 India: Advance Authorisation & MOOWR Schemes</strong>
+                  <span style="background: #DCFCE7; color: #047857; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;">DGFT FTP & Section 65 Customs Act</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #334155; line-height: 1.6; margin: 0 0 10px 0;">
+                  India operates two parallel duty deferment channels under the Directorate General of Foreign Trade (DGFT) and Central Board of Indirect Taxes and Customs (CBIC):
+                </p>
+                <ul style="font-size: 0.83rem; color: #475569; padding-left: 18px; margin: 0; line-height: 1.6;">
+                  <li><strong>Advance Authorisation (AA):</strong> Allows duty-free import of manufacturing inputs based on strictly codified Standard Input-Output Norms (SION). The exporter is legally bound to achieve positive Net Foreign Exchange within an 18-month export window.</li>
+                  <li><strong>MOOWR Scheme (Manufacture & Other Operations in Warehouse):</strong> Introduced under Section 65 of the Customs Act 1962. Allows factories to defer Basic Customs Duty and Integrated GST (IGST) indefinitely on raw materials and capital machinery. If goods are exported, duty is 100% extinguished; if sold locally, duty is paid only at clearance.</li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- Global Benchmarking Comparison Matrix -->
+            <div style="margin: 30px 0;">
+              <h4 style="color: #0F172A; font-size: 1.25rem; margin-bottom: 16px; text-align: center;">🌐 Global Inward Processing Benchmarking Matrix</h4>
+              
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.86rem; text-align: left; background: #FFF; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #E2E8F0;">
+                  <thead>
+                    <tr style="background: #0F172A; color: #FFF;">
+                      <th style="padding: 14px;">Country / Region</th>
+                      <th style="padding: 14px;">Program Name</th>
+                      <th style="padding: 14px;">Regulatory Authority</th>
+                      <th style="padding: 14px;">Duty Impact</th>
+                      <th style="padding: 14px;">Unique Competitive Feature</th>
+                      <th style="padding: 14px;">Reconciliation Mechanism</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                      <td style="padding: 12px 14px;"><strong style="color: #0F172A;">Sri Lanka</strong></td>
+                      <td style="padding: 12px 14px; color: #0284C7; font-weight: 700;">TIEP-I & INFAC</td>
+                      <td style="padding: 12px 14px; color: #475569;">Sri Lanka Customs & Min. of Ind.</td>
+                      <td style="padding: 12px 14px; color: #059669; font-weight: 700;">100% Upfront Suspension</td>
+                      <td style="padding: 12px 14px; color: #475569;">Corporate Guarantee waivers for top firms</td>
+                      <td style="padding: 12px 14px; color: #475569;">Material Utilization Declaration (MUD)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                      <td style="padding: 12px 14px;"><strong style="color: #0F172A;">European Union</strong></td>
+                      <td style="padding: 12px 14px; color: #1E3A8A; font-weight: 700;">Inward Processing (IPR)</td>
+                      <td style="padding: 12px 14px; color: #475569;">National Customs (UCC Code)</td>
+                      <td style="padding: 12px 14px; color: #059669; font-weight: 700;">Total Duty Suspension</td>
+                      <td style="padding: 12px 14px; color: #475569;">Equivalence principle + AEO bond waivers</td>
+                      <td style="padding: 12px 14px; color: #475569;">Bill of Discharge (BoD / C&E 99)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                      <td style="padding: 12px 14px;"><strong style="color: #0F172A;">United States</strong></td>
+                      <td style="padding: 12px 14px; color: #991B1B; font-weight: 700;">Foreign-Trade Zones (FTZ)</td>
+                      <td style="padding: 12px 14px; color: #475569;">US CBP & FTZ Board</td>
+                      <td style="padding: 12px 14px; color: #059669; font-weight: 700;">Deferred / Duty Free if Exported</td>
+                      <td style="padding: 12px 14px; color: #475569;">Inverted tariff rates + Weekly Entry MPF cap</td>
+                      <td style="padding: 12px 14px; color: #475569;">CBP Form 214 & Electronic Zone Audit</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                      <td style="padding: 12px 14px;"><strong style="color: #0F172A;">China</strong></td>
+                      <td style="padding: 12px 14px; color: #C2410C; font-weight: 700;">Processing Trade</td>
+                      <td style="padding: 12px 14px; color: #475569;">General Admin. of Customs (GACC)</td>
+                      <td style="padding: 12px 14px; color: #059669; font-weight: 700;">Total Duty Suspension</td>
+                      <td style="padding: 12px 14px; color: #475569;">Comprehensive Bonded Zones (CBZs)</td>
+                      <td style="padding: 12px 14px; color: #475569;">Electronic Customs Handbook (E-Ledger)</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #E2E8F0;">
+                      <td style="padding: 12px 14px;"><strong style="color: #0F172A;">India</strong></td>
+                      <td style="padding: 12px 14px; color: #047857; font-weight: 700;">Advance Auth & MOOWR</td>
+                      <td style="padding: 12px 14px; color: #475569;">DGFT & CBIC (Customs)</td>
+                      <td style="padding: 12px 14px; color: #059669; font-weight: 700;">Duty Free / Indefinite Deferment</td>
+                      <td style="padding: 12px 14px; color: #475569;">Standard Input-Output Norms (SION)</td>
+                      <td style="padding: 12px 14px; color: #475569;">Export Obligation Discharge Cert (EODC)</td>
+                    </tr>
+                    <tr style="background: #F8FAFC;">
+                      <td style="padding: 12px 14px;"><strong style="color: #0F172A;">Dubai (UAE)</strong></td>
+                      <td style="padding: 12px 14px; color: #0891B2; font-weight: 700;">JAFZA Free Zone</td>
+                      <td style="padding: 12px 14px; color: #475569;">Dubai Customs & JAFZA Authority</td>
+                      <td style="padding: 12px 14px; color: #059669; font-weight: 700;">0% Duty & 0% Corporate Tax</td>
+                      <td style="padding: 12px 14px; color: #475569;">4-hour seamless Sea-Air cargo corridor</td>
+                      <td style="padding: 12px 14px; color: #475569;">Mirsal 2 Customs Platform Automated Audit</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Key Strategic Lessons for Supply Chain Leaders -->
+            <div style="background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 14px; padding: 22px; margin-top: 25px;">
+              <h4 style="margin: 0 0 12px 0; color: #0F172A; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                <span>💡</span> Strategic Insights for Global Exporters & Supply Chain Directors
+              </h4>
+              <ul style="font-size: 0.88rem; color: #334155; margin: 0 0 0 18px; padding: 0; line-height: 1.6;">
+                <li><strong>Proactive Working Capital Optimization:</strong> Never pay customs tariffs upfront on inputs intended for export markets. Utilizing schemes like TIEP, IPR, or FTZ frees up between 15% and 35% of landed cargo cost in liquid operating capital.</li>
+                <li><strong>Strict Digital Traceability:</strong> Modern customs authorities expect real-time ERP integration. Maintaining clean Bills of Materials (BOM), recording batch numbers, and monitoring technical wastage prevents catastrophic post-clearance audit clawbacks.</li>
+                <li><strong>Leveraging Extraterritorial Port Parks:</strong> By staging inventory in maritime bonded logistics parks (like Colombo or Jebel Ali), supply chain managers can serve regional multi-country markets on a JIT (Just-In-Time) basis while postponing duties until final customer destinations are confirmed.</li>
+              </ul>
+            </div>
+          `,
+          youtube: "https://www.youtube.com/embed/40RFiUZZitE"
         }
       ]
     }
